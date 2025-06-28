@@ -8,6 +8,7 @@ import json
 import sys
 import argparse
 import re
+import os
 
 def get_github_license(url, retry_count=0, max_retries=3, quiet=False):
     """
@@ -131,8 +132,14 @@ def process_csv(github_action=False, check_license=True):
     else:
         print(f"Starting validation at: {start_time.strftime('%Y-%m-%d %H:%M:%S')}", file=sys.stderr)
     
-    input_file = '.myob/scripts/resource-metadata.csv'
-    output_file = '.myob/scripts/resource-metadata.csv'
+    # Get the repository root (two levels up from this script)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    repo_root = os.path.dirname(os.path.dirname(script_dir))
+    
+    # Define paths relative to repository root
+    csv_file = os.path.join(repo_root, '.myob', 'scripts', 'resource-metadata.csv')
+    input_file = csv_file
+    output_file = csv_file
     
     # Track broken links and licenses for summary
     broken_links = []
