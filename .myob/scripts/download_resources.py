@@ -5,6 +5,15 @@ This script downloads all active resources (or filtered subset) from GitHub
 repositories listed in the resource-metadata.csv file. It respects rate
 limiting and organizes downloads by category.
 
+Resources are saved to two locations:
+- Archive directory: All resources regardless of license (.myob/downloads/)
+- Hosted directory: Only open-source licensed resources (resources/)
+
+Note: Authentication is optional but recommended to avoid rate limiting:
+    - Unauthenticated: 60 requests/hour
+    - Authenticated: 5,000 requests/hour
+    export GITHUB_TOKEN=your_github_token
+
 Usage:
     python download_resources.py [options]
 
@@ -12,7 +21,8 @@ Options:
     --category CATEGORY     Filter by specific category
     --license LICENSE       Filter by license type
     --max-downloads N       Limit number of downloads (for testing)
-    --output-dir DIR        Custom output directory (default: .myob/downloads)
+    --output-dir DIR        Custom archive directory (default: .myob/downloads)
+    --hosted-dir DIR        Custom hosted directory (default: resources)
 """
 
 import argparse
@@ -28,9 +38,50 @@ import requests
 
 # Constants
 USER_AGENT = "awesome-claude-code Downloader/1.0"
-HEADERS = {"User-Agent": USER_AGENT, "Accept": "application/vnd.github.v3.raw"}
 CSV_FILE = ".myob/scripts/resource-metadata.csv"
 DEFAULT_OUTPUT_DIR = ".myob/downloads"
+HOSTED_OUTPUT_DIR = "resources"
+
+# Setup headers with optional GitHub token
+HEADERS = {"User-Agent": USER_AGENT, "Accept": "application/vnd.github.v3.raw"}
+github_token = os.environ.get("GITHUB_TOKEN")
+if github_token:
+    HEADERS["Authorization"] = f"token {github_token}"
+    print("Using authenticated requests (5,000/hour limit)")
+else:
+    print("Using unauthenticated requests (60/hour limit)")
+
+# Open source licenses that allow hosting
+OPEN_SOURCE_LICENSES = {
+    "MIT",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "GPL-2.0",
+    "GPL-3.0",
+    "LGPL-2.1",
+    "LGPL-3.0",
+    "MPL-2.0",
+    "ISC",
+    "0BSD",
+    "Unlicense",
+    "CC0-1.0",
+    "CC-BY-4.0",
+    "CC-BY-SA-4.0",
+    "AGPL-3.0",
+    "EPL-2.0",
+    "BSL-1.0",
+}
+
+# Category name mapping from CSV to directory names
+CATEGORY_MAPPING = {
+    "Slash-Commands": "slash_command",
+    "CLAUDE.md Files": "claude_md",
+    "Workflows & Knowledge Guides": "workflow",
+    "Tooling": "tooling",
+    "Official Documentation": "blog",
+    " Implementation": "implementation",
+}
 
 
 def sanitize_filename(name):
@@ -160,13 +211,20 @@ def download_github_file(url_info, output_path, retry_count=0, max_retries=3):
         return False
 
 
-def process_resources(category_filter=None, license_filter=None, max_downloads=None, output_dir=DEFAULT_OUTPUT_DIR):
+def process_resources(
+    category_filter=None,
+    license_filter=None,
+    max_downloads=None,
+    output_dir=DEFAULT_OUTPUT_DIR,
+    hosted_dir=HOSTED_OUTPUT_DIR,
+):
     """
     Process and download resources from the CSV file.
     """
     start_time = datetime.now()
     print(f"Starting download at: {start_time.strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"Output directory: {output_dir}")
+    print(f"Archive directory (all resources): {output_dir}")
+    print(f"Hosted directory (open-source only): {hosted_dir}")
 
     # Track statistics
     total_resources = 0
@@ -203,7 +261,12 @@ def process_resources(category_filter=None, license_filter=None, max_downloads=N
                 continue
 
             display_name = row["Display Name"]
-            category = sanitize_filename(row["Category"].lower().replace(" & ", "-"))
+            original_category = row["Category"]
+            category = sanitize_filename(original_category.lower().replace(" & ", "-"))
+
+            # Get mapped category name for hosted directory
+            mapped_category = CATEGORY_MAPPING.get(original_category, "other")
+            resource_license = row.get("License", "NOT_FOUND").strip()
 
             print(f"\n[{downloaded + 1}] Processing: {display_name}")
             print(f"  URL: {url}")
@@ -215,10 +278,17 @@ def process_resources(category_filter=None, license_filter=None, max_downloads=N
                 skipped += 1
                 continue
 
-            # Determine output path
+            # Determine output paths
             safe_name = sanitize_filename(display_name)
+
+            # Primary path for archive (all resources)
             if url_info["type"] == "gist":
                 resource_path = os.path.join(output_dir, category, f"{safe_name}-gist")
+                hosted_path = (
+                    os.path.join(hosted_dir, mapped_category, safe_name)
+                    if resource_license in OPEN_SOURCE_LICENSES
+                    else None
+                )
             elif url_info["type"] == "repo":
                 resource_path = os.path.join(output_dir, category, safe_name)
                 print("  Skipped: Full repository downloads not implemented")
@@ -226,16 +296,46 @@ def process_resources(category_filter=None, license_filter=None, max_downloads=N
                 continue
             elif url_info["type"] == "dir":
                 resource_path = os.path.join(output_dir, category, safe_name)
+                hosted_path = (
+                    os.path.join(hosted_dir, mapped_category, safe_name)
+                    if resource_license in OPEN_SOURCE_LICENSES
+                    else None
+                )
             else:  # file
                 # Extract filename from path
                 filename = os.path.basename(url_info["path"])
                 resource_path = os.path.join(output_dir, category, safe_name, filename)
+                hosted_path = (
+                    os.path.join(hosted_dir, mapped_category, safe_name, filename)
+                    if resource_license in OPEN_SOURCE_LICENSES
+                    else None
+                )
 
-            # Download the resource
-            print(f"  Downloading to: {resource_path}")
-            if download_github_file(url_info, resource_path):
+            # Download the resource to archive
+            print(f"  Downloading to archive: {resource_path}")
+            print(f"  License: {resource_license}")
+
+            download_success = download_github_file(url_info, resource_path)
+
+            if download_success:
                 print("  ✅ Downloaded successfully")
                 downloaded += 1
+
+                # If open-source licensed, also copy to hosted directory
+                if hosted_path and resource_license in OPEN_SOURCE_LICENSES:
+                    print(f"  📦 Copying to hosted directory: {hosted_path}")
+                    try:
+                        import shutil
+
+                        os.makedirs(os.path.dirname(hosted_path), exist_ok=True)
+
+                        if os.path.isdir(resource_path):
+                            shutil.copytree(resource_path, hosted_path, dirs_exist_ok=True)
+                        else:
+                            shutil.copy2(resource_path, hosted_path)
+                        print("  ✅ Copied to hosted directory")
+                    except Exception as e:
+                        print(f"  ⚠️  Failed to copy to hosted directory: {e}")
             else:
                 print("  ❌ Download failed")
                 failed += 1
@@ -264,12 +364,16 @@ def main():
     parser.add_argument("--category", help="Filter by specific category")
     parser.add_argument("--license", help="Filter by license type")
     parser.add_argument("--max-downloads", type=int, help="Limit number of downloads")
-    parser.add_argument("--output-dir", default=DEFAULT_OUTPUT_DIR, help="Output directory")
+    parser.add_argument("--output-dir", default=DEFAULT_OUTPUT_DIR, help="Archive output directory")
+    parser.add_argument(
+        "--hosted-dir", default=HOSTED_OUTPUT_DIR, help="Hosted output directory for open-source resources"
+    )
 
     args = parser.parse_args()
 
-    # Create output directory if needed
+    # Create output directories if needed
     Path(args.output_dir).mkdir(parents=True, exist_ok=True)
+    Path(args.hosted_dir).mkdir(parents=True, exist_ok=True)
 
     # Process resources
     process_resources(
@@ -277,6 +381,7 @@ def main():
         license_filter=args.license,
         max_downloads=args.max_downloads,
         output_dir=args.output_dir,
+        hosted_dir=args.hosted_dir,
     )
 
 

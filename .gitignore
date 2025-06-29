@@ -12,6 +12,11 @@
 !.myob/scripts/download_resources.py
 .myob/downloads/
 
+# Archive directory for all downloads (gitignored)
+.myob/downloads/
+
+# Note: resources/ directory is NOT gitignored - it contains hosted open-source resources
+
 .mypy_cache/
 
 .claude/*

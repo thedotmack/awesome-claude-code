@@ -23,7 +23,12 @@ help:
 	@echo "  make validate-github   - Run validation in GitHub Action mode (JSON output)"
 	@echo "  make validate MAX_LINKS=N - Limit validation to N links"
 	@echo "  make download-resources CATEGORY='Category Name' - Download specific category"
+	@echo "  make download-resources LICENSE='MIT' - Download resources with specific license"
 	@echo "  make download-resources MAX_DOWNLOADS=N - Limit downloads to N resources"
+	@echo "  make download-resources HOSTED_DIR='path' - Custom hosted directory path"
+	@echo ""
+	@echo "Environment Variables:"
+	@echo "  GITHUB_TOKEN - Set to avoid GitHub API rate limiting (export GITHUB_TOKEN=...)"
 
 # Extract resources from README.md and create/update CSV
 process:
@@ -66,6 +71,7 @@ download-resources:
 	if [ -n "$(LICENSE)" ]; then ARGS="$$ARGS --license '$(LICENSE)'"; fi; \
 	if [ -n "$(MAX_DOWNLOADS)" ]; then ARGS="$$ARGS --max-downloads $(MAX_DOWNLOADS)"; fi; \
 	if [ -n "$(OUTPUT_DIR)" ]; then ARGS="$$ARGS --output-dir '$(OUTPUT_DIR)'"; fi; \
+	if [ -n "$(HOSTED_DIR)" ]; then ARGS="$$ARGS --hosted-dir '$(HOSTED_DIR)'"; fi; \
 	eval $(PYTHON) $(SCRIPTS_DIR)/download_resources.py $$ARGS
 
 # Clean generated files (preserves scripts)

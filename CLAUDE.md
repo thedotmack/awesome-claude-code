@@ -33,15 +33,25 @@ Run `/check-links` to verify all links in the README are working properly. The l
 - Includes retry logic and rate limiting
 - Supports `MAX_LINKS` parameter for faster testing: `make validate MAX_LINKS=10`
 
-### Downloading Resources
+### Downloading and Hosting Resources
 
 Download active resources from GitHub using the download script:
 
+- **Rate Limiting**: GitHub API allows 60 requests/hour without authentication, 5,000 with:
+  ```bash
+  export GITHUB_TOKEN=your_github_token  # Optional but recommended
+  make download-resources
+  ```
 - Run `make download-resources` to download all active resources
 - Filter by category: `make download-resources CATEGORY='Slash-Commands'`
 - Filter by license: `make download-resources LICENSE='MIT'`
 - Limit downloads for testing: `make download-resources MAX_DOWNLOADS=5`
-- Resources are saved to `.myob/downloads/` organized by category
+- Resources are saved to two locations:
+  - `.myob/downloads/`: Archive of ALL downloaded resources (gitignored)
+  - `resources/`: Only open-source licensed resources for hosting (NOT gitignored)
+- Directory structure for hosted resources: `resources/{category}/name/{files}`
+  - Categories: `slash_command`, `claude_md`, `workflow`, `tooling`, `blog`
+- Open-source licenses automatically hosted: MIT, Apache-2.0, BSD, GPL, LGPL, MPL-2.0, ISC, CC-BY, etc.
 
 ### Creating Pull Requests
 
@@ -108,13 +118,17 @@ The `.myob/scripts/` directory contains several Python utilities for managing re
    - GitHub Action compatible with JSON output
    - Supports `--max-links` parameter to limit validation scope
 
-3. **download_resources.py**: Resource download utility
+3. **download_resources.py**: Resource download and hosting utility
 
    - Downloads active resources from GitHub repositories
    - Supports filtering by category and license type
    - Handles files, directories, and gists
    - Implements rate limiting and retry logic
-   - Organizes downloads by category
+   - Dual output directories:
+     - Archive: `.myob/downloads/` for all resources (gitignored)
+     - Hosted: `resources/` for open-source licensed resources only
+   - Automatically detects and hosts open-source licensed content
+   - Maps CSV categories to standardized directory names
    - Supports `--max-downloads` for testing
 
 ## Development Best Practices
