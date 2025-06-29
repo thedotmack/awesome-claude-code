@@ -93,3 +93,7 @@ The `.myob/scripts/` directory contains several Python utilities for managing re
    - Implements exponential backoff for rate limiting
    - Updates CSV with validation status and timestamps
    - GitHub Action compatible with JSON output
+
+## Development Best Practices
+
+- When running Python or pip commands, ensure you are working inside the `venv` either by activating or by using the path to the relevant Python binary

@@ -37,6 +37,8 @@ dev = [
 [tool.ruff]
 target-version = "py38"
 line-length = 120
+
+[tool.ruff.lint]
 select = [
     "E",    # pycodestyle errors
     "W",    # pycodestyle warnings
@@ -52,10 +54,10 @@ ignore = [
     "E501",  # line too long (handled by formatter)
 ]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # unused imports in __init__ files
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["scripts"]
 
 [tool.setuptools.packages.find]
