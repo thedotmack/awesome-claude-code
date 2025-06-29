@@ -143,6 +143,11 @@ def generate_readme_content(csv_path):
                 if author_name:
                     entry_line += f" by [{author_name}]({author_link})" if author_link else f" by {author_name}"
 
+                # Add license information if available
+                license_info = entry.get("License", "").strip()
+                if license_info and license_info.upper() not in ["", "NOT_FOUND", "NONE", "NULL"]:
+                    entry_line += f" ⚖️ {license_info}"
+
                 readme_content += entry_line + "  \n"
 
                 if description:
