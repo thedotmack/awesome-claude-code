@@ -18,6 +18,7 @@
 # Note: resources/ directory is NOT gitignored - it contains hosted open-source resources
 
 .mypy_cache/
+.ruff_cache/
 
 .claude/*
 .claude/commands/*
