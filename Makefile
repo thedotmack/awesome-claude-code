@@ -59,5 +59,5 @@ clean:
 install:
 	@echo "Installing required Python packages..."
 	@$(PYTHON) -m pip install --upgrade pip
-	@$(PYTHON) -m pip install requests types-requests
+	@$(PYTHON) -m pip install -e ".[dev]"
 	@echo "Installation complete!"
