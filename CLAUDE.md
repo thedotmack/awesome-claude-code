@@ -49,8 +49,8 @@ Download active resources from GitHub using the download script:
 - Resources are saved to two locations:
   - `.myob/downloads/`: Archive of ALL downloaded resources (gitignored)
   - `resources/`: Only open-source licensed resources for hosting (NOT gitignored)
-- Directory structure for hosted resources: `resources/{category}/name/{files}`
-  - Categories: `slash_command`, `claude_md`, `workflow`, `tooling`, `blog`
+- Directory structure: Both directories use the same sanitized category names
+  - Example categories: `slash-commands`, `claude.md-files`, `workflows-knowledge-guides`, `tooling`, `official-documentation`
 - Open-source licenses automatically hosted: MIT, Apache-2.0, BSD, GPL, LGPL, MPL-2.0, ISC, CC-BY, etc.
 
 ### Creating Pull Requests

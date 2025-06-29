@@ -78,15 +78,9 @@ OPEN_SOURCE_LICENSES = {
     "BSL-1.0",
 }
 
-# Category name mapping from CSV to directory names
-CATEGORY_MAPPING = {
-    "Slash-Commands": "slash_command",
-    "CLAUDE.md Files": "claude_md",
-    "Workflows & Knowledge Guides": "workflow",
-    "Tooling": "tooling",
-    "Official Documentation": "blog",
-    " Implementation": "implementation",
-}
+# Category name mapping - removed to use sanitized names for both directories
+# Keeping the mapping dict empty for now in case we need it later
+CATEGORY_MAPPING = {}
 
 
 def sanitize_filename(name):
@@ -316,13 +310,12 @@ def process_resources(
             original_category = row["Category"]
             category = sanitize_filename(original_category.lower().replace(" & ", "-"))
 
-            # Get mapped category name for hosted directory
-            mapped_category = CATEGORY_MAPPING.get(original_category, "other")
+            # Use same sanitized category name for both directories
             resource_license = row.get("License", "NOT_FOUND").strip()
 
             print(f"\n[{downloaded + 1}] Processing: {display_name}")
             print(f"  URL: {url}")
-            print(f"  Category: {original_category} -> archive: '{category}', hosted: '{mapped_category}'")
+            print(f"  Category: {original_category} -> '{category}'")
 
             # Parse GitHub URL
             url_info = parse_github_url(url)
@@ -339,9 +332,7 @@ def process_resources(
             if url_info["type"] == "gist":
                 resource_path = os.path.join(output_dir, category, f"{safe_name}-gist")
                 hosted_path = (
-                    os.path.join(hosted_dir, mapped_category, safe_name)
-                    if resource_license in OPEN_SOURCE_LICENSES
-                    else None
+                    os.path.join(hosted_dir, category, safe_name) if resource_license in OPEN_SOURCE_LICENSES else None
                 )
             elif url_info["type"] == "repo":
                 resource_path = os.path.join(output_dir, category, safe_name)
@@ -351,16 +342,14 @@ def process_resources(
             elif url_info["type"] == "dir":
                 resource_path = os.path.join(output_dir, category, safe_name)
                 hosted_path = (
-                    os.path.join(hosted_dir, mapped_category, safe_name)
-                    if resource_license in OPEN_SOURCE_LICENSES
-                    else None
+                    os.path.join(hosted_dir, category, safe_name) if resource_license in OPEN_SOURCE_LICENSES else None
                 )
             else:  # file
                 # Extract filename from path
                 filename = os.path.basename(url_info["path"])
                 resource_path = os.path.join(output_dir, category, safe_name, filename)
                 hosted_path = (
-                    os.path.join(hosted_dir, mapped_category, safe_name, filename)
+                    os.path.join(hosted_dir, category, safe_name, filename)
                     if resource_license in OPEN_SOURCE_LICENSES
                     else None
                 )
