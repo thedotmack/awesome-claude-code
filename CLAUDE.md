@@ -33,6 +33,16 @@ Run `/check-links` to verify all links in the README are working properly. The l
 - Includes retry logic and rate limiting
 - Supports `MAX_LINKS` parameter for faster testing: `make validate MAX_LINKS=10`
 
+### Downloading Resources
+
+Download active resources from GitHub using the download script:
+
+- Run `make download-resources` to download all active resources
+- Filter by category: `make download-resources CATEGORY='Slash-Commands'`
+- Filter by license: `make download-resources LICENSE='MIT'`
+- Limit downloads for testing: `make download-resources MAX_DOWNLOADS=5`
+- Resources are saved to `.myob/downloads/` organized by category
+
 ### Creating Pull Requests
 
 1. Follow the PR template in `.github/PULL_REQUEST_TEMPLATE.md`
@@ -97,6 +107,15 @@ The `.myob/scripts/` directory contains several Python utilities for managing re
    - Updates CSV with validation status and timestamps
    - GitHub Action compatible with JSON output
    - Supports `--max-links` parameter to limit validation scope
+
+3. **download_resources.py**: Resource download utility
+
+   - Downloads active resources from GitHub repositories
+   - Supports filtering by category and license type
+   - Handles files, directories, and gists
+   - Implements rate limiting and retry logic
+   - Organizes downloads by category
+   - Supports `--max-downloads` for testing
 
 ## Development Best Practices
 

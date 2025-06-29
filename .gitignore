@@ -9,6 +9,8 @@
 !.myob/scripts/resource-metadata.test.csv
 !.myob/scripts/test_validate_links.py
 !.myob/scripts/generate_readme.py
+!.myob/scripts/download_resources.py
+.myob/downloads/
 
 .mypy_cache/
 
