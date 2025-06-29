@@ -63,14 +63,11 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent that you can 
 
 > A **workflow** is a tightly coupled set of Claude Code-native resources that facilitate specific projects
 
-[`Blogging Platform Instructions`](https://github.com/cloudartisan/cloudartisan.github.io/tree/d1ed4928b1326dcf658991e0b83387455d1b5004/.claude/commands) by [cloudartisan](https://github.com/cloudartisan)  
+[`Blogging Platform Instructions`](https://github.com/cloudartisan/cloudartisan.github.io/tree/d1ed4928b1326dcf658991e0b83387455d1b5004/.claude/commands) by [cloudartisan](https://github.com/cloudartisan) ⚖️ CC-BY-SA-4.0  
 Provides a well-structured set of commands for publishing and maintaining a blogging platform, including commands for creating posts, managing categories, and handling media files.
 
 [`ClaudeLog`](https://claudelog.com) by [InventorBlack](https://www.reddit.com/user/inventor_black/)  
 A comprehensive knowledge repository that features detailed breakdowns of advanced Claude Code mechanics including [CLAUDE.md best practices](https://claudelog.com/mechanics/claude-md-supremacy), practical technique guides like [plan mode](https://claudelog.com/mechanics/plan-mode), and a [configuration guide](https://claudelog.com/configuration).
-
-[`Claude Task Manager`](https://gist.github.com/grahama1970/44a9da6a3da6769132037f06966945c2#file-00_readme-md) by [grahama1970](https://github.com/grahama1970)  
-Solves the critical challenge of context length limitations and task focus when working with Claude on complex projects through specialized context isolation and focused task execution.
 
 [`Context Priming`](https://github.com/disler/just-prompt/tree/main/.claude/commands) by [disler](https://github.com/disler)  
 Provides a systematic approach to priming Claude Code with comprehensive project context through specialized commands for different project scenarios and development contexts.

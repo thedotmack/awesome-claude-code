@@ -29,7 +29,12 @@ process:
 # Validate all links in the CSV
 validate:
 	@echo "Validating links in resource-metadata.csv..."
-	$(PYTHON) $(SCRIPTS_DIR)/validate_links.py
+	@if [ -n "$(MAX_LINKS)" ]; then \
+		echo "Limiting validation to $(MAX_LINKS) links"; \
+		$(PYTHON) $(SCRIPTS_DIR)/validate_links.py --max-links $(MAX_LINKS); \
+	else \
+		$(PYTHON) $(SCRIPTS_DIR)/validate_links.py; \
+	fi
 
 # Run validation in GitHub Action mode
 validate-github:

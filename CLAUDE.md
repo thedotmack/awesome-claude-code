@@ -28,8 +28,10 @@ Run `/check-links` to verify all links in the README are working properly. The l
 
 - Validates all URLs in the CSV file
 - Updates Active status and Last Checked timestamps
+- Fetches license information from GitHub repositories
 - Supports GitHub API for repository links
 - Includes retry logic and rate limiting
+- Supports `MAX_LINKS` parameter for faster testing: `make validate MAX_LINKS=10`
 
 ### Creating Pull Requests
 
@@ -90,9 +92,11 @@ The `.myob/scripts/` directory contains several Python utilities for managing re
 2. **validate_links.py**: Comprehensive link checker
 
    - Supports both regular URLs and GitHub repository links
+   - Fetches license information from GitHub API
    - Implements exponential backoff for rate limiting
    - Updates CSV with validation status and timestamps
    - GitHub Action compatible with JSON output
+   - Supports `--max-links` parameter to limit validation scope
 
 ## Development Best Practices
 
