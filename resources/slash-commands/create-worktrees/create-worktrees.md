@@ -15,7 +15,7 @@ mkdir -p ./tree
 gh pr list --json headRefName --jq '.[].headRefName' | while read branch; do
   # Handle branch names with slashes (like "feature/foo")
   branch_path="./tree/${branch}"
-
+  
   # For branches with slashes, create the directory structure
   if [[ "$branch" == */* ]]; then
     dir_path=$(dirname "$branch_path")
@@ -66,12 +66,12 @@ worktree_paths=$(git worktree list | tail -n +2 | awk '{print $1}')
 for path in $worktree_paths; do
   # Extract branch name from path
   branch_name=$(basename "$path")
-
+  
   # Skip special cases
   if [[ "$branch_name" == "main" ]]; then
     continue
   fi
-
+  
   # Check if branch still exists
   if ! echo "$current_branches" | grep -q "^$branch_name$"; then
     echo "Removing stale worktree for deleted branch: $branch_name"
