@@ -114,7 +114,7 @@ Claude Squad is a terminal app that manages multiple Claude Code, Codex (and oth
 [`Claude Swarm`](https://github.com/parruda/claude-swarm) by [parruda](https://github.com/parruda) ⚖️ MIT  
 Launch Claude Code session that is connected to a swarm of Claude Code Agents.
 
-[`Claude Task Master`](https://github.com/eyaltoledano/claude-task-master) by [eyaltoledano](https://github.com/eyaltoledano)  
+[`Claude Task Master`](https://github.com/eyaltoledano/claude-task-master) by [eyaltoledano](https://github.com/eyaltoledano) ⚖️ NOASSERTION  
 A task management system for AI-driven development with Claude, designed to work seamlessly with Cursor AI.
 
 [`Container Use`](https://github.com/dagger/container-use) by [dagger](https://github.com/dagger) ⚖️ Apache-2.0  
@@ -137,9 +137,6 @@ A seamless integration between Claude Code AI assistant and Neovim.
 [`/2-commit-fast`](https://github.com/steadycursor/steadystart/blob/main/.claude/commands/2-commit-fast.md) by [steadycursor](https://github.com/steadycursor)  
 Automates git commit process by selecting the first suggested message, generating structured commits with consistent formatting while skipping manual confirmation and removing Claude co-Contributorship footer
 
-[`/analyze-issue`](https://github.com/jerseycheese/Narraitor/blob/feature/issue-227-ai-suggestions/.claude/commands/analyze-issue.md) by [jerseycheese](https://github.com/jerseycheese) ⚖️ MIT  
-Fetches GitHub issue details to create comprehensive implementation specifications, analyzing requirements and planning structured approach with clear implementation steps.
-
 [`/bug-fix`](https://github.com/danielscholl/mvn-mcp-server/blob/main/.claude/commands/bug-fix.md) by [danielscholl](https://github.com/danielscholl)  
 Streamlines bug fixing by creating a GitHub issue first, then a feature branch for implementing and thoroughly testing the solution before merging.
 
@@ -158,10 +155,10 @@ Creates git worktrees for all open PRs or specific branches, handling branches w
 [`/fix-github-issue`](https://github.com/jeremymailen/kotlinter-gradle/blob/master/.claude/commands/fix-github-issue.md) by [jeremymailen](https://github.com/jeremymailen) ⚖️ Apache-2.0  
 Analyzes and fixes GitHub issues using a structured approach with GitHub CLI for issue details, implementing necessary code changes, running tests, and creating proper commit messages.
 
-[`/fix-issue`](https://github.com/metabase/metabase/blob/master/.claude/commands/fix-issue.md) by [metabase](https://github.com/metabase)  
+[`/fix-issue`](https://github.com/metabase/metabase/blob/master/.claude/commands/fix-issue.md) by [metabase](https://github.com/metabase) ⚖️ NOASSERTION  
 Addresses GitHub issues by taking issue number as parameter, analyzing context, implementing solution, and testing/validating the fix for proper integration.
 
-[`/fix-pr`](https://github.com/metabase/metabase/blob/master/.claude/commands/fix-pr.md) by [metabase](https://github.com/metabase)  
+[`/fix-pr`](https://github.com/metabase/metabase/blob/master/.claude/commands/fix-pr.md) by [metabase](https://github.com/metabase) ⚖️ NOASSERTION  
 Fetches and fixes unresolved PR comments by automatically retrieving feedback, addressing reviewer concerns, making targeted code improvements, and streamlining the review process.
 
 [`/husky`](https://github.com/evmts/tevm-monorepo/blob/main/.claude/commands/husky.md) by [evmts](https://github.com/evmts) ⚖️ MIT  
@@ -184,24 +181,12 @@ Addresses code formatting and quality issues by fixing black formatting problems
 [`/code_analysis`](https://github.com/kingler/n8n_agent/blob/main/.claude/commands/code_analysis.md) by [kingler](https://github.com/kingler)  
 Provides a menu of advanced code analysis commands for deep inspection, including knowledge graph generation, optimization suggestions, and quality evaluation.
 
-[`/optimize`](https://github.com/to4iki/ai-project-rules/blob/main/.claude/commands/optimize.md) by [to4iki](https://github.com/to4iki) ⚖️ MIT  
-Analyzes code performance to identify bottlenecks, proposing concrete optimizations with implementation guidance for improved application performance.
-
-[`/repro-issue`](https://github.com/rzykov/metabase/blob/master/.claude/commands/repro-issue.md) by [rzykov](https://github.com/rzykov)  
-Creates reproducible test cases for GitHub issues, ensuring tests fail reliably and documenting clear reproduction steps for developers.
-
-[`/tdd`](https://github.com/zscott/pane/blob/main/.claude/commands/tdd.md) by [zscott](https://github.com/zscott)  
-Guides development using Test-Driven Development principles, enforcing Red-Green-Refactor discipline, integrating with git workflow, and managing PR creation.
-
-[`/tdd-implement`](https://github.com/jerseycheese/Narraitor/blob/feature/issue-227-ai-suggestions/.claude/commands/tdd-implement.md) by [jerseycheese](https://github.com/jerseycheese) ⚖️ MIT  
-Implements Test-Driven Development by analyzing feature requirements, creating tests first (red), implementing minimal passing code (green), and refactoring while maintaining tests.
-
-[`/testing_plan_integration`](https://github.com/buster-so/buster/blob/main/api/.claude/commands/testing_plan_integration.md) by [buster-so](https://github.com/buster-so)  
+[`/testing_plan_integration`](https://github.com/buster-so/buster/blob/main/api/.claude/commands/testing_plan_integration.md) by [buster-so](https://github.com/buster-so) ⚖️ NOASSERTION  
 Creates inline Rust-style tests, suggests refactoring for testability, analyzes code challenges, and creates comprehensive test coverage for robust code.
 
 ### Context Loading & Priming
 
-[`/context-prime`](https://github.com/elizaOS/elizaos.github.io/blob/main/.claude/commands/context-prime.md) by [elizaOS](https://github.com/elizaOS)  
+[`/context-prime`](https://github.com/elizaOS/elizaos.github.io/blob/main/.claude/commands/context-prime.md) by [elizaOS](https://github.com/elizaOS) ⚖️ MIT  
 Primes Claude with comprehensive project understanding by loading repository structure, setting development context, establishing project goals, and defining collaboration parameters.
 
 [`/initref`](https://github.com/okuvshynov/cubestat/blob/main/.claude/commands/initref.md) by [okuvshynov](https://github.com/okuvshynov) ⚖️ MIT  
@@ -261,9 +246,6 @@ Generates comprehensive product requirement documents outlining detailed specifi
 [`/create-prp`](https://github.com/Wirasm/claudecode-utils/blob/main/.claude/commands/create-prp.md) by [Wirasm](https://github.com/Wirasm) ⚖️ MIT  
 Creates product requirement plans by reading PRP methodology, following template structure, creating comprehensive requirements, and structuring product definitions for development.
 
-[`/do-issue`](https://github.com/jerseycheese/Narraitor/blob/feature/issue-227-ai-suggestions/.claude/commands/do-issue.md) by [jerseycheese](https://github.com/jerseycheese) ⚖️ MIT  
-Implements GitHub issues with manual review points, following a structured approach with issue number parameter and offering alternative automated mode for efficiency.
-
 [`/project_hello_w_name`](https://github.com/disler/just-prompt/blob/main/.claude/commands/project_hello_w_name.md) by [disler](https://github.com/disler)  
 Creates customizable greeting components with name input, demonstrating argument passing, component reusability, state management, and user input handling.
 
@@ -272,11 +254,8 @@ A convenient command to quickly manage project todo items without leaving the Cl
 
 ### Miscellaneous
 
-[`/act`](https://github.com/sotayamashita/dotfiles/blob/main/.claude/commands/act.md) by [sotayamashita](https://github.com/sotayamashita)  
+[`/act`](https://github.com/sotayamashita/dotfiles/blob/main/.claude/commands/act.md) by [sotayamashita](https://github.com/sotayamashita) ⚖️ MIT  
 Generates React components with proper accessibility, creating ARIA-compliant components with keyboard navigation that follow React best practices and include comprehensive accessibility testing.
-
-[`/dump`](https://gist.github.com/fumito-ito/77c308e0382e06a9c16b22619f8a2f83#file-dump-md) by [fumito-ito](https://github.com/fumito-ito)  
-Dumps the current Claude Code conversation to a markdown file in `.claude/logs/` with timestamped files that include session details and preserve full conversation history.
 
 [`/five`](https://github.com/TuckerTucker/tkr-portfolio/blob/main/.claude/commands/five.md) by [TuckerTucker](https://github.com/TuckerTucker)  
 Applies the "five whys" methodology to perform root cause analysis, identify underlying issues, and create solution approaches for complex problems.
@@ -284,7 +263,7 @@ Applies the "five whys" methodology to perform root cause analysis, identify und
 [`/fixing_go_in_graph`](https://github.com/Mjvolk3/torchcell/blob/main/.claude/commands/fixing_go_in_graph.md) by [Mjvolk3](https://github.com/Mjvolk3)  
 Focuses on Gene Ontology annotation integration in graph databases, handling multiple data sources, addressing graph representation issues, and ensuring correct data incorporation.
 
-[`/mermaid`](https://github.com/GaloyMoney/lana-bank/blob/main/.claude/commands/mermaid.md) by [GaloyMoney](https://github.com/GaloyMoney)  
+[`/mermaid`](https://github.com/GaloyMoney/lana-bank/blob/main/.claude/commands/mermaid.md) by [GaloyMoney](https://github.com/GaloyMoney) ⚖️ NOASSERTION  
 Generates Mermaid diagrams from SQL schema files, creating entity relationship diagrams with table properties, validating diagram compilation, and ensuring complete entity coverage.
 
 [`/review_dcell_model`](https://github.com/Mjvolk3/torchcell/blob/main/.claude/commands/review_dcell_model.md) by [Mjvolk3](https://github.com/Mjvolk3)  
@@ -316,10 +295,10 @@ Offers detailed build and test commands with strict code style enforcement, comp
 [`Giselle`](https://github.com/giselles-ai/giselle/blob/main/CLAUDE.md) by [giselles-ai](https://github.com/giselles-ai) ⚖️ Apache-2.0  
 Provides detailed build and test commands using pnpm and Vitest with strict code formatting requirements and comprehensive naming conventions for code consistency.
 
-[`HASH`](https://github.com/hashintel/hash/blob/main/CLAUDE.md) by [hashintel](https://github.com/hashintel)  
+[`HASH`](https://github.com/hashintel/hash/blob/main/CLAUDE.md) by [hashintel](https://github.com/hashintel) ⚖️ NOASSERTION  
 Features comprehensive repository structure breakdown with strong emphasis on coding standards, detailed Rust documentation guidelines, and systematic PR review process.
 
-[`Inkline`](https://github.com/inkline/inkline/blob/main/CLAUDE.md) by [inkline](https://github.com/inkline)  
+[`Inkline`](https://github.com/inkline/inkline/blob/main/CLAUDE.md) by [inkline](https://github.com/inkline) ⚖️ NOASSERTION  
 Structures development workflow using pnpm with emphasis on TypeScript and Vue 3 Composition API, detailed component creation process, and comprehensive testing recommendations.
 
 [`JSBeeb`](https://github.com/mattgodbolt/jsbeeb/blob/main/CLAUDE.md) by [mattgodbolt](https://github.com/mattgodbolt) ⚖️ GPL-3.0  
@@ -331,7 +310,7 @@ Serves as reference for production prompt engineering library with load balancin
 [`LangGraphJS`](https://github.com/langchain-ai/langgraphjs/blob/main/CLAUDE.md) by [langchain-ai](https://github.com/langchain-ai) ⚖️ MIT  
 Offers comprehensive build and test commands with detailed TypeScript style guidelines, layered library architecture, and monorepo structure using yarn workspaces.
 
-[`Metabase`](https://github.com/metabase/metabase/blob/master/CLAUDE.md) by [metabase](https://github.com/metabase)  
+[`Metabase`](https://github.com/metabase/metabase/blob/master/CLAUDE.md) by [metabase](https://github.com/metabase) ⚖️ NOASSERTION  
 Details workflow for REPL-driven development in Clojure/ClojureScript with emphasis on incremental development, testing, and step-by-step approach for feature implementation.
 
 [`SG Cars Trends Backend`](https://github.com/sgcarstrends/backend/blob/main/CLAUDE.md) by [sgcarstrends](https://github.com/sgcarstrends)  
@@ -350,9 +329,6 @@ Structures AI-assisted EigenLayer AVS development workflow with consistent namin
 
 [`Comm`](https://github.com/CommE2E/comm/blob/master/CLAUDE.md) by [CommE2E](https://github.com/CommE2E) ⚖️ BSD-3-Clause  
 Serves as a development reference for E2E-encrypted messaging applications with code organization architecture, security implementation details, and testing procedures.
-
-[`Course Builder`](https://github.com/badass-courses/course-builder/blob/master/CLAUDE.md) by [badass-courses](https://github.com/badass-courses) ⚖️ MIT  
-Enables real-time multiplayer capabilities for collaborative course creation with diverse tech stack integration and monorepo architecture using Turborepo.
 
 [`Cursor Tools`](https://github.com/eastlondoner/cursor-tools/blob/main/CLAUDE.md) by [eastlondoner](https://github.com/eastlondoner) ⚖️ MIT  
 Creates a versatile AI command interface supporting multiple providers and models with flexible command options and browser automation through "Stagehand" feature.

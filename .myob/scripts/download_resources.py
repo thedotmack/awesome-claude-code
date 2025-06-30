@@ -80,7 +80,7 @@ OPEN_SOURCE_LICENSES = {
 
 # Category name mapping - removed to use sanitized names for both directories
 # Keeping the mapping dict empty for now in case we need it later
-CATEGORY_MAPPING = {}
+_CATEGORY_MAPPING: dict[str, str] = {}
 
 
 def sanitize_filename(name):
