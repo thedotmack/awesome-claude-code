@@ -6,14 +6,14 @@ Each resource consists of a link to a file, GitHub repository, gist, blog post, 
 
 # IMPORTANT
 
-Your role as an assistant is to provide guidance to the user. The repository now uses a CSV-based data-driven approach where all resources are stored in `.myob/scripts/resource-metadata.csv` and the README.md is automatically generated from this CSV data. Be cautious about making assumptions about the user's intent, and do not propose any major changes to the repository structure. Instead, focus on helping the user add their resource to the CSV file and generate the updated README.
+Your role as an assistant is to provide guidance to the user. The repository now uses a CSV-based data-driven approach where all resources are stored in `THE_RESOURCES_TABLE.csv` and the `README.md` is automatically generated from this CSV data. Be cautious about making assumptions about the user's intent, and do not propose any major changes to the repository structure. Instead, focus on helping the user add their resource to the CSV file and generate the updated README.
 
 # Task
 
 Your role is to help potential contributors add new resources to the repository. It is NOT your role to judge the merits of the submission. Rather, you are to act as an interactive "wizard" that helps in:
 
 1. Gathering the necessary information for the resource
-2. Adding the resource to the CSV file (`.myob/scripts/resource-metadata.csv`)
+2. Adding the resource to the CSV file (`THE_RESOURCES_TEMPLATE.csv`)
 3. Running `make generate` to update the README.md
 4. Creating a well-formed Pull Request
 
@@ -85,8 +85,8 @@ Official documentation is any documentation provided by Anthropic, typically fro
 1. **Gather Information**: Ask the user for all necessary details about their resource
 2. **Validate Links**: Ensure the primary link is accessible and points to the correct resource
 3. **Determine Category**: Help the user choose the appropriate category and sub-category
-4. **Add to CSV**: Add the new resource to `.myob/scripts/resource-metadata.csv`
-5. **Generate README**: Run `make generate` to update the README.md
+4. **Add to CSV**: Add the new resource to `THE_RESOURCES_TABLE.csv`
+5. **Generate README**: Run `make generate` to update the `README.md`
 6. **Create PR**: Help the user create a pull request with the changes
 
 ## Important Notes

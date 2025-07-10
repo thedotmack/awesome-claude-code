@@ -32,8 +32,8 @@
 
 <!-- All items must be checked -->
 
-- [ ] Added entry to `.myob/scripts/resource-metadata.csv`
-- [ ] Ran `make generate` to update README.md
+- [ ] Added entry to `THE_RESOURCES_TABLE.csv` (ID will be auto-generated)
+- [ ] Ran `make generate` to update README.md (uses template system)
 - [ ] Verified link works and points to correct resource
 - [ ] Used appropriate category from the list above
 - [ ] Description is concise (1-2 sentences max)
@@ -54,7 +54,7 @@
 
 ### Checklist for Updates
 
-- [ ] Updated entry in `.myob/scripts/resource-metadata.csv`
+- [ ] Updated entry in `THE_RESOURCES_TABLE.csv`
 - [ ] Ran `make generate` to update README.md
 - [ ] Verified new information is correct
 - [ ] Ran `make validate MAX_LINKS=1` to test if applicable
@@ -83,5 +83,7 @@
 ## Questions?
 
 - See [CONTRIBUTING.md](../CONTRIBUTING.md) for detailed contribution guidelines
-- Use `/project:add-new-resource` in Claude Code for guided contribution (optional)
+- Use `/add-new-resource` in Claude Code for guided contribution (optional)
 - The CSV approach ensures consistent formatting - never edit README.md directly!
+- **Note**: The repository uses a template-based generation system. Resources get auto-generated IDs.
+- **Special cases**: If a resource needs manual overrides (e.g., marking inactive), maintainers can use `.templates/resource-overrides.yaml`

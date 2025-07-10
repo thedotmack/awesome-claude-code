@@ -10,17 +10,19 @@ This is the Awesome Claude Code repository - a curated list of slash-commands, C
 
 ### Adding New Resources
 
-1. **Use the slash-command**: Run `/project:add-new-resource` to be guided through adding a new resource
-2. **CSV-based addition (RECOMMENDED)**: Edit `.myob/scripts/resource-metadata.csv` directly and run `make generate` to create a perfectly formatted README.md
-3. **Manual addition**: Edit README.md following the existing format and alphabetical ordering
+1. **Use the slash-command**: Run `/add-new-resource  ` to be guided through adding a new resource
+2. **CSV-based additions (RECOMMENDED)**: Edit `THE_RESOURCES_TABLE.csv` directly and run `make generate` to create a perfectly formatted README.md
+3. **Manual edits**: Edit README.md following the existing format and alphabetical ordering
 
 ### Generating README from CSV
 
-The repository now supports data-driven README generation:
+The repository uses a template-based system for README generation:
 
-- Edit resources in `.myob/scripts/resource-metadata.csv` with fields: Display Name, Primary Link, Secondary Link, Author Name, Author Link, Category, Sub-Category, Description, Active, Last Checked
-- Run `make generate` to generate README.md from CSV data
+- Edit resources in `THE_RESOURCES_TABLE.csv` with fields: ID (auto-generated), Display Name, Primary Link, Secondary Link, Author Name, Author Link, Category, Sub-Category, Active, Last Modified, Last Checked, License, and Description
+- Edits to the `README.md` text besides the addition of new resources are located in the `templates/README.template.md`.
+- Run `make generate` to generate `README.md` from CSV data using the template system
 - The generated README includes hierarchical table of contents and maintains proper formatting
+- Templates are stored in `templates/` for customization
 
 ### Checking Links
 
@@ -32,6 +34,24 @@ Run `/check-links` to verify all links in the README are working properly. The l
 - Supports GitHub API for repository links
 - Includes retry logic and rate limiting
 - Supports `MAX_LINKS` parameter for faster testing: `make validate MAX_LINKS=10`
+
+### Using Template Overrides
+
+The template system includes support for manual overrides when automatic processing needs adjustment:
+
+- Edit `templates/resource-overrides.yaml` to override specific resource fields
+- Supported fields: `active`, `license`, `description`
+- Add `_locked: true` to prevent validation from updating a field
+- Example override:
+  ```yaml
+  overrides:
+    wf-d0cfdd2b: # Resource ID
+      active: false
+      active_locked: true
+      notes: "Manually set inactive - broken link"
+  ```
+- Overrides are respected by all scripts: generation, validation, and downloads
+- Use overrides sparingly - prefer fixing at the source when possible
 
 ### Downloading and Hosting Resources
 
@@ -46,12 +66,7 @@ Download active resources from GitHub using the download script:
 - Filter by category: `make download-resources CATEGORY='Slash-Commands'`
 - Filter by license: `make download-resources LICENSE='MIT'`
 - Limit downloads for testing: `make download-resources MAX_DOWNLOADS=5`
-- Resources are saved to two locations:
-  - `.myob/downloads/`: Archive of ALL downloaded resources (gitignored)
-  - `resources/`: Only open-source licensed resources for hosting (NOT gitignored)
-- Directory structure: Both directories use the same sanitized category names
-  - Example categories: `slash-commands`, `claude.md-files`, `workflows-knowledge-guides`, `tooling`, `official-documentation`
-- Open-source licenses automatically hosted: MIT, Apache-2.0, BSD, GPL, LGPL, MPL-2.0, ISC, CC-BY, etc.
+- Resources whose license permits it are copied and hosted in this repo under `./resources`.
 
 ### Creating Pull Requests
 
@@ -65,22 +80,26 @@ Download active resources from GitHub using the download script:
 - **CONTRIBUTING.md**: Contribution guidelines
 - **code-of-conduct.md**: Community standards
 - **Makefile**: Build system with `generate` target for README generation
-- **.myob/scripts/**: Data management and automation scripts
-  - `resource-metadata.csv`: Single source of truth for all resource data
-  - `generate_readme.py`: Converts CSV to formatted README.md with hierarchical TOC
-  - `validate_links.py`: Comprehensive link validation with GitHub API support
+- **scripts/**: Data management and automation scripts
+  - `THE_RESOURCES_TABLE.csv`: Single source of truth for all resource data (includes ID column)
+  - `generate_readme.py`: Template-based README generation with override support
+  - `validate_links.py`: Link validation with override support
+  - `download_resources.py`: Downloads resources with override support
+- **.myob/templates/**: Template system files
+  - `README.template.md`: Main template with placeholders
+  - `readme-structure.yaml`: Defines section ordering and metadata
+  - `resource-overrides.yaml`: Manual overrides for specific resources
 - **.claude/commands/**: Custom slash-commands for this project
   - `add-new-resource.md`: Wizard for adding new resources
-  - `add-new-claude-md.md`: Helper for adding CLAUDE.md files
 
 ## Key Guidelines
 
 1. **Resource Quality**: Only include resources that provide genuine value to Claude Code users
 2. **Formatting**: Follow existing formatting exactly - entries are categorized and alphabetically ordered
-3. **Attribution**: Always include proper attribution and prefer permalinks for GitHub resources
+3. **Attribution**: Always include proper attribution
 4. **Categories**:
    - Workflows & Knowledge Guides
-   - Tooling
+   - Tooling (CLI applications and other executables)
    - Hooks (new)
    - Slash-Commands (organized by command name)
    - CLAUDE.md Files (organized by repository name)
@@ -88,7 +107,6 @@ Download active resources from GitHub using the download script:
 
 ## Working with This Repository
 
-- The repository excludes `.myob` and `.claude` directories from analysis unless specifically requested
 - This is a documentation/curation project focused on maintaining high-quality, well-organized content
 - **Data-driven approach**: The CSV file serves as the single source of truth for all resource metadata
 - **Automated generation**: Use `make generate` to create perfectly formatted README from CSV data
@@ -101,16 +119,17 @@ Download active resources from GitHub using the download script:
 
 ## Development Tools and Scripts
 
-The `.myob/scripts/` directory contains several Python utilities for managing repository data:
+The `scripts/` directory contains several Python utilities for managing repository data:
 
-1. **generate_readme.py**: Main generation script
+1. **generate_readmepy**: Template-based generation script
 
-   - Automatically migrates CSV schema if needed
+   - Uses templates from `.templates/` for customizable output
+   - Respects manual overrides from `resource-overrides.yaml`
    - Preserves exact ordering from CSV file
    - Generates hierarchical table of contents
-   - Maintains all original README formatting and structure
+   - Creates automatic backups before generation
 
-2. **validate_links.py**: Comprehensive link checker
+2. **validate_links.py**: Link validation with override support
 
    - Supports both regular URLs and GitHub repository links
    - Fetches license information from GitHub API
@@ -119,19 +138,6 @@ The `.myob/scripts/` directory contains several Python utilities for managing re
    - GitHub Action compatible with JSON output
    - Supports `--max-links` parameter to limit validation scope
 
-3. **download_resources.py**: Resource download and hosting utility
-
-   - Downloads active resources from GitHub repositories
-   - Supports filtering by category and license type
-   - Handles files, directories, and gists
-   - Implements rate limiting and retry logic
-   - Dual output directories:
-     - Archive: `.myob/downloads/` for all resources (gitignored)
-     - Hosted: `resources/` for open-source licensed resources only
-   - Automatically detects and hosts open-source licensed content
-   - Maps CSV categories to standardized directory names
-   - Supports `--max-downloads` for testing
-
 ## Development Best Practices
 
-- When running Python or pip commands, ensure you are working inside the `venv` either by activating or by using the path to the relevant Python binary
+- When running Python or pip commands, ensure you are working inside the `venv` either by activating or by using the path to the relevant Python binary.

@@ -8,11 +8,11 @@ Thank you for your interest in contributing to Awesome Claude Code! We welcome a
 
 ## How to Contribute
 
-The repository uses a CSV-based approach where all resources are stored in `.myob/scripts/resource-metadata.csv` and the README.md is automatically generated. There are two ways to contribute:
+The repository uses a CSV-based approach where all resources are stored in `THE_RESOURCES_TABLE.csv` and the `README.md` is automatically generated. There are two ways to contribute:
 
 ### Option 1: Using the Claude Code Wizard (Optional)
 
-> **TIP!** There is a project slash-command available in this repository, which is invoked as `/project:add-new-resource`, which can be used like a "wizard" to help users create their submission. If you are a Claude Code user, you may run Claude Code and invoke this command to help guide you through the process of creating a PR. (NOTE: This would be using _your_ Claude Code account/tokens/etc.)
+> **TIP!** There is a project slash-command available in this repository, which is invoked as `/add-new-resource`, which can be used like a "wizard" to help users create their submission. If you are a Claude Code user, you may run Claude Code and invoke this command to help guide you through the process of creating a PR. (NOTE: This would be using _your_ Claude Code account/tokens/etc.)
 >
 > **Note:** You do NOT have to use the wizard to submit a PR, especially if your contribution isn't working well with the tool. Manual editing is perfectly acceptable and sometimes preferred.
 
@@ -23,20 +23,21 @@ The repository uses a CSV-based approach where all resources are stored in `.myo
 2. **Follow the CSV-based workflow**:
 
    - Fork this repository
-   - Edit `.myob/scripts/resource-metadata.csv` to add your resource with these fields:
+   - Edit `THE_RESOURCES_TABLE.csv` to add your resource with these fields:
      - Display Name: The name of the resource as it appears in the README
-     - Category: Main category (e.g., "Workflows & Knowledge Guides", "Tooling", "Slash-Commands", "CLAUDE.md Files")
+     - Category: Main category (e.g., "Workflows & Knowledge Guides", "Tooling", "Hooks", "Slash-Commands", "CLAUDE.md Files")
      - Sub-Category: Optional sub-category (e.g., "Version Control & Git", "Code Analysis & Testing")
      - Primary Link: The main URL for the resource
-     - Secondary Link: Optional secondary URL
-     - Author Name: The name of the author/creator
+     - Secondary Link: Optional secondary URL (e.g. permalink)
+     - Author Name: The name/username of the author/creator/organization
      - Author Link: Link to the author's profile/website
      - Active: Set to TRUE for new resources
      - Last Modified: Leave empty for new entries
      - Last Checked: Use current date in YYYY-MM-DD format
-     - License: License type if available (e.g., MIT, Apache-2.0)
-     - Description: A brief description (1-2 sentences max)
-   - Run `make generate` to update README.md from the CSV data
+     - License: License type if available (e.g., MIT, Apache-2.0) - if you are linking to a blog post, or other non-GitHub resource, please indicate whether or not you permit this repo to host its own version of the file(s).
+     - Description: A brief description (1-2 sentences max).
+   - Run `make validate` to validate the integrity of the CSV file.
+   - Run `make generate` to update README.md from the CSV data.
    - Submit a pull request with both the CSV and README.md changes
 
 3. **Make sure the source is "awesome"** - this means that it meets all or some of the following criteria:
@@ -48,28 +49,23 @@ The repository uses a CSV-based approach where all resources are stored in `.myo
    - It works with the latest, or most current, version of Claude Code
 
 4. **Verify your submission**:
+
    - Check that your link works and points to the correct resource
-   - Ensure you've selected the appropriate category and sub-category
-   - Use permalinks for GitHub resources (click on the file/directory and select "Copy permalink" from the dropdown)
-   - Run `make validate MAX_LINKS=1` to test link validation on your new entry
+   - Ensure you've selected the appropriate category and sub-category (if applicable).
+   - Run `make validate MAX_LINKS=1` to test link validation on your new entry.
 
 5. **Submit your PR** and we'll review it as soon as possible.
 
 ## Contribution Guidelines
 
-- Additions to the list should be made by editing the `.myob/scripts/resource-metadata.csv` file, then running `make generate` to update README.md
-- Never edit README.md directly - it is automatically generated from the CSV data
-- Descriptions should be concise and informative (1-2 sentences max), and convey what value the resource provides to Claude Code users
-- Include proper attribution and links to original sources (prefer permalinks if linking to Github files)
-- The CSV maintains alphabetical ordering within categories automatically when README is generated
-- **[Workflows & Knowledge Guides](README.md#workflows--knowledge-guides)** are tightly coupled sets of Claude Code resources that work together
-- **[Slash-Commands](README.md#slash-commands)** should use the command name as the Display Name (e.g., `/commit` not "Git Commit Command")
-- **[CLAUDE.md Files](README.md#claudemd-files)** should use the repository name as the Display Name, with the Primary Link pointing to the CLAUDE.md file
-- Besides GitHub repositories, we welcome blog posts, articles, YouTube videos, Gists, and other resources
+- Descriptions should be concise and informative (1-2 sentences max), and convey what value the resource provides to Claude Code users.
+- Include proper attribution and links to original sources.
+- Tone should be descriptive, not promotional or click-bait-y.
+  (❎"This CLAUDE.md is so good it should be illegal!")
 - Please submit an Issue if:
   - You find broken links or resources that are no longer available
-  - You believe an entry contains misinformation or is no longer relevant to current Claude Code
-  - You have suggestions to improve the repository structure or process
+  - You believe an entry contains misinformation or is no longer relevant to current Claude Code, or presents a serious security risk.
+  - You have suggestions to improve the repository structure or process.
 
 ## Badges
 
@@ -79,15 +75,18 @@ Here are the badge assets:
 [![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge.svg)](https://github.com/hesreallyhim/awesome-claude-code)
 [![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/hesreallyhim/awesome-claude-code)
 
-We aim to maintain a high-quality collection that helps the Claude Code community. Even small contributions can make a big difference!
+We aim to maintain a high-quality collection that helps the Claude Code community. Even small contributions can make a big difference! Some of us may be seasoned experts in Clauding, while others may just be getting oriented.
 
 ## Quick Start
 
 1. Fork the repository
-2. Add your resource to `.myob/scripts/resource-metadata.csv`
-3. Run `make generate` to update README.md
-4. Submit a PR with both files
+2. Add your resource to `THE_RESOURCES_TABLE.csv`
+3. Run `make validate` to check the CSV file.
+4. Run `make generate` to update the `README.md` based on the CSV file.
+5. Submit a PR with both files.
 
-Or use the Claude Code wizard: `/project:add-new-resource`
+Or use the Claude Code wizard: `/add-new-resource`
+
+**NOTE:** If you have any trouble with the automated submission process, feel free to open an Issue, or just make a best-effort attempt at a PR and commit `--no-verify` and we'll try to work it out.
 
 Thank you for helping make Awesome Claude Code even more awesome!

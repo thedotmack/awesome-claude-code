@@ -35,14 +35,15 @@ from datetime import datetime
 from pathlib import Path
 
 import requests
+import yaml  # type: ignore[import-untyped]
 from dotenv import load_dotenv
 
 # Load environment variables from .myob/.env
-load_dotenv(".myob/.env")
+load_dotenv()
 
 # Constants
 USER_AGENT = "awesome-claude-code Downloader/1.0"
-CSV_FILE = ".myob/scripts/resource-metadata.csv"
+CSV_FILE = "../THE_RESOURCES_TABLE.csv"
 DEFAULT_OUTPUT_DIR = ".myob/downloads"
 HOSTED_OUTPUT_DIR = "resources"
 
@@ -59,6 +60,7 @@ else:
 # Open source licenses that allow hosting
 OPEN_SOURCE_LICENSES = {
     "MIT",
+    "MIT+CC",
     "Apache-2.0",
     "BSD-2-Clause",
     "BSD-3-Clause",
@@ -243,6 +245,39 @@ def download_github_file(url_info, output_path, retry_count=0, max_retries=3):
         return False
 
 
+def load_overrides():
+    """Load resource overrides from template directory."""
+    template_dir = os.path.join(os.path.dirname(__file__), "..", "templates")
+    override_path = os.path.join(template_dir, "resource-overrides.yaml")
+    if not os.path.exists(override_path):
+        return {}
+
+    with open(override_path, encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+        return data.get("overrides", {})
+
+
+def apply_overrides(row, overrides):
+    """Apply overrides to a resource row."""
+    resource_id = row.get("ID", "")
+    if not resource_id or resource_id not in overrides:
+        return row
+
+    override_config = overrides[resource_id]
+
+    # Apply overrides (excluding locked flags and notes)
+    for field, value in override_config.items():
+        if not field.endswith("_locked") and field != "notes":
+            if field == "license":
+                row["License"] = value
+            elif field == "active":
+                row["Active"] = value
+            elif field == "description":
+                row["Description"] = value
+
+    return row
+
+
 def process_resources(
     category_filter=None,
     license_filter=None,
@@ -272,6 +307,11 @@ def process_resources(
     except Exception as e:
         print(f"Could not check rate limit: {e}")
 
+    # Load overrides
+    overrides = load_overrides()
+    if overrides:
+        print(f"\nLoaded {len(overrides)} resource overrides")
+
     # Track statistics
     total_resources = 0
     downloaded = 0
@@ -283,6 +323,8 @@ def process_resources(
         reader = csv.DictReader(file)
 
         for row in reader:
+            # Apply overrides to the row
+            row = apply_overrides(row, overrides)
             # Check if we've reached the download limit
             if max_downloads and downloaded >= max_downloads:
                 print(f"\nReached download limit ({max_downloads}). Stopping.")

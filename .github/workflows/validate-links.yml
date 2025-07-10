@@ -42,7 +42,7 @@ jobs:
         name: validation-results
         path: |
           validation_results.json
-          .myob/scripts/resource-metadata.csv
+          THE_RESOURCES_TABLE.csv
 
     - name: Check for existing issue
       if: steps.validate.outputs.has_broken_links == 'true'

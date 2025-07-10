@@ -1,19 +1,8 @@
-**/.claude/settings.local.json
-
-.myob/*
-.myob/scripts/*
-!.myob/
-!.myob/scripts/
-!.myob/scripts/validate_links.py
-!.myob/scripts/resource-metadata.csv
-!.myob/scripts/resource-metadata.test.csv
-!.myob/scripts/test_validate_links.py
-!.myob/scripts/generate_readme.py
-
-# Note: resources/ directory is NOT gitignored - it contains hosted open-source resources
+.myob/
 
 .mypy_cache/
 .ruff_cache/
+__pycache__/
 
 .claude/*
 .claude/commands/*
@@ -23,3 +12,6 @@
 !.claude/commands/add-new-resource.md
 
 .DS_Store
+
+venv/
+.env
