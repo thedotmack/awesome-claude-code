@@ -87,7 +87,7 @@ def format_resource_entry(row):
     # Add description on new line if present
     result = "".join(entry_parts)
     if description:
-        result += f"\n{description}"
+        result += f"  \n{description}"
 
     return result
 
