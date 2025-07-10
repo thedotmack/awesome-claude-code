@@ -36,7 +36,7 @@ dev = [
 "Repository" = "https://github.com/anthropics/awesome-claude-code"
 
 [tool.ruff]
-target-version = "py38"
+target-version = "py311"
 line-length = 120
 
 [tool.ruff.lint]
@@ -62,7 +62,7 @@ ignore = [
 known-first-party = ["scripts"]
 
 [tool.setuptools.packages.find]
-where = [".myob"]
+where = ["."]
 include = ["scripts*"]
 
 [tool.setuptools.package-data]
