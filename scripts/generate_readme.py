@@ -42,14 +42,14 @@ def generate_toc_from_structure(structure):
         section_title = section["title"]
         anchor = section_title.lower().replace(" ", "-").replace("&", "").replace("/", "")
 
-        toc_lines.append(f"{symbol}{indent}[{section_title}](#{anchor}-)&nbsp;&nbsp;")
+        toc_lines.append(f"{symbol}{indent}[{section_title}](#{anchor}-)  ")
 
         # Subsections
         subsections = section.get("subsections", [])
         for subsection in subsections:
             sub_title = subsection["title"]
             sub_anchor = sub_title.lower().replace(" ", "-").replace("&", "").replace("/", "")
-            toc_lines.append(f"{subindent}{subsymbol}{indent}[{sub_title}](#{sub_anchor})&nbsp;&nbsp;")
+            toc_lines.append(f"{subindent}{subsymbol}{indent}[{sub_title}](#{sub_anchor})  ")
 
     return "\n".join(toc_lines)
 
