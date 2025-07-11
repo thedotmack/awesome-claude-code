@@ -12,9 +12,10 @@
 
 ## For New Resources
 
-### Resource Information
+<!-- If you used the script, paste the generated content from .pr_template_content.md here -->
+<!-- If you're manually adding a resource, complete all fields below -->
 
-<!-- Complete all fields for new resources -->
+### Resource Information
 
 - **Display Name**: <!-- e.g., "Claude Task Manager" or "/commit" -->
 - **Category**: <!-- Select from: Workflows & Knowledge Guides, Tooling, Hooks, Slash-Commands, CLAUDE.md Files, Official Documentation -->
@@ -28,17 +29,20 @@
 
 <!-- 1-2 sentences describing what the resource does and why it's valuable to Claude Code users -->
 
+### Automated Notification
+
+<!-- Check if applicable -->
+- [ ] This is a GitHub-hosted resource and will receive an automatic notification issue when merged
+
 ### Checklist for New Resources
 
 <!-- All items must be checked -->
 
-- [ ] Added entry to `THE_RESOURCES_TABLE.csv` (ID will be auto-generated)
-- [ ] Ran `make generate` to update README.md (uses template system)
+- [ ] Used `make add-resource` or `python scripts/add_resource.py` to add the resource
+- [ ] OR manually added entry to `THE_RESOURCES_TABLE.csv`
+- [ ] Ran `make generate` to update README.md
 - [ ] Verified link works and points to correct resource
-- [ ] Used appropriate category from the list above
 - [ ] Description is concise (1-2 sentences max)
-- [ ] For GitHub resources, used permalink where applicable
-- [ ] Ran `make validate MAX_LINKS=1` to test link validation
 
 ---
 
@@ -57,7 +61,6 @@
 - [ ] Updated entry in `THE_RESOURCES_TABLE.csv`
 - [ ] Ran `make generate` to update README.md
 - [ ] Verified new information is correct
-- [ ] Ran `make validate MAX_LINKS=1` to test if applicable
 
 ---
 
@@ -83,7 +86,5 @@
 ## Questions?
 
 - See [CONTRIBUTING.md](../CONTRIBUTING.md) for detailed contribution guidelines
-- Use `/add-new-resource` in Claude Code for guided contribution (optional)
+- Use `make add-resource` for guided resource submission
 - The CSV approach ensures consistent formatting - never edit README.md directly!
-- **Note**: The repository uses a template-based generation system. Resources get auto-generated IDs.
-- **Special cases**: If a resource needs manual overrides (e.g., marking inactive), maintainers can use `.templates/resource-overrides.yaml`

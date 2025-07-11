@@ -225,6 +225,51 @@ def append_to_csv(data):
         return False
 
 
+def generate_pr_content(data):
+    """Generate PR template content"""
+    is_github = "github.com" in data["primary_link"]
+    
+    content = f"""### Resource Information
+
+- **Display Name**: {data["display_name"]}
+- **Category**: {data["category"]}
+- **Sub-Category**: {data["subcategory"] if data["subcategory"] else "N/A"}
+- **Primary Link**: {data["primary_link"]}
+- **Author Name**: {data["author_name"]}
+- **Author Link**: {data["author_link"]}
+- **License**: {data["license"] if data["license"] else "Not specified"}
+
+### Description
+
+{data["description"]}
+
+### Automated Notification
+
+- [{"x" if is_github else " "}] This is a GitHub-hosted resource and will receive an automatic notification issue when merged
+
+### Checklist for New Resources
+
+- [x] Used `make add-resource` or `python scripts/add_resource.py` to add the resource
+- [ ] Ran `make generate` to update README.md
+- [x] Verified link works and points to correct resource
+- [x] Description is concise (1-2 sentences max)
+- [{"x" if is_github else " "}] For GitHub resources, used permalink where applicable"""
+    
+    return content
+
+
+def save_pr_content(content):
+    """Save PR content to a file"""
+    pr_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".pr_template_content.md")
+    try:
+        with open(pr_file, "w", encoding="utf-8") as f:
+            f.write(content)
+        return pr_file
+    except Exception as e:
+        print(f"Warning: Could not save PR template content: {e}")
+        return None
+
+
 def main():
     """Main function"""
     clear_screen()
@@ -276,11 +321,25 @@ def main():
         if append_to_csv(data):
             print()
             print("✓ Resource successfully added to THE_RESOURCES_TABLE.csv!")
+            
+            # Generate and save PR content
+            pr_content = generate_pr_content(data)
+            pr_file = save_pr_content(pr_content)
+            
             print()
             print("Next steps:")
             print("1. Run 'make generate' to update the README.md")
-            print("2. Create a pull request with your changes")
+            if pr_file:
+                print("2. Copy content from .pr_template_content.md into your PR description")
+                print("3. Create a pull request with your changes")
+            else:
+                print("2. Create a pull request with your changes")
             print()
+            
+            if "github.com" in data["primary_link"]:
+                print("Note: Once merged, an automated issue will be created on the GitHub repository")
+                print("      to notify them of their inclusion in Awesome Claude Code.")
+                print()
         else:
             print()
             print("✗ Failed to add resource. Please check the error message above.")

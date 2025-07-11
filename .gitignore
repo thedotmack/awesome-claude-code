@@ -15,5 +15,6 @@ __pycache__/
 
 venv/
 .env
+.pr_template_content.md
 
 *.egg-info/
