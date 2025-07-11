@@ -7,10 +7,11 @@ else
 endif
 SCRIPTS_DIR := ./scripts
 
-.PHONY: help process validate update clean test generate download-resources
+.PHONY: help process validate update clean test generate download-resources add_resource
 
 help:
 	@echo "Available commands:"
+	@echo "  make add_resource      - Interactive tool to add a new resource"
 	@echo "  make process           - Extract resources from README.md and create/update CSV"
 	@echo "  make validate          - Validate all links in the resource CSV"
 	@echo "  make test              - Run validation tests on test CSV"
@@ -88,3 +89,22 @@ install:
 	@$(PYTHON) -m pip install --upgrade pip
 	@$(PYTHON) -m pip install -e ".[dev]"
 	@echo "Installation complete!"
+
+# Add a new resource interactively
+add_resource:
+	@echo "Starting interactive resource submission..."
+	@$(PYTHON) $(SCRIPTS_DIR)/add_resource.py
+	@echo ""
+	@echo "Running validation on the updated CSV..."
+	@$(PYTHON) $(SCRIPTS_DIR)/validate_links.py --max-links 5
+	@echo ""
+	@echo "Generating updated README.md..."
+	@$(PYTHON) $(SCRIPTS_DIR)/generate_readme.py
+	@echo ""
+	@echo "✅ All done! Your changes are ready for a pull request."
+	@echo ""
+	@echo "Next steps:"
+	@echo "1. Review the changes with 'git diff'"
+	@echo "2. Stage your changes with 'git add .'"
+	@echo "3. Commit your changes"
+	@echo "4. Create a pull request"
