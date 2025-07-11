@@ -7,13 +7,14 @@ else
 endif
 SCRIPTS_DIR := ./scripts
 
-.PHONY: help process validate update clean test generate download-resources add_resource sort
+.PHONY: help process validate validate-single update clean test generate download-resources add_resource sort
 
 help:
 	@echo "Available commands:"
 	@echo "  make add_resource      - Interactive tool to add a new resource"
 	@echo "  make process           - Extract resources from README.md and create/update CSV"
 	@echo "  make validate          - Validate all links in the resource CSV"
+	@echo "  make validate-single URL=<url> - Validate a single resource URL"
 	@echo "  make test              - Run validation tests on test CSV"
 	@echo "  make generate          - Generate README.md from CSV data"
 	@echo "  make update            - Run both process and validate"
@@ -50,6 +51,15 @@ validate:
 # Run validation in GitHub Action mode
 validate-github:
 	$(PYTHON) $(SCRIPTS_DIR)/validate_links.py --github-action
+
+# Validate a single resource URL
+validate-single:
+	@if [ -z "$(URL)" ]; then \
+		echo "Error: Please provide a URL to validate"; \
+		echo "Usage: make validate-single URL=https://example.com/resource"; \
+		exit 1; \
+	fi
+	@$(PYTHON) $(SCRIPTS_DIR)/validate_single_resource.py "$(URL)" $(if $(SECONDARY),--secondary "$(SECONDARY)") $(if $(NAME),--name "$(NAME)")
 
 # Run validation tests on test CSV
 test:
@@ -100,20 +110,3 @@ install:
 add_resource:
 	@echo "Starting interactive resource submission..."
 	@$(PYTHON) $(SCRIPTS_DIR)/add_resource.py
-	@echo ""
-	@echo "Sorting resources..."
-	@$(PYTHON) $(SCRIPTS_DIR)/sort_resources.py
-	@echo ""
-	@echo "Running validation on the updated CSV..."
-	@$(PYTHON) $(SCRIPTS_DIR)/validate_links.py --max-links 5
-	@echo ""
-	@echo "Generating updated README.md..."
-	@$(PYTHON) $(SCRIPTS_DIR)/generate_readme.py
-	@echo ""
-	@echo "✅ All done! Your changes are ready for a pull request."
-	@echo ""
-	@echo "Next steps:"
-	@echo "1. Review the changes with 'git diff'"
-	@echo "2. Stage your changes with 'git add .'"
-	@echo "3. Commit your changes"
-	@echo "4. Create a pull request"

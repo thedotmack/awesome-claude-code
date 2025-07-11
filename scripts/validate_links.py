@@ -17,17 +17,19 @@ Features:
 import argparse
 import csv
 import json
+import logging
 import os
 import random
 import re
 import sys
 import time
 from datetime import datetime
-from venv import logger
 
 import requests
 import yaml
 from dotenv import load_dotenv
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 

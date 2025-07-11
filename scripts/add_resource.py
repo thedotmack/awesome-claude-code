@@ -7,6 +7,10 @@ import subprocess
 import sys
 from datetime import datetime
 
+# Import validation function
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from validate_single_resource import validate_resource_from_dict
+
 
 def clear_screen():
     """Clear terminal screen"""
@@ -211,9 +215,9 @@ def append_to_csv(data):
         data["secondary_link"],
         data["author_name"],
         data["author_link"],
-        "TRUE",  # Active
-        "",  # Last Modified
-        datetime.now().strftime("%Y-%m-%d:%H-%M-%S"),  # Last Checked
+        data.get("active", "TRUE"),  # Active
+        data.get("last_modified", ""),  # Last Modified
+        data.get("last_checked", datetime.now().strftime("%Y-%m-%d:%H-%M-%S")),  # Last Checked
         data["license"],
         data["description"],
     ]
@@ -318,6 +322,31 @@ def main():
         "license": license_info,
         "description": description,
     }
+
+    # Validate the resource before confirmation
+    print()
+    print("Validating resource...")
+    print("=" * 60)
+
+    is_valid, validated_data, errors = validate_resource_from_dict(data)
+
+    if not is_valid:
+        print()
+        print("✗ Validation failed!")
+        print()
+        print("The following issues were found:")
+        for error in errors:
+            print(f"  - {error}")
+        print()
+        print("Please fix these issues and try again.")
+        sys.exit(1)
+
+    # Update data with enriched information from validation
+    data = validated_data
+
+    print()
+    print("✓ All validation checks passed!")
+    print()
 
     # Confirm and submit
     if confirm_submission(data):

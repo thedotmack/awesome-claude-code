@@ -31,9 +31,19 @@ Run `/check-links` to verify all links in the README are working properly. The l
 - Validates all URLs in the CSV file
 - Updates Active status and Last Checked timestamps
 - Fetches license information from GitHub repositories
+- Fetches last modified dates for GitHub resources using Commits API
 - Supports GitHub API for repository links
 - Includes retry logic and rate limiting
 - Supports `MAX_LINKS` parameter for faster testing: `make validate MAX_LINKS=10`
+
+### Validating Single Resources
+
+When adding new resources, validation happens automatically during the `make add_resource` process. You can also validate individual URLs:
+
+```bash
+make validate-single URL=https://github.com/example/repo
+make validate-single URL=https://example.com/resource SECONDARY=https://docs.example.com NAME="My Resource"
+```
 
 ### Using Template Overrides
 
