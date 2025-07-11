@@ -16,7 +16,6 @@ resources in the awesome-claude-code repository.
 
 import csv
 import re
-from typing import Dict
 
 
 def extract_resources_from_readme(readme_path="./README.md", limit=10):
@@ -45,12 +44,14 @@ def extract_resources_from_readme(readme_path="./README.md", limit=10):
     current_subcategory = None
     resource_count = 0
     i = 0
+    # Skip sub-headers that are not resource categories
+    skip_sub_headers = ["Contents", "Table of Contents", "Contributing"]
 
     while i < len(lines) and resource_count < limit:
         line = lines[i]
 
         # Track main category headers (## )
-        if line.startswith("## ") and not any(skip in line for skip in ["Contents", "Table of Contents"]):
+        if line.startswith("## ") and not any(skip in line for skip in skip_sub_headers):
             current_category = line.replace("## ", "").strip()
             current_subcategory = None
             i += 1
@@ -155,7 +156,7 @@ if __name__ == "__main__":
     print(f"Found {len(resources)} resources to add\n")
 
     # Show category breakdown
-    categories: Dict[str, int] = {}
+    categories: dict[str, int] = {}
     for resource in resources:
         cat = resource["Type"]
         categories[cat] = categories.get(cat, 0) + 1

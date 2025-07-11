@@ -10,9 +10,29 @@ import csv
 import sys
 from pathlib import Path
 
+import yaml
+
 
 def sort_resources(csv_path: Path) -> None:
     """Sort resources in the CSV file by category, sub-category, and display name."""
+    # Load category order from readme-structure.yaml
+    structure_file = Path(__file__).parent.parent / "templates" / "readme-structure.yaml"
+    category_order = []
+
+    try:
+        with open(structure_file, encoding="utf-8") as f:
+            structure = yaml.safe_load(f)
+            # Extract categories in the order they appear in the sections
+            for section in structure.get("sections", []):
+                if "category" in section:
+                    category_order.append(section["category"])
+    except Exception as e:
+        print(f"Warning: Could not load category order from {structure_file}: {e}")
+        print("Using alphabetical sorting instead.")
+
+    # Create a mapping for sort order
+    category_sort_map = {cat: idx for idx, cat in enumerate(category_order)}
+
     # Read the CSV data
     with open(csv_path, encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -20,11 +40,11 @@ def sort_resources(csv_path: Path) -> None:
         rows = list(reader)
 
     # Sort the rows
-    # First by Category, then by Sub-Category (empty values last), then by Display Name
+    # First by Category (using custom order), then by Sub-Category (empty values last), then by Display Name
     sorted_rows = sorted(
         rows,
         key=lambda row: (
-            row.get("Category", ""),
+            category_sort_map.get(row.get("Category", ""), 999),  # Unknown categories sort last
             row.get("Sub-Category", "") or "zzz",  # Empty sub-categories sort last
             row.get("Display Name", "").lower(),
         ),
@@ -51,7 +71,9 @@ def sort_resources(csv_path: Path) -> None:
         categories[cat][subcat] += 1
 
     print("\nCategory Summary:")
-    for cat in sorted(categories.keys()):
+    # Sort categories using the same custom order
+    sorted_categories = sorted(categories.keys(), key=lambda cat: category_sort_map.get(cat, 999))
+    for cat in sorted_categories:
         print(f"  {cat}:")
         for subcat in sorted(categories[cat].keys()):
             count = categories[cat][subcat]
