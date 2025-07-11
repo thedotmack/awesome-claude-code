@@ -66,7 +66,7 @@ class BadgeNotification:
 
         return github_repos
 
-    def process_new_entries_only(self, csv_path: str):
+    def process_new_entries_only(self, csv_path: str, create_issues: bool = True):
         """Process only NEW GitHub entries from CSV"""
         results: list[dict[str, Any]] = []
 
@@ -82,14 +82,29 @@ class BadgeNotification:
 
         print(f"Found {len(new_repos)} new GitHub entries to process.")
 
-        for repo_full_name, info in new_repos.items():
-            result = self.notify_repository(
-                repo_url=info["url"],
-                resource_name=info["name"],
-                description=info["description"],
-                repo_full_name=repo_full_name,
-            )
-            results.append(result)
+        if not create_issues:
+            print("CREATE_ISSUES is set to false. Marking repos as processed without creating issues.")
+            # Just mark them as processed without creating issues
+            for repo_full_name in new_repos:
+                self.processed_repos.add(repo_full_name)
+                results.append(
+                    {
+                        "repo_url": new_repos[repo_full_name]["url"],
+                        "success": True,
+                        "message": "Marked as processed (issue creation disabled)",
+                        "issue_url": None,
+                    }
+                )
+        else:
+            # Create issues as normal
+            for repo_full_name, info in new_repos.items():
+                result = self.notify_repository(
+                    repo_url=info["url"],
+                    resource_name=info["name"],
+                    description=info["description"],
+                    repo_full_name=repo_full_name,
+                )
+                results.append(result)
 
         self._save_processed_repos()
         return results
@@ -241,12 +256,18 @@ def main():
     # Check if we're in CI/CD environment
     is_ci = os.environ.get("CI", "false").lower() == "true"
 
+    # Check if issue creation is enabled
+    create_issues = os.environ.get("CREATE_ISSUES", "true").lower() == "true"
+
     if is_ci:
         print("Running in CI mode - processing only new entries")
     else:
         print("Running in manual mode - processing only new entries")
 
-    results = notifier.process_new_entries_only(csv_path)
+    if not create_issues:
+        print("Issue creation is DISABLED via CREATE_ISSUES environment variable")
+
+    results = notifier.process_new_entries_only(csv_path, create_issues=create_issues)
 
     # Print summary
     success_count = sum(1 for r in results if r["success"])

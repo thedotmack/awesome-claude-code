@@ -103,6 +103,31 @@ This ensures no existing entries get notified - only future additions.
   - Rate limiting
   - Invalid URLs
 
+## Manual Testing
+
+You can test the script locally:
+
+```bash
+# First time: Initialize with existing repos
+export GITHUB_TOKEN=your_token_here
+python scripts/badge_issue_notification.py --init
+
+# Test processing (dry run - won't actually create issues)
+python scripts/badge_issue_notification.py
+
+# Skip issue creation (just mark repos as processed)
+export CREATE_ISSUES=false
+python scripts/badge_issue_notification.py
+```
+
+## Controlling Issue Creation
+
+The workflow supports disabling issue creation while still tracking processed repositories:
+
+1. **Via GitHub Actions UI**: When manually triggering the workflow, select "false" for "Create notification issues"
+2. **Via Environment Variable**: Set `CREATE_ISSUES=false` when running locally
+3. **Default Behavior**: Issues are created by default unless explicitly disabled
+
 ## Monitoring
 Check GitHub Actions logs for:
 - Number of repositories processed

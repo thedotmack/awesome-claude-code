@@ -10,6 +10,8 @@ Thank you for your interest in contributing to Awesome Claude Code! We welcome a
 
 The repository uses a CSV-based approach where all resources are stored in `THE_RESOURCES_TABLE.csv` and the `README.md` is automatically generated.
 
+**IMPORTANT**: Please submit resources one at a time. If you have multiple resources to contribute, create separate pull requests for each resource. This helps with review, testing, and ensures our automated notification system works correctly.
+
 ### Option 1: Script-Based Contribution (Recommended)
 
 Use our interactive script to add new resources:
@@ -102,6 +104,7 @@ Or the flat version:
 ## Submission Checklist
 
 Before submitting:
+- [ ] **One resource per PR** - Multiple resources require separate PRs
 - [ ] Resource provides value to Claude Code users
 - [ ] Link works and points to the correct resource
 - [ ] Description is concise (1-2 sentences max)

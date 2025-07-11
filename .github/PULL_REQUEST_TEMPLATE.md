@@ -1,10 +1,12 @@
 # Pull Request
 
+<!-- IMPORTANT: Submit only ONE resource per pull request. If you have multiple resources, please create separate PRs. -->
+
 ## Type of Contribution
 
 <!-- Select ONE by marking with an [x] -->
 
-- [ ] **New Resource** - Adding a new resource to the list
+- [ ] **New Resource** - Adding a new resource to the list (ONE per PR)
 - [ ] **Update Resource** - Updating existing resource information (e.g., broken link, license info)
 - [ ] **Repository Improvement** - Improving the repository itself (not adding resources)
 
@@ -82,6 +84,7 @@
 ## Additional Notes
 
 <!-- Any additional context that would help reviewers -->
+<!-- Remember: Only ONE resource per PR. Multiple resources require separate pull requests. -->
 
 ## Questions?
 

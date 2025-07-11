@@ -19,6 +19,9 @@ def print_header():
     print("AWESOME CLAUDE CODE - Resource Submission Tool")
     print("=" * 60)
     print()
+    print("IMPORTANT: Submit only ONE resource at a time.")
+    print("Multiple resources require separate pull requests.")
+    print()
 
 
 def get_resource_type():
@@ -228,7 +231,7 @@ def append_to_csv(data):
 def generate_pr_content(data):
     """Generate PR template content"""
     is_github = "github.com" in data["primary_link"]
-    
+
     content = f"""### Resource Information
 
 - **Display Name**: {data["display_name"]}
@@ -254,7 +257,7 @@ def generate_pr_content(data):
 - [x] Verified link works and points to correct resource
 - [x] Description is concise (1-2 sentences max)
 - [{"x" if is_github else " "}] For GitHub resources, used permalink where applicable"""
-    
+
     return content
 
 
@@ -321,11 +324,11 @@ def main():
         if append_to_csv(data):
             print()
             print("✓ Resource successfully added to THE_RESOURCES_TABLE.csv!")
-            
+
             # Generate and save PR content
             pr_content = generate_pr_content(data)
             pr_file = save_pr_content(pr_content)
-            
+
             print()
             print("Next steps:")
             print("1. Run 'make generate' to update the README.md")
@@ -335,7 +338,9 @@ def main():
             else:
                 print("2. Create a pull request with your changes")
             print()
-            
+            print("Remember: If you have more resources to add, create separate PRs for each one.")
+            print()
+
             if "github.com" in data["primary_link"]:
                 print("Note: Once merged, an automated issue will be created on the GitHub repository")
                 print("      to notify them of their inclusion in Awesome Claude Code.")

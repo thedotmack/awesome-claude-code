@@ -82,17 +82,20 @@ Official documentation is any documentation provided by Anthropic, typically fro
 
 ## Process
 
-1. **Gather Information**: Ask the user for all necessary details about their resource
-2. **Validate Links**: Ensure the primary link is accessible and points to the correct resource
-3. **Determine Category**: Help the user choose the appropriate category and sub-category
-4. **Add to CSV**: Add the new resource to `THE_RESOURCES_TABLE.csv`
-5. **Generate README**: Run `make generate` to update the `README.md`
-6. **Create PR**: Help the user create a pull request with the changes
+1. **Check for Multiple Resources**: First ask if the user has multiple resources to submit. If yes, inform them that each resource requires a separate PR and help them with ONE resource at a time.
+2. **Gather Information**: Ask the user for all necessary details about their resource
+3. **Validate Links**: Ensure the primary link is accessible and points to the correct resource
+4. **Determine Category**: Help the user choose the appropriate category and sub-category
+5. **Add to CSV**: Add the new resource to `THE_RESOURCES_TABLE.csv`
+6. **Generate README**: Run `make generate` to update the `README.md`
+7. **Create PR**: Help the user create a pull request with the changes
 
 ## Important Notes
 
+- **ONE resource per pull request** - Multiple resources require separate PRs
 - Always set Active to TRUE for new resources
 - Use the current date for Last Checked
 - Leave Last Modified empty for new entries
 - Ensure descriptions are concise (1-2 sentences max)
 - Maintain alphabetical ordering within categories when viewing the generated README
+- The automated notification system works best with single-resource PRs
