@@ -1,0 +1,110 @@
+# Badge Issue Notification Setup Guide
+
+## Overview
+This system creates friendly notification issues on GitHub repositories when they are **newly** featured in the Awesome Claude Code list. It only notifies for new additions, not existing entries.
+
+## Prerequisites
+1. Python 3.11+
+2. PyGithub library (installed automatically via pyproject.toml)
+
+## Setup Steps
+
+### 1. Install Dependencies
+```bash
+pip install -e .
+```
+
+### 2. Configure GitHub Token (for local testing only)
+For local testing, create a Personal Access Token on GitHub with `public_repo` scope.
+
+Option 1: Use environment variable
+```bash
+export GITHUB_TOKEN=your_github_personal_access_token
+```
+
+Option 2: Use .env file (recommended)
+```bash
+echo "GITHUB_TOKEN=your_github_personal_access_token" > .env
+```
+
+The script will automatically load the token from .env if present. The .env file is gitignored for security.
+
+Note: The GitHub Action uses the built-in `GITHUB_TOKEN` automatically.
+
+### 3. Manual Testing
+Process all entries in the CSV:
+```bash
+python badge_issue_notification.py
+```
+
+## GitHub Action Setup
+
+### 1. Automatic Setup
+The GitHub Action uses the built-in `GITHUB_TOKEN` which is automatically provided by GitHub Actions. No additional secrets need to be configured.
+
+### 2. Automatic Triggers
+The action automatically runs when:
+- THE_RESOURCES_TABLE.csv is updated on main branch
+- Manual workflow dispatch
+
+### 3. Manual Trigger
+1. Go to Actions tab
+2. Select "Badge Issue Notifications"
+3. Click "Run workflow"
+
+## How It Works
+
+### Issue Creation Process
+1. Loads all GitHub repositories from THE_RESOURCES_TABLE.csv
+2. Compares against `.processed_repos.json` to find new entries
+3. Creates friendly notification issues for new repositories
+4. Updates `.processed_repos.json` with newly processed repos
+5. GitHub Action commits the updated file
+
+### New Entry Detection
+- Maintains a `.processed_repos.json` file with all previously processed repositories
+- Compares current CSV entries against this list to find new repositories
+- Resilient to CSV reordering, formatting changes, and description edits
+- Only creates issues for repositories not in the processed list
+
+### Initial Setup
+Before first use, run with `--init` flag to populate the processed list with all existing entries:
+```bash
+python scripts/badge_issue_notification.py --init
+```
+This ensures no existing entries get notified - only future additions.
+
+### Issue Content
+- Friendly greeting and announcement
+- Description of Awesome Claude Code
+- Two badge style options (standard and flat)
+- Clear markdown snippets for easy copying
+- No action required message
+
+### Duplicate Prevention
+- Maintains `.processed_repos.json` file
+- Checks for existing issues by the bot
+- Skips repositories already processed
+
+## Features
+
+### Advantages Over PR Approach
+- ✅ Non-intrusive - just information
+- ✅ No code changes required
+- ✅ Maintainers can close anytime
+- ✅ Much simpler implementation
+- ✅ No fork/branch management
+- ✅ Faster processing
+
+### Error Handling
+- Gracefully handles:
+  - Private repositories
+  - Disabled issues
+  - Rate limiting
+  - Invalid URLs
+
+## Monitoring
+Check GitHub Actions logs for:
+- Number of repositories processed
+- Successfully created issues
+- Any errors or skipped repos

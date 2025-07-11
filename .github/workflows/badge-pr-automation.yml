@@ -1,0 +1,47 @@
+name: Badge Issue Notifications
+
+on:
+  # Manual trigger for testing/processing all entries
+  workflow_dispatch:
+  
+  # Automated trigger on CSV changes
+  push:
+    branches: [ main ]
+    paths:
+      - 'THE_RESOURCES_TABLE.csv'
+
+jobs:
+  notify-repositories:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install -e .
+    
+    - name: Run badge notifications
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CI: true
+      run: |
+        python scripts/badge_issue_notification.py
+    
+    - name: Commit processed repos tracking
+      if: success()
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .processed_repos.json
+        git diff --quiet && git diff --staged --quiet || git commit -m "Update processed repositories list"
+        git push
