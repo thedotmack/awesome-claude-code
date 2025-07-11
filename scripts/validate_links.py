@@ -322,7 +322,7 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Validate links in resource-metadata.csv")
+    parser = argparse.ArgumentParser(description="Validate links in THE_RESOURCES_TABLE.csv")
     parser.add_argument("--max-links", type=int, help="Maximum number of links to validate")
     parser.add_argument("--github-action", action="store_true", help="Run in GitHub Action mode")
     parser.add_argument("--ignore-overrides", action="store_true", help="Ignore override configuration")
