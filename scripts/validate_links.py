@@ -6,9 +6,10 @@ Validates resource URLs and updates CSV with current status, respecting manual o
 Features:
 - Validates Primary/Secondary Link URLs using HTTP requests
 - Supports GitHub API for repository URLs with license detection
+- Fetches last modified dates for GitHub resources using Commits API
 - Implements exponential backoff retry logic
 - Respects field overrides from resource-overrides.yaml
-- Updates CSV with Active status and Last Checked timestamp
+- Updates CSV with Active status, Last Checked timestamp, and Last Modified date
 - Provides detailed logging and broken link summary
 - GitHub Action mode for CI/CD integration
 """
@@ -25,7 +26,7 @@ from datetime import datetime
 from venv import logger
 
 import requests
-import yaml  # type: ignore[import-untyped]
+import yaml
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -40,6 +41,7 @@ PRIMARY_LINK_HEADER_NAME = "Primary Link"
 SECONDARY_LINK_HEADER_NAME = "Secondary Link"
 ACTIVE_HEADER_NAME = "Active"
 LAST_CHECKED_HEADER_NAME = "Last Checked"
+LAST_MODIFIED_HEADER_NAME = "Last Modified"
 LICENSE_HEADER_NAME = "License"
 ID_HEADER_NAME = "ID"
 HEADERS = {"User-Agent": USER_AGENT, "Accept": "application/vnd.github+json"}
@@ -86,6 +88,8 @@ def apply_overrides(row, overrides):
                 row[ACTIVE_HEADER_NAME] = value
             elif field == "last_checked":
                 row[LAST_CHECKED_HEADER_NAME] = value
+            elif field == "last_modified":
+                row[LAST_MODIFIED_HEADER_NAME] = value
             elif field == "description":
                 row["Description"] = value
 
@@ -131,13 +135,43 @@ def get_github_license(owner, repo):
     return "NOT_FOUND"
 
 
+def get_github_last_modified(owner, repo, path=None):
+    """Fetch last modified date for a GitHub file or repository."""
+    try:
+        if path:
+            # For specific file, get the latest commit for that file
+            api_url = f"https://api.github.com/repos/{owner}/{repo}/commits"
+            params = {"path": path, "per_page": 1}
+            response = requests.get(api_url, headers=HEADERS, params=params, timeout=10)
+        else:
+            # For repository root, get the latest commit
+            api_url = f"https://api.github.com/repos/{owner}/{repo}/commits"
+            params = {"per_page": 1}
+            response = requests.get(api_url, headers=HEADERS, params=params, timeout=10)
+
+        if response.status_code == 200:
+            commits = response.json()
+            if commits and len(commits) > 0:
+                # Get the committer date from the latest commit
+                commit_date = commits[0].get("commit", {}).get("committer", {}).get("date")
+                if commit_date:
+                    # Convert ISO format to our format: YYYY-MM-DD:HH-MM-SS
+                    from datetime import datetime
+
+                    dt = datetime.fromisoformat(commit_date.replace("Z", "+00:00"))
+                    return dt.strftime("%Y-%m-%d:%H-%M-%S")
+    except Exception as e:
+        print(f"Error fetching last modified date for {owner}/{repo}: {e}")
+    return None
+
+
 def validate_url(url, max_retries=5):
     """
     Validate a URL with exponential backoff retry logic.
-    Returns (is_valid, status_code, license_info).
+    Returns (is_valid, status_code, license_info, last_modified).
     """
     if not url or url.strip() == "":
-        return True, None, None  # Empty URLs are considered valid
+        return True, None, None, None  # Empty URLs are considered valid
 
     # Convert GitHub URLs to API endpoints
     api_url, is_github = parse_github_url(url)
@@ -162,18 +196,28 @@ def validate_url(url, max_retries=5):
             # Success cases
             if response.status_code < 400:
                 license_info = None
+                last_modified = None
                 if is_github and response.status_code == 200:
-                    # Extract owner/repo from original URL for license lookup
-                    repo_match = re.match(r"https://github\.com/([^/]+)/([^/]+)", url)
-                    if repo_match:
-                        owner, repo = repo_match.groups()
+                    # Extract owner/repo/path from original URL
+                    # Try to match file URL first
+                    file_match = re.match(r"https://github\.com/([^/]+)/([^/]+)/blob/[^/]+/(.+)", url)
+                    if file_match:
+                        owner, repo, path = file_match.groups()
                         license_info = get_github_license(owner, repo)
-                return True, response.status_code, license_info
+                        last_modified = get_github_last_modified(owner, repo, path)
+                    else:
+                        # Try repository URL
+                        repo_match = re.match(r"https://github\.com/([^/]+)/([^/]+)", url)
+                        if repo_match:
+                            owner, repo = repo_match.groups()
+                            license_info = get_github_license(owner, repo)
+                            last_modified = get_github_last_modified(owner, repo)
+                return True, response.status_code, license_info, last_modified
 
             # Client errors (except rate limit) don't need retry
             if 400 <= response.status_code < 500 and response.status_code != 403:
                 print(f"Client error {response.status_code} {response.reason} for URL: {url}")
-                return False, response.status_code, None
+                return False, response.status_code, None, None
 
             # Server errors - retry with backoff
             if response.status_code >= 500 and attempt < max_retries - 1:
@@ -181,16 +225,16 @@ def validate_url(url, max_retries=5):
                 time.sleep(wait_time)
                 continue
 
-            return False, response.status_code, None
+            return False, response.status_code, None, None
 
         except requests.exceptions.RequestException as e:
             if attempt < max_retries - 1:
                 wait_time = (2**attempt) + random.uniform(0, 1)
                 time.sleep(wait_time)
                 continue
-            return False, str(e), None
+            return False, str(e), None, None
 
-    return False, "Max retries exceeded", None
+    return False, "Max retries exceeded", None, None
 
 
 def validate_links(csv_file, max_links=None, ignore_overrides=False):
@@ -213,6 +257,7 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
     github_api_calls = 0
     override_count = 0
     locked_field_count = 0
+    last_modified_updates = 0
 
     print(f"Starting validation of {total_resources} resources...")
     if overrides and not ignore_overrides:
@@ -242,17 +287,23 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
             github_links += 1
 
         # Validate primary URL
-        primary_valid, primary_status, license_info = validate_url(primary_url)
+        primary_valid, primary_status, license_info, last_modified = validate_url(primary_url)
 
         # Update license if found and not locked
         if license_info and "license" not in locked_fields:
             row[LICENSE_HEADER_NAME] = license_info
             github_api_calls += 1
 
+        # Update last modified if found and not locked
+        if last_modified and "last_modified" not in locked_fields:
+            row[LAST_MODIFIED_HEADER_NAME] = last_modified
+            github_api_calls += 1
+            last_modified_updates += 1
+
         # Validate secondary URL if present
         secondary_valid = True
         if secondary_url:
-            secondary_valid, _, _ = validate_url(secondary_url)
+            secondary_valid, _, _, _ = validate_url(secondary_url)
 
         # Update Active status if not locked
         if "active" not in locked_fields:
@@ -295,7 +346,9 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
     print(f"Total resources: {total_resources}")
     print(f"Processed: {processed}")
     print(f"GitHub links: {github_links}")
-    print(f"GitHub API calls for licenses: {github_api_calls}")
+    print(f"GitHub API calls: {github_api_calls}")
+    if last_modified_updates:
+        print(f"Last modified dates fetched: {last_modified_updates}")
     if override_count:
         print(f"Resources with overrides: {override_count}")
         print(f"Total locked fields: {locked_field_count}")
