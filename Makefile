@@ -7,7 +7,7 @@ else
 endif
 SCRIPTS_DIR := ./scripts
 
-.PHONY: help process validate update clean test generate download-resources add_resource
+.PHONY: help process validate update clean test generate download-resources add_resource sort
 
 help:
 	@echo "Available commands:"
@@ -18,6 +18,7 @@ help:
 	@echo "  make generate          - Generate README.md from CSV data"
 	@echo "  make update            - Run both process and validate"
 	@echo "  make download-resources - Download active resources from GitHub"
+	@echo "  make sort              - Sort resources by category, sub-category, and name"
 	@echo "  make clean             - Remove generated files"
 	@echo ""
 	@echo "Options:"
@@ -56,8 +57,13 @@ test:
 # 	@echo "Running validation tests..."
 # 	$(PYTHON) $(SCRIPTS_DIR)/test_validate_links.py
 
+# Sort resources by category, sub-category, and name
+sort:
+	@echo "Sorting resources in THE_RESOURCES_TABLE.csv..."
+	$(PYTHON) $(SCRIPTS_DIR)/sort_resources.py
+
 # Generate README.md from CSV data using template system
-generate:
+generate: sort
 	@echo "Generating README.md from CSV data using template system..."
 	$(PYTHON) $(SCRIPTS_DIR)/generate_readme.py
 
@@ -94,6 +100,9 @@ install:
 add_resource:
 	@echo "Starting interactive resource submission..."
 	@$(PYTHON) $(SCRIPTS_DIR)/add_resource.py
+	@echo ""
+	@echo "Sorting resources..."
+	@$(PYTHON) $(SCRIPTS_DIR)/sort_resources.py
 	@echo ""
 	@echo "Running validation on the updated CSV..."
 	@$(PYTHON) $(SCRIPTS_DIR)/validate_links.py --max-links 5
