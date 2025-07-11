@@ -38,6 +38,6 @@ repos:
         name: check README.md is generated from CSV
         entry: bash -c 'make generate && git diff --exit-code README.md'
         language: system
-        files: 'resource-metadata\.csv|README\.md'
+        files: 'THE_RESOURCES_TABLE\.csv|README\.md'
         pass_filenames: false
         description: Ensures README.md is generated from CSV data
