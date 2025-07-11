@@ -96,6 +96,9 @@ A broader project management workflow for Claude Code that encompasses not just 
 [`Slash-commands megalist`](https://github.com/wcygan/dotfiles/tree/d8ab6b9f5a7a81007b7f5fa3025d4f83ce12cc02/claude/commands) &nbsp; by &nbsp; [wcygan](https://github.com/wcygan)    
 A pretty stunning list (88 at the time of this post!) of slash-commands ranging from agent orchestration, code review, project management, security, documentation, self-assessment, almost anything you can dream of.
 
+[`Shipping Real Code w/ Claude`](https://diwank.space/field-notes-from-shipping-real-code-with-claude) &nbsp; by &nbsp; [Diwank](https://github.com/creatorrr)    
+"A detailed blog post explaining the author's process for shipping a product with Claude Code, including CLAUDE.md files and other interesting resources."
+
 <br>
 
 ## Tooling 🧰
