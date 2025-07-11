@@ -97,7 +97,7 @@ A broader project management workflow for Claude Code that encompasses not just 
 A pretty stunning list (88 at the time of this post!) of slash-commands ranging from agent orchestration, code review, project management, security, documentation, self-assessment, almost anything you can dream of.
 
 [`Shipping Real Code w/ Claude`](https://diwank.space/field-notes-from-shipping-real-code-with-claude) &nbsp; by &nbsp; [Diwank](https://github.com/creatorrr)    
-"A detailed blog post explaining the author's process for shipping a product with Claude Code, including CLAUDE.md files and other interesting resources."
+A detailed blog post explaining the author's process for shipping a product with Claude Code, including CLAUDE.md files and other interesting resources.
 
 <br>
 

@@ -10,7 +10,7 @@ from datetime import datetime
 
 def clear_screen():
     """Clear terminal screen"""
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("cls" if os.name == "nt" else "clear")
 
 
 def print_header():
@@ -23,13 +23,7 @@ def print_header():
 
 def get_resource_type():
     """Display menu and get resource type selection"""
-    categories = [
-        "Workflows & Knowledge Guides",
-        "Tooling",
-        "Hooks",
-        "Slash-Commands",
-        "CLAUDE.md Files"
-    ]
+    categories = ["Workflows & Knowledge Guides", "Tooling", "Hooks", "Slash-Commands", "CLAUDE.md Files"]
 
     print("Select the type of resource:")
     print()
@@ -54,8 +48,8 @@ def get_display_name(category):
     print()
     if category == "Slash-Commands":
         name = input("Enter the slash command name (e.g., /commit): ").strip()
-        if not name.startswith('/'):
-            name = '/' + name
+        if not name.startswith("/"):
+            name = "/" + name
         return name
     elif category == "CLAUDE.md Files":
         name = input("Enter the repository/project name: ").strip()
@@ -83,17 +77,13 @@ def get_subcategory(category):
             "Documentation & Changelogs",
             "CI / Deployment",
             "Project & Task Management",
-            "Miscellaneous"
+            "Miscellaneous",
         ],
-        "CLAUDE.md Files": [
-            "Language-Specific",
-            "Domain-Specific",
-            "Project Scaffolding & MCP"
-        ],
+        "CLAUDE.md Files": ["Language-Specific", "Domain-Specific", "Project Scaffolding & MCP"],
         "Tooling": [
             "IDE Integrations",
-            None  # For general tooling
-        ]
+            None,  # For general tooling
+        ],
     }
 
     if category not in subcategories:
@@ -130,7 +120,7 @@ def get_url(prompt):
     """Get and validate URL input"""
     while True:
         url = input(prompt).strip()
-        if url.startswith(('http://', 'https://')):
+        if url.startswith(("http://", "https://")):
             return url
         else:
             print("Please enter a valid URL starting with http:// or https://")
@@ -159,14 +149,11 @@ def get_description():
 def generate_id(display_name, primary_link, category):
     """Generate ID using quick_id.py"""
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    quick_id_path = os.path.join(script_dir, 'quick_id.py')
+    quick_id_path = os.path.join(script_dir, "quick_id.py")
 
     try:
         result = subprocess.run(
-            ['python3', quick_id_path, display_name, primary_link, category],
-            capture_output=True,
-            text=True,
-            check=True
+            ["python3", quick_id_path, display_name, primary_link, category], capture_output=True, text=True, check=True
         )
         return result.stdout.strip()
     except subprocess.CalledProcessError as e:
@@ -184,10 +171,10 @@ def confirm_submission(data):
     print(f"ID: {data['id']}")
     print(f"Display Name: {data['display_name']}")
     print(f"Category: {data['category']}")
-    if data['subcategory']:
+    if data["subcategory"]:
         print(f"Subcategory: {data['subcategory']}")
     print(f"Primary Link: {data['primary_link']}")
-    if data['secondary_link']:
+    if data["secondary_link"]:
         print(f"Secondary Link: {data['secondary_link']}")
     print(f"Author: {data['author_name']}")
     print(f"Author Link: {data['author_link']}")
@@ -198,9 +185,9 @@ def confirm_submission(data):
 
     while True:
         confirm = input("Submit this resource? (yes/no): ").strip().lower()
-        if confirm in ['yes', 'y']:
+        if confirm in ["yes", "y"]:
             return True
-        elif confirm in ['no', 'n']:
+        elif confirm in ["no", "n"]:
             return False
         else:
             print("Please enter 'yes' or 'no'")
@@ -209,27 +196,27 @@ def confirm_submission(data):
 def append_to_csv(data):
     """Append the new resource to THE_RESOURCES_TABLE.csv"""
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    csv_path = os.path.join(os.path.dirname(script_dir), 'THE_RESOURCES_TABLE.csv')
+    csv_path = os.path.join(os.path.dirname(script_dir), "THE_RESOURCES_TABLE.csv")
 
     # Prepare row data
     row = [
-        data['id'],
-        data['display_name'],
-        data['category'],
-        data['subcategory'],
-        data['primary_link'],
-        data['secondary_link'],
-        data['author_name'],
-        data['author_link'],
-        'TRUE',  # Active
-        '',  # Last Modified
-        datetime.now().strftime('%Y-%m-%d:%H-%M-%S'),  # Last Checked
-        data['license'],
-        f'"{data["description"]}"'
+        data["id"],
+        data["display_name"],
+        data["category"],
+        data["subcategory"],
+        data["primary_link"],
+        data["secondary_link"],
+        data["author_name"],
+        data["author_link"],
+        "TRUE",  # Active
+        "",  # Last Modified
+        datetime.now().strftime("%Y-%m-%d:%H-%M-%S"),  # Last Checked
+        data["license"],
+        data["description"],
     ]
 
     try:
-        with open(csv_path, 'a', newline='', encoding='utf-8') as f:
+        with open(csv_path, "a", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerow(row)
         return True
@@ -254,7 +241,7 @@ def main():
     print()
     secondary_link_prompt = "Enter a secondary link (optional, press Enter to skip): "
     secondary_link = input(secondary_link_prompt).strip()
-    if secondary_link and not secondary_link.startswith(('http://', 'https://')):
+    if secondary_link and not secondary_link.startswith(("http://", "https://")):
         print("Invalid URL format. Skipping secondary link.")
         secondary_link = ""
 
@@ -272,16 +259,16 @@ def main():
 
     # Prepare data
     data = {
-        'id': resource_id,
-        'display_name': display_name,
-        'category': category,
-        'subcategory': subcategory,
-        'primary_link': primary_link,
-        'secondary_link': secondary_link,
-        'author_name': author_name,
-        'author_link': author_link,
-        'license': license_info,
-        'description': description
+        "id": resource_id,
+        "display_name": display_name,
+        "category": category,
+        "subcategory": subcategory,
+        "primary_link": primary_link,
+        "secondary_link": secondary_link,
+        "author_name": author_name,
+        "author_link": author_link,
+        "license": license_info,
+        "description": description,
     }
 
     # Confirm and submit
