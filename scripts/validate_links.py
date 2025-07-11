@@ -33,9 +33,9 @@ load_dotenv()
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN", "")
 
 USER_AGENT = "awesome-claude-code Link Validator/2.0"
-INPUT_FILE = "THE_RESOURCES_TABLE.csv"
-OUTPUT_FILE = "THE_RESOURCES_TABLE.csv"
-OVERRIDE_FILE = "templates/resource-overrides.yaml"
+INPUT_FILE = ".myob/scripts/resource-metadata.csv"
+OUTPUT_FILE = ".myob/scripts/resource-metadata.csv"
+OVERRIDE_FILE = ".myob/templates/resource-overrides.yaml"
 PRIMARY_LINK_HEADER_NAME = "Primary Link"
 SECONDARY_LINK_HEADER_NAME = "Secondary Link"
 ACTIVE_HEADER_NAME = "Active"
