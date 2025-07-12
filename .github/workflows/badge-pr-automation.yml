@@ -23,7 +23,7 @@ jobs:
   notify-repositories:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       issues: write
     
     steps:
