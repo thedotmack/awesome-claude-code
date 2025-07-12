@@ -259,8 +259,7 @@ def generate_pr_content(data):
 - [x] Used `make add-resource` or `python scripts/add_resource.py` to add the resource
 - [ ] Ran `make generate` to update README.md
 - [x] Verified link works and points to correct resource
-- [x] Description is concise (1-2 sentences max)
-- [{"x" if is_github else " "}] For GitHub resources, used permalink where applicable"""
+- [x] Description is concise (1-2 sentences max)"""
 
     return content
 

@@ -23,6 +23,7 @@ python scripts/add_resource.py
 ```
 
 The script will:
+
 - Guide you through selecting the resource type
 - Prompt for all required information
 - Validate your inputs
@@ -31,6 +32,7 @@ The script will:
 - Create a `.pr_template_content.md` file with pre-filled PR content
 
 After running the script:
+
 1. Review the changes to `THE_RESOURCES_TABLE.csv` and `README.md`
 2. Copy the content from `.pr_template_content.md` into your PR description
 3. Submit your pull request
@@ -46,6 +48,7 @@ If the automated tools aren't working for you:
 1. **Fork this repository**
 
 2. **Edit `THE_RESOURCES_TABLE.csv`** with these fields:
+
    - Display Name: The name of the resource as it appears in the README
    - Category: Main category (e.g., "Workflows & Knowledge Guides", "Tooling", "Hooks", "Slash-Commands", "CLAUDE.md Files")
    - Sub-Category: Optional sub-category (e.g., "Version Control & Git", "Code Analysis & Testing")
@@ -60,6 +63,7 @@ If the automated tools aren't working for you:
    - Description: A brief description (1-2 sentences max)
 
 3. **Run validation and generation**:
+
    ```bash
    make validate  # Check CSV integrity
    make generate  # Update README.md from CSV
@@ -104,12 +108,12 @@ Or the flat version:
 ## Submission Checklist
 
 Before submitting:
+
 - [ ] **One resource per PR** - Multiple resources require separate PRs
 - [ ] Resource provides value to Claude Code users
 - [ ] Link works and points to the correct resource
 - [ ] Description is concise (1-2 sentences max)
 - [ ] Appropriate category selected
-- [ ] For GitHub resources, used permalink where applicable
 - [ ] Ran `make validate` and `make generate`
 
 ## Need Help?
