@@ -45,6 +45,7 @@
   "inkline/inkline",
   "jeremymailen/kotlinter-gradle",
   "jerseycheese/Narraitor",
+  "johnlindquist/claude-hooks",
   "kelp/webdown",
   "kingler/n8n_agent",
   "langchain-ai/langgraphjs",
