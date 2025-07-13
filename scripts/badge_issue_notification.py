@@ -227,7 +227,7 @@ Thank you for contributing to the Claude Code ecosystem! 🙏
 
 def initialize_processed_repos_with_existing(csv_path: str):
     """One-time initialization to add all existing GitHub repos to processed list"""
-    notifier = BadgeNotification(os.environ.get("AWESOME_CC_PAT_PUBLIC_REPO", ""))
+    notifier = BadgeNotification(os.environ.get("GITHUB_TOKEN", ""))
     existing_repos = notifier.get_all_github_repos_from_csv(csv_path)
 
     print(f"Found {len(existing_repos)} existing GitHub repositories in CSV")
