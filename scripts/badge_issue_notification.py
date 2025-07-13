@@ -242,7 +242,7 @@ def initialize_processed_repos_with_existing(csv_path: str):
 
 def main():
     """Main execution"""
-    awesome_cc_token = os.environ.get("AWESOME_CC_PAT")
+    awesome_cc_token = os.environ.get("AWESOME_CC_PAT", None)
     if not awesome_cc_token:
         print("Error: AWESOME_CC_PAT environment variable not set")
         print("Note: This script requires a Personal Access Token (PAT)")

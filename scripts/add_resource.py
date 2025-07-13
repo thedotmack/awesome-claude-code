@@ -9,7 +9,7 @@ from datetime import datetime
 
 # Import validation function
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from validate_single_resource import validate_resource_from_dict
+from validate_single_resource import validate_resource_from_dict  # type: ignore[import]
 
 
 def clear_screen():
