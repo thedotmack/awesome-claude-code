@@ -22,6 +22,7 @@ except ImportError:
     # dotenv not installed, that's okay
     pass
 
+
 # Configuration
 ISSUE_TITLE = "🎉 Your project has been featured in Awesome Claude Code!"
 NOTIFICATION_LABEL = "awesome-claude-code"
@@ -139,6 +140,10 @@ class BadgeNotification:
                 result["message"] = "Repository has issues disabled"
             elif e.status == 404:
                 result["message"] = "Repository not found or private"
+            elif e.status == 403:
+                result["message"] = (
+                    "Permission denied - requires a Personal Access Token (default GITHUB_TOKEN insufficient)"
+                )
             else:
                 result["message"] = f"GitHub API error: {str(e)}"
         except Exception as e:
@@ -237,9 +242,13 @@ def initialize_processed_repos_with_existing(csv_path: str):
 
 def main():
     """Main execution"""
-    github_token = os.environ.get("GITHUB_TOKEN")
-    if not github_token:
-        print("Error: GITHUB_TOKEN environment variable not set")
+    awesome_cc_token = os.environ.get("AWESOME_CC_PAT")
+    if not awesome_cc_token:
+        print("Error: AWESOME_CC_PAT environment variable not set")
+        print("Note: This script requires a Personal Access Token (PAT)")
+        print(
+            "The default GITHUB_TOKEN from GitHub Actions is not sufficient for creating issues in external repositories"
+        )
         sys.exit(1)
 
     # Process CSV file
@@ -251,7 +260,7 @@ def main():
         initialize_processed_repos_with_existing(csv_path)
         return
 
-    notifier = BadgeNotification(github_token)
+    notifier = BadgeNotification(awesome_cc_token)
 
     # Check if we're in CI/CD environment
     is_ci = os.environ.get("CI", "false").lower() == "true"

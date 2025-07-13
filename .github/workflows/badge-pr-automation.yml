@@ -41,7 +41,7 @@ jobs:
     
     - name: Run badge notifications
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        AWESOME_CC_PAT: ${{ secrets.AWESOME_CC_PAT }}
         CI: true
         CREATE_ISSUES: ${{ github.event.inputs.create_issues || 'true' }}
       run: |

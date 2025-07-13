@@ -14,22 +14,24 @@ This system creates friendly notification issues on GitHub repositories when the
 pip install -e .
 ```
 
-### 2. Configure GitHub Token (for local testing only)
-For local testing, create a Personal Access Token on GitHub with `public_repo` scope.
+### 2. Configure GitHub Token
+Create a Personal Access Token on GitHub with appropriate permissions for creating issues in external repositories.
+
+For local testing:
 
 Option 1: Use environment variable
 ```bash
-export GITHUB_TOKEN=your_github_personal_access_token
+export AWESOME_CC_PAT=your_github_personal_access_token
 ```
 
 Option 2: Use .env file (recommended)
 ```bash
-echo "GITHUB_TOKEN=your_github_personal_access_token" > .env
+echo "AWESOME_CC_PAT=your_github_personal_access_token" > .env
 ```
 
 The script will automatically load the token from .env if present. The .env file is gitignored for security.
 
-Note: The GitHub Action uses the built-in `GITHUB_TOKEN` automatically.
+Note: The default `GITHUB_TOKEN` from GitHub Actions is not sufficient for creating issues in external repositories. You must use a Personal Access Token.
 
 ### 3. Manual Testing
 Process all entries in the CSV:
@@ -39,8 +41,12 @@ python badge_issue_notification.py
 
 ## GitHub Action Setup
 
-### 1. Automatic Setup
-The GitHub Action uses the built-in `GITHUB_TOKEN` which is automatically provided by GitHub Actions. No additional secrets need to be configured.
+### 1. Required Setup
+Add your Personal Access Token as a repository secret named `AWESOME_CC_PAT`:
+1. Go to Settings → Secrets and variables → Actions
+2. Click "New repository secret"
+3. Name: `AWESOME_CC_PAT`
+4. Value: Your Personal Access Token
 
 ### 2. Automatic Triggers
 The action automatically runs when:
@@ -109,7 +115,7 @@ You can test the script locally:
 
 ```bash
 # First time: Initialize with existing repos
-export GITHUB_TOKEN=your_token_here
+export AWESOME_CC_PAT=your_token_here
 python scripts/badge_issue_notification.py --init
 
 # Test processing (dry run - won't actually create issues)
