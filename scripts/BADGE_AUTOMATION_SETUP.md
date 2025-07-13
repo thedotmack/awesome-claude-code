@@ -21,12 +21,12 @@ For local testing:
 
 Option 1: Use environment variable
 ```bash
-export AWESOME_CC_PAT=your_github_personal_access_token
+export AWESOME_CC_PAT_PUBLIC_REPO=your_github_personal_access_token
 ```
 
 Option 2: Use .env file (recommended)
 ```bash
-echo "AWESOME_CC_PAT=your_github_personal_access_token" > .env
+echo "AWESOME_CC_PAT_PUBLIC_REPO=your_github_personal_access_token" > .env
 ```
 
 The script will automatically load the token from .env if present. The .env file is gitignored for security.
@@ -42,11 +42,11 @@ python badge_issue_notification.py
 ## GitHub Action Setup
 
 ### 1. Required Setup
-Add your Personal Access Token as a repository secret named `AWESOME_CC_PAT`:
+Add your Personal Access Token as a repository secret named `AWESOME_CC_PAT_PUBLIC_REPO`:
 1. Go to Settings → Secrets and variables → Actions
 2. Click "New repository secret"
-3. Name: `AWESOME_CC_PAT`
-4. Value: Your Personal Access Token
+3. Name: `AWESOME_CC_PAT_PUBLIC_REPO`
+4. Value: Your Personal Access Token with `public_repo` scope
 
 ### 2. Automatic Triggers
 The action automatically runs when:
@@ -115,7 +115,7 @@ You can test the script locally:
 
 ```bash
 # First time: Initialize with existing repos
-export AWESOME_CC_PAT=your_token_here
+export AWESOME_CC_PAT_PUBLIC_REPO=your_token_here
 python scripts/badge_issue_notification.py --init
 
 # Test processing (dry run - won't actually create issues)

@@ -227,7 +227,7 @@ Thank you for contributing to the Claude Code ecosystem! 🙏
 
 def initialize_processed_repos_with_existing(csv_path: str):
     """One-time initialization to add all existing GitHub repos to processed list"""
-    notifier = BadgeNotification(os.environ.get("GITHUB_TOKEN", ""))
+    notifier = BadgeNotification(os.environ.get("AWESOME_CC_PAT_PUBLIC_REPO", ""))
     existing_repos = notifier.get_all_github_repos_from_csv(csv_path)
 
     print(f"Found {len(existing_repos)} existing GitHub repositories in CSV")
@@ -242,10 +242,10 @@ def initialize_processed_repos_with_existing(csv_path: str):
 
 def main():
     """Main execution"""
-    awesome_cc_token = os.environ.get("AWESOME_CC_PAT", None)
+    awesome_cc_token = os.environ.get("AWESOME_CC_PAT_PUBLIC_REPO", None)
     if not awesome_cc_token:
-        print("Error: AWESOME_CC_PAT environment variable not set")
-        print("Note: This script requires a Personal Access Token (PAT)")
+        print("Error: AWESOME_CC_PAT_PUBLIC_REPO environment variable not set")
+        print("Note: This script requires a Personal Access Token (PAT) with public_repo scope")
         print(
             "The default GITHUB_TOKEN from GitHub Actions is not sufficient for creating issues in external repositories"
         )

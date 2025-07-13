@@ -41,7 +41,7 @@ jobs:
     
     - name: Run badge notifications
       env:
-        AWESOME_CC_PAT: ${{ secrets.AWESOME_CC_PAT }}
+        AWESOME_CC_PAT_PUBLIC_REPO: ${{ secrets.AWESOME_CC_PAT_PUBLIC_REPO }}
         CI: true
         CREATE_ISSUES: ${{ github.event.inputs.create_issues || 'true' }}
       run: |
