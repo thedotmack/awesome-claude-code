@@ -3,13 +3,10 @@
 .mypy_cache/
 .ruff_cache/
 __pycache__/
+.pytest_cache/
 
-.claude/*
-.claude/commands/*
-!CLAUDE.md
-!.claude/
-!.claude/commands/
-!.claude/commands/add-new-resource.md
+.claude/
+CLAUDE.md
 
 .DS_Store
 
