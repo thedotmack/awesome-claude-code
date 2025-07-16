@@ -420,10 +420,10 @@ def main():
             print(json.dumps(results))
 
             # Also write to GITHUB_OUTPUT if available
-            github_output = os.getenv("GITHUB_OUTPUT")
-            if github_output:
-                with open(github_output, "a") as f:
-                    f.write(f"validation-results={json.dumps(results)}\n")
+            # github_output = os.getenv("GITHUB_OUTPUT")
+            # if github_output:
+            with open("validation_results.json", "w") as f:
+                json.dump(results, f)
 
             # Set action failure if broken links found
             if results["newly_broken"] > 0:
