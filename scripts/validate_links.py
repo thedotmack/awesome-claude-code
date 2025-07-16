@@ -396,6 +396,7 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
         "locked_fields": locked_field_count,
         "broken_links": broken_links,
         "newly_broken_links": newly_broken_links,
+        "timestamp": datetime.now().strftime("%Y-%m-%d:%H-%M-%S"),
     }
 
 
