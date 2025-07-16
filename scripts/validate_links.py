@@ -261,6 +261,7 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
     total_resources = len(rows)
     processed = 0
     broken_links = []
+    newly_broken_links = []  # Track newly discovered broken links
     github_links = 0
     github_api_calls = 0
     override_count = 0
@@ -313,6 +314,8 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
         # if secondary_url:
         #     secondary_valid, _, _, _ = validate_url(secondary_url)  # Ignoring secondary URLs
 
+        # Check previous status before updating
+        was_active = row.get(ACTIVE_HEADER_NAME, "TRUE").upper() == "TRUE"
         # Update Active status if not locked
         if "active" not in locked_fields:
             # is_active = primary_valid and secondary_valid  # Original logic included secondary URL
@@ -327,15 +330,20 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
 
         # Track broken links
         if not is_active and "active" not in locked_fields:
-            broken_links.append(
-                {
-                    "name": row.get("Display Name", "Unknown"),
-                    "primary_url": primary_url,
-                    "primary_status": primary_status,
-                    # "secondary_url": secondary_url if not secondary_valid else None,  # No longer tracking secondary URLs
-                }
-            )
-            print(f"❌ {row.get('Display Name', 'Unknown')}: {primary_status}")
+            link_info = {
+                "name": row.get("Display Name", "Unknown"),
+                "primary_url": primary_url,
+                "primary_status": primary_status,
+                # "secondary_url": secondary_url if not secondary_valid else None,  # No longer tracking secondary URLs
+            }
+            broken_links.append(link_info)
+
+            # Check if this is a newly discovered broken link
+            if was_active:
+                newly_broken_links.append(link_info)
+                print(f"❌ NEW: {row.get('Display Name', 'Unknown')}: {primary_status}")
+            else:
+                print(f"❌ {row.get('Display Name', 'Unknown')}: {primary_status}")
         elif not is_active and "active" in locked_fields:
             print(f"🔒 {row.get('Display Name', 'Unknown')}: Inactive (locked by override)")
         else:
@@ -361,11 +369,17 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
     if override_count:
         print(f"Resources with overrides: {override_count}")
         print(f"Total locked fields: {locked_field_count}")
-    print(f"Broken links: {len(broken_links)}")
+    print(f"Total broken links: {len(broken_links)}")
+    print(f"Newly broken links: {len(newly_broken_links)}")
 
     # Print broken links
+    if newly_broken_links:
+        print("\nNEWLY broken links:")
+        for link in newly_broken_links:
+            print(f"  - {link['name']}: {link['primary_url']} ({link['primary_status']})")
+
     if broken_links:
-        print("\nBroken links found:")
+        print("\nAll broken links:")
         for link in broken_links:
             print(f"  - {link['name']}: {link['primary_url']} ({link['primary_status']})")
             # if link.get("secondary_url"):  # No longer reporting secondary URLs
@@ -375,11 +389,13 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
         "total": total_resources,
         "processed": processed,
         "broken": len(broken_links),
+        "newly_broken": len(newly_broken_links),
         "github_links": github_links,
         "github_api_calls": github_api_calls,
         "override_count": override_count,
         "locked_fields": locked_field_count,
         "broken_links": broken_links,
+        "newly_broken_links": newly_broken_links,
     }
 
 
