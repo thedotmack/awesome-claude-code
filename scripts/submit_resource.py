@@ -146,8 +146,6 @@ class ResourceSubmitter:
         """
         Convert text to a URL-safe slug.
 
-        Note: This will be used in future tickets for branch name generation.
-
         Args:
             text: Text to convert
 
@@ -170,8 +168,6 @@ class ResourceSubmitter:
         """
         Detect whether a git remote uses SSH or HTTPS.
 
-        Note: This will be used in future tickets for determining push strategy.
-
         Args:
             remote_name: Name of the remote to check
 
@@ -183,8 +179,6 @@ class ResourceSubmitter:
     def prompt_with_default(self, prompt: str, default: str = "") -> str:
         """
         Prompt user for input with an optional default value.
-
-        Note: This will be used in future tickets for interactive prompts.
 
         Args:
             prompt: The prompt to display
