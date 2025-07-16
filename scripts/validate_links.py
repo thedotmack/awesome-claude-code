@@ -26,7 +26,7 @@ import time
 from datetime import datetime
 
 import requests
-import yaml
+import yaml  # type: ignore[import-untyped]
 from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
@@ -137,31 +137,37 @@ def get_github_license(owner, repo):
     return "NOT_FOUND"
 
 
+def get_committer_date_from_response(
+    response: requests.Response,
+) -> str | None:
+    """Extract committer date from GitHub API response."""
+    data = response.json()
+    if isinstance(data, list) and len(data) > 0:
+        # Get the committer date from the latest commit
+        commit = data[0]
+        commit_date = commit.get("committer", {}).get("date")
+        return commit_date
+    return None
+
+
+def format_commit_date(commit_date: str) -> str:
+    """Format commit date from ISO format to YYYY-MM-DD:HH-MM-SS."""
+    from datetime import datetime
+
+    dt = datetime.fromisoformat(commit_date.replace("Z", "+00:00"))
+    return dt.strftime("%Y-%m-%d:%H-%M-%S")
+
+
 def get_github_last_modified(owner, repo, path=None):
     """Fetch last modified date for a GitHub file or repository."""
     try:
-        if path:
-            # For specific file, get the latest commit for that file
-            api_url = f"https://api.github.com/repos/{owner}/{repo}/commits"
-            params = {"path": path, "per_page": 1}
-            response = requests.get(api_url, headers=HEADERS, params=params, timeout=10)
-        else:
-            # For repository root, get the latest commit
-            api_url = f"https://api.github.com/repos/{owner}/{repo}/commits"
-            params = {"per_page": 1}
-            response = requests.get(api_url, headers=HEADERS, params=params, timeout=10)
-
+        api_url = f"https://api.github.com/repos/{owner}/{repo}/commits"
+        params = {"per_page": 1, "path": path} if path else {"per_page": 1}
+        response = requests.get(api_url, headers=HEADERS, params=params, timeout=10)
         if response.status_code == 200:
-            commits = response.json()
-            if commits and len(commits) > 0:
-                # Get the committer date from the latest commit
-                commit_date = commits[0].get("commit", {}).get("committer", {}).get("date")
-                if commit_date:
-                    # Convert ISO format to our format: YYYY-MM-DD:HH-MM-SS
-                    from datetime import datetime
-
-                    dt = datetime.fromisoformat(commit_date.replace("Z", "+00:00"))
-                    return dt.strftime("%Y-%m-%d:%H-%M-%S")
+            commit_date = get_committer_date_from_response(response)
+            if commit_date:
+                return format_commit_date(commit_date)
     except Exception as e:
         print(f"Error fetching last modified date for {owner}/{repo}: {e}")
     return None

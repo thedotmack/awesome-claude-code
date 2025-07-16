@@ -10,7 +10,7 @@ import csv
 import sys
 from pathlib import Path
 
-import yaml
+import yaml  # type: ignore[import-untyped]
 
 
 def sort_resources(csv_path: Path) -> None:
@@ -60,7 +60,7 @@ def sort_resources(csv_path: Path) -> None:
     print(f"✓ Sorted {len(sorted_rows)} resources in {csv_path}")
 
     # Print summary of categories
-    categories = {}
+    categories: dict[str, dict[str, int]] = {}
     for row in sorted_rows:
         cat = row.get("Category", "Unknown")
         subcat = row.get("Sub-Category", "") or "None"
