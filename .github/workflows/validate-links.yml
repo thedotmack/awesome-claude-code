@@ -33,7 +33,7 @@ jobs:
       id: validate
       run: |
         make validate-github > validation_results.json
-        echo "::set-output name=has_broken_links::$(python -c "import json; data=json.load(open('validation_results.json')); print('true' if data['broken_links'] else 'false')")"
+        echo "has_broken_links=$(python -c "import json; data=json.load(open('validation_results.json')); print('true' if data['broken_links'] else 'false')")" >> "$GITHUB_OUTPUT"
 
     - name: Upload validation results
       if: always()

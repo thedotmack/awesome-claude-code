@@ -416,12 +416,14 @@ def main():
 
         if args.github_action:
             # Output JSON for GitHub Action
+            # Always print the JSON results for capture by the workflow
+            print(json.dumps(results))
+
+            # Also write to GITHUB_OUTPUT if available
             github_output = os.getenv("GITHUB_OUTPUT")
             if github_output:
                 with open(github_output, "a") as f:
                     f.write(f"validation-results={json.dumps(results)}\n")
-            else:
-                print(f"validation-results={json.dumps(results)}")
 
             # Set action failure if broken links found
             if results["newly_broken"] > 0:
