@@ -416,10 +416,15 @@ def main():
 
         if args.github_action:
             # Output JSON for GitHub Action
-            print("\n::set-output name=validation-results::" + json.dumps(results))
+            github_output = os.getenv("GITHUB_OUTPUT")
+            if github_output:
+                with open(github_output, "a") as f:
+                    f.write(f"validation-results={json.dumps(results)}\n")
+            else:
+                print(f"validation-results={json.dumps(results)}")
 
             # Set action failure if broken links found
-            if results["broken"] > 0:
+            if results["newly_broken"] > 0:
                 print(f"\n::error::Found {results['newly_broken']} newly broken links")
                 sys.exit(1)
 
