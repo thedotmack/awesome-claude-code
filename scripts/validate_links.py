@@ -288,7 +288,7 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
             continue
 
         primary_url = row.get(PRIMARY_LINK_HEADER_NAME, "").strip()
-        secondary_url = row.get(SECONDARY_LINK_HEADER_NAME, "").strip()
+        # secondary_url = row.get(SECONDARY_LINK_HEADER_NAME, "").strip()  # Ignoring secondary URLs
 
         # Track GitHub links
         if "github.com" in primary_url:
@@ -309,13 +309,14 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
             last_modified_updates += 1
 
         # Validate secondary URL if present
-        secondary_valid = True
-        if secondary_url:
-            secondary_valid, _, _, _ = validate_url(secondary_url)
+        # secondary_valid = True
+        # if secondary_url:
+        #     secondary_valid, _, _, _ = validate_url(secondary_url)  # Ignoring secondary URLs
 
         # Update Active status if not locked
         if "active" not in locked_fields:
-            is_active = primary_valid and secondary_valid
+            # is_active = primary_valid and secondary_valid  # Original logic included secondary URL
+            is_active = primary_valid  # Now only depends on primary URL validity
             row[ACTIVE_HEADER_NAME] = "TRUE" if is_active else "FALSE"
         else:
             is_active = row[ACTIVE_HEADER_NAME].upper() == "TRUE"
@@ -331,7 +332,7 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
                     "name": row.get("Display Name", "Unknown"),
                     "primary_url": primary_url,
                     "primary_status": primary_status,
-                    "secondary_url": secondary_url if not secondary_valid else None,
+                    # "secondary_url": secondary_url if not secondary_valid else None,  # No longer tracking secondary URLs
                 }
             )
             print(f"❌ {row.get('Display Name', 'Unknown')}: {primary_status}")
@@ -367,8 +368,8 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
         print("\nBroken links found:")
         for link in broken_links:
             print(f"  - {link['name']}: {link['primary_url']} ({link['primary_status']})")
-            if link.get("secondary_url"):
-                print(f"    Secondary: {link['secondary_url']}")
+            # if link.get("secondary_url"):  # No longer reporting secondary URLs
+            #     print(f"    Secondary: {link['secondary_url']}")
 
     return {
         "total": total_resources,
