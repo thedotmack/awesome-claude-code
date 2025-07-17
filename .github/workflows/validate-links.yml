@@ -89,9 +89,9 @@ jobs:
           issueBody += `---\n`;
           issueBody += `*This issue was automatically created by the [link validation workflow](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/workflows/validate-links.yml).*`;
 
-          const existingIssueNumber = ${{ steps.check_issue.outputs.result }};
+          const existingIssueNumber = ${{ steps.check_issue.outputs.result }} || 0;
 
-          if (${{ steps.check_issue.outputs.result }}) {
+          if (existingIssueNumber) {
             await github.rest.issues.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
