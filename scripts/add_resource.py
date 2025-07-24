@@ -276,10 +276,44 @@ def save_pr_content(content):
         return None
 
 
+def install_git_hooks():
+    """Install git hooks for the repository."""
+    try:
+        # Check if we're in a git repository
+        if not os.path.exists(".git"):
+            return  # Not in a git repo, skip silently
+
+        hooks_dir = "hooks"
+        git_hooks_dir = ".git/hooks"
+
+        # Check if pre-push hook exists in the hooks directory
+        pre_push_source = os.path.join(hooks_dir, "pre-push")
+        if os.path.exists(pre_push_source):
+            pre_push_dest = os.path.join(git_hooks_dir, "pre-push")
+
+            # Copy the hook
+            import shutil
+
+            shutil.copy2(pre_push_source, pre_push_dest)
+
+            # Make it executable
+            os.chmod(pre_push_dest, 0o755)
+
+            print("✓ Pre-push validation hook installed")
+            print()
+
+    except Exception:
+        # Silently ignore any errors - this is not critical
+        pass
+
+
 def main():
     """Main function"""
     clear_screen()
     print_header()
+
+    # Install git hooks silently
+    install_git_hooks()
 
     # Collect information
     category = get_resource_type()
