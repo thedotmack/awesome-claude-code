@@ -1,31 +1,35 @@
 # Contributing to Awesome Claude Code
 
-Welcome! We're excited that you want to contribute to Awesome Claude Code. This guide will walk you through our contribution process, which has been designed to be as simple as possible.
+Welcome! We're excited that you want to contribute to Awesome Claude Code. This guide will walk you through our contribution process, which has been designed to be as simple as possible, despite the admittedly absurd length of this document.
 
 ## Code of Conduct
 
-Please note that this project is released with a [Contributor Code of Conduct](code-of-conduct.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](code-of-conduct.md). By participating in this project you agree to abide by its terms. Follow the conventions of the repo and don't engage in self-promotion. Use descriptive language, not "marketing" style.
 
-## Quick Start: One-Command Submission
+## Contribution Process
 
-The fastest way to contribute a new resource is:
+There are a few ways to contribute to this repository. Generally the goal is to isolate all new submissions to adding a single row to the main CSV file, [`THE_RESOURCES_TABLE.csv`](./THE_RESOURCES_TABLE.csv). The rest of the process is meant to be automated. If you can't get it to work for some reason, you may submit a PR manually with just the data in the CSV file. If you're interested in how this works, visit the [`scripts`](./scripts) directory.
+
+### One-Command Submission
+
+The most sreamlined way to contribute a new resource is:
 
 ```bash
 make submit
 ```
 
-This single command handles everything from resource entry to pull request creation. Skip to [Prerequisites](#prerequisites) to get started!
+This single command handles everything from resource entry to pull request creation. Here are the instructions:
 
-## Prerequisites
+### Prerequisites
 
-### Required Tools
+#### Required Tools
 
 1. **Git** - Version control
 2. **Python 3.6+** - For running scripts
 3. **Make** - Build automation
 4. **GitHub CLI (`gh`)** - For PR creation
 
-### Setup Instructions
+#### Setup Instructions
 
 1. **Install GitHub CLI**
 
@@ -69,9 +73,9 @@ This single command handles everything from resource entry to pull request creat
    git config --global user.email "your.email@example.com"
    ```
 
-## How to Contribute
+### How to Contribute
 
-### Method 1: One-Command Workflow (Recommended)
+#### Method 1: One-Command Workflow (Recommended)
 
 Our `make submit` command provides a complete submission workflow:
 
@@ -120,17 +124,7 @@ You'll need to manually:
 - Push to your fork
 - Create a PR (copying content from `.pr_template_content.md`)
 
-### Method 3: Claude Code Command
-
-If you're using Claude Code:
-
-```bash
-/add-new-resource
-```
-
 This provides a guided wizard experience within Claude Code.
-
-### Method 4: Manual Contribution
 
 For complete control over the process:
 
