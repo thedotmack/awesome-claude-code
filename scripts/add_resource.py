@@ -9,7 +9,7 @@ from datetime import datetime
 
 # Import validation function
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from validate_single_resource import validate_resource_from_dict  # type: ignore[import]
+from .validate_single_resource import validate_resource_from_dict  # noqa: E402
 
 
 def clear_screen():
@@ -30,7 +30,13 @@ def print_header():
 
 def get_resource_type():
     """Display menu and get resource type selection"""
-    categories = ["Workflows & Knowledge Guides", "Tooling", "Hooks", "Slash-Commands", "CLAUDE.md Files"]
+    categories = [
+        "Workflows & Knowledge Guides",
+        "Tooling",
+        "Hooks",
+        "Slash-Commands",
+        "CLAUDE.md Files",
+    ]
 
     print("Select the type of resource:")
     print()
