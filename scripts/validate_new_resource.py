@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Validate only the newest resource added to THE_RESOURCES_TABLE.csv.
+Validate new resource additions for pre-push hook.
 
-This script identifies new resources by checking git diff for both uncommitted
-and committed changes, then validates only the newest addition.
+This script checks that exactly one line has been added to THE_RESOURCES_TABLE.csv
+when comparing the current branch to upstream/main, then validates that resource.
 """
 
 import csv
@@ -35,6 +35,7 @@ except ImportError:
     sys.exit(1)
 
 CSV_FILE = "THE_RESOURCES_TABLE.csv"
+UPSTREAM_REMOTE = os.environ.get("AWESOME_CC_UPSTREAM_REMOTE", "upstream")
 
 
 def run_git_command(cmd: list[str]) -> tuple[bool, str]:
@@ -74,81 +75,40 @@ def parse_csv_line(line: str, headers: list[str]) -> dict[str, str] | None:
         return None
 
 
-def get_added_resources() -> list[dict[str, str]]:
-    """Get all resources added in uncommitted changes or the last commit."""
-    added_resources = []
-    headers = get_csv_headers()
-
-    if not headers:
-        print("Error: Could not read CSV headers")
-        return []
-
-    # Check uncommitted changes
-    success, diff_output = run_git_command(["git", "diff", CSV_FILE])
-    if success and diff_output:
-        print("Checking uncommitted changes...")
-        resources = parse_diff_for_additions(diff_output, headers)
-        if resources:
-            print(f"Found {len(resources)} new resource(s) in uncommitted changes")
-            added_resources.extend(resources)
-
-    # Check last commit if no uncommitted additions found
-    if not added_resources:
-        success, diff_output = run_git_command(["git", "diff", "HEAD~1", "HEAD", CSV_FILE])
-        if success and diff_output:
-            print("Checking last commit...")
-            resources = parse_diff_for_additions(diff_output, headers)
-            if resources:
-                print(f"Found {len(resources)} new resource(s) in last commit")
-                added_resources.extend(resources)
-
-    return added_resources
+def check_upstream_remote() -> bool:
+    """Check if upstream remote exists."""
+    success, output = run_git_command(["git", "remote", "get-url", UPSTREAM_REMOTE])
+    if not success:
+        print(f"Error: Upstream remote '{UPSTREAM_REMOTE}' not found")
+        print("Please add the upstream remote:")
+        print(f"  git remote add {UPSTREAM_REMOTE} https://github.com/hesreallyhim/awesome-claude-code.git")
+        return False
+    return True
 
 
-def parse_diff_for_additions(diff_output: str, headers: list[str]) -> list[dict[str, str]]:
-    """Parse git diff output and extract added CSV rows."""
-    added_resources = []
+def get_csv_diff_stats() -> tuple[int, list[str]]:
+    """Get the number of lines added to CSV when comparing to upstream/main."""
+    # Get diff between current branch and upstream/main
+    success, diff_output = run_git_command(["git", "diff", f"{UPSTREAM_REMOTE}/main", "--", CSV_FILE])
 
+    if not success:
+        print(f"Error: Could not get diff against {UPSTREAM_REMOTE}/main")
+        print("Make sure you have fetched the latest upstream changes:")
+        print(f"  git fetch {UPSTREAM_REMOTE}")
+        return -1, []
+
+    # Count added lines (lines starting with +, excluding the header)
+    added_lines = []
     for line in diff_output.splitlines():
-        # Look for added lines (start with +)
-        if not line.startswith("+"):
-            continue
+        if line.startswith("+") and not line.startswith("+++") and not line[1:].startswith("ID,Display Name,"):
+            added_lines.append(line[1:])  # Remove the + prefix
 
-        # Skip the +++ header line
-        if line.startswith("+++"):
-            continue
-
-        # Remove the + prefix
-        csv_line = line[1:]
-
-        # Skip if this looks like the header row
-        if csv_line.startswith(headers[0]):
-            continue
-
-        # Try to parse as CSV
-        resource = parse_csv_line(csv_line, headers)
-        if resource and resource.get(ID_HEADER_NAME):  # Ensure it has an ID
-            added_resources.append(resource)
-
-    return added_resources
+    return len(added_lines), added_lines
 
 
-def find_newest_resource(resources: list[dict[str, str]]) -> dict[str, str] | None:
-    """Find the newest resource from a list of resources."""
-    if not resources:
-        return None
-
-    # If only one resource, return it
-    if len(resources) == 1:
-        return resources[0]
-
-    # Sort by ID (newest IDs are typically higher) and take the last one
-    try:
-        sorted_resources = sorted(resources, key=lambda r: r.get(ID_HEADER_NAME, ""))
-        return sorted_resources[-1]
-    except Exception:
-        # If sorting fails, just return the last one in the list
-        return resources[-1]
+def parse_resource_from_line(csv_line: str, headers: list[str]) -> dict[str, str] | None:
+    """Parse a single CSV line into a resource dictionary."""
+    return parse_csv_line(csv_line, headers)
 
 
 def validate_and_update_resource(resource: dict[str, str]) -> bool:
@@ -253,7 +213,7 @@ def update_csv_file(updated_resource: dict[str, str]) -> bool:
 
 
 def main():
-    """Main entry point."""
+    """Main entry point for pre-push validation."""
     # Check if we're in a git repository
     success, _ = run_git_command(["git", "rev-parse", "--git-dir"])
     if not success:
@@ -265,22 +225,57 @@ def main():
         print(f"Error: {CSV_FILE} not found")
         sys.exit(1)
 
-    # Get added resources
-    added_resources = get_added_resources()
+    # Check upstream remote exists
+    if not check_upstream_remote():
+        sys.exit(1)
 
-    if not added_resources:
-        print("No new resources found in uncommitted changes or last commit")
-        sys.exit(0)
+    # Get CSV headers
+    headers = get_csv_headers()
+    if not headers:
+        print("Error: Could not read CSV headers")
+        sys.exit(1)
 
-    # Find the newest resource
-    newest_resource = find_newest_resource(added_resources)
+    # Get diff stats
+    num_added, added_lines = get_csv_diff_stats()
 
-    if not newest_resource:
-        print("Error: Could not identify newest resource")
+    if num_added == -1:
+        # Error already printed in get_csv_diff_stats
+        sys.exit(1)
+
+    if num_added == 0:
+        print("\n❌ No new resources found in THE_RESOURCES_TABLE.csv")
+        print("\n📖 Please review CONTRIBUTING.md for guidance on adding resources.")
+        print("   The recommended approach is to use: make submit")
+        sys.exit(1)
+
+    if num_added > 1:
+        print(f"\n❌ Found {num_added} lines added to THE_RESOURCES_TABLE.csv")
+        print("\n⚠️  Only one resource is permitted per pull request.")
+        print("\nPlease ensure:")
+        print(f"1. You are up to date with {UPSTREAM_REMOTE}/main:")
+        print(f"   git fetch {UPSTREAM_REMOTE}")
+        print(f"   git rebase {UPSTREAM_REMOTE}/main")
+        print("\n2. If you still have multiple additions after rebasing,")
+        print("   please create separate PRs for each resource.")
+        sys.exit(1)
+
+    # Exactly one line added - parse and validate it
+    print("✓ Found 1 new resource to validate")
+
+    resource = parse_resource_from_line(added_lines[0], headers)
+    if not resource:
+        print("Error: Could not parse the added resource line")
         sys.exit(1)
 
     # Validate and update the resource
-    success = validate_and_update_resource(newest_resource)
+    success = validate_and_update_resource(resource)
+
+    if success:
+        print("\n✅ Resource validation successful!")
+        print("   You can now push your changes.")
+    else:
+        print("\n❌ Resource validation failed.")
+        print("   Please fix the issues before pushing.")
 
     sys.exit(0 if success else 1)
 
