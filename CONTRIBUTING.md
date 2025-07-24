@@ -86,17 +86,18 @@ make submit
 **What happens:**
 
 1. ✅ Checks all prerequisites (git, gh auth, fork setup)
-2. 📝 Guides you through resource information entry
-3. 🔍 Validates your inputs
-4. 📄 Updates THE_RESOURCES_TABLE.csv
-5. 🔄 Regenerates README.md
-6. 👀 Shows you the changes for review
-7. 🌿 Creates a feature branch
-8. 💾 Commits your changes
-9. 🔧 Handles pre-commit hooks automatically
-10. 🚀 Pushes to your fork
-11. 🎯 Creates a pull request
-12. 🌐 Opens the PR in your browser
+2. 🔒 Installs pre-push validation hook automatically
+3. 📝 Guides you through resource information entry
+4. 🔍 Validates your inputs
+5. 📄 Updates THE_RESOURCES_TABLE.csv
+6. 🔄 Regenerates README.md
+7. 👀 Shows you the changes for review
+8. 🌿 Creates a feature branch
+9. 💾 Commits your changes
+10. 🔧 Handles pre-commit hooks automatically
+11. 🚀 Pushes to your fork (with validation)
+12. 🎯 Creates a pull request
+13. 🌐 Opens the PR in your browser
 
 **Important:** Submit one resource per PR. Multiple resources require separate pull requests.
 
@@ -112,6 +113,7 @@ python scripts/add_resource.py
 
 This will:
 
+- Install pre-push validation hook automatically
 - Guide you through resource entry
 - Update the CSV file
 - Generate README.md
@@ -174,6 +176,21 @@ All resources are stored in `THE_RESOURCES_TABLE.csv` with these fields:
   - Domain-Specific
   - Project Scaffolding & MCP
 - **Official Documentation** - Anthropic resources
+
+## Pre-Push Validation
+
+Both `make submit` and `make add_resource` automatically install a pre-push hook that ensures:
+
+- **Exactly one resource per PR**: The hook validates that only one line has been added to `THE_RESOURCES_TABLE.csv`
+- **Proper formatting**: Ensures the CSV entry is correctly formatted
+- **URL validation**: Validates the resource URLs before allowing the push
+- **Clear error messages**: Provides guidance if validation fails
+
+If you need to manually install the hook:
+
+```bash
+make install-hooks
+```
 
 ## What Makes a Resource "Awesome"?
 
@@ -268,7 +285,7 @@ make submit
 Before submitting:
 
 ```bash
-# Validate your CSV entry (requires "GITHUB_TOKEN env variable - can skip)
+# Validate your CSV entry (requires GITHUB_TOKEN env variable - can skip)
 make validate
 
 # Test with limited link checking
@@ -276,6 +293,9 @@ make validate MAX_LINKS=10
 
 # Check if README generates correctly
 make generate
+
+# Manually run pre-push validation
+make validate_new_resource
 ```
 
 ## Badges
@@ -321,6 +341,12 @@ make validate
 
 # Generate README from CSV
 make generate
+
+# Manually run pre-push validation
+make validate_new_resource
+
+# Install git hooks manually (if needed)
+make install-hooks
 ```
 
 ---
