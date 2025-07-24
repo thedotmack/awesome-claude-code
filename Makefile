@@ -7,7 +7,7 @@ else
 endif
 SCRIPTS_DIR := ./scripts
 
-.PHONY: help process validate validate-single update clean test generate download-resources add_resource sort submit submit-resource
+.PHONY: help process validate validate-single validate_new_resource update clean test generate download-resources add_resource sort submit submit-resource
 
 help:
 	@echo "Available commands:"
@@ -16,6 +16,7 @@ help:
 	@echo "  make process           - Extract resources from README.md and create/update CSV"
 	@echo "  make validate          - Validate all links in the resource CSV"
 	@echo "  make validate-single URL=<url> - Validate a single resource URL"
+	@echo "  make validate_new_resource - Validate only the newest added resource"
 	@echo "  make test              - Run validation tests on test CSV"
 	@echo "  make generate          - Generate README.md from CSV data"
 	@echo "  make update            - Run both process and validate"
@@ -61,6 +62,11 @@ validate-single:
 		exit 1; \
 	fi
 	@$(PYTHON) $(SCRIPTS_DIR)/validate_single_resource.py "$(URL)" $(if $(SECONDARY),--secondary "$(SECONDARY)") $(if $(NAME),--name "$(NAME)")
+
+# Validate only the newest added resource
+validate_new_resource:
+	@echo "Validating newest added resource..."
+	@$(PYTHON) $(SCRIPTS_DIR)/validate_new_resource.py
 
 # Run validation tests on test CSV
 test:
