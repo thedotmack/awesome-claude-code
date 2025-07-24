@@ -78,9 +78,8 @@ install-hooks:
 
 # Run validation tests on test CSV
 test:
-	@echo "Skipping v2 validation tests..."
-# 	@echo "Running validation tests..."
-# 	$(PYTHON) $(SCRIPTS_DIR)/test_validate_links.py
+	@echo "Running tests..."
+	@$(PYTHON) tests/test_get_last_resource.py
 
 # Sort resources by category, sub-category, and name
 sort:
