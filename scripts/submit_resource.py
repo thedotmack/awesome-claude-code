@@ -16,8 +16,9 @@ import sys
 from enum import Enum
 from pathlib import Path
 
+from scripts.git_utils import GitUtils
+
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from git_utils import GitUtils  # type: ignore[import]
 
 
 class WorkflowStage(Enum):
@@ -41,16 +42,18 @@ class ResourceSubmitter:
     UPSTREAM_REPO = "hesreallyhim/awesome-claude-code"
     UPSTREAM_URL = f"https://github.com/{UPSTREAM_REPO}.git"
 
-    def __init__(self, debug: bool = False, dry_run: bool = False):
+    def __init__(self, debug: bool = False, dry_run: bool = False, admin: bool = False):
         """
         Initialize the ResourceSubmitter.
 
         Args:
             debug: Enable debug logging
             dry_run: Run without making actual changes
+            admin: Admin mode - submit directly to upstream repository
         """
         self.debug = debug
         self.dry_run = dry_run
+        self.admin = admin
         self.repo_root = Path(__file__).parent.parent
 
         # Configuration from environment
@@ -319,15 +322,18 @@ class ResourceSubmitter:
                     )
 
                     if origin_normalized == upstream_normalized:
-                        self.logger.error("Origin and upstream remotes point to the same repository")
-                        self.logger.info("This workflow requires a fork-based setup:")
-                        self.logger.info("  1. Fork the repository on GitHub")
-                        self.logger.info("  2. Clone your fork (this becomes 'origin')")
-                        self.logger.info("  3. Add the original repository as 'upstream'")
-                        self.logger.info("\nIf you're the repository owner and want to use this workflow:")
-                        self.logger.info("  1. Create a separate fork of your own repository")
-                        self.logger.info("  2. Update 'origin' to point to your fork")
-                        all_passed = False
+                        if self.admin:
+                            self.logger.info("Admin mode: Working directly with upstream repository")
+                            self.logger.debug("✓ Admin mode allows origin and upstream to be the same")
+                        else:
+                            self.logger.error("Origin and upstream remotes point to the same repository")
+                            self.logger.info("This workflow requires a fork-based setup:")
+                            self.logger.info("  1. Fork the repository on GitHub")
+                            self.logger.info("  2. Clone your fork (this becomes 'origin')")
+                            self.logger.info("  3. Add the original repository as 'upstream'")
+                            self.logger.info("\nIf you're the repository owner and want to use this workflow:")
+                            self.logger.info("  Use the --admin flag to submit directly to upstream")
+                            all_passed = False
 
         # Check working directory is clean
         if not self.git.is_working_directory_clean():
@@ -1016,7 +1022,7 @@ class ResourceSubmitter:
 
     def push_to_fork(self) -> bool:
         """
-        Push the current branch to the user's fork.
+        Push the current branch to the user's fork or upstream (in admin mode).
 
         This method:
         1. Detects remote URL type (SSH vs HTTPS)
@@ -1030,7 +1036,10 @@ class ResourceSubmitter:
         Returns:
             True if push was successful, False otherwise
         """
-        self.logger.info("Pushing to fork...")
+        if self.admin:
+            self.logger.info("Pushing to upstream repository (admin mode)...")
+        else:
+            self.logger.info("Pushing to fork...")
 
         try:
             # Get current branch name
@@ -1049,25 +1058,30 @@ class ResourceSubmitter:
             branch_name = branch_result.stdout.strip()
             self.logger.debug(f"Current branch: {branch_name}")
 
+            # Determine which remote to use
+            remote_name = "upstream" if self.admin else "origin"
+
             # Detect remote URL type (SSH vs HTTPS)
-            remote_type = self.get_remote_type("origin")
+            remote_type = self.get_remote_type(remote_name)
             if not remote_type:
-                self.logger.error("Could not determine remote type for 'origin'")
+                self.logger.error(f"Could not determine remote type for '{remote_name}'")
                 return False
 
             self.logger.debug(f"Remote type: {remote_type}")
 
             # Show push progress to user
-            print(f"\n🚀 Pushing branch '{branch_name}' to origin...")
+            print(f"\n🚀 Pushing branch '{branch_name}' to {remote_name}...")
+            if self.admin:
+                print("   Mode: Admin (direct to upstream)")
             print(f"   Remote type: {remote_type.upper()}")
 
             if self.dry_run:
-                self.logger.info(f"[DRY RUN] Would push branch '{branch_name}' to origin")
+                self.logger.info(f"[DRY RUN] Would push branch '{branch_name}' to {remote_name}")
                 return True
 
             # Attempt push with -u flag
             push_result = subprocess.run(
-                ["git", "push", "-u", "origin", branch_name],
+                ["git", "push", "-u", remote_name, branch_name],
                 cwd=self.repo_root,
                 capture_output=True,
                 text=True,
@@ -1087,7 +1101,7 @@ class ResourceSubmitter:
                             self.logger.info(f"   {line}")
 
                 # Get remote URL for display
-                remote_url = self.git.get_remote_url("origin")
+                remote_url = self.git.get_remote_url(remote_name)
                 if remote_url:
                     # Convert SSH URL to HTTPS for display
                     if remote_url.startswith("git@github.com:"):
@@ -1244,9 +1258,10 @@ class ResourceSubmitter:
 
             current_branch = branch_result.stdout.strip()
 
-            # Set correct base branch (main) and head (username:branch)
+            # Set correct base branch (main) and head
             base_branch = "main"
-            head_branch = f"{github_username}:{current_branch}"
+            # In admin mode, head is just the branch name; in fork mode, it's username:branch
+            head_branch = current_branch if self.admin else f"{github_username}:{current_branch}"
 
             # Prepare PR body
             if pr_template_content:
@@ -1290,6 +1305,8 @@ class ResourceSubmitter:
             print(f"   Title: {pr_title}")
             print(f"   Base: {base_branch}")
             print(f"   Head: {head_branch}")
+            if self.admin:
+                print("   Mode: Admin (same repository)")
             print(f"   Repository: {self.UPSTREAM_REPO}")
 
             if self.dry_run:
@@ -1560,6 +1577,7 @@ Examples:
   %(prog)s                    # Interactive mode
   %(prog)s --debug           # Run with debug logging
   %(prog)s --dry-run         # Preview changes without applying
+  %(prog)s --admin           # Admin mode: submit directly to upstream
         """,
     )
 
@@ -1567,10 +1585,12 @@ Examples:
 
     parser.add_argument("--dry-run", action="store_true", help="Run without making actual changes")
 
+    parser.add_argument("--admin", action="store_true", help="Admin mode: submit directly to upstream repository")
+
     args = parser.parse_args()
 
     # Create and run submitter
-    submitter = ResourceSubmitter(debug=args.debug, dry_run=args.dry_run)
+    submitter = ResourceSubmitter(debug=args.debug, dry_run=args.dry_run, admin=args.admin)
     sys.exit(submitter.run())
 
 

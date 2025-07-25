@@ -38,7 +38,7 @@ def test_slugify():
 
     for input_text, expected in test_cases:
         result = submitter.slugify(input_text)
-        assert result == expected, f"slugify('{input_text}') should " f"return '{expected}', got '{result}'"
+        assert result == expected, f"slugify('{input_text}') should return '{expected}', got '{result}'"
 
 
 def test_integration():

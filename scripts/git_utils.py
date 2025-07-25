@@ -14,7 +14,8 @@ class GitUtils:
         Initialize GitUtils.
 
         Args:
-            logger: Optional logger instance. If not provided, creates a default logger.
+            logger: Optional logger instance. If not provided, creates a
+                default logger.
         """
         self.logger = logger or logging.getLogger(__name__)
 
@@ -29,6 +30,7 @@ class GitUtils:
             True if command exists, False otherwise
         """
         try:
+            result = subprocess.run([command, "--version"], capture_output=True, text=True, check=False)
             result = subprocess.run([command, "--version"], capture_output=True, text=True, check=False)
             return result.returncode == 0
         except (subprocess.SubprocessError, FileNotFoundError):
