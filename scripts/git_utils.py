@@ -31,7 +31,6 @@ class GitUtils:
         """
         try:
             result = subprocess.run([command, "--version"], capture_output=True, text=True, check=False)
-            result = subprocess.run([command, "--version"], capture_output=True, text=True, check=False)
             return result.returncode == 0
         except (subprocess.SubprocessError, FileNotFoundError):
             return False
