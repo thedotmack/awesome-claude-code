@@ -1,6 +1,6 @@
 # Contributing to Awesome Claude Code
 
-Welcome! We're excited that you want to contribute to Awesome Claude Code. This guide will walk you through our contribution process, which has been designed to be as simple as possible, despite the admittedly absurd length of this document.
+Welcome! We're excited that you want to contribute to Awesome Claude Code. This guide will walk you through our contribution process, which has been designed to be as simple as possible, despite the admittedly absurd length of this document. That being said, if you find the automated process is not working for you, we definitely do not wish to dissuade anyone from contributing, so just make your best effort. Regarding reviews, I take reviews seriously, not only from a quality control point of view, but more importantly for security - this technology can expose users to serious data risks if not handled with care, and I do not wish to promote any resource that undermines security, or perhaps even is malicious. The consequence is that approval of especially more advanced tools may take a little time.
 
 ## Code of Conduct
 
@@ -9,25 +9,6 @@ Please note that this project is released with a [Contributor Code of Conduct](c
 ## Contribution Process
 
 There are a few ways to contribute to this repository. Generally the goal is to isolate all new submissions to adding a single row to the main CSV file, [`THE_RESOURCES_TABLE.csv`](./THE_RESOURCES_TABLE.csv). The rest of the process is meant to be automated. If you can't get it to work for some reason, you may submit a PR manually with just the data in the CSV file. If you're interested in how this works, visit the [`scripts`](./scripts) directory.
-
-### One-Command Submission
-
-The most sreamlined way to contribute a new resource is:
-
-```bash
-make submit
-```
-
-This single command handles everything from resource entry to pull request creation. Here are the instructions:
-
-### Prerequisites
-
-#### Required Tools
-
-1. **Git** - Version control
-2. **Python 3.6+** - For running scripts
-3. **Make** - Build automation
-4. **GitHub CLI (`gh`)** - For PR creation
 
 #### Setup Instructions
 
@@ -75,9 +56,9 @@ This single command handles everything from resource entry to pull request creat
 
 ### How to Contribute
 
-#### Method 1: One-Command Workflow (Recommended)
+#### Method 1: One-Command Workflow
 
-Our `make submit` command provides a complete submission workflow:
+Our `make submit` command provides a completely streamlined submission process - due to its relative complexity, there are also more failure points; if you encounter any road bumps or jank, feel free to open an Issue. You may also find the other method simpler.
 
 ```bash
 make submit
@@ -85,8 +66,8 @@ make submit
 
 **What happens:**
 
-1. ✅ Checks all prerequisites (git, gh auth, fork setup)
-2. 🔒 Installs pre-push validation hook automatically
+1. ✅ Checks all prerequisites (git, gh auth, fork setup - fork this repo, clone it, set it as "upstream" remote)
+2. 🔒 Installs pre-push validation hook automatically (checks that your entry is well-formed and link is working on push)
 3. 📝 Guides you through resource information entry
 4. 🔍 Validates your inputs
 5. 📄 Updates THE_RESOURCES_TABLE.csv
@@ -94,10 +75,9 @@ make submit
 7. 👀 Shows you the changes for review
 8. 🌿 Creates a feature branch
 9. 💾 Commits your changes
-10. 🔧 Handles pre-commit hooks automatically
-11. 🚀 Pushes to your fork (with validation)
-12. 🎯 Creates a pull request
-13. 🌐 Opens the PR in your browser
+10. 🚀 Pushes to your fork (with validation)
+11. 🎯 Creates a pull request
+12. 🌐 Opens the PR in your browser
 
 **Important:** Submit one resource per PR. Multiple resources require separate pull requests.
 
@@ -126,14 +106,12 @@ You'll need to manually:
 - Push to your fork
 - Create a PR (copying content from `.pr_template_content.md`)
 
-This provides a guided wizard experience within Claude Code.
-
 For complete control over the process:
 
-1. Edit `THE_RESOURCES_TABLE.csv` directly
+1. Edit `THE_RESOURCES_TABLE.csv` directly (you can generate an ID using the [`quick_id.py`](./scripts/quick_id.py) script)
 2. Run `make validate` to check your changes
-3. Run `make generate` to update README.md
-4. Create a branch, commit, push, and PR manually
+3. Run `make generate` to update `README.md`
+4. Create a branch, commit, push, and open PR manually
 
 ## Understanding the Repository
 
@@ -147,7 +125,7 @@ All resources are stored in `THE_RESOURCES_TABLE.csv` with these fields:
 | Display Name   | Resource name shown in README     | Yes             |
 | Primary Link   | Main URL for the resource         | Yes             |
 | Secondary Link | Optional secondary URL            | No              |
-| Author Name    | Creator's name/username           | Yes             |
+| Author Name    | Creator's name/username/alias     | Yes             |
 | Author Link    | Link to author's profile          | Yes             |
 | Category       | Main category (see below)         | Yes             |
 | Sub-Category   | Optional sub-category             | No              |
@@ -177,21 +155,6 @@ All resources are stored in `THE_RESOURCES_TABLE.csv` with these fields:
   - Project Scaffolding & MCP
 - **Official Documentation** - Anthropic resources
 
-## Pre-Push Validation
-
-Both `make submit` and `make add_resource` automatically install a pre-push hook that ensures:
-
-- **Exactly one resource per PR**: The hook validates that only one line has been added to `THE_RESOURCES_TABLE.csv`
-- **Proper formatting**: Ensures the CSV entry is correctly formatted
-- **URL validation**: Validates the resource URLs before allowing the push
-- **Clear error messages**: Provides guidance if validation fails
-
-If you need to manually install the hook:
-
-```bash
-make install-hooks
-```
-
 ## What Makes a Resource "Awesome"?
 
 Your submission should:
@@ -199,10 +162,10 @@ Your submission should:
 - ✨ Provide genuine value to Claude Code users
 - 🚀 Demonstrate innovative or exemplary usage patterns
 - 📚 Follow best practices for the resource type
-- ⭐ Come from a reputable source (high star count helps!)
 - 🔄 Work with the latest version of Claude Code
-- 📝 Include clear documentation
-- ⚖️ Have an appropriate license (for code resources)
+- 📝 Include clear documentation (demo videos are a huge bonus!)
+- ❄️ Be unique and different from other existing awesome resources
+- ⚖️ Respect the Terms of Service that govern the usage of Claude Code
 
 We especially welcome:
 
@@ -233,16 +196,6 @@ git branch -D old-branch-name
 # or let the script create a unique branch name
 ```
 
-**Pre-commit hook failures**
-
-- The `make submit` workflow handles these automatically
-- For manual commits, stage the auto-fixed files and retry
-
-**"Rate limit exceeded"**
-
-- Wait 1 hour for reset
-- Or authenticate with `gh auth login` for higher limits
-
 ### Debug Mode
 
 For verbose output:
@@ -266,41 +219,25 @@ export AWESOME_CC_UPSTREAM_REMOTE=upstream
 export AWESOME_CC_AUTO_OPEN_PR=false
 ```
 
-### Submitting Multiple Resources
-
-While we require one resource per PR, you can streamline multiple submissions:
-
-```bash
-# Submit first resource
-make submit
-
-# After PR is created, start fresh for next resource
-git checkout main
-git pull upstream main
-make submit
-```
-
 ### Testing Your Changes
 
-Before submitting:
+Before submitting, you can test your changes:
 
 ```bash
-# Validate your CSV entry (requires GITHUB_TOKEN env variable - can skip)
-make validate
+# Make sure you are up to date with upstream/main
+git fetch upstream
+git merge upstream/main
 
-# Test with limited link checking
-make validate MAX_LINKS=10
+# Validate your CSV entry
+make validate_new_resource
 
 # Check if README generates correctly
 make generate
-
-# Manually run pre-push validation
-make validate_new_resource
 ```
 
 ## Badges
 
-Once your resource is added, you can add a badge to your README:
+If your submission is approved, you can add a badge to your README:
 
 [![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge.svg)](https://github.com/hesreallyhim/awesome-claude-code)
 
@@ -318,7 +255,7 @@ Or the flat version:
 
 ## GitHub Repository Notifications
 
-When your GitHub-hosted resource is added, our automated system will create a friendly notification issue on your repository informing you of the inclusion and providing badge options.
+If your resource is on GitHub, tthen if it gets included, our automated system will create a friendly notification issue on your repository informing you of the inclusion and providing badge options.
 
 ## Getting Help
 
@@ -344,11 +281,10 @@ make generate
 
 # Manually run pre-push validation
 make validate_new_resource
-
-# Install git hooks manually (if needed)
-make install-hooks
 ```
 
 ---
+
+For transparency - @hesreallyhim has no affiliation with Anthropic or with Claude (great guy, though).
 
 Thank you for helping make Awesome Claude Code even more awesome! 🚀

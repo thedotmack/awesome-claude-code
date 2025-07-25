@@ -242,11 +242,12 @@ def main():
         # Error already printed in get_csv_diff_stats
         sys.exit(1)
 
-    if num_added == 0:
-        print("\n❌ No new resources found in THE_RESOURCES_TABLE.csv")
-        print("\n📖 Please review CONTRIBUTING.md for guidance on adding resources.")
-        print("   The recommended approach is to use: make submit")
-        sys.exit(1)
+    # NOTE: This causes problems if the user pushes more than once.
+    # if num_added == 0:
+    #     print("\n❌ No new resources found in THE_RESOURCES_TABLE.csv")
+    #     print("\n📖 Please review CONTRIBUTING.md for guidance on adding resources.")
+    #     print("   The recommended approach is to use: make submit")
+    #     sys.exit(1)
 
     if num_added > 1:
         print(f"\n❌ Found {num_added} lines added to THE_RESOURCES_TABLE.csv")

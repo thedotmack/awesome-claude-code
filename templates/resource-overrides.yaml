@@ -19,7 +19,9 @@ overrides:
     license: "LicenseRef-MIT-Commons-Clause" # Override value
     license_locked: true # Lock this field from validation updates
     notes: "Has Commons Clause restriction" # Optional notes
-
+  tool-984936a7:
+    skip_validation: true # Skip this resource entirely during validation
+    notes: "Temporarily unavailable for validation" # Claude Code Chat
 # Supported override fields:
 # - license: Override the detected license
 # - license_locked: Prevent license validation from updating
