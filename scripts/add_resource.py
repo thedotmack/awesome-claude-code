@@ -8,8 +8,7 @@ import sys
 from datetime import datetime
 
 # Import validation function
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from .validate_single_resource import validate_resource_from_dict  # noqa: E402
+from scripts.validate_single_resource import validate_resource_from_dict
 
 
 def clear_screen():
