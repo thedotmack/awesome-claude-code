@@ -290,42 +290,39 @@ class ResourceSubmitter:
         else:
             self.logger.debug("✓ Git remote 'origin' exists")
 
-        # Check upstream remote exists and points to the correct repository
-        if not self.git.check_remote_exists("upstream"):
-            self.logger.error("Git remote 'upstream' does not exist")
-            self.logger.info(f"Setup hint: Run 'git remote add upstream {self.UPSTREAM_URL}'")
-            all_passed = False
-        else:
-            # Verify upstream points to the correct repository
-            upstream_url = self.git.get_remote_url("upstream")
-            if upstream_url and self.UPSTREAM_REPO not in upstream_url:
-                self.logger.warning(f"Upstream remote exists but points to: {upstream_url}")
-                self.logger.info(f"Expected: {self.UPSTREAM_URL}")
+        # Check upstream remote exists and points to the correct repository (skip in admin mode)
+        if not self.admin:
+            if not self.git.check_remote_exists("upstream"):
+                self.logger.error("Git remote 'upstream' does not exist")
+                self.logger.info(f"Setup hint: Run 'git remote add upstream {self.UPSTREAM_URL}'")
+                all_passed = False
             else:
-                self.logger.debug("✓ Git remote 'upstream' points to correct repository")
+                # Verify upstream points to the correct repository
+                upstream_url = self.git.get_remote_url("upstream")
+                if upstream_url and self.UPSTREAM_REPO not in upstream_url:
+                    self.logger.warning(f"Upstream remote exists but points to: {upstream_url}")
+                    self.logger.info(f"Expected: {self.UPSTREAM_URL}")
+                else:
+                    self.logger.debug("✓ Git remote 'upstream' points to correct repository")
 
-                # Check that origin and upstream don't point to the same repository
-                origin_url = self.git.get_remote_url("origin")
-                if origin_url and upstream_url:
-                    # Normalize URLs for comparison (remove protocol differences and .git suffix)
-                    origin_normalized = (
-                        origin_url.replace("git@github.com:", "github.com/")
-                        .replace("https://", "")
-                        .replace("http://", "")
-                        .rstrip(".git")
-                    )
-                    upstream_normalized = (
-                        upstream_url.replace("git@github.com:", "github.com/")
-                        .replace("https://", "")
-                        .replace("http://", "")
-                        .rstrip(".git")
-                    )
+                    # Check that origin and upstream don't point to the same repository
+                    origin_url = self.git.get_remote_url("origin")
+                    if origin_url and upstream_url:
+                        # Normalize URLs for comparison (remove protocol differences and .git suffix)
+                        origin_normalized = (
+                            origin_url.replace("git@github.com:", "github.com/")
+                            .replace("https://", "")
+                            .replace("http://", "")
+                            .rstrip(".git")
+                        )
+                        upstream_normalized = (
+                            upstream_url.replace("git@github.com:", "github.com/")
+                            .replace("https://", "")
+                            .replace("http://", "")
+                            .rstrip(".git")
+                        )
 
-                    if origin_normalized == upstream_normalized:
-                        if self.admin:
-                            self.logger.info("Admin mode: Working directly with upstream repository")
-                            self.logger.debug("✓ Admin mode allows origin and upstream to be the same")
-                        else:
+                        if origin_normalized == upstream_normalized:
                             self.logger.error("Origin and upstream remotes point to the same repository")
                             self.logger.info("This workflow requires a fork-based setup:")
                             self.logger.info("  1. Fork the repository on GitHub")
@@ -334,6 +331,18 @@ class ResourceSubmitter:
                             self.logger.info("\nIf you're the repository owner and want to use this workflow:")
                             self.logger.info("  Use the --admin flag to submit directly to upstream")
                             all_passed = False
+        else:
+            self.logger.info("Admin mode: Skipping upstream remote check")
+            self.logger.debug("✓ Admin mode works directly with origin repository")
+
+            # Verify origin points to the expected repository in admin mode
+            origin_url = self.git.get_remote_url("origin")
+            if origin_url and self.UPSTREAM_REPO not in origin_url:
+                self.logger.error(f"In admin mode, origin must point to {self.UPSTREAM_REPO}")
+                self.logger.info(f"Current origin: {origin_url}")
+                all_passed = False
+            else:
+                self.logger.debug(f"✓ Origin points to correct repository: {self.UPSTREAM_REPO}")
 
         # Check working directory is clean
         if not self.git.is_working_directory_clean():
@@ -1022,7 +1031,7 @@ class ResourceSubmitter:
 
     def push_to_fork(self) -> bool:
         """
-        Push the current branch to the user's fork or upstream (in admin mode).
+        Push the current branch to origin.
 
         This method:
         1. Detects remote URL type (SSH vs HTTPS)
@@ -1037,7 +1046,7 @@ class ResourceSubmitter:
             True if push was successful, False otherwise
         """
         if self.admin:
-            self.logger.info("Pushing to upstream repository (admin mode)...")
+            self.logger.info("Pushing to origin repository (admin mode)...")
         else:
             self.logger.info("Pushing to fork...")
 
@@ -1058,8 +1067,8 @@ class ResourceSubmitter:
             branch_name = branch_result.stdout.strip()
             self.logger.debug(f"Current branch: {branch_name}")
 
-            # Determine which remote to use
-            remote_name = "upstream" if self.admin else "origin"
+            # Always push to origin
+            remote_name = "origin"
 
             # Detect remote URL type (SSH vs HTTPS)
             remote_type = self.get_remote_type(remote_name)
@@ -1072,7 +1081,7 @@ class ResourceSubmitter:
             # Show push progress to user
             print(f"\n🚀 Pushing branch '{branch_name}' to {remote_name}...")
             if self.admin:
-                print("   Mode: Admin (direct to upstream)")
+                print("   Mode: Admin (direct to main repository)")
             print(f"   Remote type: {remote_type.upper()}")
 
             if self.dry_run:
