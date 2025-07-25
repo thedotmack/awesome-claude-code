@@ -132,10 +132,10 @@ def get_url(prompt):
     """Get and validate URL input"""
     while True:
         url = input(prompt).strip()
-        if url.startswith(("http://", "https://")):
+        if url.startswith("https://"):
             return url
         else:
-            print("Please enter a valid URL starting with http:// or https://")
+            print("Please enter a valid URL starting with https://")
 
 
 def get_license():
