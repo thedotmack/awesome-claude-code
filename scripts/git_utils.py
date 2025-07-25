@@ -69,7 +69,18 @@ class GitUtils:
 
     def is_gh_authenticated(self) -> bool:
         """Check if GitHub CLI is authenticated."""
-        return self.run_command(["gh", "auth", "status"])
+        try:
+            # Try to get the current user - this will fail if not authenticated
+            result = subprocess.run(
+                ["gh", "api", "user", "-q", ".login"],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            # If we get a username back, we're authenticated
+            return result.returncode == 0 and result.stdout.strip() != ""
+        except Exception:
+            return False
 
     def get_github_username(self) -> str | None:
         """
