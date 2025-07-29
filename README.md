@@ -26,6 +26,8 @@
 
 [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
+# [Awesome Claude Code](https://github.com/hesreallyhim/awesome-claude-code) 🤝 [Awesome Claude Code Agents](https://github.com/hesreallyhim/awesome-claude-code-agents)
+
 <!--lint enable remark-lint:awesome-badge-->
 
 <!--lint disable double-link-->
@@ -38,7 +40,8 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent that you can 
 
 ### Announcements
 
-- 2025-07-18 - I ended up over-engineering the submission workflow, but I think it's done, I just have to smoke test it and update the docs. For anyone with existing PR's, don't worry about updating them (for formatting purposes, that is), I can take care of it myself. For anoyne with new PR's, you _should_ be able to run `make submit` from the root directory of your fork for an interactive experience (as I said, needs smoke testing) - alternatively, add your entry to the bottom of [`THE_RESOURCES_TABLE`](../THE_RESOURCES_TABLE.csv) and run `make generate` to automatically update the `README.md` based on the information you filled in. If it's not working, just open a PR with the relevant information and I'll deal with it, I created this mess anyway 😃.
+- 2025-07-26 - Anthropic done done it again, and Claude Code now has another super-power in its arsenal - custom user Sub Agents! I was thinking I might add a little section at the bottom about this "agent" thing, but then I tried it, and I think they're amazing, and probably deserve their own repo, so come and check out [awesome-claude-code-agents](https://github.com/hesreallyhim/awesome-claude-code-agents) and get those submissions rolling in. Can't wait to see what people are getting up to already with this new tech.
+- 2025-07-25 - The new-new submission workflow is up now, I've managed to make it about 4-5 times more complicated than it should be 😜 so check out [`CONTRIBUTING.md`](../CONTRIBUTING.md) if you'd like to submit a new resource.
 
 <br>
 
@@ -137,6 +140,9 @@ A specialized tool to manage context isolation and focused task execution with C
 [`Container Use`](https://github.com/dagger/container-use) &nbsp; by &nbsp; [dagger](https://github.com/dagger)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;Apache-2.0  
 Development environments for coding agents. Enable multiple agents to work safely and independently with your preferred stack.
 
+[`tweakcc`](https://github.com/Piebald-AI/tweakcc) &nbsp; by &nbsp; [Piebald-AI](https://github.com/Piebald-AI)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Command-line tool to customize your Claude Code styling.
+
 
 ### IDE Integrations
 
@@ -159,6 +165,9 @@ A full-fledged desktop application for orchestrating, monitoring, and interactin
 > **Hooks** are a brand new API for Claude Code that allows users to activate commands and run scripts at different points in Claude's agentic lifecycle.
 
 **[Experimental]** - The resources listed in this section have not been fully vetted and may not work as expected, given the bleeding-edge nature of Claude Code hooks. Nevertheless, I wished to include them at least as a source of inspiration and to explore this unknown terrain. YMMV!
+
+[`cchooks`](https://github.com/GowayLee/cchooks) &nbsp; by &nbsp; [GowayLee](https://github.com/GowayLee)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+A lightweight Python SDK with a clean API and good documentation; simplifies the process of writing hooks and integrating them into your codebase, providing a nice abstraction over the JSON configuration files.
 
 [`claude-code-hooks-sdk`](https://github.com/beyondcode/claude-hooks-sdk) &nbsp; by &nbsp; [beyondcode](https://github.com/beyondcode)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 A Laravel-inspired PHP SDK for building Claude Code hook responses with a clean, fluent API. This SDK makes it easy to create structured JSON responses for Claude Code hooks using an expressive, chainable interface.

@@ -123,13 +123,15 @@ The scripts implement a CSV-first workflow where `THE_RESOURCES_TABLE.csv` serve
 - Useful for scripting
 
 ### 12. `badge_issue_notification.py`
-**Purpose**: Creates GitHub issues to notify repositories when featured  
+**Purpose**: Creates GitHub issues to notify repositories when featured and updates Date Added for new resources  
 **Usage**: `python scripts/badge_issue_notification.py`  
 **Features**:
 - Tracks processed repos in `.processed_repos.json`
+- Updates "Date Added" field in CSV for new resources
 - Creates friendly notification issues
 - Includes badge markdown for repositories
 - Supports dry-run mode
+- Automatically triggered by GitHub Actions when new resources are merged
 - See `BADGE_AUTOMATION_SETUP.md` for configuration
 
 ## Legacy/Archived Scripts

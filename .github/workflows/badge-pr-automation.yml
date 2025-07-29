@@ -14,10 +14,10 @@ on:
           - 'false'
   
   # Automated trigger on CSV changes
-  push:
-    branches: [ main ]
-    paths:
-      - 'THE_RESOURCES_TABLE.csv'
+  # push:
+  #   branches: [ main ]
+  #   paths:
+  #     - 'THE_RESOURCES_TABLE.csv'
 
 jobs:
   notify-repositories:
