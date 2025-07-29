@@ -56,7 +56,7 @@ jobs:
         if git diff --quiet; then
           echo "No changes to commit"
         else
-          git add ../THE_RESOURCES_TABLE.csv ../.processed_repos.json
+          git add ./THE_RESOURCES_TABLE.csv ./.processed_repos.json
           git commit -m "feat: auto-update Date Added for new resources [skip ci]"
           git push
         fi
