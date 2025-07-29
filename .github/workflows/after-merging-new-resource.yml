@@ -7,6 +7,15 @@ on:
     paths:
       - 'THE_RESOURCES_TABLE.csv'
   workflow_dispatch:  # Allow manual triggering
+    inputs:
+      create_issues:
+        description: 'Create notification issues for new resources'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
 jobs:
   process-new-resources:
