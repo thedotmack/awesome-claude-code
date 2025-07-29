@@ -159,6 +159,12 @@ class BadgeNotification:
         """Create notification issue for a single repository"""
         result = {"repo_url": repo_url, "success": False, "message": "", "issue_url": None}
 
+        # exclude anthropics repo and anthropic.com
+        if "anthropic.com" in repo_url or "anthropics" in repo_full_name:
+            result["message"] = "Skipping Anthropics repository"
+            self.processed_repos.add(repo_full_name)
+            return result
+
         try:
             # Get the repository
             repo = self.github.get_repo(repo_full_name)
@@ -228,8 +234,7 @@ class BadgeNotification:
             repo.create_label(NOTIFICATION_LABEL, "f39c12", "Featured in Awesome Claude Code")
             return True
         except Exception as _e:
-            # This is expected to fail if we don't have write access, so we don't log it
-            # to avoid cluttering the logs
+            print(f"Warning: Could not create label for {repo.full_name}: {_e}")
             return False
 
     def _create_issue_body(self, resource_name: str, description: str) -> str:
