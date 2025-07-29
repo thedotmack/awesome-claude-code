@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Badge Issue Notification System
-Creates friendly notification issues when NEW repositories are featured in Awesome Claude Code
+Creates friendly notification issues when NEW repositories are featured in
+Awesome Claude Code
 """
 
 import csv
@@ -57,14 +58,16 @@ class BadgeNotification:
                 # Check if it's an active GitHub entry
                 if row.get("Active", "").upper() == "TRUE" and "github.com" in row.get("Primary Link", ""):
                     # Parse repository information
-                    owner, repo_name = self._parse_github_url(row.get("Primary Link", ""))
+                    primary_link = row.get("Primary Link", "")
+                    owner, repo_name = self._parse_github_url(primary_link)
                     if owner and repo_name:
                         repo_full_name = f"{owner}/{repo_name}"
                         github_repos[repo_full_name] = {
                             "url": row.get("Primary Link", ""),
                             "name": row.get("Display Name", ""),
                             "description": row.get("Description", ""),
-                            "row_index": idx,  # Store the row index for updating Date Added
+                            # Store the row index for updating Date Added
+                            "row_index": idx,
                         }
 
         return github_repos
@@ -76,6 +79,9 @@ class BadgeNotification:
             reader = csv.DictReader(f)
             headers = reader.fieldnames
             rows = list(reader)
+
+        if headers is None:
+            raise ValueError("CSV file has no headers. Please check the file format.")
 
         # Get today's date
         today = datetime.now().strftime("%Y-%m-%d")
@@ -89,7 +95,8 @@ class BadgeNotification:
             if row_idx is not None and row_idx < len(rows) and not rows[row_idx].get("Date Added", "").strip():
                 rows[row_idx]["Date Added"] = today
                 updates_made += 1
-                print(f"  - Added date {today} for: {info.get('name', repo_full_name)}")
+                name = info.get("name", repo_full_name)
+                print(f"  - Added date {today} for: {name}")
 
         # Write back to CSV if updates were made
         if updates_made > 0:
@@ -227,9 +234,10 @@ class BadgeNotification:
 
     def _create_issue_body(self, resource_name: str, description: str) -> str:
         """Create friendly issue body with badge options"""
+        github_url = "https://github.com/hesreallyhim/awesome-claude-code"
         return f"""Hello! 👋
 
-I'm excited to let you know that **{resource_name}** has been featured in the [Awesome Claude Code](https://github.com/hesreallyhim/awesome-claude-code) list!
+I'm excited to let you know that **{resource_name}** has been featured in the [Awesome Claude Code]({github_url}) list!
 
 ## About Awesome Claude Code
 Awesome Claude Code is a curated collection of the best slash-commands, CLAUDE.md files, CLI tools, and other resources for enhancing Claude Code workflows. Your project has been recognized for its valuable contribution to the Claude Code community.
@@ -237,7 +245,7 @@ Awesome Claude Code is a curated collection of the best slash-commands, CLAUDE.m
 ## Your Listing
 {description}
 
-You can find your entry here: [View in Awesome Claude Code](https://github.com/hesreallyhim/awesome-claude-code)
+You can find your entry here: [View in Awesome Claude Code]({github_url})
 
 ## Show Your Recognition! 🏆
 If you'd like to display a badge in your README to show that your project is featured, you can use one of these:
@@ -246,13 +254,13 @@ If you'd like to display a badge in your README to show that your project is fea
 ```markdown
 [![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge.svg)](https://github.com/hesreallyhim/awesome-claude-code)
 ```
-[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge.svg)](https://github.com/hesreallyhim/awesome-claude-code)
+[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge.svg)]({github_url})
 
 ### Option 2: Flat Badge
 ```markdown
-[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/hesreallyhim/awesome-claude-code)
+[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge-flat.svg)]({github_url})
 ```
-[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/hesreallyhim/awesome-claude-code)
+[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge-flat.svg)]({github_url})
 
 ## No Action Required
 This is just a friendly notification - no action is required on your part. Feel free to close this issue at any time.
@@ -260,7 +268,8 @@ This is just a friendly notification - no action is required on your part. Feel 
 Thank you for contributing to the Claude Code ecosystem! 🙏
 
 ---
-*This notification was sent because your project was added to the Awesome Claude Code list. This is a one-time notification.*"""
+*This notification was sent because your project was added to the Awesome Claude Code list. \
+This is a one-time notification.*"""
 
 
 def initialize_processed_repos_with_existing(csv_path: str):
@@ -294,7 +303,8 @@ def main():
         print("Error: AWESOME_CC_PAT_PUBLIC_REPO environment variable not set")
         print("Note: This script requires a Personal Access Token (PAT) with public_repo scope")
         print(
-            "The default GITHUB_TOKEN from GitHub Actions is not sufficient for creating issues in external repositories"
+            "The default GITHUB_TOKEN from GitHub Actions is not sufficient for "
+            "creating issues in external repositories"
         )
         sys.exit(1)
 

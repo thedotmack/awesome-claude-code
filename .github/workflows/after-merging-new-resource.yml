@@ -33,7 +33,7 @@ jobs:
         # Use the PAT for creating issues in external repos
         AWESOME_CC_PAT_PUBLIC_REPO: ${{ secrets.AWESOME_CC_PAT_PUBLIC_REPO }}
         # Set to false if you only want to update dates without creating issues
-        CREATE_ISSUES: ${{ vars.CREATE_ISSUES || 'true' }}
+        CREATE_ISSUES: ${{ github.event.inputs.create_issues || 'true' }}
       run: |
         cd scripts
         python badge_issue_notification.py
