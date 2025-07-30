@@ -40,8 +40,13 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent that you can 
 
 ### Announcements
 
-- 2025-07-26 - Anthropic done done it again, and Claude Code now has another super-power in its arsenal - custom user Sub Agents! I was thinking I might add a little section at the bottom about this "agent" thing, but then I tried it, and I think they're amazing, and probably deserve their own repo, so come and check out [awesome-claude-code-agents](https://github.com/hesreallyhim/awesome-claude-code-agents) and get those submissions rolling in. Can't wait to see what people are getting up to already with this new tech.
-- 2025-07-25 - The new-new submission workflow is up now, I've managed to make it about 4-5 times more complicated than it should be 😜 so check out [`CONTRIBUTING.md`](../CONTRIBUTING.md) if you'd like to submit a new resource.
+- 2025-07-30 - Quick Update: Still trying to iron out the submission flow (sorry for anyone that received duplicate "Congratulations!" issues). If you end up fighting any of the programmatic submission tools, just submit something that has all the necessary data, and I'll take it from there once approved. Other notes: (i) I think it would be really cool/fun to set up a "Claude Code Leaderboard", so feel free to weigh in on the [Discussion](https://github.com/hesreallyhim/awesome-claude-code/discussions/81); (ii) I'm still trying to figure out what to do about **SUB AGENTS**, and I've reached out to some of the other folks who have started similar repo's; (iii) Added a small section that will be updated with new submissions as they roll in.
+
+## New Additions
+
+- [`CC Notify`](https://github.com/dazuiba/CCNotify) by [dazuiba](https://github.com/dazuiba)
+- [`tweakcc`](https://github.com/Piebald-AI/tweakcc) by [Piebald-AI](https://github.com/Piebald-AI)
+- [`cchooks`](https://github.com/GowayLee/cchooks) by [GowayLee](https://github.com/GowayLee)
 
 <br>
 
@@ -166,8 +171,7 @@ A full-fledged desktop application for orchestrating, monitoring, and interactin
 
 **[Experimental]** - The resources listed in this section have not been fully vetted and may not work as expected, given the bleeding-edge nature of Claude Code hooks. Nevertheless, I wished to include them at least as a source of inspiration and to explore this unknown terrain. YMMV!
 
-[`CC Notify`](https://github.com/dazuiba/CCNotify) &nbsp; by &nbsp; [dazuiba](https://github.com/dazuiba)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-CCNotify provides desktop notifications for Claude Code, alerting you to input needs or task completion, with one-click jumps back to VS Code and task duration display.
+[`CC Notify`](https://github.com/dazuiba/CCNotify) &nbsp; by &nbsp; [dazuiba](https://github.com/dazuiba)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;CCNotify provides desktop notifications for Claude Code, alerting you to input needs or task completion, with one-click jumps back to VS Code and task duration display.
 
 [`cchooks`](https://github.com/GowayLee/cchooks) &nbsp; by &nbsp; [GowayLee](https://github.com/GowayLee)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 A lightweight Python SDK with a clean API and good documentation; simplifies the process of writing hooks and integrating them into your codebase, providing a nice abstraction over the JSON configuration files.
