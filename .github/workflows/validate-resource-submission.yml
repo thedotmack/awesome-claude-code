@@ -39,16 +39,9 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Run validation and capture all output
-          python scripts/parse_issue_form.py --validate > validation_output.txt 2>&1
-          
-          # Extract just the JSON (it should be the last complete JSON object)
-          # Use tac to reverse the file, find the first complete JSON, then reverse back
-          tac validation_output.txt | awk '
-            /{/{found=1}
-            found{print}
-            /}/{if(found) exit}
-          ' | tac > validation_result.json
+          # Run validation and capture only the last line (JSON output)
+          # The script now outputs compact JSON on the last line
+          python scripts/parse_issue_form.py --validate 2>&1 | tail -n 1 > validation_result.json
           
           # Display validation status
           if grep -q '"valid": true' validation_result.json; then
@@ -57,9 +50,9 @@ jobs:
             echo "Validation failed!"
           fi
           
-          # Show the result for debugging
+          # Show the result for debugging (pretty print it)
           echo "=== Validation Result ==="
-          cat validation_result.json
+          python -m json.tool validation_result.json || cat validation_result.json
       
       - name: Remove old validation comments
         uses: actions/github-script@v7
@@ -176,4 +169,4 @@ jobs:
       - name: Cleanup
         if: always()
         run: |
-          rm -f validation_result.json validation_output.txt
+          rm -f validation_result.json

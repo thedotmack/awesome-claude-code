@@ -213,7 +213,8 @@ def main():
         # Simple parse mode - just return the parsed data
         result = parsed_data
 
-    print(json.dumps(result, indent=2))
+    # Print compact JSON (no newlines) to make it easier to extract
+    print(json.dumps(result))
     return 0
 
 
