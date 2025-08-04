@@ -93,6 +93,10 @@ def parse_issue_body(issue_body: str) -> dict[str, str]:
         # Ensure it's lowercase (convention for slash commands)
         display_name = display_name.lower()
 
+        # Ensure only one leading slash - remove any extra slashes at the beginning
+        while display_name.startswith("//"):
+            display_name = display_name[1:]
+
         data["display_name"] = display_name
 
     return data
@@ -138,6 +142,17 @@ def validate_parsed_data(data: dict[str, str]) -> tuple[bool, list[str], list[st
             f"Display name was automatically corrected from '{data['_original_display_name']}' to '{data['display_name']}'. "
             "Slash commands must start with '/' and contain no spaces."
         )
+
+    # Additional validation for slash commands - check for multiple slashes
+    if data.get("category") == "Slash-Commands" and data.get("display_name"):
+        display_name = data["display_name"]
+        # Check if there are multiple slashes anywhere in the command
+        slash_count = display_name.count("/")
+        if slash_count > 1:
+            errors.append(
+                f"Slash command '{display_name}' contains multiple slashes. "
+                "Slash commands must have exactly one slash at the beginning."
+            )
 
     # Validate URLs
     url_fields = ["primary_link", "secondary_link", "author_link"]
