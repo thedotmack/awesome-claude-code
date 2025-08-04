@@ -11,11 +11,18 @@ body:
 
         Thank you for submitting a resource to Awesome Claude Code! This form will guide you through the submission process.
 
-        **Important Guidelines:**
+        **Submission Guidelines:**
         - Submit only ONE resource per issue
         - Ensure your resource provides genuine value to Claude Code users
         - All links must be publicly accessible
         - Check that your resource hasn't already been submitted
+        - Avoid submitting resources that violate the Claude Code Usage Policy (to the best of your understanding)
+
+        **Other Important Guidelines:**
+        - Submissions will be closely scrutinized for security and potential risk.
+        - Please provide clear installation AND uninstallation instructions for any installable resources.
+        - Short examples or demos are tremendously helpful in the review process.
+        - If your resource requires "--dangerously-skip-permissions", please make sure the user is aware of this(!)
 
         After submission, our automated system will validate your resource and post the results as a comment.
 
@@ -136,10 +143,19 @@ body:
     id: description
     attributes:
       label: Description
-      description: A brief description of your resource (1-2 sentences maximum)
+      description: "A brief description of your resource (1-2 sentences maximum) - follow the list's style - be descriptive, not promotional"
       placeholder: "Describe what your resource does and its key features..."
     validations:
       required: true
+
+  - type: textarea
+    id: additional_comments
+    attributes:
+      label: Additional Comments
+      description: Optional - Any additional information you'd like to share about your resource (not processed during validation)
+      placeholder: "e.g., context about why you created this, special features, acknowledgments, etc."
+    validations:
+      required: false
 
   - type: checkboxes
     id: checklist
@@ -149,7 +165,7 @@ body:
       options:
         - label: I have checked that this resource hasn't already been submitted
           required: true
-        - label: My resource provides genuine value to Claude Code users
+        - label: My resource provides genuine value to Claude Code users, and any risks are clearly stated
           required: true
         - label: All provided links are working and publicly accessible
           required: true
