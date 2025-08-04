@@ -47,8 +47,10 @@ def parse_issue_body(issue_body: str) -> dict[str, str]:
         # Map form labels to data fields
         if "Display Name" in label:
             data["display_name"] = value
+            data["_original_display_name"] = value  # Track original for warning
         elif "Category" in label and "Sub-Category" not in label:
             data["category"] = value
+            # If this is a slash command, we'll validate/fix the display name later
         elif "Sub-Category" in label:
             # Only set if not "None / Not Applicable"
             if value and "None" not in value and "Not Applicable" not in value:
@@ -72,6 +74,26 @@ def parse_issue_body(issue_body: str) -> dict[str, str]:
                 data["license"] = value  # Override with custom license
         elif "Description" in label:
             data["description"] = value
+
+    # Fix slash command display names
+    if data.get("category") == "Slash-Commands" and data.get("display_name"):
+        display_name = data["display_name"]
+
+        # Ensure it starts with a slash
+        if not display_name.startswith("/"):
+            display_name = "/" + display_name
+
+        # Ensure it's a single string (no spaces, only hyphens, underscores, colons allowed)
+        # Replace spaces with hyphens
+        display_name = display_name.replace(" ", "-")
+
+        # Remove any characters that aren't alphanumeric, slash, hyphen, underscore, or colon
+        display_name = re.sub(r"[^a-zA-Z0-9/_:-]", "", display_name)
+
+        # Ensure it's lowercase (convention for slash commands)
+        display_name = display_name.lower()
+
+        data["display_name"] = display_name
 
     return data
 
@@ -105,6 +127,17 @@ def validate_parsed_data(data: dict[str, str]) -> tuple[bool, list[str], list[st
 
     # Sub-category validation is no longer needed since we strip the prefix
     # The form already ensures subcategories match their parent categories
+
+    # Check if slash command display name was modified
+    if (
+        data.get("category") == "Slash-Commands"
+        and "_original_display_name" in data
+        and data["display_name"] != data["_original_display_name"]
+    ):
+        warnings.append(
+            f"Display name was automatically corrected from '{data['_original_display_name']}' to '{data['display_name']}'. "
+            "Slash commands must start with '/' and contain no spaces."
+        )
 
     # Validate URLs
     url_fields = ["primary_link", "secondary_link", "author_link"]
@@ -204,9 +237,16 @@ def main():
                 # Update with enriched data (license from GitHub, etc.)
                 parsed_data.update(enriched_data)
 
+        # Remove temporary tracking field
+        if "_original_display_name" in parsed_data:
+            del parsed_data["_original_display_name"]
+
         result = {"valid": is_valid, "errors": errors, "warnings": warnings, "data": parsed_data}
     else:
         # Simple parse mode - just return the parsed data
+        # Remove temporary tracking field
+        if "_original_display_name" in parsed_data:
+            del parsed_data["_original_display_name"]
         result = parsed_data
 
     # Print compact JSON (no newlines) to make it easier to extract
