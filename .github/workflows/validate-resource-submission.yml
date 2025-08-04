@@ -179,8 +179,9 @@ jobs:
             const fs = require('fs');
             const validation_result = JSON.parse(fs.readFileSync('validation_result.json', 'utf8'));
             const issue_number = context.issue.number;
+            const current_validation_status = validation_result.valid;
             
-            // Find the maintainer who requested changes by looking for the most recent request-changes comment
+            // Find all comments to check notification history and find maintainer
             const comments = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -188,22 +189,66 @@ jobs:
               per_page: 100
             });
             
-            // Find the most recent "Changes Requested by @" comment
+            // Find the most recent "Changes Requested by @" comment to get maintainer
             let maintainer = null;
+            let changesRequestedTime = null;
             for (let i = comments.data.length - 1; i >= 0; i--) {
               const comment = comments.data[i];
               const match = comment.body.match(/## 🔄 Changes Requested by @(\w+)/);
               if (match) {
                 maintainer = match[1];
+                changesRequestedTime = new Date(comment.created_at);
                 break;
               }
             }
             
-            if (maintainer) {
+            if (!maintainer) return;
+            
+            // Check for previous notifications and their metadata
+            let lastNotificationTime = null;
+            let lastNotifiedStatus = null;
+            let hasNotifiedAfterRequest = false;
+            
+            for (const comment of comments.data) {
+              // Look for our notification comments
+              if (comment.body.includes('## 📝 Issue Updated') && comment.user.type === 'Bot') {
+                // Check if this notification came after the changes were requested
+                const commentTime = new Date(comment.created_at);
+                if (commentTime > changesRequestedTime) {
+                  hasNotifiedAfterRequest = true;
+                  
+                  // Extract metadata from hidden comment
+                  const metaMatch = comment.body.match(/<!-- notification-meta: status=(\w+) -->/);
+                  if (metaMatch) {
+                    lastNotifiedStatus = metaMatch[1] === 'true';
+                  }
+                  
+                  if (!lastNotificationTime || commentTime > lastNotificationTime) {
+                    lastNotificationTime = commentTime;
+                  }
+                }
+              }
+            }
+            
+            // Determine if we should send a notification
+            let shouldNotify = false;
+            let notificationReason = '';
+            
+            if (!hasNotifiedAfterRequest) {
+              // First edit after changes requested - always notify
+              shouldNotify = true;
+              notificationReason = 'first edit after changes requested';
+            } else if (lastNotifiedStatus !== null && lastNotifiedStatus !== current_validation_status) {
+              // Validation status changed - notify
+              shouldNotify = true;
+              notificationReason = 'validation status changed';
+            }
+            
+            if (shouldNotify) {
               let notification_body = `## 📝 Issue Updated\n\n`;
               notification_body += `@${maintainer} - The submitter has edited their issue in response to your requested changes.\n\n`;
               
-              if (validation_result.valid) {
+              if (current_validation_status) {
                 notification_body += `✅ **The updated submission now passes all validation checks!**\n\n`;
                 notification_body += `You may want to review the changes and consider approving the submission.`;
               } else {
@@ -211,12 +256,19 @@ jobs:
                 notification_body += `The submitter may need additional guidance to fix the remaining issues.`;
               }
               
+              // Add hidden metadata for tracking
+              notification_body += `\n\n<!-- notification-meta: status=${current_validation_status} -->`;
+              
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issue_number,
                 body: notification_body
               });
+              
+              console.log(`Notification sent (reason: ${notificationReason})`);
+            } else {
+              console.log('Skipping notification - no significant changes detected');
             }
       
       - name: Cleanup
