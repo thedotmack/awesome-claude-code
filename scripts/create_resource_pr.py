@@ -82,8 +82,16 @@ def main():
         if not append_to_csv(resource):
             raise Exception("Failed to add resource to CSV")
 
-        # Generate README
+        # Sort the CSV
         script_dir = os.path.dirname(os.path.abspath(__file__))
+        print("Sorting CSV after adding resource", file=sys.stderr)
+        sort_result = run_command(["python3", os.path.join(script_dir, "sort_resources.py")], check=False)
+        if sort_result.returncode != 0:
+            print(f"Warning: CSV sorting failed: {sort_result.stderr}", file=sys.stderr)
+        else:
+            print("CSV sorted successfully", file=sys.stderr)
+
+        # Generate README
         csv_path = os.path.join(script_dir, "..", "THE_RESOURCES_TABLE.csv")
         template_dir = os.path.join(script_dir, "..", "templates")
         output_path = os.path.join(script_dir, "..", "README.md")
