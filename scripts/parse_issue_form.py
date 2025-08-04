@@ -52,7 +52,11 @@ def parse_issue_body(issue_body: str) -> dict[str, str]:
         elif "Sub-Category" in label:
             # Only set if not "None / Not Applicable"
             if value and "None" not in value and "Not Applicable" not in value:
-                data["subcategory"] = value
+                # Strip the category prefix if present (e.g., "Slash-Commands: " from "Slash-Commands: Context Loading & Priming")
+                if ":" in value:
+                    data["subcategory"] = value.split(":", 1)[1].strip()
+                else:
+                    data["subcategory"] = value
         elif "Primary Link" in label:
             data["primary_link"] = value
         elif "Secondary Link" in label:
