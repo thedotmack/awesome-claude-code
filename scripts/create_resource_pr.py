@@ -76,7 +76,12 @@ def main():
         run_command(["git", "pull", "origin", "main"])
 
         # Create new branch
-        run_command(["git", "checkout", "-b", branch_name])
+        try:
+            run_command(["git", "checkout", "-b", branch_name])
+        except subprocess.CalledProcessError as e:
+            # Branch might already exist, try checking it out
+            print(f"Failed to create branch, trying to checkout: {e}", file=sys.stderr)
+            run_command(["git", "checkout", branch_name])
 
         # Add resource to CSV
         if not append_to_csv(resource):
@@ -141,6 +146,10 @@ def main():
         result = {"success": True, "pr_url": pr_url, "branch_name": branch_name, "resource_id": resource_id}
 
     except Exception as e:
+        print(f"Error in create_resource_pr: {e}", file=sys.stderr)
+        import traceback
+
+        traceback.print_exc(file=sys.stderr)
         result = {"success": False, "error": str(e), "branch_name": branch_name if "branch_name" in locals() else None}
 
     print(json.dumps(result))
