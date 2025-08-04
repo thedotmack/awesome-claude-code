@@ -31,7 +31,42 @@ Located in `.github/workflows/`:
 
 - **`validate-resource-submission.yml`** - Runs on issue creation/edit
 - **`approve-resource-submission.yml`** - Runs on maintainer commands
+- **`protect-labels.yml`** - Prevents unauthorized label changes
+- **`validate-links.yml`** - Scheduled validation of all resource links
 - **Additional workflows for CI/CD and maintenance**
+
+### GitHub Labels
+
+The submission system uses several labels to track issue state:
+
+#### Resource Submission Labels
+
+- **`resource-submission`** - Applied automatically to issues created via the submission form
+- **`validation-passed`** - Applied when submission passes all validation checks
+- **`validation-failed`** - Applied when submission fails validation
+- **`approved`** - Applied when maintainer approves submission with `/approve`
+- **`pr-created`** - Applied after PR is successfully created
+- **`error-creating-pr`** - Applied if PR creation fails
+- **`rejected`** - Applied when maintainer rejects with `/reject`
+- **`changes-requested`** - Applied when maintainer requests changes with `/request-changes`
+
+#### Other Labels
+
+- **`broken-links`** - Applied by scheduled link validation when resources become unavailable
+- **`automated`** - Applied alongside `broken-links` to indicate automated detection
+
+#### Label Protection
+
+All submission-related labels are protected from unauthorized changes. The `protect-labels.yml` workflow automatically reverts any label changes made by non-maintainers (users without OWNER, MEMBER, or COLLABORATOR permissions).
+
+#### Label State Transitions
+
+1. New submission → `resource-submission`
+2. After validation → adds `validation-passed` OR `validation-failed`
+3. If changes requested → adds `changes-requested`
+4. When user edits and validation passes → removes `changes-requested`
+5. On approval → adds `approved` + `pr-created` (or `error-creating-pr`)
+6. On rejection → adds `rejected`
 
 ## The Submission Flow
 
@@ -73,6 +108,13 @@ Once validation passes, maintainers can:
 - `/approve` - Triggers PR creation
 - `/request-changes [reason]` - Asks for modifications
 - `/reject [reason]` - Closes the submission
+
+**Notification System:**
+- When changes are requested, the maintainer is @-mentioned in the comment
+- When the user edits their issue, the maintainer receives a notification if:
+  - It's the first edit after requesting changes
+  - The validation status changes (pass→fail or fail→pass)
+- Multiple rapid edits won't spam the maintainer with notifications
 
 ### 4. Automated PR Creation
 
