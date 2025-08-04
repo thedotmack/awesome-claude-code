@@ -208,12 +208,13 @@ jobs:
             const changesMatch = comment.match(/\/request-changes\s+(.*)/s);
             const changes = changesMatch ? changesMatch[1] : 'Please review the submission requirements.';
             
-            // Add comment
+            // Add comment with maintainer mention
+            const maintainer = context.payload.comment.user.login;
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issue_number,
-              body: `## 🔄 Changes Requested\n\n${changes}\n\nPlease edit your issue to address these points. The validation will run again automatically after you make changes.`
+              body: `## 🔄 Changes Requested by @${maintainer}\n\n${changes}\n\nPlease edit your issue to address these points. The validation will run again automatically after you make changes.`
             });
             
             // Update labels
