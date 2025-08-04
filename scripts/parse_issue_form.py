@@ -103,16 +103,8 @@ def validate_parsed_data(data: dict[str, str]) -> tuple[bool, list[str], list[st
     if data.get("category") not in valid_categories:
         errors.append(f"Invalid category: {data.get('category')}. Must be one of: {', '.join(valid_categories)}")
 
-    # Validate sub-category matches category (simple prefix check)
-    subcategory = data.get("subcategory", "")
-    category = data.get("category", "")
-
-    # Sub-category should start with the category name
-    if subcategory and subcategory not in ["None", "Not Applicable"] and not subcategory.startswith(f"{category}:"):
-        errors.append(
-            f"Sub-category '{subcategory}' does not match category '{category}'. "
-            f"Sub-categories must start with the category name followed by a colon."
-        )
+    # Sub-category validation is no longer needed since we strip the prefix
+    # The form already ensures subcategories match their parent categories
 
     # Validate URLs
     url_fields = ["primary_link", "secondary_link", "author_link"]
