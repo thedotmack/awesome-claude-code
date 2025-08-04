@@ -41,7 +41,12 @@ jobs:
             
             // Check if actor has write permissions
             const actorPermission = context.payload.sender.author_association;
-            const isAuthorized = ['OWNER', 'MEMBER', 'COLLABORATOR'].includes(actorPermission);
+            const isRepoOwner = context.repo.owner === actor;
+            
+            console.log(`Actor: ${actor}, Author Association: ${actorPermission}, Repo Owner: ${context.repo.owner}, Is Repo Owner: ${isRepoOwner}`);
+            
+            // Check if authorized - include repo owner check for forks
+            const isAuthorized = isRepoOwner || ['OWNER', 'MEMBER', 'COLLABORATOR'].includes(actorPermission);
             
             if (isAuthorized) {
               console.log(`User ${actor} is authorized to change labels`);
