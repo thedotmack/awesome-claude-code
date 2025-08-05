@@ -9,7 +9,7 @@ from datetime import datetime
 
 # Import validation function
 try:
-    from validate_single_resource import validate_resource_from_dict  # type: ignore[import]
+    from validate_single_resource import validate_resource_from_dict  # type: ignore[import-not-found]
 except ImportError:
     from .validate_single_resource import validate_resource_from_dict
 
