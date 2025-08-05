@@ -319,7 +319,7 @@ def main():
     print_header()
 
     # Install git hooks silently
-    install_git_hooks()
+    # install_git_hooks()
 
     # Collect information
     category = get_resource_type()
