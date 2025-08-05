@@ -224,7 +224,7 @@ def append_to_csv(data):
         data["author_name"],
         data["author_link"],
         data.get("active", "TRUE"),  # Active
-        data.get("date_added", datetime.now().strftime("%Y-%m-%d")),  # Date Added
+        data.get("date_added", datetime.now().strftime("%Y-%m-%d:%H-%M-%S")),  # Date Added
         data.get("last_modified", ""),  # Last Modified
         data.get("last_checked", datetime.now().strftime("%Y-%m-%d:%H-%M-%S")),  # Last Checked
         data["license"],
@@ -322,7 +322,7 @@ def main():
     print_header()
 
     # Install git hooks silently
-    install_git_hooks()
+    # install_git_hooks()
 
     # Collect information
     category = get_resource_type()
