@@ -121,8 +121,7 @@ class BadgeNotificationCore:
         ]
         for protocol in dangerous_protocols:
             if protocol.lower() in text.lower():
-                reason = f"Dangerous protocol '{protocol}' "
-                f"detected in {field_name}"
+                reason = f"Dangerous protocol '{protocol}' detected in {field_name}"
                 logger.warning(f"SECURITY: {reason} - Content: {text[:100]}")
                 return False, reason
 
