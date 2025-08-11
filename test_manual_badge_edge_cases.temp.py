@@ -9,9 +9,11 @@ Purpose: Identify potential issues before deployment
 import os
 import sys
 
-sys.path.insert(0, "scripts")
-
-from manual_badge_notification import create_issue_body, parse_github_url
+try:
+    sys.path.insert(0, "scripts")
+    from manual_badge_notification import create_issue_body, parse_github_url
+except Exception:
+    from .scripts.manual_badge_notification import create_issue_body, parse_github_url  # type: ignore[import]
 
 
 def test_url_parsing_edge_cases():
