@@ -8,7 +8,6 @@ This script uses the shared badge_notification_core module for all
 core functionality, ensuring consistency and security across the system.
 """
 
-import logging
 import os
 import sys
 
@@ -28,10 +27,6 @@ except ImportError:
     sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
     from badge_notification_core import BadgeNotificationCore, ManualNotificationTracker
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-logger = logging.getLogger(__name__)
-
 
 def main():
     """Main execution for manual notification using shared core module"""
@@ -45,20 +40,17 @@ def main():
 
     # Validate required inputs
     if not repo_url:
-        logger.error("REPOSITORY_URL environment variable is required")
         print("Error: REPOSITORY_URL environment variable is required")
         sys.exit(1)
 
     # Get GitHub token
     github_token = os.environ.get("AWESOME_CC_PAT_PUBLIC_REPO")
     if not github_token:
-        logger.error("AWESOME_CC_PAT_PUBLIC_REPO environment variable not set")
         print("Error: AWESOME_CC_PAT_PUBLIC_REPO environment variable is required")
         print("This token needs 'public_repo' scope to create issues in external repositories")
         sys.exit(1)
 
     # Log the operation
-    logger.info(f"Manual notification requested for: {repo_url}")
     print(f"Sending notification to: {repo_url}")
     if resource_name:
         print(f"Resource name: {resource_name}")
@@ -75,7 +67,6 @@ def main():
         if enable_tracking and not skip_duplicate_check:
             tracker = ManualNotificationTracker()
             if tracker.has_recent_notification(repo_url, time_window_hours=24):
-                logger.warning(f"Repository {repo_url} was notified in the last 24 hours")
                 print("⚠️  Warning: This repository was already notified in the last 24 hours")
                 print("Use SKIP_DUPLICATE_CHECK=true to force notification")
                 # Continue anyway if user wants to
@@ -90,7 +81,6 @@ def main():
 
         # Handle the result
         if result["success"]:
-            logger.info(f"Successfully created issue: {result['issue_url']}")
             print(f"✅ Success! Issue created: {result['issue_url']}")
 
             # Optional: Track the notification
@@ -99,11 +89,10 @@ def main():
                 tracker.record_notification(
                     repo_url=repo_url, issue_url=result["issue_url"], resource_name=resource_name or ""
                 )
-                logger.info("Notification recorded in tracking file")
+                print("Notification recorded in tracking file")
 
             sys.exit(0)
         else:
-            logger.error(f"Failed to create issue: {result['message']}")
             print(f"❌ Failed: {result['message']}")
 
             # Provide helpful guidance based on error
@@ -130,14 +119,11 @@ def main():
 
     except ValueError as e:
         # Handle initialization errors (e.g., missing token)
-        logger.error(f"Initialization error: {e}")
         print(f"❌ Error: {e}")
         sys.exit(1)
     except Exception as e:
         # Handle unexpected errors
-        logger.error(f"Unexpected error: {e}", exc_info=True)
         print(f"❌ Unexpected error: {e}")
-        print("\n💡 Please check the logs for more details")
         sys.exit(1)
 
 
