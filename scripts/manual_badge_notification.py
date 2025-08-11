@@ -24,8 +24,8 @@ try:
     from scripts.badge_notification_core import BadgeNotificationCore, ManualNotificationTracker
 except Exception:
     # If running from a different directory, try to add scripts to path
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
-    from .badge_notification_core import BadgeNotificationCore, ManualNotificationTracker
+    sys.path.insert(0, os.path.dirname(__file__))
+    from badge_notification_core import BadgeNotificationCore, ManualNotificationTracker
 
 
 def main():
