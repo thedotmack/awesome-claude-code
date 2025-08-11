@@ -23,6 +23,14 @@ on:
         options:
           - 'true'
           - 'false'
+      enable_tracking:
+        description: 'Enable tracking of manual notifications (creates .manual_notifications.json)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
 jobs:
   send-notification:
@@ -51,5 +59,19 @@ jobs:
         RESOURCE_NAME: ${{ github.event.inputs.resource_name }}
         DESCRIPTION: ${{ github.event.inputs.description }}
         SKIP_DUPLICATE_CHECK: ${{ github.event.inputs.skip_duplicate_check }}
+        ENABLE_TRACKING: ${{ github.event.inputs.enable_tracking }}
       run: |
         python scripts/manual_badge_notification.py
+    
+    - name: Commit tracking file (if enabled)
+      if: github.event.inputs.enable_tracking == 'true' && success()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        if [ -f ".manual_notifications.json" ]; then
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .manual_notifications.json
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update manual notification tracking"
+          git push
+        fi
