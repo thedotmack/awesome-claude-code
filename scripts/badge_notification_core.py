@@ -75,7 +75,7 @@ class RateLimiter:
 
     def handle_rate_limit_error(self, error: RateLimitExceededException):
         """Handle rate limit exception"""
-        reset_time = error.headers.get("X-RateLimit-Reset", 0)
+        reset_time = error.headers.get("X-RateLimit-Reset", "0") if error.headers else "0"
         wait_time = max(0, int(reset_time) - time.time())
         logger.error(f"Rate limit exceeded. Waiting {wait_time} seconds until reset")
         time.sleep(wait_time + 1)

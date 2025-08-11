@@ -21,11 +21,11 @@ except ImportError:
 
 # Import the shared core module
 try:
-    from badge_notification_core import BadgeNotificationCore, ManualNotificationTracker
-except ImportError:
+    from scripts.badge_notification_core import BadgeNotificationCore, ManualNotificationTracker
+except Exception:
     # If running from a different directory, try to add scripts to path
     sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
-    from badge_notification_core import BadgeNotificationCore, ManualNotificationTracker
+    from .badge_notification_core import BadgeNotificationCore, ManualNotificationTracker
 
 
 def main():
