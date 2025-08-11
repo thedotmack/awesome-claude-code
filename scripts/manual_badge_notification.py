@@ -107,7 +107,14 @@ def main():
             print(f"❌ Failed: {result['message']}")
 
             # Provide helpful guidance based on error
-            if "Invalid or dangerous" in result["message"]:
+            if "Security validation failed" in result["message"]:
+                print("\n🛡️ SECURITY: Dangerous content detected in input")
+                print("   The operation was aborted for security reasons.")
+                print("   Check the resource name and description for:")
+                print("   - HTML tags or JavaScript")
+                print("   - Protocol handlers (javascript:, data:, etc.)")
+                print("   - Event handlers (onclick=, onerror=, etc.)")
+            elif "Invalid or dangerous" in result["message"]:
                 print("\n💡 Tip: Ensure the URL is a valid GitHub repository URL")
                 print("   Format: https://github.com/owner/repository")
             elif "Rate limit" in result["message"]:

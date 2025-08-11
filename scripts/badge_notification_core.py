@@ -5,7 +5,6 @@ Shared functionality for both automated and manual badge notifications
 Includes security hardening, rate limiting, and error handling
 """
 
-import html
 import json
 import logging
 import re
@@ -99,42 +98,77 @@ class BadgeNotificationCore:
         self.rate_limiter = RateLimiter()
 
     @staticmethod
-    def sanitize_markdown(text: str) -> str:
+    def validate_input_safety(text: str, field_name: str = "input") -> tuple[bool, str]:
         """
-        Sanitize text for safe inclusion in markdown
-        Prevents XSS and markdown injection attacks
+        Validate that input text is safe for use in GitHub issues.
+        Returns (is_safe, reason_if_unsafe)
+
+        This does NOT modify the input - it only checks for dangerous content.
+        If dangerous content is found, the operation should be aborted.
         """
         if not text:
-            return ""
+            return True, ""
 
-        # First, HTML escape to prevent XSS
-        text = html.escape(text)
+        # Check for dangerous protocol handlers
+        dangerous_protocols = [
+            "javascript:",
+            "data:",
+            "vbscript:",
+            "file:",
+            "about:",
+            "chrome:",
+            "ms-",
+        ]
+        for protocol in dangerous_protocols:
+            if protocol.lower() in text.lower():
+                reason = f"Dangerous protocol '{protocol}' detected in {field_name}"
+                logger.warning(f"SECURITY: {reason} - Content: {text[:100]}")
+                return False, reason
 
-        # Then escape markdown special characters that could break formatting
-        # But preserve the HTML escaping we just did
-        markdown_chars = {
-            "*": "\\*",
-            "_": "\\_",
-            "`": "\\`",
-            "[": "\\[",
-            "]": "\\]",
-            "#": "\\#",  # Prevent header injection
-            "|": "\\|",  # Prevent table injection
-            "!": "\\!",  # Prevent image injection when followed by [
-        }
+        # Check for HTML/script injection attempts
+        dangerous_patterns = [
+            "<script",
+            "</script",
+            "<iframe",
+            "<embed",
+            "<object",
+            "<applet",
+            "<meta",
+            "<link",
+            "onclick=",
+            "onload=",
+            "onerror=",
+            "onmouseover=",
+            "onfocus=",
+        ]
+        for pattern in dangerous_patterns:
+            if pattern.lower() in text.lower():
+                reason = f"HTML injection attempt detected in {field_name}: {pattern}"
+                logger.warning(f"SECURITY: {reason} - Content: {text[:100]}")
+                return False, reason
 
-        for char, escaped in markdown_chars.items():
-            text = text.replace(char, escaped)
-
-        # Prevent newline + header injection
-        text = re.sub(r"\n+#", "\n\\#", text)
-
-        # Limit length to prevent DOS
-        max_length = 1000
+        # Check for excessive length (DoS prevention)
+        max_length = 5000  # Reasonable limit for resource descriptions
         if len(text) > max_length:
-            text = text[:max_length] + "..."
+            reason = f"{field_name} exceeds maximum length ({len(text)} > {max_length})"
+            logger.warning(f"SECURITY: {reason}")
+            return False, reason
 
-        return text
+        # Check for null bytes (can cause issues in various systems)
+        if "\x00" in text:
+            reason = f"Null byte detected in {field_name}"
+            logger.warning(f"SECURITY: {reason}")
+            return False, reason
+
+        # Check for control characters (except newline and tab)
+        control_chars = [chr(i) for i in range(0, 32) if i not in [9, 10, 13]]
+        for char in control_chars:
+            if char in text:
+                reason = f"Control character (ASCII {ord(char)}) detected in {field_name}"
+                logger.warning(f"SECURITY: {reason}")
+                return False, reason
+
+        return True, ""
 
     @staticmethod
     def validate_github_url(url: str) -> bool:
@@ -197,25 +231,35 @@ class BadgeNotificationCore:
         return None, None
 
     def create_issue_body(self, resource_name: str, description: str = "") -> str:
-        """Create sanitized issue body with badge options"""
-        # Sanitize all user inputs
-        safe_name = self.sanitize_markdown(resource_name)
-        safe_description = (
-            self.sanitize_markdown(description)
+        """Create issue body with badge options after validating inputs"""
+        # Validate inputs - DO NOT modify them
+        is_safe, reason = self.validate_input_safety(resource_name, "resource_name")
+        if not is_safe:
+            raise ValueError(f"Security validation failed: {reason}")
+
+        if description:
+            is_safe, reason = self.validate_input_safety(description, "description")
+            if not is_safe:
+                raise ValueError(f"Security validation failed: {reason}")
+
+        # Use the ORIGINAL, unmodified values in the template
+        # If they were unsafe, we would have thrown an exception above
+        final_description = (
+            description
             if description
-            else f"Your project {safe_name} provides valuable resources for the Claude Code community."
+            else f"Your project {resource_name} provides valuable resources for the Claude Code community."
         )
 
-        # Use the sanitized values in the template
+        # Use the original values directly
         return f"""Hello! 👋
 
-I'm excited to let you know that **{safe_name}** has been featured in the [Awesome Claude Code]({self.GITHUB_URL_BASE}) list!
+I'm excited to let you know that **{resource_name}** has been featured in the [Awesome Claude Code]({self.GITHUB_URL_BASE}) list!
 
 ## About Awesome Claude Code
 Awesome Claude Code is a curated collection of the best slash-commands, CLAUDE.md files, CLI tools, and other resources for enhancing Claude Code workflows. Your project has been recognized for its valuable contribution to the Claude Code community.
 
 ## Your Listing
-{safe_description}
+{final_description}
 
 You can find your entry here: [View in Awesome Claude Code]({self.GITHUB_URL_BASE})
 
@@ -352,8 +396,14 @@ Thank you for contributing to the Claude Code ecosystem! 🙏
             if self.can_create_label(repo):
                 labels = [self.NOTIFICATION_LABEL]
 
-            # Create the issue body
-            issue_body = self.create_issue_body(resource_name, description or "")
+            # Create the issue body (this will validate inputs and throw if unsafe)
+            try:
+                issue_body = self.create_issue_body(resource_name, description or "")
+            except ValueError as e:
+                # Security validation failed - abort the operation
+                result["message"] = str(e)
+                logger.error(f"Security validation failed for {repo_full_name}: {e}")
+                return result
 
             # Apply rate limiting before creating issue
             self.rate_limiter.wait_if_needed(self.github)

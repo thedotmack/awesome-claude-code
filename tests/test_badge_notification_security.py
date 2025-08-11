@@ -1,15 +1,30 @@
 #!/usr/bin/env python3
 """
-Security-focused tests for badge notification system
-Tests XSS prevention, injection attacks, and input validation
+DEPRECATED: Old sanitization-based security tests
+Context: Created 2025-08-11 when the system used sanitization instead of validation
+Purpose: These tests verify the OLD approach where we modified dangerous input
+Status: SUPERSEDED by test_badge_notification_validation.py
+
+This file is kept for reference to understand the evolution from:
+- OLD: Sanitize dangerous input and proceed with modified data
+- NEW: Validate input and reject if dangerous (current approach)
+
+The new approach is better because:
+1. We preserve data integrity (no modification of resource names)
+2. We fail safely (reject dangerous input instead of trying to fix it)
+3. Security events are visible (logged, not silently "fixed")
+
+DO NOT USE THESE TESTS - See test_badge_notification_validation.py instead
 """
 
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
+scripts_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "scripts"))
+if scripts_dir not in sys.path:
+    sys.path.insert(0, scripts_dir)
 
-from badge_notification_core import BadgeNotificationCore
+from badge_notification_core import BadgeNotificationCore  # noqa: E402
 
 
 def test_xss_prevention():
@@ -28,10 +43,48 @@ def test_xss_prevention():
 
     for payload, description in xss_tests:
         sanitized = BadgeNotificationCore.sanitize_markdown(payload)
-        # Check that dangerous HTML is escaped
-        assert "<" not in sanitized or "&lt;" in sanitized, f"Failed: {description}"
-        assert ">" not in sanitized or "&gt;" in sanitized, f"Failed: {description}"
+
+        # Check that dangerous HTML characters are properly escaped
+        if "<" in payload:
+            # Raw < should NEVER be present in output
+            assert "<" not in sanitized, f"Failed: Raw '<' found in output for {description}"
+            # Escaped version SHOULD be present
+            assert "&lt;" in sanitized, f"Failed: No '&lt;' found in output for {description}"
+
+        if ">" in payload:
+            # Raw > should NEVER be present in output
+            assert ">" not in sanitized, f"Failed: Raw '>' found in output for {description}"
+            # Escaped version SHOULD be present
+            assert "&gt;" in sanitized, f"Failed: No '&gt;' found in output for {description}"
+
+        # For javascript: protocol, check it's been removed
+        if "javascript:" in payload:
+            assert "javascript:" not in sanitized, f"Failed: javascript: protocol not removed for {description}"
+            assert (
+                "[removed]" in sanitized
+            ), f"Failed: javascript: protocol not replaced with [removed] for {description}"
+
         print(f"  ✓ {description}")
+
+
+def test_dangerous_protocols():
+    """Test that dangerous protocol handlers are removed"""
+    print("\nTesting Dangerous Protocol Removal...")
+
+    protocols = [
+        ("javascript:alert('XSS')", "javascript:"),
+        ("data:text/html,<script>alert('XSS')</script>", "data:"),
+        ("vbscript:msgbox('XSS')", "vbscript:"),
+        ("file:///etc/passwd", "file:"),
+        ("about:blank", "about:"),
+        ("chrome://settings", "chrome:"),
+    ]
+
+    for payload, protocol in protocols:
+        sanitized = BadgeNotificationCore.sanitize_markdown(payload)
+        assert protocol not in sanitized, f"Failed: {protocol} not removed from {payload}"
+        assert "[removed]" in sanitized, f"Failed: {protocol} not replaced with [removed]"
+        print(f"  ✓ Removed {protocol} protocol")
 
 
 def test_markdown_injection():
@@ -196,6 +249,7 @@ def run_all_tests():
 
     try:
         test_xss_prevention()
+        test_dangerous_protocols()
         test_markdown_injection()
         test_url_validation()
         test_url_parsing_safety()
