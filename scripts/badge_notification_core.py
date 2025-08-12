@@ -313,7 +313,7 @@ Thank you for contributing to the Claude Code ecosystem! 🙏
                     return True
 
         except Exception as e:
-            logger.warning(f"Could not check existing issues for {repo.full_name}: {e}")
+            logger.warning("Could not check existing issues for " f"{repo.full_name}: {e}")
             # If we can't check, assume it doesn't exist to avoid blocking
             return False
 

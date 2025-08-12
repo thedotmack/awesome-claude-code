@@ -40,15 +40,9 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent that you can 
 
 ### Announcements
 
-- 2025-07-30 - Quick Update: Still trying to iron out the submission flow (sorry for anyone that received duplicate "Congratulations!" issues). If you end up fighting any of the programmatic submission tools, just submit something that has all the necessary data, and I'll take it from there once approved. Other notes: (i) I think it would be really cool/fun to set up a "Claude Code Leaderboard", so feel free to weigh in on the [Discussion](https://github.com/hesreallyhim/awesome-claude-code/discussions/81); (ii) I'm still trying to figure out what to do about **SUB AGENTS**, and I've reached out to some of the other folks who have started similar repo's; (iii) Added a small section that will be updated with new submissions as they roll in.
+{{ANNOUNCEMENTS}}
 
-## New Additions
-
-- [`CC Notify`](https://github.com/dazuiba/CCNotify) by [dazuiba](https://github.com/dazuiba)
-- [`tweakcc`](https://github.com/Piebald-AI/tweakcc) by [Piebald-AI](https://github.com/Piebald-AI)
-- [`cchooks`](https://github.com/GowayLee/cchooks) by [GowayLee](https://github.com/GowayLee)
-
-<br>
+{{WEEKLY_SECTION}}
 
 ## Contents
 
