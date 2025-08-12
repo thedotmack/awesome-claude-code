@@ -3,7 +3,6 @@
 Simple script to generate a resource ID for manual CSV additions.
 """
 
-import hashlib
 import sys
 from pathlib import Path
 
@@ -11,19 +10,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from scripts.category_utils import category_manager
-
-
-def generate_resource_id(display_name, primary_link, category):
-    """Generate a stable ID for a resource."""
-    # Get category prefix, default to 'res' if not found
-    prefixes = category_manager.get_category_prefixes()
-    prefix = prefixes.get(category, "res")
-
-    # Generate hash from display name + primary link
-    content = f"{display_name}{primary_link}"
-    hash_value = hashlib.sha256(content.encode()).hexdigest()[:8]
-
-    return f"{prefix}-{hash_value}"
+from scripts.resource_id import generate_resource_id
 
 
 def main():

@@ -15,6 +15,7 @@ from datetime import datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from add_resource import append_to_csv, generate_pr_content
 from generate_readme import generate_readme_from_templates
+from resource_id import generate_resource_id
 
 
 def run_command(cmd: list[str], check: bool = True) -> subprocess.CompletedProcess:
@@ -154,24 +155,6 @@ def main():
 
     print(json.dumps(result))
     return 0 if result["success"] else 1
-
-
-def generate_resource_id(display_name: str, primary_link: str, category: str) -> str:
-    """Generate resource ID using the same logic as quick_id.py"""
-    import hashlib
-
-    prefixes = {
-        "Slash-Commands": "cmd",
-        "Workflows & Knowledge Guides": "wf",
-        "Tooling": "tool",
-        "CLAUDE.md Files": "claude",
-        "Hooks": "hook",
-        "Official Documentation": "doc",
-    }
-
-    prefix = prefixes.get(category, "res")
-    hash_val = hashlib.sha256(f"{display_name}{primary_link}".encode()).hexdigest()[:8]
-    return f"{prefix}-{hash_val}"
 
 
 if __name__ == "__main__":
