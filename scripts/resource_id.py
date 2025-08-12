@@ -10,7 +10,7 @@ from pathlib import Path
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from scripts.category_utils import category_manager
+from scripts.category_utils import category_manager  # noqa: E402
 
 
 def generate_resource_id(display_name: str, primary_link: str, category: str) -> str:

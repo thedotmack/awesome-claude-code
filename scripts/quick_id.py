@@ -7,8 +7,8 @@ from pathlib import Path
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from scripts.category_utils import category_manager
-from scripts.resource_id import generate_resource_id
+from scripts.category_utils import category_manager  # noqa: E402
+from scripts.resource_id import generate_resource_id  # noqa: E402
 
 if len(sys.argv) != 4:
     categories = category_manager.get_all_categories()
