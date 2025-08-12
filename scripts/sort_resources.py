@@ -10,24 +10,19 @@ import csv
 import sys
 from pathlib import Path
 
-import yaml  # type: ignore[import-untyped]
-
 
 def sort_resources(csv_path: Path) -> None:
     """Sort resources in the CSV file by category, sub-category, and display name."""
-    # Load category order from readme-structure.yaml
-    structure_file = Path(__file__).parent.parent / "templates" / "readme-structure.yaml"
-    category_order = []
+    # Load category order from category_utils
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    from scripts.category_utils import category_manager
 
+    category_order = []
     try:
-        with open(structure_file, encoding="utf-8") as f:
-            structure = yaml.safe_load(f)
-            # Extract categories in the order they appear in the sections
-            for section in structure.get("sections", []):
-                if "category" in section:
-                    category_order.append(section["category"])
+        categories = category_manager.get_categories_for_readme()
+        category_order = [cat["name"] for cat in categories]
     except Exception as e:
-        print(f"Warning: Could not load category order from {structure_file}: {e}")
+        print(f"Warning: Could not load category order from category_utils: {e}")
         print("Using alphabetical sorting instead.")
 
     # Create a mapping for sort order

@@ -25,6 +25,7 @@ dev = [
     "requests>=2.31.0",
     "python-dotenv>=1.0.0",
     "types-requests>=2.31.0",
+    "types-PyYAML>=6.0.0",
     "ruff>=0.1.0",
     "pre-commit>=3.5.0",
 ]

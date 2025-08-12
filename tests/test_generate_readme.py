@@ -9,7 +9,10 @@ from datetime import datetime
 # Add the scripts directory to the path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
-from generate_readme import parse_resource_date
+try:
+    from generate_readme import parse_resource_date  # type: ignore
+except ImportError:
+    from scripts.generate_readme import parse_resource_date
 
 
 class TestParseResourceDate(unittest.TestCase):

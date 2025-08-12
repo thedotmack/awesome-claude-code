@@ -118,14 +118,9 @@ def validate_parsed_data(data: dict[str, str]) -> tuple[bool, list[str], list[st
             errors.append(f"Required field '{field}' is missing or empty")
 
     # Validate category
-    valid_categories = [
-        "Workflows & Knowledge Guides",
-        "Tooling",
-        "Hooks",
-        "Slash-Commands",
-        "CLAUDE.md Files",
-        "Official Documentation",
-    ]
+    from category_utils import category_manager
+
+    valid_categories = category_manager.get_all_categories()
     if data.get("category") not in valid_categories:
         errors.append(f"Invalid category: {data.get('category')}. Must be one of: {', '.join(valid_categories)}")
 

@@ -10,7 +10,7 @@ This document provides technical details about the repository structure, automat
 - **`README.md`** - Generated automatically from the CSV and templates
 - **`templates/`** - Contains templates for README generation
   - `README.template.md` - Main template structure
-  - `readme-structure.yaml` - Defines sections and categories
+  - `categories.yaml` - Single source of truth for all categories
   - `resource-overrides.yaml` - Manual overrides for specific resources
 
 ### Scripts Directory
@@ -179,19 +179,19 @@ prefixes = {
 The README is generated from templates using:
 
 ```yaml
-# templates/readme-structure.yaml
-sections:
-  - title: "Workflows & Knowledge Guides"
-    category: "Workflows & Knowledge Guides"
+# templates/categories.yaml
+categories:
+  - id: workflows
+    name: "Workflows & Knowledge Guides"
+    prefix: wf
     icon: "🧠"
-    source: csv
+    order: 1
     
-  - title: "Tooling"
-    category: "Tooling"
-    icon: "🧰"
-    subsections:
-      - title: "IDE Integrations"
-        sub_category: "IDE Integrations"
+  - id: statusline
+    name: "Statusline"
+    prefix: status
+    icon: "📊"
+    order: 3
 ```
 
 Generation process:

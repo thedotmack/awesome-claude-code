@@ -28,16 +28,12 @@ def load_announcements(template_dir):
     return ""
 
 
-def load_structure(structure_path):
-    """Load the README structure configuration."""
-    with open(structure_path, encoding="utf-8") as f:
-        return yaml.safe_load(f)
+def generate_toc_from_categories():
+    """Generate table of contents based on category definitions."""
+    from category_utils import category_manager
 
-
-def generate_toc_from_structure(structure):
-    """Generate table of contents based on structure configuration."""
-    toc_config = structure.get("toc", {})
-    sections = structure.get("sections", [])
+    toc_config = category_manager.get_toc_config()
+    categories = category_manager.get_categories_for_readme()
 
     symbol = toc_config.get("symbol", "▪")
     subsymbol = toc_config.get("subsymbol", "▫")
@@ -46,17 +42,17 @@ def generate_toc_from_structure(structure):
 
     toc_lines = []
 
-    for section in sections:
+    for category in categories:
         # Main section link
-        section_title = section["title"]
+        section_title = category["name"]
         anchor = section_title.lower().replace(" ", "-").replace("&", "").replace("/", "").replace(".", "")
 
         toc_lines.append(f"{symbol}{indent}[{section_title}](#{anchor}-)  ")
 
         # Subsections
-        subsections = section.get("subsections", [])
-        for subsection in subsections:
-            sub_title = subsection["title"]
+        subcategories = category.get("subcategories", [])
+        for subcat in subcategories:
+            sub_title = subcat["name"]
             sub_anchor = sub_title.lower().replace(" ", "-").replace("&", "").replace("/", "")
             toc_lines.append(f"{subindent}{subsymbol}{indent}[{sub_title}](#{sub_anchor})  ")
 
@@ -160,31 +156,31 @@ def generate_weekly_section(csv_data):
     return "\n".join(lines).rstrip() + "\n"
 
 
-def generate_section_content(section, csv_data):
-    """Generate content for a section based on CSV data."""
+def generate_section_content(category, csv_data):
+    """Generate content for a category based on CSV data."""
     lines = []
 
     # Add section title
-    title = section.get("title", "")
-    icon = section.get("icon", "")
+    title = category.get("name", "")
+    icon = category.get("icon", "")
     if icon:
         lines.append(f"## {title} {icon}")
     else:
         lines.append(f"## {title}")
 
     # Add section description if present
-    description = section.get("description", "").strip()
+    description = category.get("description", "").strip()
     if description:
         lines.append("")
         lines.append(description)
 
     # Get resources for this section
-    category = section.get("category", "")
-    subsections = section.get("subsections", [])
+    category_name = category.get("name", "")
+    subcategories = category.get("subcategories", [])
 
-    if not subsections:
+    if not subcategories:
         # No subsections - render all resources for this category
-        resources = [r for r in csv_data if r["Category"] == category and not r.get("Sub-Category", "").strip()]
+        resources = [r for r in csv_data if r["Category"] == category_name and not r.get("Sub-Category", "").strip()]
         if resources:
             lines.append("")
             for resource in resources:
@@ -192,7 +188,9 @@ def generate_section_content(section, csv_data):
                 lines.append("")
     else:
         # Has subsections - first render main category resources without subcategory
-        main_resources = [r for r in csv_data if r["Category"] == category and not r.get("Sub-Category", "").strip()]
+        main_resources = [
+            r for r in csv_data if r["Category"] == category_name and not r.get("Sub-Category", "").strip()
+        ]
         if main_resources:
             lines.append("")
             for resource in main_resources:
@@ -200,12 +198,11 @@ def generate_section_content(section, csv_data):
                 lines.append("")
 
         # Then render each subsection
-        for subsection in subsections:
-            sub_title = subsection["title"]
-            sub_category = subsection["sub_category"]
+        for subcat in subcategories:
+            sub_title = subcat["name"]
 
             resources = [
-                r for r in csv_data if r["Category"] == category and r.get("Sub-Category", "").strip() == sub_category
+                r for r in csv_data if r["Category"] == category_name and r.get("Sub-Category", "").strip() == sub_title
             ]
 
             if resources:
@@ -273,15 +270,14 @@ def create_backup(file_path):
 
 def generate_readme_from_templates(csv_path, template_dir, output_path):
     """Generate README using template system."""
+    from category_utils import category_manager
+
     # Create backup of existing README
     backup_path = create_backup(output_path)
 
-    # Load template and structure
+    # Load template
     template_path = os.path.join(template_dir, "README.template.md")
-    structure_path = os.path.join(template_dir, "readme-structure.yaml")
-
     template = load_template(template_path)
-    structure = load_structure(structure_path)
     overrides = load_overrides(template_dir)
     announcements = load_announcements(template_dir)
 
@@ -296,18 +292,17 @@ def generate_readme_from_templates(csv_path, template_dir, output_path):
                 csv_data.append(row)
 
     # Generate table of contents
-    toc_content = generate_toc_from_structure(structure)
+    toc_content = generate_toc_from_categories()
 
     # Generate weekly section
     weekly_section = generate_weekly_section(csv_data)
 
     # Generate body sections
     body_sections = []
-    for section in structure.get("sections", []):
-        source_type = section.get("source", "")
-        if source_type == "csv":
-            section_content = generate_section_content(section, csv_data)
-            body_sections.append(section_content)
+    categories = category_manager.get_categories_for_readme()
+    for category in categories:
+        section_content = generate_section_content(category, csv_data)
+        body_sections.append(section_content)
 
     # Replace placeholders in template
     readme_content = template

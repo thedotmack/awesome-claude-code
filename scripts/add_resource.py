@@ -3,7 +3,6 @@
 
 import csv
 import os
-import subprocess
 import sys
 from datetime import datetime
 
@@ -162,19 +161,10 @@ def get_description():
 
 
 def generate_id(display_name, primary_link, category):
-    """Generate ID using quick_id.py"""
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    quick_id_path = os.path.join(script_dir, "quick_id.py")
+    """Generate ID using shared resource_id module"""
+    from resource_id import generate_resource_id
 
-    try:
-        result = subprocess.run(
-            ["python3", quick_id_path, display_name, primary_link, category], capture_output=True, text=True, check=True
-        )
-        return result.stdout.strip()
-    except subprocess.CalledProcessError as e:
-        print(f"Error generating ID: {e}")
-        print(f"Stderr: {e.stderr}")
-        sys.exit(1)
+    return generate_resource_id(display_name, primary_link, category)
 
 
 def confirm_submission(data):

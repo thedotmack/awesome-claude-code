@@ -6,6 +6,32 @@ This directory contains all automation scripts for managing the Awesome Claude C
 
 The scripts implement a CSV-first workflow where `THE_RESOURCES_TABLE.csv` serves as the single source of truth for all resources. The README.md is generated from this CSV data using templates.
 
+## Category System
+
+### `category_utils.py`
+**Purpose**: Unified category management system  
+**Usage**: `from category_utils import category_manager`  
+**Features**:
+- Singleton pattern for efficient data loading
+- Reads categories from `templates/categories.yaml`
+- Provides methods for category lookup, validation, and ordering
+- Used by all scripts that need category information
+
+### Adding New Categories
+To add a new category:
+1. Edit `templates/categories.yaml` and add your category with:
+   - `id`: Unique identifier
+   - `name`: Display name
+   - `prefix`: ID prefix (e.g., "cmd" for Slash-Commands)
+   - `icon`: Emoji icon
+   - `order`: Sort order
+   - `description`: Markdown description
+   - `subcategories`: Optional list of subcategories
+2. Update `.github/ISSUE_TEMPLATE/submit-resource.yml` to add the category to the dropdown
+3. Run `make generate` to update the README
+
+All scripts automatically use the new category without any code changes.
+
 ## Core Workflow Scripts
 
 ### 1. `add_resource.py`
@@ -102,6 +128,7 @@ The scripts implement a CSV-first workflow where `THE_RESOURCES_TABLE.csv` serve
 **Features**:
 - Maintains consistent ordering
 - Sorts by: Category → Sub-Category → Display Name
+- Uses category order from `categories.yaml`
 - Preserves CSV structure and formatting
 
 ## Utility Scripts
@@ -110,19 +137,27 @@ The scripts implement a CSV-first workflow where `THE_RESOURCES_TABLE.csv` serve
 **Purpose**: Interactive resource ID generator  
 **Usage**: `python scripts/generate_resource_id.py`  
 **Features**:
-- Standalone utility for manual ID generation
-- Interactive prompts for resource type and name
-- Follows project ID conventions
+- Interactive prompts for display name, link, and category
+- Shows all available categories from `categories.yaml`
+- Displays generated ID and CSV row preview
 
 ### 11. `quick_id.py`
 **Purpose**: Command-line ID generation  
-**Usage**: `python scripts/quick_id.py <resource_type> <name>`  
+**Usage**: `python scripts/quick_id.py 'Display Name' 'https://link.com' 'Category'`  
 **Features**:
 - Quick one-liner for ID generation
 - No interactive prompts
-- Useful for scripting
+- Useful for scripting and automation
 
-### 12. `badge_issue_notification.py`
+### 12. `resource_id.py`
+**Purpose**: Shared resource ID generation module  
+**Usage**: `from resource_id import generate_resource_id`  
+**Features**:
+- Central function used by all ID generation scripts
+- Uses category prefixes from `categories.yaml`
+- Ensures consistent ID generation across the project
+
+### 13. `badge_issue_notification.py`
 **Purpose**: Creates GitHub issues to notify repositories when featured and updates Date Added for new resources  
 **Usage**: `python scripts/badge_issue_notification.py`  
 **Features**:
