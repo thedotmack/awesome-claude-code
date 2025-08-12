@@ -4,150 +4,302 @@ Unit tests for the CategoryManager class.
 """
 
 import sys
+import tempfile
 from pathlib import Path
+
+import yaml
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from scripts.category_utils import category_manager
+from scripts.category_utils import CategoryManager
+
+
+def create_test_categories():
+    """Create test category data."""
+    return {
+        "categories": [
+            {
+                "id": "cat1",
+                "name": "Category One",
+                "prefix": "c1",
+                "icon": "🔵",
+                "description": "First test category",
+                "order": 2,
+                "subcategories": [
+                    {"id": "sub1", "name": "Subcategory A"},
+                    {"id": "sub2", "name": "Subcategory B"},
+                ],
+            },
+            {
+                "id": "cat2",
+                "name": "Category Two",
+                "prefix": "c2",
+                "icon": "🟢",
+                "description": "Second test category",
+                "order": 1,
+            },
+            {
+                "id": "cat3",
+                "name": "Category Three",
+                "prefix": "c3",
+                "icon": "🔴",
+                "description": "Third test category",
+                "order": 3,
+                "subcategories": [
+                    {"id": "sub3", "name": "Subcategory C"},
+                ],
+            },
+        ],
+        "toc": {
+            "style": "test",
+            "symbol": "►",
+            "subsymbol": "▸",
+            "indent": "  ",
+            "subindent": "    ",
+        },
+    }
 
 
 def test_get_all_categories():
     """Test getting all category names."""
-    categories = category_manager.get_all_categories()
+    # Create a new instance with test data
+    manager = CategoryManager()
+    manager._data = create_test_categories()
 
-    # Check we have the expected categories
-    assert "Workflows & Knowledge Guides" in categories
-    assert "Tooling" in categories
-    assert "Statusline" in categories
-    assert "Hooks" in categories
-    assert "Slash-Commands" in categories
-    assert "CLAUDE.md Files" in categories
-    assert "Official Documentation" in categories
+    categories = manager.get_all_categories()
 
-    # Check count
-    assert len(categories) == 7
+    # Check we have the expected test categories
+    assert "Category One" in categories
+    assert "Category Two" in categories
+    assert "Category Three" in categories
+    assert len(categories) == 3
 
 
 def test_get_category_prefixes():
     """Test getting category ID prefixes."""
-    prefixes = category_manager.get_category_prefixes()
+    manager = CategoryManager()
+    manager._data = create_test_categories()
 
-    # Check specific mappings
-    assert prefixes["Workflows & Knowledge Guides"] == "wf"
-    assert prefixes["Tooling"] == "tool"
-    assert prefixes["Statusline"] == "status"
-    assert prefixes["Hooks"] == "hook"
-    assert prefixes["Slash-Commands"] == "cmd"
-    assert prefixes["CLAUDE.md Files"] == "claude"
-    assert prefixes["Official Documentation"] == "doc"
+    prefixes = manager.get_category_prefixes()
+
+    # Check mappings from our test data
+    assert prefixes["Category One"] == "c1"
+    assert prefixes["Category Two"] == "c2"
+    assert prefixes["Category Three"] == "c3"
+    assert len(prefixes) == 3
 
 
 def test_get_category_by_name():
     """Test retrieving category by name."""
+    manager = CategoryManager()
+    manager._data = create_test_categories()
+
     # Test existing category
-    statusline = category_manager.get_category_by_name("Statusline")
-    assert statusline is not None
-    assert statusline["id"] == "statusline"
-    assert statusline["prefix"] == "status"
-    assert statusline["icon"] == "📊"
+    cat_one = manager.get_category_by_name("Category One")
+    assert cat_one is not None
+    assert cat_one["id"] == "cat1"
+    assert cat_one["prefix"] == "c1"
+    assert cat_one["icon"] == "🔵"
+    assert len(cat_one["subcategories"]) == 2
 
     # Test non-existent category
-    nonexistent = category_manager.get_category_by_name("NonExistent")
+    nonexistent = manager.get_category_by_name("NonExistent")
     assert nonexistent is None
 
 
 def test_get_category_by_id():
     """Test retrieving category by ID."""
+    manager = CategoryManager()
+    manager._data = create_test_categories()
+
     # Test existing category
-    tooling = category_manager.get_category_by_id("tooling")
-    assert tooling is not None
-    assert tooling["name"] == "Tooling"
-    assert tooling["prefix"] == "tool"
+    cat_two = manager.get_category_by_id("cat2")
+    assert cat_two is not None
+    assert cat_two["name"] == "Category Two"
+    assert cat_two["prefix"] == "c2"
+    assert "subcategories" not in cat_two  # No subcategories
 
     # Test non-existent category
-    nonexistent = category_manager.get_category_by_id("nonexistent")
+    nonexistent = manager.get_category_by_id("nonexistent")
     assert nonexistent is None
 
 
 def test_get_all_subcategories():
     """Test getting all subcategories with parent info."""
-    subcategories = category_manager.get_all_subcategories()
+    manager = CategoryManager()
+    manager._data = create_test_categories()
 
-    # Check we have subcategories
-    assert len(subcategories) > 0
+    subcategories = manager.get_all_subcategories()
 
-    # Check specific subcategory
-    ide_integration = next((s for s in subcategories if s["name"] == "IDE Integrations"), None)
-    assert ide_integration is not None
-    assert ide_integration["parent"] == "Tooling"
-    assert ide_integration["full_name"] == "Tooling: IDE Integrations"
+    # Check we have the right number of subcategories
+    assert len(subcategories) == 3  # sub1, sub2, sub3
+
+    # Check subcategory structure
+    sub_a = next((s for s in subcategories if s["name"] == "Subcategory A"), None)
+    assert sub_a is not None
+    assert sub_a["parent"] == "Category One"
+    assert sub_a["full_name"] == "Category One: Subcategory A"
+
+    sub_c = next((s for s in subcategories if s["name"] == "Subcategory C"), None)
+    assert sub_c is not None
+    assert sub_c["parent"] == "Category Three"
 
 
 def test_get_subcategories_for_category():
     """Test getting subcategories for a specific category."""
+    manager = CategoryManager()
+    manager._data = create_test_categories()
+
     # Category with subcategories
-    slash_cmd_subs = category_manager.get_subcategories_for_category("Slash-Commands")
-    assert "Version Control & Git" in slash_cmd_subs
-    assert "Code Analysis & Testing" in slash_cmd_subs
-    assert len(slash_cmd_subs) == 7
+    cat_one_subs = manager.get_subcategories_for_category("Category One")
+    assert "Subcategory A" in cat_one_subs
+    assert "Subcategory B" in cat_one_subs
+    assert len(cat_one_subs) == 2
 
     # Category without subcategories
-    statusline_subs = category_manager.get_subcategories_for_category("Statusline")
-    assert statusline_subs == []
+    cat_two_subs = manager.get_subcategories_for_category("Category Two")
+    assert cat_two_subs == []
+
+    # Non-existent category
+    nonexistent_subs = manager.get_subcategories_for_category("NonExistent")
+    assert nonexistent_subs == []
 
 
 def test_validate_category_subcategory():
     """Test validation of category-subcategory relationships."""
-    # Valid combinations
-    assert category_manager.validate_category_subcategory("Tooling", "IDE Integrations") is True
-    assert category_manager.validate_category_subcategory("Slash-Commands", "Version Control & Git") is True
+    manager = CategoryManager()
+    manager._data = create_test_categories()
 
-    # No subcategory (always valid)
-    assert category_manager.validate_category_subcategory("Statusline", "") is True
-    assert category_manager.validate_category_subcategory("Statusline", None) is True
+    # Valid combinations
+    assert manager.validate_category_subcategory("Category One", "Subcategory A") is True
+    assert manager.validate_category_subcategory("Category Three", "Subcategory C") is True
+
+    # No subcategory (always valid for existing categories)
+    assert manager.validate_category_subcategory("Category Two", "") is True
+    assert manager.validate_category_subcategory("Category Two", None) is True
 
     # Invalid combinations
-    assert category_manager.validate_category_subcategory("Tooling", "Version Control & Git") is False
-    assert category_manager.validate_category_subcategory("NonExistent", "Something") is False
+    assert manager.validate_category_subcategory("Category One", "Subcategory C") is False
+    assert manager.validate_category_subcategory("Category Two", "Subcategory A") is False
+    assert manager.validate_category_subcategory("NonExistent", "Something") is False
 
 
 def test_get_categories_for_readme():
     """Test getting categories ordered for README generation."""
-    categories = category_manager.get_categories_for_readme()
+    manager = CategoryManager()
+    manager._data = create_test_categories()
 
-    # Check ordering by verifying first few
-    assert categories[0]["id"] == "workflows"  # order: 1
-    assert categories[1]["id"] == "tooling"  # order: 2
-    assert categories[2]["id"] == "statusline"  # order: 3
+    categories = manager.get_categories_for_readme()
+
+    # Check ordering - should be sorted by 'order' field
+    assert categories[0]["id"] == "cat2"  # order: 1
+    assert categories[1]["id"] == "cat1"  # order: 2
+    assert categories[2]["id"] == "cat3"  # order: 3
 
     # All categories should be present
-    assert len(categories) == 7
+    assert len(categories) == 3
 
 
 def test_get_toc_config():
     """Test getting table of contents configuration."""
-    toc_config = category_manager.get_toc_config()
+    manager = CategoryManager()
+    manager._data = create_test_categories()
 
-    # Check expected TOC settings
-    assert toc_config["style"] == "custom"
-    assert toc_config["symbol"] == "▪"
-    assert toc_config["subsymbol"] == "▫"
-    assert "indent" in toc_config
-    assert "subindent" in toc_config
+    toc_config = manager.get_toc_config()
+
+    # Check test TOC settings
+    assert toc_config["style"] == "test"
+    assert toc_config["symbol"] == "►"
+    assert toc_config["subsymbol"] == "▸"
+    assert toc_config["indent"] == "  "
+    assert toc_config["subindent"] == "    "
 
 
 def test_singleton_behavior():
     """Test that CategoryManager behaves as a singleton."""
-    from scripts.category_utils import CategoryManager
-
     # Create new instances
     instance1 = CategoryManager()
     instance2 = CategoryManager()
 
     # They should be the same object
     assert instance1 is instance2
-    assert instance1 is category_manager
+
+
+def test_loading_from_file():
+    """Test loading categories from a YAML file."""
+    # Create a temporary YAML file with test data
+    test_data = create_test_categories()
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
+        yaml.dump(test_data, f)
+        temp_path = f.name
+
+    try:
+        # Patch the _load_categories method to load from our temp file
+        original_load = CategoryManager._load_categories
+
+        def mock_load(self):
+            with open(temp_path, encoding="utf-8") as f:
+                self._data = yaml.safe_load(f)
+
+        CategoryManager._load_categories = mock_load
+
+        # Create a fresh instance (reset singleton)
+        CategoryManager._instance = None
+        CategoryManager._data = None
+
+        manager = CategoryManager()
+
+        # Verify data was loaded correctly
+        categories = manager.get_all_categories()
+        assert len(categories) == 3
+        assert "Category One" in categories
+
+        # Restore original method
+        CategoryManager._load_categories = original_load
+    finally:
+        # Clean up
+        Path(temp_path).unlink()
+
+
+def test_robustness_with_missing_fields():
+    """Test that the manager handles missing optional fields gracefully."""
+    manager = CategoryManager()
+    manager._data = {
+        "categories": [
+            {
+                "id": "minimal",
+                "name": "Minimal Category",
+                "prefix": "min",
+                # No icon, description, order, or subcategories
+            },
+            {
+                "id": "partial",
+                "name": "Partial Category",
+                "prefix": "par",
+                "icon": "🟡",
+                # No description or order
+                "subcategories": [],
+            },
+        ],
+        "toc": {
+            "style": "minimal",
+            # Other fields missing
+        },
+    }
+
+    # Should not crash when accessing categories
+    categories = manager.get_all_categories()
+    assert len(categories) == 2
+
+    # Should handle missing subcategories gracefully
+    subs = manager.get_subcategories_for_category("Minimal Category")
+    assert subs == []
+
+    # TOC config should have some defaults or handle missing fields
+    toc = manager.get_toc_config()
+    assert toc["style"] == "minimal"
 
 
 if __name__ == "__main__":
@@ -163,6 +315,8 @@ if __name__ == "__main__":
         test_get_categories_for_readme,
         test_get_toc_config,
         test_singleton_behavior,
+        test_loading_from_file,
+        test_robustness_with_missing_fields,
     ]
 
     passed = 0
