@@ -96,6 +96,35 @@ def format_resource_entry(row):
     return result
 
 
+def parse_resource_date(date_string):
+    """Parse a date string that may include timestamp information.
+
+    Handles formats:
+    - YYYY-MM-DD
+    - YYYY-MM-DD:HH-MM-SS
+
+    Returns datetime object or None if parsing fails.
+    """
+    if not date_string:
+        return None
+
+    date_string = date_string.strip()
+
+    # Try different date formats
+    date_formats = [
+        "%Y-%m-%d:%H-%M-%S",  # Full format with timestamp
+        "%Y-%m-%d",  # Date only format
+    ]
+
+    for fmt in date_formats:
+        try:
+            return datetime.strptime(date_string, fmt)
+        except ValueError:
+            continue
+
+    return None
+
+
 def generate_weekly_section(csv_data):
     """Generate the weekly resources section that appears above Contents."""
     lines = []
@@ -109,24 +138,16 @@ def generate_weekly_section(csv_data):
     weekly_resources = []
 
     for resource in csv_data:
-        date_added = resource.get("Date Added", "").strip()
-        if date_added:
-            try:
-                # Handle dates with timestamps (YYYY-MM-DD:HH-MM-SS) by extracting just the date part
-                if ":" in date_added:
-                    date_added = date_added.split(":")[0]
-                # Parse date in YYYY-MM-DD format
-                resource_date = datetime.strptime(date_added, "%Y-%m-%d")
-                if resource_date >= one_week_ago:
-                    weekly_resources.append(resource)
-            except ValueError:
-                # Skip resources with invalid date format
-                pass
+        date_added = resource.get("Date Added", "")
+        resource_date = parse_resource_date(date_added)
+
+        if resource_date and resource_date >= one_week_ago:
+            weekly_resources.append(resource)
 
     if weekly_resources:
         lines.append("")
-        # Sort by date added (newest first)
-        weekly_resources.sort(key=lambda x: x.get("Date Added", ""), reverse=True)
+        # Sort by date added (newest first) using parsed dates
+        weekly_resources.sort(key=lambda x: parse_resource_date(x.get("Date Added", "")) or datetime.min, reverse=True)
 
         for resource in weekly_resources:
             lines.append(format_resource_entry(resource))
