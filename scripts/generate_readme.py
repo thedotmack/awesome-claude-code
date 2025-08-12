@@ -8,7 +8,7 @@ import csv
 import os
 import shutil
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import yaml  # type: ignore[import-untyped]
 
@@ -85,6 +85,59 @@ def format_resource_entry(row):
         result += f"  \n{description}"
 
     return result
+
+
+def generate_weekly_content(section, csv_data):
+    """Generate content for weekly resources section."""
+    lines = []
+
+    # Add section title
+    title = section.get("title", "")
+    icon = section.get("icon", "")
+    if icon:
+        lines.append(f"## {title} {icon}")
+    else:
+        lines.append(f"## {title}")
+
+    # Add section description if present
+    description = section.get("description", "").strip()
+    if description:
+        lines.append("")
+        lines.append(description)
+
+    # Get resources added in the past week
+    one_week_ago = datetime.now() - timedelta(days=7)
+    weekly_resources = []
+
+    for resource in csv_data:
+        date_added = resource.get("Date Added", "").strip()
+        if date_added:
+            try:
+                # Handle dates with timestamps (YYYY-MM-DD:HH-MM-SS) by extracting just the date part
+                if ":" in date_added:
+                    date_added = date_added.split(":")[0]
+                # Parse date in YYYY-MM-DD format
+                resource_date = datetime.strptime(date_added, "%Y-%m-%d")
+                if resource_date >= one_week_ago:
+                    weekly_resources.append(resource)
+            except ValueError:
+                # Skip resources with invalid date format
+                pass
+
+    if weekly_resources:
+        lines.append("")
+        # Sort by date added (newest first)
+        weekly_resources.sort(key=lambda x: x.get("Date Added", ""), reverse=True)
+
+        for resource in weekly_resources:
+            lines.append(format_resource_entry(resource))
+            lines.append("")
+    else:
+        lines.append("")
+        lines.append("*No new resources added this week.*")
+        lines.append("")
+
+    return "\n".join(lines).rstrip() + "\n"
 
 
 def generate_section_content(section, csv_data):
@@ -227,8 +280,12 @@ def generate_readme_from_templates(csv_path, template_dir, output_path):
     # Generate body sections
     body_sections = []
     for section in structure.get("sections", []):
-        if section.get("source") == "csv":
+        source_type = section.get("source", "")
+        if source_type == "csv":
             section_content = generate_section_content(section, csv_data)
+            body_sections.append(section_content)
+        elif source_type == "weekly":
+            section_content = generate_weekly_content(section, csv_data)
             body_sections.append(section_content)
 
     # Replace placeholders in template
