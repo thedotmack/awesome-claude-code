@@ -12,7 +12,10 @@ scripts_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "scr
 if scripts_dir not in sys.path:
     sys.path.insert(0, scripts_dir)
 
-from badge_notification_core import BadgeNotificationCore  # noqa: E402
+try:
+    from badge_notification_core import BadgeNotificationCore  # type: ignore[import]
+except ImportError:
+    from scripts.badge_notification_core import BadgeNotificationCore  # noqa: E402
 
 
 def test_dangerous_input_rejection():

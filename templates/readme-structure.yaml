@@ -2,13 +2,6 @@
 # This file defines the structure and ordering of sections in the generated README
 
 sections:
-  - id: this-week
-    title: "This Week's Additions"
-    description: |
-      > Resources added in the past 7 days
-    source: weekly
-    icon: "✨"
-    
   - id: workflows
     title: "Workflows & Knowledge Guides"
     description: |

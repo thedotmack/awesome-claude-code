@@ -19,6 +19,15 @@ def load_template(template_path):
         return f.read()
 
 
+def load_announcements(template_dir):
+    """Load announcements from the announcements.md file."""
+    announcements_path = os.path.join(template_dir, "announcements.md")
+    if os.path.exists(announcements_path):
+        with open(announcements_path, encoding="utf-8") as f:
+            return f.read().strip()
+    return ""
+
+
 def load_structure(structure_path):
     """Load the README structure configuration."""
     with open(structure_path, encoding="utf-8") as f:
@@ -85,6 +94,49 @@ def format_resource_entry(row):
         result += f"  \n{description}"
 
     return result
+
+
+def generate_weekly_section(csv_data):
+    """Generate the weekly resources section that appears above Contents."""
+    lines = []
+
+    lines.append("## This Week's Additions ✨")
+    lines.append("")
+    lines.append("> Resources added in the past 7 days")
+
+    # Get resources added in the past week
+    one_week_ago = datetime.now() - timedelta(days=7)
+    weekly_resources = []
+
+    for resource in csv_data:
+        date_added = resource.get("Date Added", "").strip()
+        if date_added:
+            try:
+                # Handle dates with timestamps (YYYY-MM-DD:HH-MM-SS) by extracting just the date part
+                if ":" in date_added:
+                    date_added = date_added.split(":")[0]
+                # Parse date in YYYY-MM-DD format
+                resource_date = datetime.strptime(date_added, "%Y-%m-%d")
+                if resource_date >= one_week_ago:
+                    weekly_resources.append(resource)
+            except ValueError:
+                # Skip resources with invalid date format
+                pass
+
+    if weekly_resources:
+        lines.append("")
+        # Sort by date added (newest first)
+        weekly_resources.sort(key=lambda x: x.get("Date Added", ""), reverse=True)
+
+        for resource in weekly_resources:
+            lines.append(format_resource_entry(resource))
+            lines.append("")
+    else:
+        lines.append("")
+        lines.append("*No new resources added this week.*")
+        lines.append("")
+
+    return "\n".join(lines).rstrip() + "\n"
 
 
 def generate_weekly_content(section, csv_data):
@@ -263,6 +315,7 @@ def generate_readme_from_templates(csv_path, template_dir, output_path):
     template = load_template(template_path)
     structure = load_structure(structure_path)
     overrides = load_overrides(template_dir)
+    announcements = load_announcements(template_dir)
 
     # Load CSV data
     csv_data = []
@@ -277,6 +330,9 @@ def generate_readme_from_templates(csv_path, template_dir, output_path):
     # Generate table of contents
     toc_content = generate_toc_from_structure(structure)
 
+    # Generate weekly section
+    weekly_section = generate_weekly_section(csv_data)
+
     # Generate body sections
     body_sections = []
     for section in structure.get("sections", []):
@@ -290,6 +346,8 @@ def generate_readme_from_templates(csv_path, template_dir, output_path):
 
     # Replace placeholders in template
     readme_content = template
+    readme_content = readme_content.replace("{{ANNOUNCEMENTS}}", announcements)
+    readme_content = readme_content.replace("{{WEEKLY_SECTION}}", weekly_section)
     readme_content = readme_content.replace("{{TABLE_OF_CONTENTS}}", toc_content)
     readme_content = readme_content.replace("{{BODY_SECTIONS}}", "\n<br>\n\n".join(body_sections))
 
