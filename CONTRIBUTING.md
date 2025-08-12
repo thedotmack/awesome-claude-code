@@ -105,6 +105,7 @@ Resources are organized into these categories:
 - **Workflows & Knowledge Guides** - Comprehensive workflow systems
 - **Tooling** - CLI applications and executables
   - IDE Integrations
+- **Statusline** - Status bar configurations and customizations
 - **Hooks** - Claude Code hook configurations
 - **Slash-Commands** - Individual command files
   - Version Control & Git
