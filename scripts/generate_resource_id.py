@@ -4,22 +4,20 @@ Simple script to generate a resource ID for manual CSV additions.
 """
 
 import hashlib
+import sys
+from pathlib import Path
 
-# Category prefix mapping
-CATEGORY_PREFIXES = {
-    "Slash-Commands": "cmd",
-    "Workflows & Knowledge Guides": "wf",
-    "Tooling": "tool",
-    "CLAUDE.md Files": "claude",
-    "Hooks": "hook",
-    "Official Documentation": "doc",
-}
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from scripts.category_utils import category_manager
 
 
 def generate_resource_id(display_name, primary_link, category):
     """Generate a stable ID for a resource."""
     # Get category prefix, default to 'res' if not found
-    prefix = CATEGORY_PREFIXES.get(category, "res")
+    prefixes = category_manager.get_category_prefixes()
+    prefix = prefixes.get(category, "res")
 
     # Generate hash from display name + primary link
     content = f"{display_name}{primary_link}"
@@ -36,13 +34,14 @@ def main():
     display_name = input("Display Name: ").strip()
     primary_link = input("Primary Link: ").strip()
 
+    categories = category_manager.get_all_categories()
     print("\nAvailable categories:")
-    for i, cat in enumerate(CATEGORY_PREFIXES.keys(), 1):
+    for i, cat in enumerate(categories, 1):
         print(f"{i}. {cat}")
 
     cat_choice = input("\nSelect category number: ").strip()
     try:
-        category = list(CATEGORY_PREFIXES.keys())[int(cat_choice) - 1]
+        category = categories[int(cat_choice) - 1]
     except (ValueError, IndexError):
         print("Invalid category selection. Using custom category.")
         category = input("Enter custom category: ").strip()

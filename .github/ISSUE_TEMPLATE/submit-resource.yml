@@ -43,6 +43,7 @@ body:
       options:
         - Workflows & Knowledge Guides
         - Tooling
+        - Statusline
         - Hooks
         - Slash-Commands
         - CLAUDE.md Files
