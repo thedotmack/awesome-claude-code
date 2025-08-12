@@ -2,6 +2,15 @@
 """
 Unified category utilities for awesome-claude-code.
 Provides a single source of truth for all category-related operations.
+
+Usage:
+    from category_utils import category_manager
+
+    # Get all categories
+    categories = category_manager.get_all_categories()
+
+    # Get category by name
+    cat = category_manager.get_category_by_name("Statusline")
 """
 
 import os
@@ -101,51 +110,5 @@ class CategoryManager:
         return self._data.get("toc", {})
 
 
-# Create singleton instance
-_category_manager = CategoryManager()
-
-
-# Convenience functions that delegate to the singleton
-def get_all_categories():
-    """Get list of all category names."""
-    return _category_manager.get_all_categories()
-
-
-def get_category_prefixes():
-    """Get mapping of category names to ID prefixes."""
-    return _category_manager.get_category_prefixes()
-
-
-def get_category_by_name(name):
-    """Get category configuration by name."""
-    return _category_manager.get_category_by_name(name)
-
-
-def get_category_by_id(cat_id):
-    """Get category configuration by ID."""
-    return _category_manager.get_category_by_id(cat_id)
-
-
-def get_all_subcategories():
-    """Get all subcategories with their parent category names."""
-    return _category_manager.get_all_subcategories()
-
-
-def get_subcategories_for_category(category_name):
-    """Get subcategories for a specific category."""
-    return _category_manager.get_subcategories_for_category(category_name)
-
-
-def validate_category_subcategory(category, subcategory):
-    """Validate that a subcategory belongs to the given category."""
-    return _category_manager.validate_category_subcategory(category, subcategory)
-
-
-def get_categories_for_readme():
-    """Get categories in order for README generation."""
-    return _category_manager.get_categories_for_readme()
-
-
-def get_toc_config():
-    """Get table of contents configuration."""
-    return _category_manager.get_toc_config()
+# Create singleton instance for import
+category_manager = CategoryManager()
