@@ -20,6 +20,7 @@ jobs:
         with:
           sparse-checkout: |
             scripts/
+            templates/
             THE_RESOURCES_TABLE.csv
       
       - name: Set up Python
