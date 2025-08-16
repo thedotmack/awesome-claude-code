@@ -45,14 +45,20 @@ class CategoryManager:
 
     def get_all_categories(self):
         """Get list of all category names."""
+        if self._data is None:
+            return []
         return [cat["name"] for cat in self._data["categories"]]
 
     def get_category_prefixes(self):
         """Get mapping of category names to ID prefixes."""
+        if self._data is None:
+            return {}
         return {cat["name"]: cat["prefix"] for cat in self._data["categories"]}
 
     def get_category_by_name(self, name):
         """Get category configuration by name."""
+        if not self._data or "categories" not in self._data:
+            return None
         for cat in self._data["categories"]:
             if cat["name"] == name:
                 return cat
@@ -60,6 +66,8 @@ class CategoryManager:
 
     def get_category_by_id(self, cat_id):
         """Get category configuration by ID."""
+        if not self._data or "categories" not in self._data:
+            return None
         for cat in self._data["categories"]:
             if cat["id"] == cat_id:
                 return cat
@@ -69,11 +77,18 @@ class CategoryManager:
         """Get all subcategories with their parent category names."""
         subcategories = []
 
+        if not self._data or "categories" not in self._data:
+            return None
+
         for cat in self._data["categories"]:
             if "subcategories" in cat:
                 for subcat in cat["subcategories"]:
                     subcategories.append(
-                        {"parent": cat["name"], "name": subcat["name"], "full_name": f"{cat['name']}: {subcat['name']}"}
+                        {
+                            "parent": cat["name"],
+                            "name": subcat["name"],
+                            "full_name": f"{cat['name']}: {subcat['name']}",
+                        }
                     )
 
         return subcategories
@@ -102,12 +117,14 @@ class CategoryManager:
 
     def get_categories_for_readme(self):
         """Get categories in order for README generation."""
+        if not self._data or "categories" not in self._data:
+            return []
         categories = sorted(self._data["categories"], key=lambda x: x.get("order", 999))
         return categories
 
     def get_toc_config(self):
         """Get table of contents configuration."""
-        return self._data.get("toc", {})
+        return self._data.get("toc", {}) if self._data else {}
 
 
 # Create singleton instance for import

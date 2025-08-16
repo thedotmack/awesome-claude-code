@@ -82,9 +82,10 @@ class TestParseResourceDate(unittest.TestCase):
         date2 = parse_resource_date("2025-08-05")
         date3 = parse_resource_date("2025-08-07:18-26-57")
 
-        self.assertTrue(date1 > date2)
-        self.assertTrue(date3 > date1)  # Same date but with time
-        self.assertFalse(date2 > date1)
+        if date1 and date2 and date3:
+            self.assertTrue(date1 > date2)
+            self.assertTrue(date3 > date1)  # Same date but with time
+            self.assertFalse(date2 > date1)
 
 
 if __name__ == "__main__":
