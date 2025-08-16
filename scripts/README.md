@@ -2,6 +2,8 @@
 
 This directory contains all automation scripts for managing the Awesome Claude Code repository. The scripts work together to provide a complete workflow for resource management, from addition to pull request submission.
 
+**UPDATE (2025-08): These scripts are still in use, but this documentation may drift from the truth as things change. Currently, these are all executed "behind the scenes", as the submission workflow has been moved entirely to Issues.
+
 ## Overview
 
 The scripts implement a CSV-first workflow where `THE_RESOURCES_TABLE.csv` serves as the single source of truth for all resources. The README.md is generated from this CSV data using templates.

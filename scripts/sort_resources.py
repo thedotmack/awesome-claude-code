@@ -12,8 +12,7 @@ from pathlib import Path
 
 
 def sort_resources(csv_path: Path) -> None:
-    """Sort resources in the CSV file by category, sub-category,
-    and display name."""
+    """Sort resources in the CSV file by category, sub-category, and display name."""
     # Load category order from category_utils
     sys.path.insert(0, str(Path(__file__).parent.parent))
     from scripts.category_utils import category_manager
@@ -21,8 +20,6 @@ def sort_resources(csv_path: Path) -> None:
     category_order = []
     try:
         categories = category_manager.get_categories_for_readme()
-        if isinstance(categories, list):
-            categories = {cat["name"]: {} for cat in categories}
         category_order = [cat["name"] for cat in categories]
     except Exception as e:
         print(f"Warning: Could not load category order from category_utils: {e}")
@@ -38,14 +35,12 @@ def sort_resources(csv_path: Path) -> None:
         rows = list(reader)
 
     # Sort the rows
-    # First by Category (using custom order), then by Sub-Category
-    # (empty values last), then by Display Name
+    # First by Category (using custom order), then by Sub-Category (empty values last), then by Display Name
     sorted_rows = sorted(
         rows,
         key=lambda row: (
             category_sort_map.get(row.get("Category", ""), 999),  # Unknown categories sort last
-            row.get("Sub-Category", "") or "zzz",
-            # Empty sub-categories sort last
+            row.get("Sub-Category", "") or "zzz",  # Empty sub-categories sort last
             row.get("Display Name", "").lower(),
         ),
     )
