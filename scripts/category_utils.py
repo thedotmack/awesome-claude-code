@@ -59,8 +59,6 @@ class CategoryManager:
         """Get category configuration by name."""
         if not self._data or "categories" not in self._data:
             return None
-        if not self._data or "categories" not in self._data:
-            return None
         for cat in self._data["categories"]:
             if cat["name"] == name:
                 return cat
