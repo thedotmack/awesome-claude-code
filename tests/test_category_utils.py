@@ -133,7 +133,7 @@ def test_get_all_subcategories():
     subcategories = manager.get_all_subcategories()
 
     # Check we have the right number of subcategories
-    assert len(subcategories) == 3 if subcategories else False  # sub1, sub2, sub3
+    assert subcategories and len(subcategories) == 3  # sub1, sub2, sub3
 
     # Check subcategory structure
     sub_a = next((s for s in subcategories if s["name"] == "Subcategory A"), None) if subcategories else None
