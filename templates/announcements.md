@@ -6,6 +6,6 @@
 
 (iii) Still hoping to organize some friendly competition as soon as time allows.
 
-(iv) Considering imposing some more constraints on submissions, in particular I may decide to have your repo (if it is a repo) evaluted by a State-of-the-art language model, primarily for security, and not for awesomeness, as it's getting hard to keep up with all the great stuff coming in while still doing due dilligence to make sure that this is not a home for malware or otherwise insecure resources.
+(iv) Considering imposing some more constraints on submissions, in particular I may decide to have your repo (if it is a repo) evaluated by a State-of-the-art language model, primarily for security, and not for awesomeness, as it's getting hard to keep up with all the great stuff coming in while still doing due diligence to make sure that this is not a home for malware or otherwise insecure resources.
 
 (v) Check out some of the latest entries below, and start shipping your status lines! Even small entires are totally welcome, it doesn't have to be a Picasso - if it fits on a single line, that makes it even easier to compose it with another awesome resource.
