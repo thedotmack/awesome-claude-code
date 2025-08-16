@@ -12,7 +12,8 @@ from pathlib import Path
 
 
 def sort_resources(csv_path: Path) -> None:
-    """Sort resources in the CSV file by category, sub-category, and display name."""
+    """Sort resources in the CSV file by category, sub-category,
+    and display name."""
     # Load category order from category_utils
     sys.path.insert(0, str(Path(__file__).parent.parent))
     from scripts.category_utils import category_manager
@@ -35,7 +36,8 @@ def sort_resources(csv_path: Path) -> None:
         rows = list(reader)
 
     # Sort the rows
-    # First by Category (using custom order), then by Sub-Category (empty values last), then by Display Name
+    # First by Category (using custom order), then by Sub-Category
+    # (empty values last), then by Display Name
     sorted_rows = sorted(
         rows,
         key=lambda row: (
@@ -55,23 +57,23 @@ def sort_resources(csv_path: Path) -> None:
     print(f"✓ Sorted {len(sorted_rows)} resources in {csv_path}")
 
     # Print summary of categories
-    categories: dict[str, dict[str, int]] = {}
+    category_counts: dict[str, dict[str, int]] = {}
     for row in sorted_rows:
         cat = row.get("Category", "Unknown")
         subcat = row.get("Sub-Category", "") or "None"
-        if cat not in categories:
-            categories[cat] = {}
-        if subcat not in categories[cat]:
-            categories[cat][subcat] = 0
-        categories[cat][subcat] += 1
+        if cat not in category_counts:
+            category_counts[cat] = {}
+        if subcat not in category_counts[cat]:
+            category_counts[cat][subcat] = 0
+        category_counts[cat][subcat] += 1
 
     print("\nCategory Summary:")
     # Sort categories using the same custom order
-    sorted_categories = sorted(categories.keys(), key=lambda cat: category_sort_map.get(cat, 999))
+    sorted_categories = sorted(category_counts.keys(), key=lambda cat: category_sort_map.get(cat, 999))
     for cat in sorted_categories:
         print(f"  {cat}:")
-        for subcat in sorted(categories[cat].keys()):
-            count = categories[cat][subcat]
+        for subcat in sorted(category_counts[cat].keys()):
+            count = category_counts[cat][subcat]
             if subcat == "None":
                 print(f"    (no sub-category): {count} items")
             else:

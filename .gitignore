@@ -15,3 +15,5 @@ venv/
 .pr_template_content.md
 
 *.egg-info/
+
+.coverage
