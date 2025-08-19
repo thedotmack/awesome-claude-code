@@ -39,6 +39,15 @@ jobs:
               return;
             }
             
+            // WORKAROUND: Allow adding template labels (resource-submission and pending-validation)
+            // GitHub attributes labels from issue templates as being added by the issue author,
+            // not by GitHub itself. Without this exception, the protect-labels workflow would
+            // incorrectly flag and revert these template-defined labels as unauthorized changes.
+            if (action === 'labeled' && (label === 'resource-submission' || label === 'pending-validation')) {
+              console.log(`Allowing template label "${label}" to be added (used by issue templates)`);
+              return;
+            }
+            
             // Check if actor has write permissions
             const actorPermission = context.payload.sender.author_association;
             const isRepoOwner = context.repo.owner === actor;
