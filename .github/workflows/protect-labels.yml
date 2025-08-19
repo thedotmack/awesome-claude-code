@@ -39,6 +39,13 @@ jobs:
               return;
             }
             
+            // Allow adding template labels (resource-submission and pending-validation)
+            // These are added automatically by GitHub when issues are created from templates
+            if (action === 'labeled' && (label === 'resource-submission' || label === 'pending-validation')) {
+              console.log(`Allowing template label "${label}" to be added (used by issue templates)`);
+              return;
+            }
+            
             // Check if actor has write permissions
             const actorPermission = context.payload.sender.author_association;
             const isRepoOwner = context.repo.owner === actor;
