@@ -3,12 +3,10 @@
 <!-- Responsive Logo with Theme Support -->
 <div align="center">
   
-  <!-- Desktop/Tablet View - Shows full ASCII art -->
+  <!-- Same ASCII art for all screen sizes, just scales down on mobile -->
   <picture>
-    <source media="(min-width: 768px) and (prefers-color-scheme: dark)" srcset="./assets/logo-desktop-dark.svg">
-    <source media="(min-width: 768px)" srcset="./assets/logo-desktop-light.svg">
-    <source media="(prefers-color-scheme: dark)" srcset="./assets/logo-mobile-dark.svg">
-    <img src="./assets/logo-mobile-light.svg" alt="Awesome Claude Code" width="100%" style="max-width: 900px;">
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/logo-dark.svg">
+    <img src="./assets/logo-light.svg" alt="Awesome Claude Code" width="100%" style="max-width: 900px;">
   </picture>
   
 </div>

@@ -3,8 +3,8 @@
 Generate responsive SVG logos for the Awesome Claude Code repository.
 
 This script creates:
-- Desktop versions (light/dark) with full ASCII art
-- Mobile versions (light/dark) with simplified design
+- Light and dark theme versions of the ASCII art logo
+- The same logo is used for all screen sizes (scales responsively)
 """
 
 from pathlib import Path
@@ -29,8 +29,8 @@ ASCII_ART = [
 ]
 
 
-def generate_desktop_svg(theme: str = "light") -> str:
-    """Generate desktop SVG with full ASCII art."""
+def generate_logo_svg(theme: str = "light") -> str:
+    """Generate SVG with full ASCII art for all screen sizes."""
     fill_color = "#24292e" if theme == "light" else "#e1e4e8"
 
     svg_lines = [
@@ -55,50 +55,6 @@ def generate_desktop_svg(theme: str = "light") -> str:
     return "\n".join(svg_lines)
 
 
-def generate_mobile_svg(theme: str = "light") -> str:
-    """Generate mobile SVG with simplified design."""
-    if theme == "light":
-        text_color = "#24292e"
-        accent_color = "#0969da"
-    else:
-        text_color = "#e1e4e8"
-        accent_color = "#58a6ff"
-
-    opacity = "0.4" if theme == "light" else "0.6"
-    svg_content = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
-  <style>
-    .title {{
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-      font-weight: 900;
-      fill: {text_color};
-      text-anchor: middle;
-    }}
-    .line1 {{ font-size: 48px; }}
-    .line2 {{ font-size: 44px; }}
-    .line3 {{ font-size: 44px; }}
-    .accent {{
-      fill: none;
-      stroke: {accent_color};
-      stroke-width: 3;
-    }}
-  </style>
-
-  <!-- Background decoration -->
-  <rect x="20" y="20" width="360" height="160" rx="8" class="accent" opacity="0.1" fill="{accent_color}"/>
-
-  <!-- Text content -->
-  <text x="200" y="70" class="title line1">AWESOME</text>
-  <text x="200" y="120" class="title line2">CLAUDE</text>
-  <text x="200" y="165" class="title line3">CODE</text>
-
-  <!-- Decorative elements -->
-  <rect x="50" y="85" width="80" height="3" fill="{accent_color}" opacity="{opacity}"/>
-  <rect x="270" y="85" width="80" height="3" fill="{accent_color}" opacity="{opacity}"/>
-</svg>"""
-
-    return svg_content
-
-
 def main():
     """Generate all logo SVG files."""
     # Get the project root directory
@@ -109,20 +65,14 @@ def main():
     # Create assets directory if it doesn't exist
     assets_dir.mkdir(exist_ok=True)
 
-    # Generate desktop SVGs
-    desktop_light = generate_desktop_svg("light")
-    desktop_dark = generate_desktop_svg("dark")
-
-    # Generate mobile SVGs
-    mobile_light = generate_mobile_svg("light")
-    mobile_dark = generate_mobile_svg("dark")
+    # Generate logo SVGs (same for all screen sizes)
+    logo_light = generate_logo_svg("light")
+    logo_dark = generate_logo_svg("dark")
 
     # Write files
     files_to_write = {
-        "logo-desktop-light.svg": desktop_light,
-        "logo-desktop-dark.svg": desktop_dark,
-        "logo-mobile-light.svg": mobile_light,
-        "logo-mobile-dark.svg": mobile_dark,
+        "logo-light.svg": logo_light,
+        "logo-dark.svg": logo_dark,
     }
 
     for filename, content in files_to_write.items():
