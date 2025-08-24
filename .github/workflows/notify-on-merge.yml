@@ -39,10 +39,13 @@ jobs:
       - name: Extract resource information from PR
         id: extract_resource
         uses: actions/github-script@v7
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
         with:
           script: |
-            const pr_body = context.payload.pull_request.body || '';
-            const pr_title = context.payload.pull_request.title || '';
+            const pr_body = process.env.PR_BODY || '';
+            const pr_title = process.env.PR_TITLE || '';
             
             // Look for GitHub URL in PR body
             // PRs created by approve-resource-submission.yml typically have format:
