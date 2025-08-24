@@ -63,13 +63,15 @@ def get_anchor_suffix_for_icon(icon):
         return ""
 
     # Check for any variation selector (U+FE00 to U+FE0F)
-    for char in icon:
-        code_point = ord(char)
-        if 0xFE00 <= code_point <= 0xFE0F:
-            # Found a variation selector - URL-encode it
-            vs_bytes = char.encode("utf-8")
-            url_encoded = "".join(f"%{byte:02X}" for byte in vs_bytes)
-            return f"-{url_encoded}"
+    # Note: We return after finding the first VS, as emojis typically have
+    # only one variation selector. Multiple VSs in a single icon would be
+    # extremely rare and likely invalid Unicode.
+    vs_char = next((char for char in icon if 0xFE00 <= ord(char) <= 0xFE0F), None)
+    if vs_char:
+        # Found a variation selector - URL-encode it
+        vs_bytes = vs_char.encode("utf-8")
+        url_encoded = "".join(f"%{byte:02X}" for byte in vs_bytes)
+        return f"-{url_encoded}"
 
     # No variation selector found - simple emoji gets replaced with dash
     return "-"
