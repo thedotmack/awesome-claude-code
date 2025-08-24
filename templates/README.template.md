@@ -1,26 +1,17 @@
 <!--lint disable remark-lint:awesome-badge-->
 
-#
-
-<!-- [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re) -->
-
-<pre style="display: inline-block; text-align: left;">
- █████┐ ██┐    ██┐███████┐███████┐ ██████┐ ███┐   ███┐███████┐
-██┌──██┐██│    ██│██┌────┘██┌────┘██┌───██┐████┐ ████│██┌────┘
-███████│██│ █┐ ██│█████┐  ███████┐██│   ██│██┌████┌██│█████┐
-██┌──██│██│███┐██│██┌──┘  └────██│██│   ██│██│└██┌┘██│██┌──┘
-██│  ██│└███┌███┌┘███████┐███████│└██████┌┘██│ └─┘ ██│███████┐
-└─┘  └─┘ └──┘└──┘ └──────┘└──────┘ └─────┘ └─┘     └─┘└──────┘
-
- ────────────────────────────────────────────────────────────────────────────────────
-
- ██████┐██┐      █████┐ ██┐   ██┐██████┐ ███████┐     ██████┐ ██████┐ ██████┐ ███████┐
-██┌────┘██│     ██┌──██┐██│   ██│██┌──██┐██┌────┘    ██┌────┘██┌───██┐██┌──██┐██┌────┘
-██│     ██│     ███████│██│   ██│██│  ██│█████┐      ██│     ██│   ██│██│  ██│█████┐
-██│     ██│     ██┌──██│██│   ██│██│  ██│██┌──┘      ██│     ██│   ██│██│  ██│██┌──┘
-└██████┐███████┐██│  ██│└██████┌┘██████┌┘███████┐    └██████┐└██████┌┘██████┌┘███████┐
- └─────┘└──────┘└─┘  └─┘ └─────┘ └─────┘ └──────┘     └─────┘ └─────┘ └─────┘ └──────┘
-</pre>
+<!-- Responsive Logo with Theme Support -->
+<div align="center">
+  
+  <!-- Desktop/Tablet View - Shows full ASCII art -->
+  <picture>
+    <source media="(min-width: 768px) and (prefers-color-scheme: dark)" srcset="./assets/logo-desktop-dark.svg">
+    <source media="(min-width: 768px)" srcset="./assets/logo-desktop-light.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/logo-mobile-dark.svg">
+    <img src="./assets/logo-mobile-light.svg" alt="Awesome Claude Code" width="100%" style="max-width: 900px;">
+  </picture>
+  
+</div>
 
 <!--lint enable remark-lint:awesome-badge-->
 
