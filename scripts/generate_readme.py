@@ -35,40 +35,44 @@ def get_anchor_suffix_for_icon(icon):
     GitHub's markdown anchor generation for trailing emojis:
     1. Simple emojis (single Unicode codepoint): Stripped and replaced with a
        single dash "-"
-    2. Emojis with variation selectors (e.g., U+FE0F): Base emoji is stripped
+    2. Emojis with variation selectors (U+FE00-FE0F): Base emoji is stripped
        and replaced with dash, variation selector becomes URL-encoded
 
     For example:
     - "## Tooling 🧰" → #tooling- (simple emoji becomes dash)
     - "## Official Documentation 🏛️" → #official-documentation-%EF%B8%8F
-      (emoji becomes dash, variation selector is URL-encoded)
+      (emoji becomes dash, VS-16 is URL-encoded)
 
     The 🏛️ emoji is actually two characters:
     - U+1F3DB (🏛) - Classical Building base character
     - U+FE0F - Variation Selector-16 (forces emoji presentation)
 
-    The variation selector U+FE0F becomes %EF%B8%8F when URL-encoded.
+    Unicode has 16 variation selectors (U+FE00 to U+FE0F):
+    - VS-1 to VS-15 (U+FE00-FE0E): Rarely used with emojis
+    - VS-16 (U+FE0F): Common, forces colorful emoji presentation
 
     Args:
         icon: The emoji icon string from the category definition
 
     Returns:
-        The appropriate suffix for the anchor link ("-" or "-%EF%B8%8F")
+        The appropriate suffix for the anchor link
+        Examples: "-", "-%EF%B8%8F", "-%EF%B8%80", etc.
     """
     if not icon:
         # No icon means no suffix needed
         return ""
 
-    # Check if the icon contains a variation selector (U+FE0F)
-    # This character forces emoji presentation and affects anchor generation
-    has_variation_selector = "\ufe0f" in icon
+    # Check for any variation selector (U+FE00 to U+FE0F)
+    for char in icon:
+        code_point = ord(char)
+        if 0xFE00 <= code_point <= 0xFE0F:
+            # Found a variation selector - URL-encode it
+            vs_bytes = char.encode("utf-8")
+            url_encoded = "".join(f"%{byte:02X}" for byte in vs_bytes)
+            return f"-{url_encoded}"
 
-    if has_variation_selector:
-        # Emoji becomes dash, variation selector gets URL-encoded
-        return "-%EF%B8%8F"
-    else:
-        # Simple emoji gets replaced with just a dash
-        return "-"
+    # No variation selector found - simple emoji gets replaced with dash
+    return "-"
 
 
 def generate_toc_from_categories():
