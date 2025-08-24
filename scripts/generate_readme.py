@@ -28,6 +28,55 @@ def load_announcements(template_dir):
     return ""
 
 
+def get_anchor_suffix_for_icon(icon):
+    """
+    Generate the appropriate anchor suffix for a section with an emoji icon.
+
+    GitHub's markdown anchor generation for trailing emojis:
+    1. Simple emojis (single Unicode codepoint): Stripped and replaced with a
+       single dash "-"
+    2. Emojis with variation selectors (U+FE00-FE0F): Base emoji is stripped
+       and replaced with dash, variation selector becomes URL-encoded
+
+    For example:
+    - "## Tooling 🧰" → #tooling- (simple emoji becomes dash)
+    - "## Official Documentation 🏛️" → #official-documentation-%EF%B8%8F
+      (emoji becomes dash, VS-16 is URL-encoded)
+
+    The 🏛️ emoji is actually two characters:
+    - U+1F3DB (🏛) - Classical Building base character
+    - U+FE0F - Variation Selector-16 (forces emoji presentation)
+
+    Unicode has 16 variation selectors (U+FE00 to U+FE0F):
+    - VS-1 to VS-15 (U+FE00-FE0E): Rarely used with emojis
+    - VS-16 (U+FE0F): Common, forces colorful emoji presentation
+
+    Args:
+        icon: The emoji icon string from the category definition
+
+    Returns:
+        The appropriate suffix for the anchor link
+        Examples: "-", "-%EF%B8%8F", "-%EF%B8%80", etc.
+    """
+    if not icon:
+        # No icon means no suffix needed
+        return ""
+
+    # Check for any variation selector (U+FE00 to U+FE0F)
+    # Note: We return after finding the first VS, as emojis typically have
+    # only one variation selector. Multiple VSs in a single icon would be
+    # extremely rare and likely invalid Unicode.
+    vs_char = next((char for char in icon if 0xFE00 <= ord(char) <= 0xFE0F), None)
+    if vs_char:
+        # Found a variation selector - URL-encode it
+        vs_bytes = vs_char.encode("utf-8")
+        url_encoded = "".join(f"%{byte:02X}" for byte in vs_bytes)
+        return f"-{url_encoded}"
+
+    # No variation selector found - simple emoji gets replaced with dash
+    return "-"
+
+
 def generate_toc_from_categories():
     """Generate table of contents based on category definitions."""
     from category_utils import category_manager
@@ -47,7 +96,11 @@ def generate_toc_from_categories():
         section_title = category["name"]
         anchor = section_title.lower().replace(" ", "-").replace("&", "").replace("/", "").replace(".", "")
 
-        toc_lines.append(f"{symbol}{indent}[{section_title}](#{anchor}-)  ")
+        # Get the appropriate anchor suffix based on the category's icon
+        icon = category.get("icon", "")
+        anchor_suffix = get_anchor_suffix_for_icon(icon)
+
+        toc_lines.append(f"{symbol}{indent}[{section_title}](#{anchor}{anchor_suffix})  ")
 
         # Subsections
         subcategories = category.get("subcategories", [])
