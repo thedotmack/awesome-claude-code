@@ -59,6 +59,7 @@ body:
       options:
         - None / Not Applicable
         - "Tooling: IDE Integrations"
+        - "Tooling: Usage Monitors"
         - "Slash-Commands: Version Control & Git"
         - "Slash-Commands: Code Analysis & Testing"
         - "Slash-Commands: Context Loading & Priming"

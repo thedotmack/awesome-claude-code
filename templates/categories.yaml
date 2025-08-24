@@ -23,6 +23,8 @@ categories:
     subcategories:
       - id: ide-integrations
         name: "IDE Integrations"
+      - id: usage-monitors
+        name: "Usage Monitors"
         
   - id: statusline
     name: "Statusline"
