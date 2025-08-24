@@ -11,6 +11,10 @@
   
 </div>
 
+<!-- Generated with https://github.com/denvercoder1/readme-typing-svg -->
+
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&pause=1000&color=F7080D&random=true&width=435&lines=Fumigating...;Gallivanting...;Matriculating...;Toodleedoodling...;Goo-goo-g'joob-ing...;Excaliburating...;Canoodling...;Doing+the+humpty+dance...;Shiver-me-timbers-ing...;Becoming+sentient...;Opening+the+pod+bay+doors...;Rimraf-ing;23-skidoo-ing)](https://git.io/typing-svg)
+
 <!--lint enable remark-lint:awesome-badge-->
 
 [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
