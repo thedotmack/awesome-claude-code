@@ -28,6 +28,44 @@ def load_announcements(template_dir):
     return ""
 
 
+def get_anchor_suffix_for_icon(icon):
+    """
+    Generate the appropriate anchor suffix for a section with an emoji icon.
+
+    GitHub's markdown anchor generation handles emojis in two ways:
+    1. Simple emojis (single Unicode codepoint): Stripped and replaced with a single dash "-"
+    2. Emojis with variation selectors (e.g., U+FE0F): Base emoji is stripped but the
+       variation selector remains as "️" in the anchor
+
+    For example:
+    - "## Tooling 🧰" → #tooling- (simple emoji, becomes dash)
+    - "## Official Documentation 🏛️" → #official-documentation-️ (emoji with variation selector)
+
+    The 🏛️ emoji is actually two characters:
+    - U+1F3DB (🏛) - Classical Building base character
+    - U+FE0F (️) - Variation Selector-16 (forces emoji presentation)
+
+    Args:
+        icon: The emoji icon string from the category definition
+
+    Returns:
+        The appropriate suffix for the anchor link ("-" or "-️")
+    """
+    if not icon:
+        return ""
+
+    # Check if the icon contains a variation selector (U+FE0F)
+    # This character forces emoji presentation and affects anchor generation
+    has_variation_selector = "\ufe0f" in icon
+
+    if has_variation_selector:
+        # The variation selector will remain in the anchor as "️"
+        return "-️"
+    else:
+        # Simple emoji gets replaced with just a dash
+        return "-"
+
+
 def generate_toc_from_categories():
     """Generate table of contents based on category definitions."""
     from category_utils import category_manager
@@ -47,7 +85,11 @@ def generate_toc_from_categories():
         section_title = category["name"]
         anchor = section_title.lower().replace(" ", "-").replace("&", "").replace("/", "").replace(".", "")
 
-        toc_lines.append(f"{symbol}{indent}[{section_title}](#{anchor}-)  ")
+        # Get the appropriate anchor suffix based on the category's icon
+        icon = category.get("icon", "")
+        anchor_suffix = get_anchor_suffix_for_icon(icon)
+
+        toc_lines.append(f"{symbol}{indent}[{section_title}](#{anchor}{anchor_suffix})  ")
 
         # Subsections
         subcategories = category.get("subcategories", [])
