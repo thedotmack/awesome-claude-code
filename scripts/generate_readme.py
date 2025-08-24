@@ -32,26 +32,31 @@ def get_anchor_suffix_for_icon(icon):
     """
     Generate the appropriate anchor suffix for a section with an emoji icon.
 
-    GitHub's markdown anchor generation handles emojis in two ways:
-    1. Simple emojis (single Unicode codepoint): Stripped and replaced with a single dash "-"
-    2. Emojis with variation selectors (e.g., U+FE0F): Base emoji is stripped but the
-       variation selector remains as "️" in the anchor
+    GitHub's markdown anchor generation for trailing emojis:
+    1. Simple emojis (single Unicode codepoint): Stripped and replaced with a
+       single dash "-"
+    2. Emojis with variation selectors (e.g., U+FE0F): Base emoji is stripped
+       and replaced with dash, variation selector becomes URL-encoded
 
     For example:
-    - "## Tooling 🧰" → #tooling- (simple emoji, becomes dash)
-    - "## Official Documentation 🏛️" → #official-documentation-️ (emoji with variation selector)
+    - "## Tooling 🧰" → #tooling- (simple emoji becomes dash)
+    - "## Official Documentation 🏛️" → #official-documentation-%EF%B8%8F
+      (emoji becomes dash, variation selector is URL-encoded)
 
     The 🏛️ emoji is actually two characters:
     - U+1F3DB (🏛) - Classical Building base character
-    - U+FE0F (️) - Variation Selector-16 (forces emoji presentation)
+    - U+FE0F - Variation Selector-16 (forces emoji presentation)
+
+    The variation selector U+FE0F becomes %EF%B8%8F when URL-encoded.
 
     Args:
         icon: The emoji icon string from the category definition
 
     Returns:
-        The appropriate suffix for the anchor link ("-" or "-️")
+        The appropriate suffix for the anchor link ("-" or "-%EF%B8%8F")
     """
     if not icon:
+        # No icon means no suffix needed
         return ""
 
     # Check if the icon contains a variation selector (U+FE0F)
@@ -59,8 +64,8 @@ def get_anchor_suffix_for_icon(icon):
     has_variation_selector = "\ufe0f" in icon
 
     if has_variation_selector:
-        # The variation selector will remain in the anchor as "️"
-        return "-️"
+        # Emoji becomes dash, variation selector gets URL-encoded
+        return "-%EF%B8%8F"
     else:
         # Simple emoji gets replaced with just a dash
         return "-"
