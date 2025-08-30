@@ -104,12 +104,48 @@ def parse_github_url(url):
     Parse GitHub URL and return API endpoint if it's a GitHub repository content URL.
     Returns (api_url, is_github) tuple.
     """
-    github_pattern = r"https://github\.com/([^/]+)/([^/]+)/blob/([^/]+)/(.+)"
+    from urllib.parse import quote
+
+    # Match GitHub blob URLs - capture everything after /blob/ as one group
+    github_pattern = r"https://github\.com/([^/]+)/([^/]+)/blob/(.+)"
     match = re.match(github_pattern, url)
 
     if match:
-        owner, repo, branch, path = match.groups()
-        api_url = f"https://api.github.com/repos/{owner}/{repo}/contents/{path}?ref={branch}"
+        owner, repo, branch_and_path = match.groups()
+
+        # Split on the first occurrence of a path starting with . or containing a file extension
+        # Common patterns: .github/, .claude/, src/, file.ext
+        parts = branch_and_path.split("/")
+
+        # Find where the file path likely starts
+        branch_parts = []
+        path_parts = []
+        found_path_start = False
+
+        for i, part in enumerate(parts):
+            if not found_path_start:
+                # Check if this looks like the start of a file path
+                if (
+                    part.startswith(".")  # Hidden directories like .github, .claude
+                    or "." in part  # Files with extensions
+                    or part in ["src", "lib", "bin", "scripts", "docs", "test", "tests"]
+                ):  # Common directories
+                    found_path_start = True
+                    path_parts = parts[i:]
+                else:
+                    branch_parts.append(part)
+
+        # If we didn't find an obvious path start, treat the last part as the path
+        if not path_parts and parts:
+            branch_parts = parts[:-1] if len(parts) > 1 else parts
+            path_parts = parts[-1:] if len(parts) > 1 else []
+
+        branch = "/".join(branch_parts) if branch_parts else "main"
+        path = "/".join(path_parts)
+
+        # URL-encode the branch name to handle slashes
+        encoded_branch = quote(branch, safe="")
+        api_url = f"https://api.github.com/repos/{owner}/{repo}/contents/{path}?ref={encoded_branch}"
         return api_url, True
 
     # Check if it's a repository root URL
