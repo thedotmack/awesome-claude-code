@@ -35,7 +35,7 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 - 2025-08-16  
 
-(i) So much happening with Claude Code these days, it is genuinely hard to keep up! Since my last post, let's see... Opus 4.1; status lines; output styles; more sub agents; (plugins??); background shells; lions; tigers... wait sorry that's something else. Anyway, I'm glad to announce that besides some annoying bot messages and small glitches, the new resource submission workflow seems to be working really solidly. It's so much easier for everyone, so if you'd like to contribute to this community resource, make sure you are up to date on [`CONTRIBUTING.md`](./CONTRIBUTING.md) - I will no longer be accepting _resource submission_ PRs (there may be other cases where a PR is appropriate), but you can now submit something to the list without even cloning the repo or knowing how to spell "git". Just head over to the new resource submission [Issue Template](https://github.com/hesreallyhim/awesome-claude-code/issues/new?template=submit-resource.yml) and you'll be done in no time. If you have a PR open, please try to open it as an issue instead, although I will of course get through existing PR's before switching over entirely.
+(i) So much happening with Claude Code these days, it is genuinely hard to keep up! Since my last post, let's see... Opus 4.1; status lines; output styles; more sub agents; (plugins??); background shells; lions; tigers... wait sorry that's something else. Anyway, I'm glad to announce that besides some annoying bot messages and small glitches, the new resource submission workflow seems to be working really solidly. It's so much easier for everyone, so if you'd like to contribute to this community resource, make sure you are up to date on [`CONTRIBUTING.md`](../CONTRIBUTING.md) - I will no longer be accepting _resource submission_ PRs (there may be other cases where a PR is appropriate), but you can now submit something to the list without even cloning the repo or knowing how to spell "git". Just head over to the new resource submission [Issue Template](https://github.com/hesreallyhim/awesome-claude-code/issues/new?template=submit-resource.yml) and you'll be done in no time. If you have a PR open, please try to open it as an issue instead, although I will of course get through existing PR's before switching over entirely.
 
 (ii) I started a new section for Status Lines, and will soon open up another one for Output Styles hopefully. *WE WANT TO SEE YOUR STATUS LINES!* Definitely will be prioritizing those items in the short term. I've sadly been neglecting the awesome-claude-code-agents repo due to Claude Code's impressively rapid release cycle, but I haven't forgotten about it, rest assured.
 
@@ -226,7 +226,7 @@ A Rust CLI tool that lets you delegate development tasks to AI agents running in
 
 > **Statusline** configurations and customizations for Claude Code's status bar functionality
 
-[`ccstatusline`](https://github.com/sirmalloc/ccstatusline) &nbsp; by &nbsp; [sirmalloc](https://github.com/sirmalloc)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+[`ccstatusline`](https://github.com/sirmalloc/ccstatusline) &nbsp; by &nbsp; [sirmalloc](https://github.com/sirmalloc)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;NOASSERTION  
 A highly customizable status line formatter for Claude Code CLI that displays model info, git branch, token usage, and other metrics in your terminal.
 
 [`claude-powerline`](https://github.com/Owloops/claude-powerline) &nbsp; by &nbsp; [Owloops](https://github.com/Owloops)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
@@ -266,6 +266,9 @@ Quality check hook for Node.js TypeScript projects with TypeScript compilation. 
 ## Slash-Commands 🔪
 
 ### Version Control & Git
+
+[`/analyze-issue`](https://github.com/jerseycheese/Narraitor/blob/feature/issue-227-ai-suggestions/.claude/commands/analyze-issue.md) &nbsp; by &nbsp; [jerseycheese](https://github.com/jerseycheese)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Fetches GitHub issue details to create comprehensive implementation specifications, analyzing requirements and planning structured approach with clear implementation steps.
 
 [`/bug-fix`](https://github.com/danielscholl/mvn-mcp-server/blob/main/.claude/commands/bug-fix.md) &nbsp; by &nbsp; [danielscholl](https://github.com/danielscholl)    
 Streamlines bug fixing by creating a GitHub issue first, then a feature branch for implementing and thoroughly testing the solution before merging.
@@ -323,6 +326,9 @@ Creates reproducible test cases for GitHub issues, ensuring tests fail reliably 
 
 [`/tdd`](https://github.com/zscott/pane/blob/main/.claude/commands/tdd.md) &nbsp; by &nbsp; [zscott](https://github.com/zscott)    
 Guides development using Test-Driven Development principles, enforcing Red-Green-Refactor discipline, integrating with git workflow, and managing PR creation.
+
+[`/tdd-implement`](https://github.com/jerseycheese/Narraitor/blob/feature/issue-227-ai-suggestions/.claude/commands/tdd-implement.md) &nbsp; by &nbsp; [jerseycheese](https://github.com/jerseycheese)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Implements Test-Driven Development by analyzing feature requirements, creating tests first (red), implementing minimal passing code (green), and refactoring while maintaining tests.
 
 
 ### Context Loading & Priming
@@ -389,6 +395,9 @@ Generates comprehensive product requirement documents outlining detailed specifi
 
 [`/create-prp`](https://github.com/Wirasm/claudecode-utils/blob/main/.claude/commands/create-prp.md) &nbsp; by &nbsp; [Wirasm](https://github.com/Wirasm)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 Creates product requirement plans by reading PRP methodology, following template structure, creating comprehensive requirements, and structuring product definitions for development.
+
+[`/do-issue`](https://github.com/jerseycheese/Narraitor/blob/feature/issue-227-ai-suggestions/.claude/commands/do-issue.md) &nbsp; by &nbsp; [jerseycheese](https://github.com/jerseycheese)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Implements GitHub issues with manual review points, following a structured approach with issue number parameter and offering alternative automated mode for efficiency.
 
 [`/project_hello_w_name`](https://github.com/disler/just-prompt/blob/main/.claude/commands/project_hello_w_name.md) &nbsp; by &nbsp; [disler](https://github.com/disler)    
 Creates customizable greeting components with name input, demonstrating argument passing, component reusability, state management, and user input handling.
