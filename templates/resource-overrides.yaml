@@ -22,6 +22,9 @@ overrides:
   tool-984936a7:
     skip_validation: true # Skip this resource entirely during validation
     notes: "Temporarily unavailable for validation" # Claude Code Chat
+  status-4e8a47cf:
+    license: "MIT"
+    license_locked: true
 # Supported override fields:
 # - license: Override the detected license
 # - license_locked: Prevent license validation from updating
