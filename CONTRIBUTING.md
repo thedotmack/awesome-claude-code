@@ -46,6 +46,8 @@ When you submit a resource, our bot checks:
 - ✅ License information (when available)
 - ✅ Description length and quality
 
+**NOTE:** By submitting a resource, you agree to allowing your codebase to be evaluated by a SoTA LLM for any security risks.
+
 ### If Changes Are Needed
 
 Don't worry if validation fails! The bot will:
