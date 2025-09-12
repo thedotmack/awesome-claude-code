@@ -1,4 +1,4 @@
-#### 2025-09-12
+#### 2025-09-12 - 💰💰💰 DONATIONS 💰💰💰
 
 - We've got a few new resources this week, and I've made some good progress on the backlog.
 

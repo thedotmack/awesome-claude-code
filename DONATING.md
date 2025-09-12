@@ -8,6 +8,7 @@ If you wish to support this repo by donating to the The Bail Project, you may do
 
 ### 1: Go to the Donate Page
 Go to https://bailproject.org/ and click [DONATE](https://bailproject.org/donate/) (or just scroll down to the Donate widget).
+
 <img src="./assets/bailproject-donate-00.png" width="500px">
 
 ### 2: Enter Donation Amount
@@ -16,9 +17,11 @@ Go to https://bailproject.org/ and click [DONATE](https://bailproject.org/donate
 - Check "Dedicate this donation" and enter "hesreallyhim" (if you want to be listed as a donor).
 - Designate to "bail only" (optional).
 - Click "Donate and Support"
+
 <img src="./assets/bailproject-donation-widget-01.png" width="200px" />
 
 ### 3: Enter Your Name
+
 <img src="./assets/bailproject-donation-widget-02.png" width="400px" />
 
 - Enter your details (use your real name because this will be for your CC/PayPal/etc. info). Your personal details will not be published on this repo, nor will they be sent to me, unless you choose to do so in the dedication part.
@@ -26,12 +29,14 @@ Go to https://bailproject.org/ and click [DONATE](https://bailproject.org/donate
 - Click "Continue".
 
 ### 4: See if Your Employer Will Match
+
 <img src="./assets/bailproject-donation-widget-03.png" width="400px" />
 
 - See if your employer is registered with this program (it looks like GitHub is!).
 - Click Continue or "skip to the next step".
 
 ### 5: Enter Payment Details
+
 <img src="./assets/bailproject-donation-widget-04.png" width="400px" />
 
 - Enter your payment details (CC, PayPal, Google Pay, Venmo, Bank, or BTC).
@@ -48,6 +53,7 @@ Go to https://bailproject.org/ and click [DONATE](https://bailproject.org/donate
 - Click the link "Complete my dedication".
 
 ### 7: Complete the Dedication
+
 <img src="./assets/bailproject-donation-widget-07.png" width="400px" />
 
 - Fill out the information for the dedication email ("in honor of" hesreallyhim). Here, I think you can use whatever name/alias you want - but be sure to include the name of your resource/repo if you want to be listed as an awesome donor. (If you are contributing but are not featured on the list, feel free to put your name, or even remain anonymous, if you wish.) And please tick "Show the amount of my gift" so that I can keep track of how much we've raised in total.
