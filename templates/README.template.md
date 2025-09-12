@@ -38,6 +38,14 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 {{WEEKLY_SECTION}}
 
+## Awesome Claude Code Freedom Funders
+
+- hesreallyhim (repository maintainer)
+
+### Total Amount Raised:
+
+**$???** (Will be disclosed once a non-trivial amount has been raised.)
+
 ## Contents
 
 {{TABLE_OF_CONTENTS}}
