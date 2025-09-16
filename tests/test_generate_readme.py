@@ -3,16 +3,19 @@
 
 import os
 import sys
+import tempfile
 import unittest
 from datetime import datetime
+
+import yaml
 
 # Add the scripts directory to the path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
 try:
-    from generate_readme import parse_resource_date  # type: ignore
+    from generate_readme import load_announcements, parse_resource_date  # type: ignore
 except ImportError:
-    from scripts.generate_readme import parse_resource_date
+    from scripts.generate_readme import load_announcements, parse_resource_date
 
 
 class TestParseResourceDate(unittest.TestCase):
@@ -86,6 +89,217 @@ class TestParseResourceDate(unittest.TestCase):
             self.assertTrue(date1 > date2)
             self.assertTrue(date3 > date1)  # Same date but with time
             self.assertFalse(date2 > date1)
+
+
+class TestLoadAnnouncements(unittest.TestCase):
+    """Test cases for the load_announcements function."""
+
+    def setUp(self):
+        """Set up test fixtures."""
+        self.temp_dir = tempfile.mkdtemp()
+
+    def tearDown(self):
+        """Clean up test fixtures."""
+        import shutil
+
+        shutil.rmtree(self.temp_dir)
+
+    def test_empty_announcements(self):
+        """Test loading empty announcements."""
+        # Create empty YAML file
+        yaml_path = os.path.join(self.temp_dir, "announcements.yaml")
+        with open(yaml_path, "w") as f:
+            f.write("")
+
+        result = load_announcements(self.temp_dir)
+        self.assertEqual(result, "")
+
+    def test_simple_string_announcement(self):
+        """Test announcements with simple string items."""
+        announcements_data = [
+            {
+                "date": "2025-09-12",
+                "title": "Test Announcements",
+                "items": ["First announcement", "Second announcement"],
+            }
+        ]
+
+        yaml_path = os.path.join(self.temp_dir, "announcements.yaml")
+        with open(yaml_path, "w") as f:
+            yaml.dump(announcements_data, f)
+
+        result = load_announcements(self.temp_dir)
+
+        # Check for main structure
+        self.assertIn("<details>", result)
+        self.assertIn("<summary>View Announcements</summary>", result)
+
+        # Check for date group
+        self.assertIn("- <details>", result)
+        self.assertIn("<summary>2025-09-12 - Test Announcements</summary>", result)
+
+        # Check for items
+        self.assertIn("  - First announcement", result)
+        self.assertIn("  - Second announcement", result)
+
+    def test_collapsible_announcement_items(self):
+        """Test announcements with collapsible summary/text items."""
+        announcements_data = [
+            {
+                "date": "2025-09-12",
+                "title": "Feature Updates",
+                "items": [
+                    {
+                        "summary": "New feature added",
+                        "text": "This is a detailed description of the new feature.",
+                    },
+                    {"summary": "Bug fix", "text": "Fixed a critical bug in the system."},
+                ],
+            }
+        ]
+
+        yaml_path = os.path.join(self.temp_dir, "announcements.yaml")
+        with open(yaml_path, "w") as f:
+            yaml.dump(announcements_data, f)
+
+        result = load_announcements(self.temp_dir)
+
+        # Check for nested collapsible items
+        self.assertIn("  - <details>", result)
+        self.assertIn("    <summary>New feature added</summary>", result)
+        self.assertIn("    - This is a detailed description of the new feature.", result)
+        self.assertIn("    <summary>Bug fix</summary>", result)
+        self.assertIn("    - Fixed a critical bug in the system.", result)
+
+    def test_multi_line_text_in_announcements(self):
+        """Test announcements with multi-line text content."""
+        announcements_data = [
+            {
+                "date": "2025-09-15",
+                "title": "Important Notice",
+                "items": [
+                    {
+                        "summary": "Multi-line announcement",
+                        "text": "Line 1 of the announcement.\n\nLine 2 with a gap.\n\nLine 3 final.",
+                    }
+                ],
+            }
+        ]
+
+        yaml_path = os.path.join(self.temp_dir, "announcements.yaml")
+        with open(yaml_path, "w") as f:
+            yaml.dump(announcements_data, f)
+
+        result = load_announcements(self.temp_dir)
+
+        # Check that multi-line text is properly formatted
+        self.assertIn("    - Line 1 of the announcement.", result)
+        self.assertIn("      Line 2 with a gap.", result)
+        self.assertIn("      Line 3 final.", result)
+
+    def test_mixed_announcement_types(self):
+        """Test announcements with mixed item types."""
+        announcements_data = [
+            {
+                "date": "2025-09-20",
+                "items": [  # No title
+                    "Simple string item",
+                    {"summary": "Collapsible item", "text": "Detailed content here"},
+                    {"summary": "Summary only item"},  # No text
+                    {"text": "Text only item"},  # No summary
+                ],
+            }
+        ]
+
+        yaml_path = os.path.join(self.temp_dir, "announcements.yaml")
+        with open(yaml_path, "w") as f:
+            yaml.dump(announcements_data, f)
+
+        result = load_announcements(self.temp_dir)
+
+        # Check for date without title
+        self.assertIn("<summary>2025-09-20</summary>", result)
+
+        # Check for various item types
+        self.assertIn("  - Simple string item", result)
+        self.assertIn("    <summary>Collapsible item</summary>", result)
+        self.assertIn("    - Detailed content here", result)
+        self.assertIn("  - Summary only item", result)
+        self.assertIn("  - Text only item", result)
+
+    def test_multiple_date_groups(self):
+        """Test announcements with multiple date groups."""
+        announcements_data = [
+            {
+                "date": "2025-09-10",
+                "title": "Week 1",
+                "items": ["Announcement 1"],
+            },
+            {
+                "date": "2025-09-17",
+                "title": "Week 2",
+                "items": ["Announcement 2"],
+            },
+        ]
+
+        yaml_path = os.path.join(self.temp_dir, "announcements.yaml")
+        with open(yaml_path, "w") as f:
+            yaml.dump(announcements_data, f)
+
+        result = load_announcements(self.temp_dir)
+
+        # Check for both date groups
+        self.assertIn("<summary>2025-09-10 - Week 1</summary>", result)
+        self.assertIn("<summary>2025-09-17 - Week 2</summary>", result)
+
+        # Verify proper nesting structure
+        self.assertEqual(result.count("- <details>"), 2)  # Two date groups
+        self.assertEqual(result.count("</details>"), 3)  # Main + 2 date groups
+
+    def test_markdown_in_announcements(self):
+        """Test that markdown formatting is preserved in announcements."""
+        announcements_data = [
+            {
+                "date": "2025-09-12",
+                "title": "Markdown Test",
+                "items": [
+                    {
+                        "summary": "Test with markdown",
+                        "text": "This has **bold** text and [a link](https://example.com).",
+                    }
+                ],
+            }
+        ]
+
+        yaml_path = os.path.join(self.temp_dir, "announcements.yaml")
+        with open(yaml_path, "w") as f:
+            yaml.dump(announcements_data, f)
+
+        result = load_announcements(self.temp_dir)
+
+        # Check that markdown is preserved
+        self.assertIn("**bold**", result)
+        self.assertIn("[a link](https://example.com)", result)
+
+    def test_fallback_to_markdown_file(self):
+        """Test fallback to announcements.md if YAML doesn't exist."""
+        # Create markdown file instead of YAML
+        md_path = os.path.join(self.temp_dir, "announcements.md")
+        with open(md_path, "w") as f:
+            f.write("#### Legacy announcement format\n\nThis is from the old .md file.")
+
+        result = load_announcements(self.temp_dir)
+
+        self.assertIn("Legacy announcement format", result)
+        self.assertIn("This is from the old .md file", result)
+
+    def test_nonexistent_directory(self):
+        """Test loading from a directory with no announcement files."""
+        empty_dir = os.path.join(self.temp_dir, "empty")
+        os.makedirs(empty_dir)
+
+        result = load_announcements(empty_dir)
+        self.assertEqual(result, "")
 
 
 if __name__ == "__main__":
