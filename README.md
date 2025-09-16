@@ -37,46 +37,30 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 <details>
 <summary>View Announcements</summary>
 
-<blockquote>
+- <details>
+  <summary>2025-09-12 - 💰💰💰 DONATIONS 💰💰💰</summary>
 
-<details>
-<summary>2025-09-12 - 💰💰💰 DONATIONS 💰💰💰</summary>
+  - <details>
+    <summary>New resources and backlog progress</summary>
 
-<blockquote>
+    - We've got a few new resources this week, and I've made some good progress on the backlog.
 
-<details>
-<summary>New resources and backlog progress</summary>
+    </details>
 
-<blockquote>
+  - <details>
+    <summary>Support this repository - Help raise $100 for a good cause! 🙏</summary>
 
-We've got a few new resources this week, and I've made some good progress on the backlog.
+    - I've created a [DONATING](DONATING.md) page in case anyone want to support this repository. This is _not_ a GitHub sponsorship or a "Buy Me a Coffee" link - I'm trying something a little different. Hopefully it will work out.
+      
+      See the very bottom of the README for an overview, and check out the [DONATING](DONATING.md) page for details.
+      
+      **We get a lot of visitors here at Awesome Claude Code (currently about 100 new stars a day) - can we raise $100 for a good cause by the end of next week??**
+      
+      Let's see what this community can do!
 
-</blockquote>
+    </details>
 
-</details>
-
-<details>
-<summary>Support this repository - Help raise $100 for a good cause! 🙏</summary>
-
-<blockquote>
-
-I've created a [DONATING](DONATING.md) page in case anyone want to support this repository. This is _not_ a GitHub sponsorship or a "Buy Me a Coffee" link - I'm trying something a little different. Hopefully it will work out.
-
-See the very bottom of the README for an overview, and check out the [DONATING](DONATING.md) page for details.
-
-**We get a lot of visitors here at Awesome Claude Code (currently about 100 new stars a day) - can we raise $100 for a good cause by the end of next week??**
-
-Let's see what this community can do!
-
-</blockquote>
-
-</details>
-
-</blockquote>
-
-</details>
-
-</blockquote>
+  </details>
 
 </details>
 

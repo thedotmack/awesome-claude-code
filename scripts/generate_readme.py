@@ -29,7 +29,7 @@ def load_announcements(template_dir):
         if not announcements_data:
             return ""
 
-        # Format the YAML data into markdown with nested collapsible sections
+        # Format the YAML data into markdown with nested collapsible sections using lists
         markdown_lines = []
 
         # Make the entire announcements section collapsible
@@ -37,78 +37,62 @@ def load_announcements(template_dir):
         markdown_lines.append("<summary>View Announcements</summary>")
         markdown_lines.append("")
 
-        # Add a blockquote for indentation at the first level
-        markdown_lines.append("<blockquote>")
-        markdown_lines.append("")
-
+        # Use unordered list for first level indentation
         for entry in announcements_data:
             date = entry.get("date", "")
             title = entry.get("title", "")
             items = entry.get("items", [])
 
-            # Make each date group collapsible
-            markdown_lines.append("<details>")
+            # Make each date group a collapsible list item
+            markdown_lines.append("- <details>")
 
             # Create summary for date group
             if title:
-                markdown_lines.append(f"<summary>{date} - {title}</summary>")
+                markdown_lines.append(f"  <summary>{date} - {title}</summary>")
             else:
-                markdown_lines.append(f"<summary>{date}</summary>")
+                markdown_lines.append(f"  <summary>{date}</summary>")
 
             markdown_lines.append("")
 
-            # Add another blockquote for indentation at the second level
-            markdown_lines.append("<blockquote>")
-            markdown_lines.append("")
-
+            # Use nested list for second level indentation
             # Process items - can be strings or objects with summary/text
             for item in items:
                 if isinstance(item, str):
-                    # Simple string item - render as bullet point
-                    markdown_lines.append(f"- {item}")
+                    # Simple string item - render as nested bullet point
+                    markdown_lines.append(f"  - {item}")
                 elif isinstance(item, dict):
                     # Object with summary and text - render as collapsible details
                     summary = item.get("summary", "")
                     text = item.get("text", "")
 
                     if summary and text:
-                        markdown_lines.append("<details>")
-                        markdown_lines.append(f"<summary>{summary}</summary>")
+                        markdown_lines.append("  - <details>")
+                        markdown_lines.append(f"    <summary>{summary}</summary>")
                         markdown_lines.append("")
 
-                        # Add blockquote for indentation at the third level
-                        markdown_lines.append("<blockquote>")
-                        markdown_lines.append("")
-
-                        # Handle multi-line text properly
+                        # Handle multi-line text properly with triple nesting
                         text_lines = text.strip().split("\n")
-                        for line in text_lines:
-                            markdown_lines.append(line)
+                        for i, line in enumerate(text_lines):
+                            if i == 0:
+                                markdown_lines.append(f"    - {line}")
+                            else:
+                                # Continue paragraphs without bullet points
+                                markdown_lines.append(f"      {line}")
 
                         markdown_lines.append("")
-                        markdown_lines.append("</blockquote>")
-                        markdown_lines.append("")
-                        markdown_lines.append("</details>")
+                        markdown_lines.append("    </details>")
                     elif summary:
-                        # If only summary, just render as bullet point
-                        markdown_lines.append(f"- {summary}")
+                        # If only summary, just render as nested bullet point
+                        markdown_lines.append(f"  - {summary}")
                     elif text:
-                        # If only text, render as bullet point
-                        markdown_lines.append(f"- {text}")
+                        # If only text, render as nested bullet point
+                        markdown_lines.append(f"  - {text}")
 
                 markdown_lines.append("")
 
-            # Close second level blockquote
-            markdown_lines.append("</blockquote>")
-            markdown_lines.append("")
-
             # Close date group details
-            markdown_lines.append("</details>")
+            markdown_lines.append("  </details>")
             markdown_lines.append("")
-
-        # Close first level blockquote
-        markdown_lines.append("</blockquote>")
-        markdown_lines.append("")
 
         # Close main announcements details
         markdown_lines.append("</details>")
