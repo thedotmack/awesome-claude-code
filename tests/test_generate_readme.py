@@ -13,9 +13,19 @@ import yaml
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
 try:
-    from generate_readme import load_announcements, parse_resource_date  # type: ignore
+    from generate_readme import (  # type: ignore
+        generate_toc_from_categories,
+        get_anchor_suffix_for_icon,
+        load_announcements,
+        parse_resource_date,
+    )
 except ImportError:
-    from scripts.generate_readme import load_announcements, parse_resource_date
+    from scripts.generate_readme import (
+        generate_toc_from_categories,
+        get_anchor_suffix_for_icon,
+        load_announcements,
+        parse_resource_date,
+    )
 
 
 class TestParseResourceDate(unittest.TestCase):
@@ -89,6 +99,173 @@ class TestParseResourceDate(unittest.TestCase):
             self.assertTrue(date1 > date2)
             self.assertTrue(date3 > date1)  # Same date but with time
             self.assertFalse(date2 > date1)
+
+
+class TestGetAnchorSuffix(unittest.TestCase):
+    """Test cases for the get_anchor_suffix_for_icon function."""
+
+    def test_no_icon(self):
+        """Test empty icon returns empty string."""
+        self.assertEqual(get_anchor_suffix_for_icon(""), "")
+        self.assertEqual(get_anchor_suffix_for_icon(None), "")
+
+    def test_simple_emoji(self):
+        """Test simple emoji returns dash."""
+        self.assertEqual(get_anchor_suffix_for_icon("🎯"), "-")
+        self.assertEqual(get_anchor_suffix_for_icon("💡"), "-")
+        self.assertEqual(get_anchor_suffix_for_icon("🔧"), "-")
+
+    def test_emoji_with_variation_selector(self):
+        """Test emoji with VS-16 returns URL-encoded suffix."""
+        # Classical Building emoji with VS-16
+        self.assertEqual(get_anchor_suffix_for_icon("🏛️"), "-%EF%B8%8F")
+
+
+class TestGenerateTOC(unittest.TestCase):
+    """Test cases for the generate_toc_from_categories function."""
+
+    def setUp(self):
+        """Set up test fixtures."""
+        # Mock the category_manager import
+        self.original_modules = {}
+        if "category_utils" in sys.modules:
+            self.original_modules["category_utils"] = sys.modules["category_utils"]
+
+    def tearDown(self):
+        """Clean up test fixtures."""
+        # Restore original modules
+        for module_name, module in self.original_modules.items():
+            sys.modules[module_name] = module
+
+    def _mock_category_manager(self, categories):
+        """Create a mock category_manager module."""
+        from unittest.mock import MagicMock
+
+        mock_manager = MagicMock()
+        mock_manager.get_categories_for_readme.return_value = categories
+
+        mock_module = MagicMock()
+        mock_module.category_manager = mock_manager
+
+        sys.modules["category_utils"] = mock_module
+        return mock_manager
+
+    def test_empty_categories(self):
+        """Test TOC generation with no categories."""
+        self._mock_category_manager([])
+
+        result = generate_toc_from_categories()
+
+        # Check for main structure
+        self.assertIn("<details>", result)
+        self.assertIn("<summary>Table of Contents</summary>", result)
+        self.assertIn("</details>", result)
+
+    def test_simple_categories(self):
+        """Test TOC generation with simple categories (no subcategories)."""
+        categories = [
+            {"name": "Getting Started", "icon": "🚀"},
+            {"name": "Resources", "icon": "📚"},
+            {"name": "Tools", "icon": "🔧"},
+        ]
+        self._mock_category_manager(categories)
+
+        result = generate_toc_from_categories()
+
+        # Check for main structure
+        self.assertIn("<summary>Table of Contents</summary>", result)
+
+        # Check for simple links
+        self.assertIn("- [Getting Started](#getting-started-)", result)
+        self.assertIn("- [Resources](#resources-)", result)
+        self.assertIn("- [Tools](#tools-)", result)
+
+    def test_categories_with_subcategories(self):
+        """Test TOC generation with categories containing subcategories."""
+        categories = [
+            {
+                "name": "Configuration",
+                "icon": "⚙️",
+                "subcategories": [
+                    {"name": "Basic Setup"},
+                    {"name": "Advanced Options"},
+                ],
+            },
+            {"name": "Simple Category"},  # No subcategories
+        ]
+        self._mock_category_manager(categories)
+
+        result = generate_toc_from_categories()
+
+        # Check for collapsible category with subcategories
+        self.assertIn("- <details>", result)
+        # The gear emoji has a variation selector, so it gets URL-encoded
+        self.assertIn("  <summary>[Configuration](#configuration-%EF%B8%8F)", result)
+
+        # Check for subcategories
+        self.assertIn("  - [Basic Setup](#basic-setup)", result)
+        self.assertIn("  - [Advanced Options](#advanced-options)", result)
+
+        # Check for simple category
+        self.assertIn("- [Simple Category](#simple-category)", result)
+
+    def test_special_characters_in_names(self):
+        """Test TOC generation with special characters in category names."""
+        categories = [
+            {"name": "Tips & Tricks"},
+            {"name": "CI/CD Tools"},
+            {"name": "Node.js Resources"},
+        ]
+        self._mock_category_manager(categories)
+
+        result = generate_toc_from_categories()
+
+        # Check that special characters are properly handled in anchors
+        self.assertIn("[Tips & Tricks](#tips--tricks)", result)
+        self.assertIn("[CI/CD Tools](#cicd-tools)", result)
+        self.assertIn("[Node.js Resources](#nodejs-resources)", result)
+
+    def test_mixed_categories(self):
+        """Test TOC with a mix of simple and nested categories."""
+        categories = [
+            {"name": "Overview"},
+            {
+                "name": "Documentation",
+                "icon": "📖",
+                "subcategories": [
+                    {"name": "API Reference"},
+                    {"name": "Tutorials"},
+                ],
+            },
+            {"name": "Community", "icon": "👥"},
+            {
+                "name": "Development",
+                "subcategories": [{"name": "Contributing"}],
+            },
+        ]
+        self._mock_category_manager(categories)
+
+        result = generate_toc_from_categories()
+
+        # Check structure
+        lines = result.split("\n")
+
+        # Should have main details wrapper
+        self.assertEqual(lines[0], "<details>")
+        self.assertEqual(lines[1], "<summary>Table of Contents</summary>")
+
+        # Check for simple categories
+        self.assertIn("- [Overview](#overview)", result)
+        self.assertIn("- [Community](#community-)", result)
+
+        # Check for nested categories
+        self.assertIn("  <summary>[Documentation](#documentation-)", result)
+        self.assertIn("  - [API Reference](#api-reference)", result)
+        self.assertIn("  - [Tutorials](#tutorials)", result)
+
+        # Count details blocks (main + 2 categories with subcategories)
+        self.assertEqual(result.count("<details>"), 3)
+        self.assertEqual(result.count("</details>"), 3)
 
 
 class TestLoadAnnouncements(unittest.TestCase):

@@ -161,16 +161,16 @@ def generate_toc_from_categories():
     """Generate table of contents based on category definitions."""
     from category_utils import category_manager
 
-    toc_config = category_manager.get_toc_config()
     categories = category_manager.get_categories_for_readme()
-
-    symbol = toc_config.get("symbol", "▪")
-    subsymbol = toc_config.get("subsymbol", "▫")
-    indent = toc_config.get("indent", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
-    subindent = toc_config.get("subindent", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
 
     toc_lines = []
 
+    # Make the entire TOC collapsible
+    toc_lines.append("<details>")
+    toc_lines.append("<summary>Table of Contents</summary>")
+    toc_lines.append("")
+
+    # Use unordered list for categories
     for category in categories:
         # Main section link
         section_title = category["name"]
@@ -180,16 +180,33 @@ def generate_toc_from_categories():
         icon = category.get("icon", "")
         anchor_suffix = get_anchor_suffix_for_icon(icon)
 
-        toc_lines.append(f"{symbol}{indent}[{section_title}](#{anchor}{anchor_suffix})  ")
-
-        # Subsections
+        # Check if this category has subcategories
         subcategories = category.get("subcategories", [])
-        for subcat in subcategories:
-            sub_title = subcat["name"]
-            sub_anchor = sub_title.lower().replace(" ", "-").replace("&", "").replace("/", "")
-            toc_lines.append(f"{subindent}{subsymbol}{indent}[{sub_title}](#{sub_anchor})  ")
 
-    return "\n".join(toc_lines)
+        if subcategories:
+            # Make category collapsible if it has subcategories
+            toc_lines.append("- <details>")
+            toc_lines.append(f"  <summary>[{section_title}](#{anchor}{anchor_suffix})</summary>")
+            toc_lines.append("")
+
+            # Add subcategories as nested list
+            for subcat in subcategories:
+                sub_title = subcat["name"]
+                sub_anchor = sub_title.lower().replace(" ", "-").replace("&", "").replace("/", "")
+                toc_lines.append(f"  - [{sub_title}](#{sub_anchor})")
+
+            toc_lines.append("")
+            toc_lines.append("  </details>")
+        else:
+            # Simple link if no subcategories
+            toc_lines.append(f"- [{section_title}](#{anchor}{anchor_suffix})")
+
+        toc_lines.append("")
+
+    # Close main TOC details
+    toc_lines.append("</details>")
+
+    return "\n".join(toc_lines).strip()
 
 
 def format_resource_entry(row):
