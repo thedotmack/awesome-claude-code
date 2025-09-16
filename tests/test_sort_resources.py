@@ -13,7 +13,9 @@ Tests cover:
 import csv
 import sys
 import tempfile
+from collections.abc import Generator
 from pathlib import Path
+from typing import Any
 from unittest.mock import patch
 
 import pytest
@@ -24,7 +26,7 @@ from scripts.sort_resources import sort_resources  # noqa
 
 
 @pytest.fixture
-def temp_csv():
+def temp_csv() -> Generator[Path, None, None]:
     """Create a temporary CSV file for testing."""
     with tempfile.NamedTemporaryFile(mode="w", suffix=".csv", delete=False, newline="") as f:
         temp_path = Path(f.name)
@@ -33,7 +35,7 @@ def temp_csv():
 
 
 @pytest.fixture
-def sample_csv_data():
+def sample_csv_data() -> list[dict[str, str]]:
     """Sample CSV data for testing."""
     return [
         {
@@ -89,7 +91,7 @@ def sample_csv_data():
     ]
 
 
-def write_csv(path: Path, data: list[dict]):
+def write_csv(path: Path, data: list[dict[str, str]]) -> None:
     """Helper to write CSV data to a file."""
     if not data:
         path.write_text("")
@@ -101,7 +103,7 @@ def write_csv(path: Path, data: list[dict]):
         writer.writerows(data)
 
 
-def read_csv(path: Path) -> list[dict]:
+def read_csv(path: Path) -> list[dict[str, str]]:
     """Helper to read CSV data from a file."""
     with open(path, encoding="utf-8") as f:
         return list(csv.DictReader(f))
@@ -110,7 +112,7 @@ def read_csv(path: Path) -> list[dict]:
 class TestSortResources:
     """Test cases for sort_resources function."""
 
-    def test_sort_by_category_order(self, temp_csv, sample_csv_data):
+    def test_sort_by_category_order(self, temp_csv: Path, sample_csv_data: list[dict[str, str]]) -> None:
         """Test that resources are sorted according to category order from category_utils."""
         # Mock category manager to provide a specific order
         mock_categories = [
@@ -134,7 +136,7 @@ class TestSortResources:
             assert categories[1] == "Tooling"
             assert categories[2:] == ["Slash-Commands"] * 3
 
-    def test_sort_by_subcategory(self, temp_csv, sample_csv_data):
+    def test_sort_by_subcategory(self, temp_csv: Path, sample_csv_data: list[dict[str, str]]) -> None:
         """Test that resources within a category are sorted by sub-category."""
         with patch(
             "scripts.category_utils.category_manager.get_categories_for_readme",
@@ -153,7 +155,7 @@ class TestSortResources:
             assert subcategories[1] == "Code Analysis & Testing"
             assert subcategories[2] == "Version Control & Git"
 
-    def test_sort_by_display_name(self, temp_csv):
+    def test_sort_by_display_name(self, temp_csv: Path) -> None:
         """Test that resources within same category/subcategory are sorted by display name."""
         data = [
             {
@@ -200,7 +202,7 @@ class TestSortResources:
 
             assert names == ["Alpha", "Beta", "Zebra"]
 
-    def test_empty_subcategory_sorts_last(self, temp_csv):
+    def test_empty_subcategory_sorts_last(self, temp_csv: Path) -> None:
         """Test that empty sub-categories sort after filled ones."""
         data = [
             {
@@ -238,7 +240,7 @@ class TestSortResources:
             assert sorted_data[0]["Sub-Category"] == "Subcategory A"
             assert sorted_data[1]["Sub-Category"] == ""
 
-    def test_unknown_category_sorts_last(self, temp_csv):
+    def test_unknown_category_sorts_last(self, temp_csv: Path) -> None:
         """Test that categories not in the predefined order sort last."""
         data = [
             {
@@ -276,7 +278,7 @@ class TestSortResources:
             assert sorted_data[0]["Category"] == "Known"
             assert sorted_data[1]["Category"] == "Unknown Category"
 
-    def test_case_insensitive_display_name_sort(self, temp_csv):
+    def test_case_insensitive_display_name_sort(self, temp_csv: Path) -> None:
         """Test that display name sorting is case-insensitive."""
         data = [
             {
@@ -324,7 +326,7 @@ class TestSortResources:
             # Should be sorted alphabetically regardless of case
             assert names == ["lowercase", "MixedCase", "UPPERCASE"]
 
-    def test_empty_csv_file(self, temp_csv):
+    def test_empty_csv_file(self, temp_csv: Path) -> None:
         """Test handling of empty CSV file."""
         # Create empty file
         temp_csv.write_text("")
@@ -339,7 +341,7 @@ class TestSortResources:
             # File should still be empty
             assert temp_csv.read_text() == ""
 
-    def test_missing_fields_handled_gracefully(self, temp_csv):
+    def test_missing_fields_handled_gracefully(self, temp_csv: Path) -> None:
         """Test that missing fields in CSV rows are handled gracefully."""
         data = [
             {
@@ -388,7 +390,9 @@ class TestSortResources:
             # Missing display name should sort as empty string (first)
             assert sorted_data[0]["ID"] == "3"
 
-    def test_category_manager_exception_handling(self, temp_csv, sample_csv_data, capsys):
+    def test_category_manager_exception_handling(
+        self, temp_csv: Path, sample_csv_data: list[dict[str, str]], capsys: Any
+    ) -> None:
         """Test that exceptions from category_manager are handled gracefully."""
         with patch(
             "scripts.category_utils.category_manager.get_categories_for_readme",
@@ -406,7 +410,7 @@ class TestSortResources:
             assert "Warning: Could not load category order" in captured.out
             assert "Using alphabetical sorting instead" in captured.out
 
-    def test_preserve_all_csv_fields(self, temp_csv):
+    def test_preserve_all_csv_fields(self, temp_csv: Path) -> None:
         """Test that all CSV fields are preserved after sorting."""
         data = [
             {
@@ -440,7 +444,7 @@ class TestSortResources:
             assert sorted_data[0]["Active"] == "true"
             assert sorted_data[0]["Last Checked"] == "2024-01-01"
 
-    def test_category_summary_output(self, temp_csv, sample_csv_data, capsys):
+    def test_category_summary_output(self, temp_csv: Path, sample_csv_data: list[dict[str, str]], capsys: Any) -> None:
         """Test that category summary is printed correctly."""
         with patch(
             "scripts.category_utils.category_manager.get_categories_for_readme",
@@ -463,7 +467,7 @@ class TestSortResources:
             assert "Code Analysis & Testing: 2 items" in captured.out
             assert "Version Control & Git: 1 items" in captured.out
 
-    def test_multiple_sort_stability(self, temp_csv, sample_csv_data):
+    def test_multiple_sort_stability(self, temp_csv: Path, sample_csv_data: list[dict[str, str]]) -> None:
         """
         Test that sorting multiple times produces the same result
         (stable sort).

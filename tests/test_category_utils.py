@@ -6,6 +6,7 @@ Unit tests for the CategoryManager class.
 import sys
 import tempfile
 from pathlib import Path
+from typing import Any
 
 import yaml
 
@@ -15,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from scripts.category_utils import CategoryManager  # noqa: E402
 
 
-def create_test_categories():
+def create_test_categories() -> dict[str, Any]:
     """Create test category data."""
     return {
         "categories": [
@@ -61,7 +62,7 @@ def create_test_categories():
     }
 
 
-def test_get_all_categories():
+def test_get_all_categories() -> None:
     """Test getting all category names."""
     # Create a new instance with test data
     manager = CategoryManager()
@@ -76,7 +77,7 @@ def test_get_all_categories():
     assert len(categories) == 3
 
 
-def test_get_category_prefixes():
+def test_get_category_prefixes() -> None:
     """Test getting category ID prefixes."""
     manager = CategoryManager()
     manager._data = create_test_categories()
@@ -90,7 +91,7 @@ def test_get_category_prefixes():
     assert len(prefixes) == 3
 
 
-def test_get_category_by_name():
+def test_get_category_by_name() -> None:
     """Test retrieving category by name."""
     manager = CategoryManager()
     manager._data = create_test_categories()
@@ -108,7 +109,7 @@ def test_get_category_by_name():
     assert nonexistent is None
 
 
-def test_get_category_by_id():
+def test_get_category_by_id() -> None:
     """Test retrieving category by ID."""
     manager = CategoryManager()
     manager._data = create_test_categories()
@@ -125,7 +126,7 @@ def test_get_category_by_id():
     assert nonexistent is None
 
 
-def test_get_all_subcategories():
+def test_get_all_subcategories() -> None:
     """Test getting all subcategories with parent info."""
     manager = CategoryManager()
     manager._data = create_test_categories()
@@ -146,7 +147,7 @@ def test_get_all_subcategories():
     assert sub_c["parent"] == "Category Three"
 
 
-def test_get_subcategories_for_category():
+def test_get_subcategories_for_category() -> None:
     """Test getting subcategories for a specific category."""
     manager = CategoryManager()
     manager._data = create_test_categories()
@@ -166,7 +167,7 @@ def test_get_subcategories_for_category():
     assert nonexistent_subs == []
 
 
-def test_validate_category_subcategory():
+def test_validate_category_subcategory() -> None:
     """Test validation of category-subcategory relationships."""
     manager = CategoryManager()
     manager._data = create_test_categories()
@@ -185,7 +186,7 @@ def test_validate_category_subcategory():
     assert manager.validate_category_subcategory("NonExistent", "Something") is False
 
 
-def test_get_categories_for_readme():
+def test_get_categories_for_readme() -> None:
     """Test getting categories ordered for README generation."""
     manager = CategoryManager()
     manager._data = create_test_categories()
@@ -201,7 +202,7 @@ def test_get_categories_for_readme():
     assert len(categories) == 3
 
 
-def test_get_toc_config():
+def test_get_toc_config() -> None:
     """Test getting table of contents configuration."""
     manager = CategoryManager()
     manager._data = create_test_categories()
@@ -216,7 +217,7 @@ def test_get_toc_config():
     assert toc_config["subindent"] == "    "
 
 
-def test_singleton_behavior():
+def test_singleton_behavior() -> None:
     """Test that CategoryManager behaves as a singleton."""
     # Create new instances
     instance1 = CategoryManager()
@@ -226,7 +227,7 @@ def test_singleton_behavior():
     assert instance1 is instance2
 
 
-def test_loading_from_file():
+def test_loading_from_file() -> None:
     """Test loading categories from a YAML file."""
     # Create a temporary YAML file with test data
     test_data = create_test_categories()
@@ -239,7 +240,7 @@ def test_loading_from_file():
         # Patch the _load_categories method to load from our temp file
         original_load = CategoryManager._load_categories
 
-        def mock_load(self):
+        def mock_load(self: Any) -> None:
             with open(temp_path, encoding="utf-8") as f:
                 self._data = yaml.safe_load(f)
 
@@ -263,7 +264,7 @@ def test_loading_from_file():
         Path(temp_path).unlink()
 
 
-def test_robustness_with_missing_fields():
+def test_robustness_with_missing_fields() -> None:
     """Test that the manager handles missing optional fields gracefully."""
     manager = CategoryManager()
     manager._data = {

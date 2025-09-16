@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 from datetime import datetime
+from typing import Any
 
 import yaml
 
@@ -31,35 +32,35 @@ except ImportError:
 class TestParseResourceDate(unittest.TestCase):
     """Test cases for the parse_resource_date function."""
 
-    def test_parse_date_only_format(self):
+    def test_parse_date_only_format(self) -> None:
         """Test parsing YYYY-MM-DD format."""
         result = parse_resource_date("2025-08-07")
         expected = datetime(2025, 8, 7)
         self.assertEqual(result, expected)
 
-    def test_parse_date_with_timestamp_format(self):
+    def test_parse_date_with_timestamp_format(self) -> None:
         """Test parsing YYYY-MM-DD:HH-MM-SS format."""
         result = parse_resource_date("2025-08-07:18-26-57")
         expected = datetime(2025, 8, 7, 18, 26, 57)
         self.assertEqual(result, expected)
 
-    def test_parse_with_whitespace(self):
+    def test_parse_with_whitespace(self) -> None:
         """Test parsing with leading/trailing whitespace."""
         result = parse_resource_date("  2025-08-07  ")
         expected = datetime(2025, 8, 7)
         self.assertEqual(result, expected)
 
-    def test_parse_empty_string(self):
+    def test_parse_empty_string(self) -> None:
         """Test parsing empty string returns None."""
         result = parse_resource_date("")
         self.assertIsNone(result)
 
-    def test_parse_none(self):
+    def test_parse_none(self) -> None:
         """Test parsing None returns None."""
         result = parse_resource_date(None)
         self.assertIsNone(result)
 
-    def test_parse_invalid_format(self):
+    def test_parse_invalid_format(self) -> None:
         """Test parsing invalid date format returns None."""
         invalid_formats = [
             "2025/08/07",  # Wrong separator
@@ -75,7 +76,7 @@ class TestParseResourceDate(unittest.TestCase):
                 result = parse_resource_date(invalid_date)
                 self.assertIsNone(result, f"Expected None for invalid date: {invalid_date}")
 
-    def test_parse_various_timestamps(self):
+    def test_parse_various_timestamps(self) -> None:
         """Test parsing various valid timestamp formats."""
         test_cases = [
             ("2025-08-05:11-48-39", datetime(2025, 8, 5, 11, 48, 39)),
@@ -89,7 +90,7 @@ class TestParseResourceDate(unittest.TestCase):
                 result = parse_resource_date(date_string)
                 self.assertEqual(result, expected, f"Failed to parse: {date_string}")
 
-    def test_date_comparison(self):
+    def test_date_comparison(self) -> None:
         """Test that parsed dates can be compared correctly."""
         date1 = parse_resource_date("2025-08-07")
         date2 = parse_resource_date("2025-08-05")
@@ -104,18 +105,18 @@ class TestParseResourceDate(unittest.TestCase):
 class TestGetAnchorSuffix(unittest.TestCase):
     """Test cases for the get_anchor_suffix_for_icon function."""
 
-    def test_no_icon(self):
+    def test_no_icon(self) -> None:
         """Test empty icon returns empty string."""
         self.assertEqual(get_anchor_suffix_for_icon(""), "")
         self.assertEqual(get_anchor_suffix_for_icon(None), "")
 
-    def test_simple_emoji(self):
+    def test_simple_emoji(self) -> None:
         """Test simple emoji returns dash."""
         self.assertEqual(get_anchor_suffix_for_icon("🎯"), "-")
         self.assertEqual(get_anchor_suffix_for_icon("💡"), "-")
         self.assertEqual(get_anchor_suffix_for_icon("🔧"), "-")
 
-    def test_emoji_with_variation_selector(self):
+    def test_emoji_with_variation_selector(self) -> None:
         """Test emoji with VS-16 returns URL-encoded suffix."""
         # Classical Building emoji with VS-16
         self.assertEqual(get_anchor_suffix_for_icon("🏛️"), "-%EF%B8%8F")
@@ -124,20 +125,20 @@ class TestGetAnchorSuffix(unittest.TestCase):
 class TestGenerateTOC(unittest.TestCase):
     """Test cases for the generate_toc_from_categories function."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         # Mock the category_manager import
         self.original_modules = {}
         if "category_utils" in sys.modules:
             self.original_modules["category_utils"] = sys.modules["category_utils"]
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up test fixtures."""
         # Restore original modules
         for module_name, module in self.original_modules.items():
             sys.modules[module_name] = module
 
-    def _mock_category_manager(self, categories):
+    def _mock_category_manager(self, categories: list[dict[str, Any]]) -> Any:
         """Create a mock category_manager module."""
         from unittest.mock import MagicMock
 
@@ -150,7 +151,7 @@ class TestGenerateTOC(unittest.TestCase):
         sys.modules["category_utils"] = mock_module
         return mock_manager
 
-    def test_empty_categories(self):
+    def test_empty_categories(self) -> None:
         """Test TOC generation with no categories."""
         self._mock_category_manager([])
 
@@ -161,7 +162,7 @@ class TestGenerateTOC(unittest.TestCase):
         self.assertIn("<summary>Table of Contents</summary>", result)
         self.assertIn("</details>", result)
 
-    def test_simple_categories(self):
+    def test_simple_categories(self) -> None:
         """Test TOC generation with simple categories (no subcategories)."""
         categories = [
             {"name": "Getting Started", "icon": "🚀"},
@@ -180,7 +181,7 @@ class TestGenerateTOC(unittest.TestCase):
         self.assertIn("- [Resources](#resources-)", result)
         self.assertIn("- [Tools](#tools-)", result)
 
-    def test_categories_with_subcategories(self):
+    def test_categories_with_subcategories(self) -> None:
         """Test TOC generation with categories containing subcategories."""
         categories = [
             {
@@ -209,7 +210,7 @@ class TestGenerateTOC(unittest.TestCase):
         # Check for simple category
         self.assertIn("- [Simple Category](#simple-category)", result)
 
-    def test_special_characters_in_names(self):
+    def test_special_characters_in_names(self) -> None:
         """Test TOC generation with special characters in category names."""
         categories = [
             {"name": "Tips & Tricks"},
@@ -225,7 +226,7 @@ class TestGenerateTOC(unittest.TestCase):
         self.assertIn("[CI/CD Tools](#cicd-tools)", result)
         self.assertIn("[Node.js Resources](#nodejs-resources)", result)
 
-    def test_mixed_categories(self):
+    def test_mixed_categories(self) -> None:
         """Test TOC with a mix of simple and nested categories."""
         categories = [
             {"name": "Overview"},
@@ -271,17 +272,17 @@ class TestGenerateTOC(unittest.TestCase):
 class TestLoadAnnouncements(unittest.TestCase):
     """Test cases for the load_announcements function."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         """Set up test fixtures."""
         self.temp_dir = tempfile.mkdtemp()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """Clean up test fixtures."""
         import shutil
 
         shutil.rmtree(self.temp_dir)
 
-    def test_empty_announcements(self):
+    def test_empty_announcements(self) -> None:
         """Test loading empty announcements."""
         # Create empty YAML file
         yaml_path = os.path.join(self.temp_dir, "announcements.yaml")
@@ -291,7 +292,7 @@ class TestLoadAnnouncements(unittest.TestCase):
         result = load_announcements(self.temp_dir)
         self.assertEqual(result, "")
 
-    def test_simple_string_announcement(self):
+    def test_simple_string_announcement(self) -> None:
         """Test announcements with simple string items."""
         announcements_data = [
             {
@@ -319,7 +320,7 @@ class TestLoadAnnouncements(unittest.TestCase):
         self.assertIn("  - First announcement", result)
         self.assertIn("  - Second announcement", result)
 
-    def test_collapsible_announcement_items(self):
+    def test_collapsible_announcement_items(self) -> None:
         """Test announcements with collapsible summary/text items."""
         announcements_data = [
             {
@@ -348,7 +349,7 @@ class TestLoadAnnouncements(unittest.TestCase):
         self.assertIn("    <summary>Bug fix</summary>", result)
         self.assertIn("    - Fixed a critical bug in the system.", result)
 
-    def test_multi_line_text_in_announcements(self):
+    def test_multi_line_text_in_announcements(self) -> None:
         """Test announcements with multi-line text content."""
         announcements_data = [
             {
@@ -374,7 +375,7 @@ class TestLoadAnnouncements(unittest.TestCase):
         self.assertIn("      Line 2 with a gap.", result)
         self.assertIn("      Line 3 final.", result)
 
-    def test_mixed_announcement_types(self):
+    def test_mixed_announcement_types(self) -> None:
         """Test announcements with mixed item types."""
         announcements_data = [
             {
@@ -404,7 +405,7 @@ class TestLoadAnnouncements(unittest.TestCase):
         self.assertIn("  - Summary only item", result)
         self.assertIn("  - Text only item", result)
 
-    def test_multiple_date_groups(self):
+    def test_multiple_date_groups(self) -> None:
         """Test announcements with multiple date groups."""
         announcements_data = [
             {
@@ -433,7 +434,7 @@ class TestLoadAnnouncements(unittest.TestCase):
         self.assertEqual(result.count("- <details>"), 2)  # Two date groups
         self.assertEqual(result.count("</details>"), 3)  # Main + 2 date groups
 
-    def test_markdown_in_announcements(self):
+    def test_markdown_in_announcements(self) -> None:
         """Test that markdown formatting is preserved in announcements."""
         announcements_data = [
             {
@@ -458,7 +459,7 @@ class TestLoadAnnouncements(unittest.TestCase):
         self.assertIn("**bold**", result)
         self.assertIn("[a link](https://example.com)", result)
 
-    def test_fallback_to_markdown_file(self):
+    def test_fallback_to_markdown_file(self) -> None:
         """Test fallback to announcements.md if YAML doesn't exist."""
         # Create markdown file instead of YAML
         md_path = os.path.join(self.temp_dir, "announcements.md")
@@ -470,7 +471,7 @@ class TestLoadAnnouncements(unittest.TestCase):
         self.assertIn("Legacy announcement format", result)
         self.assertIn("This is from the old .md file", result)
 
-    def test_nonexistent_directory(self):
+    def test_nonexistent_directory(self) -> None:
         """Test loading from a directory with no announcement files."""
         empty_dir = os.path.join(self.temp_dir, "empty")
         os.makedirs(empty_dir)
