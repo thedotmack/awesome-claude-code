@@ -29,50 +29,43 @@ def load_announcements(template_dir):
         if not announcements_data:
             return ""
 
-        # Format the YAML data into markdown with nested collapsible sections using table indentation
+        # Format the YAML data into markdown with nested collapsible sections
         markdown_lines = []
 
         # Make the entire announcements section collapsible
         markdown_lines.append("<details>")
-        markdown_lines.append("  <summary>View Announcements</summary>")
+        markdown_lines.append("<summary>View Announcements</summary>")
         markdown_lines.append("")
-        markdown_lines.append("  |   |   |")
-        markdown_lines.append("  |---|---|")
-        markdown_lines.append("  |   | ")
 
-        # Process each date entry
-        for i, entry in enumerate(announcements_data):
+        # Add a blockquote for indentation at the first level
+        markdown_lines.append("<blockquote>")
+        markdown_lines.append("")
+
+        for entry in announcements_data:
             date = entry.get("date", "")
             title = entry.get("title", "")
             items = entry.get("items", [])
-
-            # Add line break between date entries except for the first one
-            if i > 0:
-                markdown_lines.append("")
 
             # Make each date group collapsible
             markdown_lines.append("<details>")
 
             # Create summary for date group
             if title:
-                markdown_lines.append(f"  <summary>{date} - {title}</summary>")
+                markdown_lines.append(f"<summary>{date} - {title}</summary>")
             else:
-                markdown_lines.append(f"  <summary>{date}</summary>")
+                markdown_lines.append(f"<summary>{date}</summary>")
 
             markdown_lines.append("")
-            markdown_lines.append("  |   |   |")
-            markdown_lines.append("  |---|---|")
-            markdown_lines.append("  |   | ")
+
+            # Add another blockquote for indentation at the second level
+            markdown_lines.append("<blockquote>")
+            markdown_lines.append("")
 
             # Process items - can be strings or objects with summary/text
-            for j, item in enumerate(items):
-                # Add line break between items except for the first one
-                if j > 0:
-                    markdown_lines.append("<br><br>")
-
+            for item in items:
                 if isinstance(item, str):
                     # Simple string item - render as bullet point
-                    markdown_lines.append(f"{item}")
+                    markdown_lines.append(f"- {item}")
                 elif isinstance(item, dict):
                     # Object with summary and text - render as collapsible details
                     summary = item.get("summary", "")
@@ -80,31 +73,44 @@ def load_announcements(template_dir):
 
                     if summary and text:
                         markdown_lines.append("<details>")
-                        markdown_lines.append(f"  <summary>{summary}</summary>")
+                        markdown_lines.append(f"<summary>{summary}</summary>")
                         markdown_lines.append("")
-                        markdown_lines.append("  |   |   |")
-                        markdown_lines.append("  |---|---|")
 
-                        # Format text for table cell, preserving markdown and line breaks
+                        # Add blockquote for indentation at the third level
+                        markdown_lines.append("<blockquote>")
+                        markdown_lines.append("")
+
+                        # Handle multi-line text properly
                         text_lines = text.strip().split("\n")
-                        formatted_text = "<br><br>".join(text_lines)
+                        for line in text_lines:
+                            markdown_lines.append(line)
 
-                        markdown_lines.append(f"  |   | {formatted_text} |")
+                        markdown_lines.append("")
+                        markdown_lines.append("</blockquote>")
                         markdown_lines.append("")
                         markdown_lines.append("</details>")
                     elif summary:
-                        # If only summary, just render as text
-                        markdown_lines.append(f"{summary}")
+                        # If only summary, just render as bullet point
+                        markdown_lines.append(f"- {summary}")
                     elif text:
-                        # If only text, render as text
-                        markdown_lines.append(f"{text}")
+                        # If only text, render as bullet point
+                        markdown_lines.append(f"- {text}")
 
-            markdown_lines.append(" |")
+                markdown_lines.append("")
+
+            # Close second level blockquote
+            markdown_lines.append("</blockquote>")
             markdown_lines.append("")
-            markdown_lines.append("</details>")
 
-        markdown_lines.append(" |")
+            # Close date group details
+            markdown_lines.append("</details>")
+            markdown_lines.append("")
+
+        # Close first level blockquote
+        markdown_lines.append("</blockquote>")
         markdown_lines.append("")
+
+        # Close main announcements details
         markdown_lines.append("</details>")
 
         return "\n".join(markdown_lines).strip()
