@@ -17,3 +17,5 @@ venv/
 *.egg-info/
 
 .coverage
+
+.vscode/

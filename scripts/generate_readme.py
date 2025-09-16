@@ -174,7 +174,13 @@ def generate_toc_from_categories():
     for category in categories:
         # Main section link
         section_title = category["name"]
-        anchor = section_title.lower().replace(" ", "-").replace("&", "").replace("/", "").replace(".", "")
+        anchor = (
+            section_title.lower()
+            .replace(" ", "-")
+            .replace("&", "")
+            .replace("/", "")
+            .replace(".", "")
+        )
 
         # Get the appropriate anchor suffix based on the category's icon
         icon = category.get("icon", "")
@@ -186,7 +192,9 @@ def generate_toc_from_categories():
         if subcategories:
             # Make category collapsible if it has subcategories
             toc_lines.append("- <details>")
-            toc_lines.append(f'  <summary><a href="#{anchor}{anchor_suffix}">{section_title}</a></summary>')
+            toc_lines.append(
+                f'  <summary><a href="#{anchor}{anchor_suffix}">{section_title}</a></summary>'
+            )
             toc_lines.append("")
 
             # Add subcategories as nested list
@@ -293,7 +301,9 @@ def generate_weekly_section(csv_data):
     if weekly_resources:
         lines.append("")
         # Sort by date added (newest first) using parsed dates
-        weekly_resources.sort(key=lambda x: parse_resource_date(x.get("Date Added", "")) or datetime.min, reverse=True)
+        weekly_resources.sort(
+            key=lambda x: parse_resource_date(x.get("Date Added", "")) or datetime.min, reverse=True
+        )
 
         for resource in weekly_resources:
             lines.append(format_resource_entry(resource))
@@ -330,7 +340,11 @@ def generate_section_content(category, csv_data):
 
     if not subcategories:
         # No subsections - render all resources for this category
-        resources = [r for r in csv_data if r["Category"] == category_name and not r.get("Sub-Category", "").strip()]
+        resources = [
+            r
+            for r in csv_data
+            if r["Category"] == category_name and not r.get("Sub-Category", "").strip()
+        ]
         if resources:
             lines.append("")
             for resource in resources:
@@ -339,7 +353,9 @@ def generate_section_content(category, csv_data):
     else:
         # Has subsections - first render main category resources without subcategory
         main_resources = [
-            r for r in csv_data if r["Category"] == category_name and not r.get("Sub-Category", "").strip()
+            r
+            for r in csv_data
+            if r["Category"] == category_name and not r.get("Sub-Category", "").strip()
         ]
         if main_resources:
             lines.append("")
@@ -352,7 +368,9 @@ def generate_section_content(category, csv_data):
             sub_title = subcat["name"]
 
             resources = [
-                r for r in csv_data if r["Category"] == category_name and r.get("Sub-Category", "").strip() == sub_title
+                r
+                for r in csv_data
+                if r["Category"] == category_name and r.get("Sub-Category", "").strip() == sub_title
             ]
 
             if resources:
@@ -485,7 +503,9 @@ def main():
     print("Generating README from templates and CSV...")
 
     try:
-        resource_count, backup_path = generate_readme_from_templates(csv_path, template_dir, output_path)
+        resource_count, backup_path = generate_readme_from_templates(
+            csv_path, template_dir, output_path
+        )
         print(f"✅ README.md generated successfully at {os.path.abspath(output_path)}")
         print(f"📊 Generated README with {resource_count} active resources")
         if backup_path:
