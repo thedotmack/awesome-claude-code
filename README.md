@@ -34,7 +34,11 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 ### Announcements
 
-#### 2025-09-12 - 💰💰💰 DONATIONS 💰💰💰
+<details>
+<summary>View Announcements</summary>
+
+<details>
+<summary>2025-09-12 - 💰💰💰 DONATIONS 💰💰💰</summary>
 
 <details>
 <summary>New resources and backlog progress</summary>
@@ -53,6 +57,10 @@ See the very bottom of the README for an overview, and check out the [DONATING](
 **We get a lot of visitors here at Awesome Claude Code (currently about 100 new stars a day) - can we raise $100 for a good cause by the end of next week??**
 
 Let's see what this community can do!
+
+</details>
+
+</details>
 
 </details>
 
