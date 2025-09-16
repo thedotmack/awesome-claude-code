@@ -37,6 +37,10 @@ def load_announcements(template_dir):
         markdown_lines.append("<summary>View Announcements</summary>")
         markdown_lines.append("")
 
+        # Add a blockquote for indentation at the first level
+        markdown_lines.append("<blockquote>")
+        markdown_lines.append("")
+
         for entry in announcements_data:
             date = entry.get("date", "")
             title = entry.get("title", "")
@@ -53,6 +57,10 @@ def load_announcements(template_dir):
 
             markdown_lines.append("")
 
+            # Add another blockquote for indentation at the second level
+            markdown_lines.append("<blockquote>")
+            markdown_lines.append("")
+
             # Process items - can be strings or objects with summary/text
             for item in items:
                 if isinstance(item, str):
@@ -67,10 +75,18 @@ def load_announcements(template_dir):
                         markdown_lines.append("<details>")
                         markdown_lines.append(f"<summary>{summary}</summary>")
                         markdown_lines.append("")
+
+                        # Add blockquote for indentation at the third level
+                        markdown_lines.append("<blockquote>")
+                        markdown_lines.append("")
+
                         # Handle multi-line text properly
                         text_lines = text.strip().split("\n")
                         for line in text_lines:
                             markdown_lines.append(line)
+
+                        markdown_lines.append("")
+                        markdown_lines.append("</blockquote>")
                         markdown_lines.append("")
                         markdown_lines.append("</details>")
                     elif summary:
@@ -82,9 +98,17 @@ def load_announcements(template_dir):
 
                 markdown_lines.append("")
 
+            # Close second level blockquote
+            markdown_lines.append("</blockquote>")
+            markdown_lines.append("")
+
             # Close date group details
             markdown_lines.append("</details>")
             markdown_lines.append("")
+
+        # Close first level blockquote
+        markdown_lines.append("</blockquote>")
+        markdown_lines.append("")
 
         # Close main announcements details
         markdown_lines.append("</details>")
