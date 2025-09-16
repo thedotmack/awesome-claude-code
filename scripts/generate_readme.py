@@ -20,11 +20,43 @@ def load_template(template_path):
 
 
 def load_announcements(template_dir):
-    """Load announcements from the announcements.md file."""
-    announcements_path = os.path.join(template_dir, "announcements.md")
+    """Load announcements from the announcements.yaml file and format as markdown."""
+    announcements_path = os.path.join(template_dir, "announcements.yaml")
     if os.path.exists(announcements_path):
         with open(announcements_path, encoding="utf-8") as f:
+            announcements_data = yaml.safe_load(f)
+
+        if not announcements_data:
+            return ""
+
+        # Format the YAML data into markdown
+        markdown_lines = []
+        for entry in announcements_data:
+            date = entry.get("date", "")
+            title = entry.get("title", "")
+            items = entry.get("items", [])
+
+            # Add date header with optional title
+            if title:
+                markdown_lines.append(f"#### {date} - {title}")
+            else:
+                markdown_lines.append(f"#### {date}")
+
+            markdown_lines.append("")
+
+            # Add items as bullet points
+            for item in items:
+                markdown_lines.append(f"- {item}")
+                markdown_lines.append("")
+
+        return "\n".join(markdown_lines).strip()
+
+    # Fallback to old .md file if YAML doesn't exist
+    announcements_md_path = os.path.join(template_dir, "announcements.md")
+    if os.path.exists(announcements_md_path):
+        with open(announcements_md_path, encoding="utf-8") as f:
             return f.read().strip()
+
     return ""
 
 
