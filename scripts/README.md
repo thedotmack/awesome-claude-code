@@ -229,6 +229,16 @@ Scripts respect these configuration files:
 7. Pre-push validation enforces one resource per PR policy
 8. Automatic hook installation in submission workflows
 
+### Naming Conventions
+
+**Status Lines category** (2025-09-16): The "Statusline" category was renamed to "Status Lines" (title case, plural) for consistency with other categories like "Hooks". This change was made throughout:
+- Category name: "Status Lines" (was "Statusline" or "Status line")
+- The `id` remains `statusline` to preserve backward compatibility
+- CSV entries updated to use "Status Lines" as the category value
+- All display text uses the title case plural form "Status Lines"
+
+This ensures consistent title case and pluralization across categories. If issues arise with status line resources, verify that the category name matches "Status Lines" in CSV entries.
+
 ## Future Considerations
 
 - `process_resources_to_csv.py` could be removed if no longer needed

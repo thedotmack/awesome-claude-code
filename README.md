@@ -105,7 +105,7 @@ A versatile configuration framework that enhances Claude Code with specialized c
 
   </details>
 
-- [Status line](#status-line-)
+- [Status Lines](#status-lines-)
 
 - [Hooks](#hooks-)
 
@@ -284,7 +284,7 @@ A Rust CLI tool that lets you delegate development tasks to AI agents running in
 
 <br>
 
-## Status line 📊
+## Status Lines 📊
 
 > **Status lines** - Configurations and customizations for Claude Code's status bar functionality
 

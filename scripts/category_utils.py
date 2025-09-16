@@ -10,7 +10,7 @@ Usage:
     categories = category_manager.get_all_categories()
 
     # Get category by name
-    cat = category_manager.get_category_by_name("Status line")
+    cat = category_manager.get_category_by_name("Status Lines")
 """
 
 import os
