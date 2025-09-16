@@ -255,7 +255,8 @@ def generate_pr_content(data):
 
 ### Automated Notification
 
-- [{"x" if is_github else " "}] This is a GitHub-hosted resource and will receive an automatic notification issue when merged
+- [{"x" if is_github else " "}] This is a GitHub-hosted resource and will receive an automatic
+  notification issue when merged
 
 ### Checklist for New Resources
 

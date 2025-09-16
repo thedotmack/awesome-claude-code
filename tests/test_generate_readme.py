@@ -358,7 +358,9 @@ class TestLoadAnnouncements(unittest.TestCase):
                 "items": [
                     {
                         "summary": "Multi-line announcement",
-                        "text": "Line 1 of the announcement.\n\nLine 2 with a gap.\n\nLine 3 final.",
+                        "text": (
+                            "Line 1 of the announcement.\n\nLine 2 with a gap.\n\nLine 3 final."
+                        ),
                     }
                 ],
             }

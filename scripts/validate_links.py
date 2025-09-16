@@ -380,7 +380,8 @@ def validate_links(csv_file, max_links=None, ignore_overrides=False):
                 "name": row.get("Display Name", "Unknown"),
                 "primary_url": primary_url,
                 "primary_status": primary_status,
-                # "secondary_url": secondary_url if not secondary_valid else None,  # No longer tracking secondary URLs
+                # "secondary_url": secondary_url if not secondary_valid else None,
+                # No longer tracking secondary URLs
             }
             broken_links.append(link_info)
 

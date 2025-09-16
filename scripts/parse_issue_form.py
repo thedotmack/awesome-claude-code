@@ -58,7 +58,8 @@ def parse_issue_body(issue_body: str) -> dict[str, str]:
         elif "Sub-Category" in label:
             # Only set if not "None / Not Applicable"
             if value and "None" not in value and "Not Applicable" not in value:
-                # Strip the category prefix if present (e.g., "Slash-Commands: " from "Slash-Commands: Context Loading & Priming")
+                # Strip the category prefix if present
+                # (e.g., "Slash-Commands: " from "Slash-Commands: Context Loading & Priming")
                 if ":" in value:
                     data["subcategory"] = value.split(":", 1)[1].strip()
                 else:
@@ -134,7 +135,8 @@ def validate_parsed_data(data: dict[str, str]) -> tuple[bool, list[str], list[st
     valid_categories = category_manager.get_all_categories()
     if data.get("category") not in valid_categories:
         errors.append(
-            f"Invalid category: {data.get('category')}. Must be one of: {', '.join(valid_categories)}"
+            f"Invalid category: {data.get('category')}. "
+            f"Must be one of: {', '.join(valid_categories)}"
         )
 
     # Sub-category validation is no longer needed since we strip the prefix
@@ -147,7 +149,8 @@ def validate_parsed_data(data: dict[str, str]) -> tuple[bool, list[str], list[st
         and data["display_name"] != data["_original_display_name"]
     ):
         warnings.append(
-            f"Display name was automatically corrected from '{data['_original_display_name']}' to '{data['display_name']}'. "
+            f"Display name was automatically corrected from "
+            f"'{data['_original_display_name']}' to '{data['display_name']}'. "
             "Slash commands must start with '/' and contain no spaces."
         )
 

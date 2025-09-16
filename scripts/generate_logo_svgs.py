@@ -34,7 +34,8 @@ def generate_logo_svg(theme: str = "light") -> str:
     fill_color = "#24292e" if theme == "light" else "#e1e4e8"
 
     svg_lines = [
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 320" preserveAspectRatio="xMidYMid meet">',
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 320" '
+        'preserveAspectRatio="xMidYMid meet">',
         "  <style>",
         "    text {",
         "      font-family: 'Courier New', Courier, monospace;",

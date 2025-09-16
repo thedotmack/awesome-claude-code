@@ -310,7 +310,8 @@ class ResourceSubmitter:
                     # Check that origin and upstream don't point to the same repository
                     origin_url = self.git.get_remote_url("origin")
                     if origin_url and upstream_url:
-                        # Normalize URLs for comparison (remove protocol differences and .git suffix)
+                        # Normalize URLs for comparison
+                        # (remove protocol differences and .git suffix)
                         origin_normalized = (
                             origin_url.replace("git@github.com:", "github.com/")
                             .replace("https://", "")
@@ -636,7 +637,8 @@ class ResourceSubmitter:
                                 print(f"   - {file}")
                             print("\nYou can now edit these files manually.")
                             print(
-                                "When done, run this script again to continue the submission process."
+                                "When done, run this script again to continue "
+                                "the submission process."
                             )
                             return False
                         else:
@@ -1301,7 +1303,8 @@ class ResourceSubmitter:
                 # Use the pre-filled content from add_resource.py
                 pr_body = f"""# Pull Request
 
-<!-- IMPORTANT: Submit only ONE resource per pull request. If you have multiple resources, please create separate PRs. -->
+<!-- IMPORTANT: Submit only ONE resource per pull request. -->
+<!-- If you have multiple resources, please create separate PRs. -->
 
 ## Type of Contribution
 

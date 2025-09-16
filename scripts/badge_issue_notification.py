@@ -207,7 +207,8 @@ class BadgeNotification:
                 result["message"] = "Repository not found or private"
             elif e.status == 403:
                 result["message"] = (
-                    "Permission denied - requires a Personal Access Token (default GITHUB_TOKEN insufficient)"
+                    "Permission denied - requires a Personal Access Token "
+                    "(default GITHUB_TOKEN insufficient)"
                 )
             else:
                 result["message"] = f"GitHub API error: {str(e)}"
@@ -256,10 +257,13 @@ class BadgeNotification:
         github_url = "https://github.com/hesreallyhim/awesome-claude-code"
         return f"""Hello! 👋
 
-I'm excited to let you know that **{resource_name}** has been featured in the [Awesome Claude Code]({github_url}) list!
+I'm excited to let you know that **{resource_name}** has been featured in the
+[Awesome Claude Code]({github_url}) list!
 
 ## About Awesome Claude Code
-Awesome Claude Code is a curated collection of the best slash-commands, CLAUDE.md files, CLI tools, and other resources for enhancing Claude Code workflows. Your project has been recognized for its valuable contribution to the Claude Code community.
+Awesome Claude Code is a curated collection of the best slash-commands, CLAUDE.md files,
+CLI tools, and other resources for enhancing Claude Code workflows. Your project has been
+recognized for its valuable contribution to the Claude Code community.
 
 ## Your Listing
 {description}
@@ -267,7 +271,8 @@ Awesome Claude Code is a curated collection of the best slash-commands, CLAUDE.m
 You can find your entry here: [View in Awesome Claude Code]({github_url})
 
 ## Show Your Recognition! 🏆
-If you'd like to display a badge in your README to show that your project is featured, you can use one of these:
+If you'd like to display a badge in your README to show that your project is featured,
+you can use one of these:
 
 ### Option 1: Standard Badge
 ```markdown
@@ -282,7 +287,8 @@ If you'd like to display a badge in your README to show that your project is fea
 [![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge-flat.svg)]({github_url})
 
 ## No Action Required
-This is just a friendly notification - no action is required on your part. Feel free to close this issue at any time.
+This is just a friendly notification - no action is required on your part.
+Feel free to close this issue at any time.
 
 Thank you for contributing to the Claude Code ecosystem! 🙏
 

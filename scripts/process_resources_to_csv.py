@@ -176,7 +176,10 @@ if __name__ == "__main__":
             header = f.readline()
     else:
         # Create header if file doesn't exist
-        header = "Display Name,Type,Primary Link,Secondary Link,Author Name,Author Link,Active,Last Checked\n"
+        header = (
+            "Display Name,Type,Primary Link,Secondary Link,"
+            "Author Name,Author Link,Active,Last Checked\n"
+        )
 
     with open(csv_path, "w", encoding="utf-8") as f:
         f.write(header)
@@ -184,5 +187,6 @@ if __name__ == "__main__":
     # Add to CSV
     append_to_csv(resources, csv_path)
     print(
-        f"\nAdded {len(resources)} resources to {csv_path} (sorted alphabetically within categories)"
+        f"\nAdded {len(resources)} resources to {csv_path} "
+        "(sorted alphabetically within categories)"
     )
