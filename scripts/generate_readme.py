@@ -44,9 +44,33 @@ def load_announcements(template_dir):
 
             markdown_lines.append("")
 
-            # Add items as bullet points
+            # Process items - can be strings or objects with summary/text
             for item in items:
-                markdown_lines.append(f"- {item}")
+                if isinstance(item, str):
+                    # Simple string item - render as bullet point
+                    markdown_lines.append(f"- {item}")
+                elif isinstance(item, dict):
+                    # Object with summary and text - render as collapsible details
+                    summary = item.get("summary", "")
+                    text = item.get("text", "")
+
+                    if summary and text:
+                        markdown_lines.append("<details>")
+                        markdown_lines.append(f"<summary>{summary}</summary>")
+                        markdown_lines.append("")
+                        # Handle multi-line text properly
+                        text_lines = text.strip().split("\n")
+                        for line in text_lines:
+                            markdown_lines.append(line)
+                        markdown_lines.append("")
+                        markdown_lines.append("</details>")
+                    elif summary:
+                        # If only summary, just render as bullet point
+                        markdown_lines.append(f"- {summary}")
+                    elif text:
+                        # If only text, render as bullet point
+                        markdown_lines.append(f"- {text}")
+
                 markdown_lines.append("")
 
         return "\n".join(markdown_lines).strip()
