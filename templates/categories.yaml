@@ -33,7 +33,7 @@ categories:
     prefix: status
     icon: "📊"
     description: |
-      > **Status line** configurations and customizations for Claude Code's status bar functionality
+      > **Status lines** - Configurations and customizations for Claude Code's status bar functionality
     order: 3
     
   - id: hooks
