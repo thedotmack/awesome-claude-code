@@ -69,7 +69,9 @@ def sort_resources(csv_path: Path) -> None:
 
     print("\nCategory Summary:")
     # Sort categories using the same custom order
-    sorted_categories = sorted(category_counts.keys(), key=lambda cat: category_sort_map.get(cat, 999))
+    sorted_categories = sorted(
+        category_counts.keys(), key=lambda cat: category_sort_map.get(cat, 999)
+    )
     for cat in sorted_categories:
         print(f"  {cat}:")
         for subcat in sorted(category_counts[cat].keys()):

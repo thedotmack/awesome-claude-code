@@ -7,7 +7,7 @@ else
 endif
 SCRIPTS_DIR := ./scripts
 
-.PHONY: help process validate validate-single validate_new_resource update clean test generate download-resources add_resource sort submit submit-resource
+.PHONY: help process validate validate-single validate_new_resource update clean test generate download-resources add_resource sort submit submit-resource format format-check
 
 help:
 	@echo "Available commands:"
@@ -19,6 +19,8 @@ help:
 	@echo "  make validate_new_resource - Validate new resource (pre-push check)"
 	@echo "  make install-hooks    - Install git hooks (including pre-push validation)"
 	@echo "  make test              - Run validation tests on test CSV"
+	@echo "  make format            - Check and fix code formatting with ruff"
+	@echo "  make format-check      - Check code formatting without fixing"
 	@echo "  make generate          - Generate README.md from CSV data"
 	@echo "  make update            - Run both process and validate"
 	@echo "  make download-resources - Download active resources from GitHub"
@@ -80,6 +82,25 @@ install-hooks:
 test:
 	@echo "Running all tests..."
 	@$(PYTHON) -m pytest tests/ -v
+
+# Format code with ruff (check and fix)
+format:
+	@echo "Checking and fixing code formatting with ruff..."
+	@$(PYTHON) -m ruff check scripts/ tests/ --fix || true
+	@$(PYTHON) -m ruff format scripts/ tests/
+	@echo "✅ Code formatting complete!"
+
+# Check code formatting without fixing
+format-check:
+	@echo "Checking code formatting..."
+	@$(PYTHON) -m ruff check scripts/ tests/
+	@$(PYTHON) -m ruff format scripts/ tests/ --check
+	@if $(PYTHON) -m ruff check scripts/ tests/ --quiet && $(PYTHON) -m ruff format scripts/ tests/ --check --quiet; then \
+		echo "✅ Code formatting check passed!"; \
+	else \
+		echo "❌ Code formatting issues found. Run 'make format' to fix."; \
+		exit 1; \
+	fi
 
 # Sort resources by category, sub-category, and name
 sort:

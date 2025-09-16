@@ -112,7 +112,9 @@ def read_csv(path: Path) -> list[dict[str, str]]:
 class TestSortResources:
     """Test cases for sort_resources function."""
 
-    def test_sort_by_category_order(self, temp_csv: Path, sample_csv_data: list[dict[str, str]]) -> None:
+    def test_sort_by_category_order(
+        self, temp_csv: Path, sample_csv_data: list[dict[str, str]]
+    ) -> None:
         """Test that resources are sorted according to category order from category_utils."""
         # Mock category manager to provide a specific order
         mock_categories = [
@@ -136,7 +138,9 @@ class TestSortResources:
             assert categories[1] == "Tooling"
             assert categories[2:] == ["Slash-Commands"] * 3
 
-    def test_sort_by_subcategory(self, temp_csv: Path, sample_csv_data: list[dict[str, str]]) -> None:
+    def test_sort_by_subcategory(
+        self, temp_csv: Path, sample_csv_data: list[dict[str, str]]
+    ) -> None:
         """Test that resources within a category are sorted by sub-category."""
         with patch(
             "scripts.category_utils.category_manager.get_categories_for_readme",
@@ -444,7 +448,9 @@ class TestSortResources:
             assert sorted_data[0]["Active"] == "true"
             assert sorted_data[0]["Last Checked"] == "2024-01-01"
 
-    def test_category_summary_output(self, temp_csv: Path, sample_csv_data: list[dict[str, str]], capsys: Any) -> None:
+    def test_category_summary_output(
+        self, temp_csv: Path, sample_csv_data: list[dict[str, str]], capsys: Any
+    ) -> None:
         """Test that category summary is printed correctly."""
         with patch(
             "scripts.category_utils.category_manager.get_categories_for_readme",
@@ -467,7 +473,9 @@ class TestSortResources:
             assert "Code Analysis & Testing: 2 items" in captured.out
             assert "Version Control & Git: 1 items" in captured.out
 
-    def test_multiple_sort_stability(self, temp_csv: Path, sample_csv_data: list[dict[str, str]]) -> None:
+    def test_multiple_sort_stability(
+        self, temp_csv: Path, sample_csv_data: list[dict[str, str]]
+    ) -> None:
         """
         Test that sorting multiple times produces the same result
         (stable sort).

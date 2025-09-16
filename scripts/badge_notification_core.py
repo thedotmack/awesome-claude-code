@@ -62,10 +62,14 @@ class RateLimiter:
 
         if status["should_stop"]:
             wait_time = max(0, status["reset_time"] - time.time())
-            logger.warning(f"Rate limit nearly exhausted. Waiting {wait_time:.0f} seconds until reset")
+            logger.warning(
+                f"Rate limit nearly exhausted. Waiting {wait_time:.0f} seconds until reset"
+            )
             time.sleep(wait_time + 1)
         elif status["should_pause"]:
-            logger.info(f"Rate limit low ({status['remaining']} remaining). Pausing {self.backoff_seconds} seconds")
+            logger.info(
+                f"Rate limit low ({status['remaining']} remaining). Pausing {self.backoff_seconds} seconds"
+            )
             time.sleep(self.backoff_seconds)
             self.backoff_seconds = min(self.backoff_seconds * 2, self.max_backoff)
         else:
@@ -184,7 +188,24 @@ class BadgeNotificationCore:
             return False
 
         # Check for dangerous characters that could be used for injection
-        dangerous_chars = [";", "|", "&", "`", "$", "(", ")", "{", "}", "<", ">", "\n", "\r", "\\", "'", '"']
+        dangerous_chars = [
+            ";",
+            "|",
+            "&",
+            "`",
+            "$",
+            "(",
+            ")",
+            "{",
+            "}",
+            "<",
+            ">",
+            "\n",
+            "\r",
+            "\\",
+            "'",
+            '"',
+        ]
         if any(char in url for char in dangerous_chars):
             return False
 
@@ -313,7 +334,7 @@ Thank you for contributing to the Claude Code ecosystem! 🙏
                     return True
 
         except Exception as e:
-            logger.warning("Could not check existing issues for " f"{repo.full_name}: {e}")
+            logger.warning(f"Could not check existing issues for {repo.full_name}: {e}")
             # If we can't check, assume it doesn't exist to avoid blocking
             return False
 
@@ -331,7 +352,9 @@ Thank you for contributing to the Claude Code ecosystem! 🙏
                 return True  # Label already exists
             except UnknownObjectException:
                 # Label doesn't exist, try to create it
-                repo.create_label(self.NOTIFICATION_LABEL, "f39c12", "Featured in Awesome Claude Code")
+                repo.create_label(
+                    self.NOTIFICATION_LABEL, "f39c12", "Featured in Awesome Claude Code"
+                )
                 return True
         except GithubException as e:
             if e.status == 403:

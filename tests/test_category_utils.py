@@ -137,12 +137,20 @@ def test_get_all_subcategories() -> None:
     assert subcategories and len(subcategories) == 3  # sub1, sub2, sub3
 
     # Check subcategory structure
-    sub_a = next((s for s in subcategories if s["name"] == "Subcategory A"), None) if subcategories else None
+    sub_a = (
+        next((s for s in subcategories if s["name"] == "Subcategory A"), None)
+        if subcategories
+        else None
+    )
     assert sub_a is not None
     assert sub_a["parent"] == "Category One"
     assert sub_a["full_name"] == "Category One: Subcategory A"
 
-    sub_c = next((s for s in subcategories if s["name"] == "Subcategory C"), None) if subcategories else None
+    sub_c = (
+        next((s for s in subcategories if s["name"] == "Subcategory C"), None)
+        if subcategories
+        else None
+    )
     assert sub_c is not None
     assert sub_c["parent"] == "Category Three"
 

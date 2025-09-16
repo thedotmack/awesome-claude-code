@@ -183,4 +183,6 @@ if __name__ == "__main__":
 
     # Add to CSV
     append_to_csv(resources, csv_path)
-    print(f"\nAdded {len(resources)} resources to {csv_path} (sorted alphabetically within categories)")
+    print(
+        f"\nAdded {len(resources)} resources to {csv_path} (sorted alphabetically within categories)"
+    )
