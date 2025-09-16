@@ -76,10 +76,10 @@ install-hooks:
 	@chmod +x .git/hooks/pre-push
 	@echo "Pre-push hook installed successfully!"
 
-# Run validation tests on test CSV
+# Run all tests using pytest
 test:
-	@echo "Running tests..."
-	@$(PYTHON) tests/test_get_last_resource.py
+	@echo "Running all tests..."
+	@$(PYTHON) -m pytest tests/ -v
 
 # Sort resources by category, sub-category, and name
 sort:
