@@ -15,6 +15,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
 try:
     from generate_readme import (  # type: ignore
+        generate_section_content,
         generate_toc_from_categories,
         get_anchor_suffix_for_icon,
         load_announcements,
@@ -22,6 +23,7 @@ try:
     )
 except ImportError:
     from scripts.generate_readme import (
+        generate_section_content,
         generate_toc_from_categories,
         get_anchor_suffix_for_icon,
         load_announcements,
@@ -480,6 +482,187 @@ class TestLoadAnnouncements(unittest.TestCase):
 
         result = load_announcements(empty_dir)
         self.assertEqual(result, "")
+
+
+class TestGenerateSectionContent(unittest.TestCase):
+    """Test cases for the generate_section_content function."""
+
+    def test_simple_category_with_resources(self) -> None:
+        """Test generating a simple category section with resources."""
+        category = {"name": "Tools", "icon": "🔧"}
+        csv_data = [
+            {
+                "Category": "Tools",
+                "Sub-Category": "",
+                "Display Name": "Tool 1",
+                "Primary Link": "https://example.com/tool1",
+                "Author Name": "Author 1",
+                "Author Link": "",
+                "Description": "A useful tool",
+                "License": "MIT",
+            }
+        ]
+
+        result = generate_section_content(category, csv_data)
+
+        # Check for details wrapper (open by default)
+        self.assertIn("<details open>", result)
+        self.assertIn("</details>", result)
+
+        # Check for summary with h2
+        self.assertIn("<summary><h2>Tools 🔧</h2></summary>", result)
+
+        # Check for resource content
+        self.assertIn("[`Tool 1`](https://example.com/tool1)", result)
+        self.assertIn("A useful tool", result)
+
+    def test_category_with_description(self) -> None:
+        """Test generating a category with a description."""
+        category = {
+            "name": "Resources",
+            "icon": "📚",
+            "description": "Helpful resources for developers",
+        }
+        csv_data = []
+
+        result = generate_section_content(category, csv_data)
+
+        # Check for description after summary
+        self.assertIn("<summary><h2>Resources 📚</h2></summary>", result)
+        self.assertIn("Helpful resources for developers", result)
+
+    def test_category_with_subcategories(self) -> None:
+        """Test generating a category with subcategories."""
+        category = {
+            "name": "Documentation",
+            "icon": "📖",
+            "subcategories": [
+                {"name": "Tutorials"},
+                {"name": "API Reference"},
+            ],
+        }
+        csv_data = [
+            {
+                "Category": "Documentation",
+                "Sub-Category": "Tutorials",
+                "Display Name": "Getting Started",
+                "Primary Link": "https://example.com/tutorial",
+                "Author Name": "",
+                "Author Link": "",
+                "Description": "",
+                "License": "",
+            },
+            {
+                "Category": "Documentation",
+                "Sub-Category": "API Reference",
+                "Display Name": "API Docs",
+                "Primary Link": "https://example.com/api",
+                "Author Name": "",
+                "Author Link": "",
+                "Description": "",
+                "License": "",
+            },
+        ]
+
+        result = generate_section_content(category, csv_data)
+
+        # Check for main category details wrapper
+        self.assertIn("<details open>", result)
+        self.assertIn("<summary><h2>Documentation 📖</h2></summary>", result)
+
+        # Check for subcategory details wrappers
+        self.assertEqual(result.count("<details open>"), 3)  # Main + 2 subcategories
+        self.assertIn("<summary><h3>Tutorials</h3></summary>", result)
+        self.assertIn("<summary><h3>API Reference</h3></summary>", result)
+
+        # Check for resources in subcategories
+        self.assertIn("[`Getting Started`](https://example.com/tutorial)", result)
+        self.assertIn("[`API Docs`](https://example.com/api)", result)
+
+        # Check closing tags
+        self.assertEqual(result.count("</details>"), 3)
+
+    def test_category_with_main_and_sub_resources(self) -> None:
+        """Test a category with resources at both main and sub levels."""
+        category = {
+            "name": "Mixed",
+            "subcategories": [{"name": "Subcategory"}],
+        }
+        csv_data = [
+            {
+                "Category": "Mixed",
+                "Sub-Category": "",
+                "Display Name": "Main Resource",
+                "Primary Link": "https://example.com/main",
+                "Author Name": "",
+                "Author Link": "",
+                "Description": "",
+                "License": "",
+            },
+            {
+                "Category": "Mixed",
+                "Sub-Category": "Subcategory",
+                "Display Name": "Sub Resource",
+                "Primary Link": "https://example.com/sub",
+                "Author Name": "",
+                "Author Link": "",
+                "Description": "",
+                "License": "",
+            },
+        ]
+
+        result = generate_section_content(category, csv_data)
+
+        # Check for main resource before subcategory
+        main_idx = result.index("Main Resource")
+        sub_idx = result.index("Sub Resource")
+        self.assertTrue(main_idx < sub_idx, "Main resource should come before subcategory")
+
+        # Check for both details wrappers
+        self.assertEqual(result.count("<details open>"), 2)  # Main + 1 subcategory
+
+    def test_category_without_icon(self) -> None:
+        """Test generating a category without an icon."""
+        category = {"name": "Plain Category"}
+        csv_data = []
+
+        result = generate_section_content(category, csv_data)
+
+        # Check for summary without icon
+        self.assertIn("<summary><h2>Plain Category</h2></summary>", result)
+
+    def test_empty_subcategory_not_rendered(self) -> None:
+        """Test that subcategories without resources are not rendered."""
+        category = {
+            "name": "Test",
+            "subcategories": [
+                {"name": "Empty Sub"},
+                {"name": "Has Resources"},
+            ],
+        }
+        csv_data = [
+            {
+                "Category": "Test",
+                "Sub-Category": "Has Resources",
+                "Display Name": "Resource",
+                "Primary Link": "https://example.com",
+                "Author Name": "",
+                "Author Link": "",
+                "Description": "",
+                "License": "",
+            }
+        ]
+
+        result = generate_section_content(category, csv_data)
+
+        # Empty subcategory should not be present
+        self.assertNotIn("Empty Sub", result)
+
+        # Subcategory with resources should be present
+        self.assertIn("Has Resources", result)
+
+        # Should only have 2 details blocks (main + 1 subcategory)
+        self.assertEqual(result.count("<details open>"), 2)
 
 
 if __name__ == "__main__":

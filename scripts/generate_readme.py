@@ -320,24 +320,28 @@ def generate_section_content(category, csv_data):
     """Generate content for a category based on CSV data."""
     lines = []
 
-    # Add section title
+    # Get category details
     title = category.get("name", "")
     icon = category.get("icon", "")
+    description = category.get("description", "").strip()
+    category_name = category.get("name", "")
+    subcategories = category.get("subcategories", [])
+
+    # Start the main category disclosure element (open by default)
+    lines.append("<details open>")
+
+    # Add section title as summary
     if icon:
-        lines.append(f"## {title} {icon}")
+        lines.append(f"<summary><h2>{title} {icon}</h2></summary>")
     else:
-        lines.append(f"## {title}")
+        lines.append(f"<summary><h2>{title}</h2></summary>")
 
     # Add section description if present
-    description = category.get("description", "").strip()
     if description:
         lines.append("")
         lines.append(description)
 
     # Get resources for this section
-    category_name = category.get("name", "")
-    subcategories = category.get("subcategories", [])
-
     if not subcategories:
         # No subsections - render all resources for this category
         resources = [
@@ -363,7 +367,7 @@ def generate_section_content(category, csv_data):
                 lines.append(format_resource_entry(resource))
                 lines.append("")
 
-        # Then render each subsection
+        # Then render each subsection as a collapsible element
         for subcat in subcategories:
             sub_title = subcat["name"]
 
@@ -375,12 +379,21 @@ def generate_section_content(category, csv_data):
 
             if resources:
                 lines.append("")
-                lines.append(f"### {sub_title}")
+                # Start subcategory disclosure element (open by default)
+                lines.append("<details open>")
+                lines.append(f"<summary><h3>{sub_title}</h3></summary>")
                 lines.append("")
 
                 for resource in resources:
                     lines.append(format_resource_entry(resource))
                     lines.append("")
+
+                # Close subcategory disclosure element
+                lines.append("</details>")
+
+    # Close main category disclosure element
+    lines.append("")
+    lines.append("</details>")
 
     return "\n".join(lines).rstrip() + "\n"
 
