@@ -29,11 +29,11 @@ categories:
         name: "Orchestrators"
         
   - id: statusline
-    name: "Statusline"
+    name: "Status line"
     prefix: status
     icon: "📊"
     description: |
-      > **Statusline** configurations and customizations for Claude Code's status bar functionality
+      > **Status line** configurations and customizations for Claude Code's status bar functionality
     order: 3
     
   - id: hooks
@@ -41,9 +41,7 @@ categories:
     prefix: hook
     icon: "🪝"
     description: |
-      > **Hooks** are a brand new API for Claude Code that allows users to activate commands and run scripts at different points in Claude's agentic lifecycle.
-
-      **[Experimental]** - The resources listed in this section have not been fully vetted and may not work as expected, given the bleeding-edge nature of Claude Code hooks. Nevertheless, I wished to include them at least as a source of inspiration and to explore this unknown terrain. YMMV!
+      > **Hooks** are a powerful API for Claude Code that allows users to activate commands and run scripts at different points in Claude's agentic lifecycle.
     order: 4
     
   - id: slash-commands

@@ -105,7 +105,7 @@ A versatile configuration framework that enhances Claude Code with specialized c
 
   </details>
 
-- [Statusline](#statusline-)
+- [Status line](#status-line-)
 
 - [Hooks](#hooks-)
 
@@ -284,9 +284,9 @@ A Rust CLI tool that lets you delegate development tasks to AI agents running in
 
 <br>
 
-## Statusline 📊
+## Status line 📊
 
-> **Statusline** configurations and customizations for Claude Code's status bar functionality
+> **Status line** configurations and customizations for Claude Code's status bar functionality
 
 [`ccstatusline`](https://github.com/sirmalloc/ccstatusline) &nbsp; by &nbsp; [sirmalloc](https://github.com/sirmalloc)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 A highly customizable status line formatter for Claude Code CLI that displays model info, git branch, token usage, and other metrics in your terminal.
@@ -301,9 +301,7 @@ A vim-style powerline statusline for Claude Code with real-time usage tracking, 
 
 ## Hooks 🪝
 
-> **Hooks** are a brand new API for Claude Code that allows users to activate commands and run scripts at different points in Claude's agentic lifecycle.
-
-**[Experimental]** - The resources listed in this section have not been fully vetted and may not work as expected, given the bleeding-edge nature of Claude Code hooks. Nevertheless, I wished to include them at least as a source of inspiration and to explore this unknown terrain. YMMV!
+> **Hooks** are a powerful API for Claude Code that allows users to activate commands and run scripts at different points in Claude's agentic lifecycle.
 
 [`CC Notify`](https://github.com/dazuiba/CCNotify) &nbsp; by &nbsp; [dazuiba](https://github.com/dazuiba)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 CCNotify provides desktop notifications for Claude Code, alerting you to input needs or task completion, with one-click jumps back to VS Code and task duration display.

@@ -188,7 +188,7 @@ categories:
     order: 1
     
   - id: statusline
-    name: "Statusline"
+    name: "Status line"
     prefix: status
     icon: "📊"
     order: 3
