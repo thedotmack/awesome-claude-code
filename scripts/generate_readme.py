@@ -165,8 +165,8 @@ def generate_toc_from_categories():
 
     toc_lines = []
 
-    # Make the entire TOC collapsible
-    toc_lines.append("<details>")
+    # Make the entire TOC collapsible (open by default)
+    toc_lines.append("<details open>")
     toc_lines.append("<summary>Table of Contents</summary>")
     toc_lines.append("")
 
@@ -190,8 +190,8 @@ def generate_toc_from_categories():
         subcategories = category.get("subcategories", [])
 
         if subcategories:
-            # Make category collapsible if it has subcategories
-            toc_lines.append("- <details>")
+            # Make category collapsible if it has subcategories (open by default)
+            toc_lines.append("- <details open>")
             toc_lines.append(
                 f'  <summary><a href="#{anchor}{anchor_suffix}">{section_title}</a></summary>'
             )

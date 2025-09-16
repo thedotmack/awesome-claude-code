@@ -91,12 +91,12 @@ A versatile configuration framework that enhances Claude Code with specialized c
 
 ## Contents
 
-<details>
+<details open>
 <summary>Table of Contents</summary>
 
 - [Workflows & Knowledge Guides](#workflows--knowledge-guides-)
 
-- <details>
+- <details open>
   <summary><a href="#tooling-">Tooling</a></summary>
 
   - [IDE Integrations](#ide-integrations)
@@ -109,7 +109,7 @@ A versatile configuration framework that enhances Claude Code with specialized c
 
 - [Hooks](#hooks-)
 
-- <details>
+- <details open>
   <summary><a href="#slash-commands-">Slash-Commands</a></summary>
 
   - [Version Control & Git](#version-control--git)
@@ -122,7 +122,7 @@ A versatile configuration framework that enhances Claude Code with specialized c
 
   </details>
 
-- <details>
+- <details open>
   <summary><a href="#claudemd-files-">CLAUDE.md Files</a></summary>
 
   - [Language-Specific](#language-specific)

@@ -157,8 +157,8 @@ class TestGenerateTOC(unittest.TestCase):
 
         result = generate_toc_from_categories()
 
-        # Check for main structure
-        self.assertIn("<details>", result)
+        # Check for main structure (open by default)
+        self.assertIn("<details open>", result)
         self.assertIn("<summary>Table of Contents</summary>", result)
         self.assertIn("</details>", result)
 
@@ -198,8 +198,8 @@ class TestGenerateTOC(unittest.TestCase):
 
         result = generate_toc_from_categories()
 
-        # Check for collapsible category with subcategories
-        self.assertIn("- <details>", result)
+        # Check for collapsible category with subcategories (open by default)
+        self.assertIn("- <details open>", result)
         # The gear emoji has a variation selector, so it gets URL-encoded
         self.assertIn('  <summary><a href="#configuration-%EF%B8%8F">Configuration</a>', result)
 
@@ -251,8 +251,8 @@ class TestGenerateTOC(unittest.TestCase):
         # Check structure
         lines = result.split("\n")
 
-        # Should have main details wrapper
-        self.assertEqual(lines[0], "<details>")
+        # Should have main details wrapper (open by default)
+        self.assertEqual(lines[0], "<details open>")
         self.assertEqual(lines[1], "<summary>Table of Contents</summary>")
 
         # Check for simple categories
@@ -264,8 +264,8 @@ class TestGenerateTOC(unittest.TestCase):
         self.assertIn("  - [API Reference](#api-reference)", result)
         self.assertIn("  - [Tutorials](#tutorials)", result)
 
-        # Count details blocks (main + 2 categories with subcategories)
-        self.assertEqual(result.count("<details>"), 3)
+        # Count details blocks (main + 2 categories with subcategories) - all open by default
+        self.assertEqual(result.count("<details open>"), 3)
         self.assertEqual(result.count("</details>"), 3)
 
 
