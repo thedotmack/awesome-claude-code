@@ -186,7 +186,7 @@ def generate_toc_from_categories():
         if subcategories:
             # Make category collapsible if it has subcategories
             toc_lines.append("- <details>")
-            toc_lines.append(f"  <summary>[{section_title}](#{anchor}{anchor_suffix})</summary>")
+            toc_lines.append(f'  <summary><a href="#{anchor}{anchor_suffix}">{section_title}</a></summary>')
             toc_lines.append("")
 
             # Add subcategories as nested list

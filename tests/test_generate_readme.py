@@ -200,7 +200,7 @@ class TestGenerateTOC(unittest.TestCase):
         # Check for collapsible category with subcategories
         self.assertIn("- <details>", result)
         # The gear emoji has a variation selector, so it gets URL-encoded
-        self.assertIn("  <summary>[Configuration](#configuration-%EF%B8%8F)", result)
+        self.assertIn('  <summary><a href="#configuration-%EF%B8%8F">Configuration</a>', result)
 
         # Check for subcategories
         self.assertIn("  - [Basic Setup](#basic-setup)", result)
@@ -259,7 +259,7 @@ class TestGenerateTOC(unittest.TestCase):
         self.assertIn("- [Community](#community-)", result)
 
         # Check for nested categories
-        self.assertIn("  <summary>[Documentation](#documentation-)", result)
+        self.assertIn('  <summary><a href="#documentation-">Documentation</a>', result)
         self.assertIn("  - [API Reference](#api-reference)", result)
         self.assertIn("  - [Tutorials](#tutorials)", result)
 

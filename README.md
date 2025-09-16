@@ -97,7 +97,7 @@ A versatile configuration framework that enhances Claude Code with specialized c
 - [Workflows & Knowledge Guides](#workflows--knowledge-guides-)
 
 - <details>
-  <summary>[Tooling](#tooling-)</summary>
+  <summary><a href="#tooling-">Tooling</a></summary>
 
   - [IDE Integrations](#ide-integrations)
   - [Usage Monitors](#usage-monitors)
@@ -110,7 +110,7 @@ A versatile configuration framework that enhances Claude Code with specialized c
 - [Hooks](#hooks-)
 
 - <details>
-  <summary>[Slash-Commands](#slash-commands-)</summary>
+  <summary><a href="#slash-commands-">Slash-Commands</a></summary>
 
   - [Version Control & Git](#version-control--git)
   - [Code Analysis & Testing](#code-analysis--testing)
@@ -123,7 +123,7 @@ A versatile configuration framework that enhances Claude Code with specialized c
   </details>
 
 - <details>
-  <summary>[CLAUDE.md Files](#claudemd-files-)</summary>
+  <summary><a href="#claudemd-files-">CLAUDE.md Files</a></summary>
 
   - [Language-Specific](#language-specific)
   - [Domain-Specific](#domain-specific)
