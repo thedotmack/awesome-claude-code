@@ -137,7 +137,8 @@ A versatile configuration framework that enhances Claude Code with specialized c
 
 <br>
 
-## Workflows & Knowledge Guides 🧠
+<details open>
+<summary><h2>Workflows & Knowledge Guides 🧠</h2></summary>
 
 > A **workflow** is a tightly coupled set of Claude Code-native resources that facilitate specific projects
 
@@ -182,6 +183,8 @@ A broader project management workflow for Claude Code that encompasses not just 
 
 [`Slash-commands megalist`](https://github.com/wcygan/dotfiles/tree/d8ab6b9f5a7a81007b7f5fa3025d4f83ce12cc02/claude/commands) &nbsp; by &nbsp; [wcygan](https://github.com/wcygan)    
 A pretty stunning list (88 at the time of this post!) of slash-commands ranging from agent orchestration, code review, project management, security, documentation, self-assessment, almost anything you can dream of.
+
+</details>
 
 <br>
 
@@ -291,7 +294,8 @@ A Rust CLI tool that lets you delegate development tasks to AI agents running in
 
 <br>
 
-## Status Lines 📊
+<details open>
+<summary><h2>Status Lines 📊</h2></summary>
 
 > **Status lines** - Configurations and customizations for Claude Code's status bar functionality
 
@@ -304,9 +308,12 @@ Enhanced 4-line statusline for Claude Code with themes, cost tracking, and MCP s
 [`claude-powerline`](https://github.com/Owloops/claude-powerline) &nbsp; by &nbsp; [Owloops](https://github.com/Owloops)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 A vim-style powerline statusline for Claude Code with real-time usage tracking, git integration, custom themes, and more
 
+</details>
+
 <br>
 
-## Hooks 🪝
+<details open>
+<summary><h2>Hooks 🪝</h2></summary>
 
 > **Hooks** are a powerful API for Claude Code that allows users to activate commands and run scripts at different points in Claude's agentic lifecycle.
 
@@ -330,6 +337,8 @@ A hooks-driven system that monitors file operations in real-time and blocks chan
 
 [`TypeScript Quality Hooks`](https://github.com/bartolli/claude-code-typescript-hooks) &nbsp; by &nbsp; [bartolli](https://github.com/bartolli)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 Quality check hook for Node.js TypeScript projects with TypeScript compilation. ESLint auto-fixing, and Prettier formatting. Uses SHA256 config caching for <5ms validation performance during real-time editing.
+
+</details>
 
 <br>
 
@@ -609,7 +618,8 @@ Offers clear step-by-step installation instructions with multiple configuration 
 
 <br>
 
-## Official Documentation 🏛️
+<details open>
+<summary><h2>Official Documentation 🏛️</h2></summary>
 
 > Links to some of Anthropic's terrific documentation and resources regarding Claude Code
 
@@ -623,6 +633,8 @@ Offers comprehensive development guides for three distinct AI-powered demo proje
 
 [`Claude Code GitHub Actions`](https://github.com/anthropics/claude-code-action/tree/main/examples) &nbsp; by &nbsp; [Anthropic](https://github.com/anthropics)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 Official GitHub Actions integration for Claude Code with examples and documentation for automating AI-powered workflows in CI/CD pipelines.
+
+</details>
 
 
 ## Contributing 🌻

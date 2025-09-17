@@ -327,20 +327,24 @@ def generate_section_content(category, csv_data):
     category_name = category.get("name", "")
     subcategories = category.get("subcategories", [])
 
-    # Add section title (regular header, no disclosure)
-    if icon:
-        lines.append(f"## {title} {icon}")
-    else:
-        lines.append(f"## {title}")
-
-    # Add section description if present
-    if description:
-        lines.append("")
-        lines.append(description)
-
-    # Get resources for this section
+    # Categories WITHOUT subcategories are collapsible
+    # Categories WITH subcategories have regular headers (subcategories are collapsible)
     if not subcategories:
-        # No subsections - render all resources for this category directly
+        # No subcategories - make the entire category collapsible
+        lines.append("<details open>")
+
+        # Add section title as summary
+        if icon:
+            lines.append(f"<summary><h2>{title} {icon}</h2></summary>")
+        else:
+            lines.append(f"<summary><h2>{title}</h2></summary>")
+
+        # Add section description if present
+        if description:
+            lines.append("")
+            lines.append(description)
+
+        # Render all resources for this category
         resources = [
             r
             for r in csv_data
@@ -351,8 +355,22 @@ def generate_section_content(category, csv_data):
             for resource in resources:
                 lines.append(format_resource_entry(resource))
                 lines.append("")
+
+        # Close the category disclosure element
+        lines.append("</details>")
     else:
-        # Has subsections - first render main category resources without subcategory
+        # Has subcategories - use regular header (not collapsible at category level)
+        if icon:
+            lines.append(f"## {title} {icon}")
+        else:
+            lines.append(f"## {title}")
+
+        # Add section description if present
+        if description:
+            lines.append("")
+            lines.append(description)
+
+        # First render main category resources without subcategory
         main_resources = [
             r
             for r in csv_data
