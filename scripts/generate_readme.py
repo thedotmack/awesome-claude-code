@@ -327,7 +327,7 @@ def generate_section_content(category, csv_data):
     category_name = category.get("name", "")
     subcategories = category.get("subcategories", [])
 
-    # Add section title (header outside of disclosure)
+    # Add section title (regular header, no disclosure)
     if icon:
         lines.append(f"## {title} {icon}")
     else:
@@ -338,19 +338,9 @@ def generate_section_content(category, csv_data):
         lines.append("")
         lines.append(description)
 
-    # Create anchor for this section
-    anchor = title.lower().replace(" ", "-").replace("&", "").replace("/", "").replace(".", "")
-    anchor_suffix = get_anchor_suffix_for_icon(icon) if icon else ""
-    full_anchor = f"#{anchor}{anchor_suffix}"
-
-    # Start the main category disclosure element (open by default)
-    lines.append("")
-    lines.append("<details open>")
-    lines.append(f'<summary><a href="{full_anchor}">View {title}</a></summary>')
-
     # Get resources for this section
     if not subcategories:
-        # No subsections - render all resources for this category
+        # No subsections - render all resources for this category directly
         resources = [
             r
             for r in csv_data
@@ -374,7 +364,7 @@ def generate_section_content(category, csv_data):
                 lines.append(format_resource_entry(resource))
                 lines.append("")
 
-        # Then render each subsection with header above disclosure
+        # Then render each subsection as a collapsible element
         for subcat in subcategories:
             sub_title = subcat["name"]
 
@@ -386,16 +376,9 @@ def generate_section_content(category, csv_data):
 
             if resources:
                 lines.append("")
-                # Add subcategory header (outside disclosure)
-                lines.append(f"### {sub_title}")
-
-                # Create anchor for subcategory
-                sub_anchor = sub_title.lower().replace(" ", "-").replace("&", "").replace("/", "")
-
                 # Start subcategory disclosure element (open by default)
-                lines.append("")
                 lines.append("<details open>")
-                lines.append(f'<summary><a href="#{sub_anchor}">View {sub_title}</a></summary>')
+                lines.append(f"<summary><h3>{sub_title}</h3></summary>")
                 lines.append("")
 
                 for resource in resources:
@@ -404,10 +387,6 @@ def generate_section_content(category, csv_data):
 
                 # Close subcategory disclosure element
                 lines.append("</details>")
-
-    # Close main category disclosure element
-    lines.append("")
-    lines.append("</details>")
 
     return "\n".join(lines).rstrip() + "\n"
 
