@@ -8,7 +8,9 @@ from datetime import datetime
 
 # Import validation function
 try:
-    from validate_single_resource import validate_resource_from_dict  # type: ignore[import-not-found]
+    from validate_single_resource import (
+        validate_resource_from_dict,  # type: ignore[import-not-found]
+    )
 except ImportError:
     from .validate_single_resource import validate_resource_from_dict
 
@@ -118,7 +120,9 @@ def get_subcategory(category):
 
     while True:
         try:
-            choice = input(f"Enter your choice (1-{len(options) + (1 if category == 'Tooling' else 0)}): ").strip()
+            choice = input(
+                f"Enter your choice (1-{len(options) + (1 if category == 'Tooling' else 0)}): "
+            ).strip()
             idx = int(choice) - 1
             if idx == len(options) and category == "Tooling":
                 return ""
@@ -251,7 +255,8 @@ def generate_pr_content(data):
 
 ### Automated Notification
 
-- [{"x" if is_github else " "}] This is a GitHub-hosted resource and will receive an automatic notification issue when merged
+- [{"x" if is_github else " "}] This is a GitHub-hosted resource and will receive an automatic
+  notification issue when merged
 
 ### Checklist for New Resources
 
@@ -265,7 +270,9 @@ def generate_pr_content(data):
 
 def save_pr_content(content):
     """Save PR content to a file"""
-    pr_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".pr_template_content.md")
+    pr_file = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "..", ".pr_template_content.md"
+    )
     try:
         with open(pr_file, "w", encoding="utf-8") as f:
             f.write(content)
@@ -317,7 +324,11 @@ def main():
     # Collect information
     category = get_resource_type()
     display_name = get_display_name(category)
-    subcategory = get_subcategory(category) if category in ["Slash-Commands", "CLAUDE.md Files", "Tooling"] else ""
+    subcategory = (
+        get_subcategory(category)
+        if category in ["Slash-Commands", "CLAUDE.md Files", "Tooling"]
+        else ""
+    )
 
     print()
     primary_link = get_url("Enter the primary link to the resource: ")
@@ -403,7 +414,9 @@ def main():
             print()
 
             if "github.com" in data["primary_link"]:
-                print("Note: Once merged, an automated issue will be created on the GitHub repository")
+                print(
+                    "Note: Once merged, an automated issue will be created on the GitHub repository"
+                )
                 print("      to notify them of their inclusion in Awesome Claude Code.")
                 print()
         else:

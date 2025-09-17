@@ -62,10 +62,15 @@ class RateLimiter:
 
         if status["should_stop"]:
             wait_time = max(0, status["reset_time"] - time.time())
-            logger.warning(f"Rate limit nearly exhausted. Waiting {wait_time:.0f} seconds until reset")
+            logger.warning(
+                f"Rate limit nearly exhausted. Waiting {wait_time:.0f} seconds until reset"
+            )
             time.sleep(wait_time + 1)
         elif status["should_pause"]:
-            logger.info(f"Rate limit low ({status['remaining']} remaining). Pausing {self.backoff_seconds} seconds")
+            logger.info(
+                f"Rate limit low ({status['remaining']} remaining). "
+                f"Pausing {self.backoff_seconds} seconds"
+            )
             time.sleep(self.backoff_seconds)
             self.backoff_seconds = min(self.backoff_seconds * 2, self.max_backoff)
         else:
@@ -184,7 +189,24 @@ class BadgeNotificationCore:
             return False
 
         # Check for dangerous characters that could be used for injection
-        dangerous_chars = [";", "|", "&", "`", "$", "(", ")", "{", "}", "<", ">", "\n", "\r", "\\", "'", '"']
+        dangerous_chars = [
+            ";",
+            "|",
+            "&",
+            "`",
+            "$",
+            "(",
+            ")",
+            "{",
+            "}",
+            "<",
+            ">",
+            "\n",
+            "\r",
+            "\\",
+            "'",
+            '"',
+        ]
         if any(char in url for char in dangerous_chars):
             return False
 
@@ -247,16 +269,20 @@ class BadgeNotificationCore:
         final_description = (
             description
             if description
-            else f"Your project {resource_name} provides valuable resources for the Claude Code community."
+            else f"Your project {resource_name} provides valuable resources "
+            f"for the Claude Code community."
         )
 
         # Use the original values directly
         return f"""Hello! 👋
 
-I'm excited to let you know that **{resource_name}** has been featured in the [Awesome Claude Code]({self.GITHUB_URL_BASE}) list!
+I'm excited to let you know that **{resource_name}** has been featured in the
+[Awesome Claude Code]({self.GITHUB_URL_BASE}) list!
 
 ## About Awesome Claude Code
-Awesome Claude Code is a curated collection of the best slash-commands, CLAUDE.md files, CLI tools, and other resources for enhancing Claude Code workflows. Your project has been recognized for its valuable contribution to the Claude Code community.
+Awesome Claude Code is a curated collection of the best slash-commands, CLAUDE.md files,
+CLI tools, and other resources for enhancing Claude Code workflows. Your project has been
+recognized for its valuable contribution to the Claude Code community.
 
 ## Your Listing
 {final_description}
@@ -264,7 +290,8 @@ Awesome Claude Code is a curated collection of the best slash-commands, CLAUDE.m
 You can find your entry here: [View in Awesome Claude Code]({self.GITHUB_URL_BASE})
 
 ## Show Your Recognition! 🏆
-If you'd like to display a badge in your README to show that your project is featured, you can use one of these:
+If you'd like to display a badge in your README to show that your project is featured,
+you can use one of these:
 
 ### Option 1: Standard Badge
 ```markdown
@@ -279,12 +306,13 @@ If you'd like to display a badge in your README to show that your project is fea
 [![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge-flat.svg)]({self.GITHUB_URL_BASE})
 
 ## No Action Required
-This is just a friendly notification - no action is required on your part. Feel free to close this issue at any time.
+This is just a friendly notification - no action is required on your part.
+Feel free to close this issue at any time.
 
 Thank you for contributing to the Claude Code ecosystem! 🙏
 
 ---
-*This notification was sent because your project was added to the Awesome Claude Code list. This is a one-time notification.*"""
+*This notification was sent because your project was added to the Awesome Claude Code list. This is a one-time notification.*"""  # noqa: E501
 
     def notification_exists(self, repo, strict: bool = True) -> bool:
         """
@@ -313,7 +341,7 @@ Thank you for contributing to the Claude Code ecosystem! 🙏
                     return True
 
         except Exception as e:
-            logger.warning("Could not check existing issues for " f"{repo.full_name}: {e}")
+            logger.warning(f"Could not check existing issues for {repo.full_name}: {e}")
             # If we can't check, assume it doesn't exist to avoid blocking
             return False
 
@@ -331,7 +359,9 @@ Thank you for contributing to the Claude Code ecosystem! 🙏
                 return True  # Label already exists
             except UnknownObjectException:
                 # Label doesn't exist, try to create it
-                repo.create_label(self.NOTIFICATION_LABEL, "f39c12", "Featured in Awesome Claude Code")
+                repo.create_label(
+                    self.NOTIFICATION_LABEL, "f39c12", "Featured in Awesome Claude Code"
+                )
                 return True
         except GithubException as e:
             if e.status == 403:

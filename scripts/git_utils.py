@@ -30,7 +30,9 @@ class GitUtils:
             True if command exists, False otherwise
         """
         try:
-            result = subprocess.run([command, "--version"], capture_output=True, text=True, check=False)
+            result = subprocess.run(
+                [command, "--version"], capture_output=True, text=True, check=False
+            )
             return result.returncode == 0
         except (subprocess.SubprocessError, FileNotFoundError):
             return False
@@ -112,7 +114,9 @@ class GitUtils:
             Config value or None if not set
         """
         try:
-            result = subprocess.run(["git", "config", key], capture_output=True, text=True, check=False)
+            result = subprocess.run(
+                ["git", "config", key], capture_output=True, text=True, check=False
+            )
             value = result.stdout.strip()
             return value if value else None
         except subprocess.SubprocessError:
@@ -184,7 +188,9 @@ class GitUtils:
             True if clean, False if there are uncommitted changes
         """
         try:
-            result = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
+            result = subprocess.run(
+                ["git", "status", "--porcelain"], capture_output=True, text=True
+            )
             return not result.stdout.strip()
         except subprocess.SubprocessError:
             return False
@@ -197,7 +203,9 @@ class GitUtils:
             Output of git status --porcelain or None on error
         """
         try:
-            result = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
+            result = subprocess.run(
+                ["git", "status", "--porcelain"], capture_output=True, text=True
+            )
             return result.stdout.strip()
         except subprocess.SubprocessError:
             return None

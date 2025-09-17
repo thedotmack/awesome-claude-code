@@ -91,7 +91,9 @@ def main():
         # Sort the CSV
         script_dir = os.path.dirname(os.path.abspath(__file__))
         print("Sorting CSV after adding resource", file=sys.stderr)
-        sort_result = run_command(["python3", os.path.join(script_dir, "sort_resources.py")], check=False)
+        sort_result = run_command(
+            ["python3", os.path.join(script_dir, "sort_resources.py")], check=False
+        )
         if sort_result.returncode != 0:
             print(f"Warning: CSV sorting failed: {sort_result.stderr}", file=sys.stderr)
         else:
@@ -137,21 +139,42 @@ def main():
 
         # Use gh CLI to create PR
         result = run_command(
-            ["gh", "pr", "create", "--title", pr_title, "--body", pr_body, "--base", "main", "--head", branch_name]
+            [
+                "gh",
+                "pr",
+                "create",
+                "--title",
+                pr_title,
+                "--body",
+                pr_body,
+                "--base",
+                "main",
+                "--head",
+                branch_name,
+            ]
         )
 
         # Extract PR URL from output
         pr_url = result.stdout.strip()
 
         # Output result
-        result = {"success": True, "pr_url": pr_url, "branch_name": branch_name, "resource_id": resource_id}
+        result = {
+            "success": True,
+            "pr_url": pr_url,
+            "branch_name": branch_name,
+            "resource_id": resource_id,
+        }
 
     except Exception as e:
         print(f"Error in create_resource_pr: {e}", file=sys.stderr)
         import traceback
 
         traceback.print_exc(file=sys.stderr)
-        result = {"success": False, "error": str(e), "branch_name": branch_name if "branch_name" in locals() else None}
+        result = {
+            "success": False,
+            "error": str(e),
+            "branch_name": branch_name if "branch_name" in locals() else None,
+        }
 
     print(json.dumps(result))
     return 0 if result["success"] else 1

@@ -18,7 +18,7 @@ except ImportError:
     from scripts.badge_notification_core import BadgeNotificationCore  # noqa: E402
 
 
-def test_dangerous_input_rejection():
+def test_dangerous_input_rejection() -> None:
     """Test that dangerous inputs are rejected, not modified"""
     print("Testing Dangerous Input Rejection...")
 
@@ -45,7 +45,7 @@ def test_dangerous_input_rejection():
         print(f"  ✓ Rejected: {description} - Reason: {reason}")
 
 
-def test_safe_input_acceptance():
+def test_safe_input_acceptance() -> None:
     """Test that legitimate inputs are accepted"""
     print("\nTesting Safe Input Acceptance...")
 
@@ -69,7 +69,7 @@ def test_safe_input_acceptance():
         print(f"  ✓ Accepted: {description}")
 
 
-def test_length_limit_enforcement():
+def test_length_limit_enforcement() -> None:
     """Test that overly long inputs are rejected"""
     print("\nTesting Length Limit Enforcement...")
 
@@ -87,7 +87,7 @@ def test_length_limit_enforcement():
     print("  ✓ Accepted input at 5000 character limit")
 
 
-def test_case_insensitive_detection():
+def test_case_insensitive_detection() -> None:
     """Test that dangerous patterns are detected case-insensitively"""
     print("\nTesting Case-Insensitive Detection...")
 
@@ -105,7 +105,7 @@ def test_case_insensitive_detection():
         print(f"  ✓ Rejected: {description}")
 
 
-def test_issue_creation_with_validation():
+def test_issue_creation_with_validation() -> None:
     """Test that issue creation fails with dangerous inputs"""
     print("\nTesting Issue Creation with Validation...")
 
@@ -139,7 +139,7 @@ def test_issue_creation_with_validation():
         raise AssertionError(f"Should not have raised ValueError for safe inputs: {e}") from e
 
 
-def test_notification_creation_flow():
+def test_notification_creation_flow() -> None:
     """Test the full notification creation flow with validation"""
     print("\nTesting Full Notification Creation Flow...")
 
@@ -156,11 +156,13 @@ def test_notification_creation_flow():
     )
 
     assert not result["success"], "Should have failed with dangerous input"
-    assert "Security validation failed" in result["message"], f"Wrong error message: {result['message']}"
+    assert (
+        "Security validation failed" in result["message"]
+    ), f"Wrong error message: {result['message']}"
     print("  ✓ Notification creation blocked for dangerous input")
 
 
-def run_all_tests():
+def run_all_tests() -> bool:
     """Run all validation tests"""
     print("=" * 60)
     print("Badge Notification Validation Test Suite")

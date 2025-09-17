@@ -100,7 +100,9 @@ def validate_single_resource(
     return is_valid, enriched_data, errors
 
 
-def validate_resource_from_dict(resource_dict: dict[str, str]) -> tuple[bool, dict[str, Any], list[str]]:
+def validate_resource_from_dict(
+    resource_dict: dict[str, str],
+) -> tuple[bool, dict[str, Any], list[str]]:
     """
     Convenience function for validating a resource dictionary.
     Maps common field names to expected format.
@@ -146,7 +148,10 @@ def main():
     print("=" * 50)
 
     is_valid, enriched_data, errors = validate_single_resource(
-        primary_link=args.url, secondary_link=args.secondary or "", display_name=args.name, category="Test"
+        primary_link=args.url,
+        secondary_link=args.secondary or "",
+        display_name=args.name,
+        category="Test",
     )
 
     print("\nValidation Results:")

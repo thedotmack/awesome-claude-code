@@ -56,7 +56,9 @@ class BadgeNotification:
             reader = csv.DictReader(f)
             for idx, row in enumerate(reader):
                 # Check if it's an active GitHub entry
-                if row.get("Active", "").upper() == "TRUE" and "github.com" in row.get("Primary Link", ""):
+                if row.get("Active", "").upper() == "TRUE" and "github.com" in row.get(
+                    "Primary Link", ""
+                ):
                     # Parse repository information
                     primary_link = row.get("Primary Link", "")
                     owner, repo_name = self._parse_github_url(primary_link)
@@ -92,7 +94,11 @@ class BadgeNotification:
         # Update Date Added for new repos
         for repo_full_name, info in new_repos.items():
             row_idx = info.get("row_index")
-            if row_idx is not None and row_idx < len(rows) and not rows[row_idx].get("Date Added", "").strip():
+            if (
+                row_idx is not None
+                and row_idx < len(rows)
+                and not rows[row_idx].get("Date Added", "").strip()
+            ):
                 rows[row_idx]["Date Added"] = today
                 updates_made += 1
                 name = info.get("name", repo_full_name)
@@ -116,7 +122,9 @@ class BadgeNotification:
         current_repos = self.get_all_github_repos_from_csv(csv_path)
 
         # Find new repos (in CSV but not in processed list)
-        new_repos = {repo: info for repo, info in current_repos.items() if repo not in self.processed_repos}
+        new_repos = {
+            repo: info for repo, info in current_repos.items() if repo not in self.processed_repos
+        }
 
         if not new_repos:
             print("No new GitHub entries found to process.")
@@ -129,7 +137,9 @@ class BadgeNotification:
         self.update_date_added_for_new_repos(csv_path, new_repos)
 
         if not create_issues:
-            print("CREATE_ISSUES is set to false. Marking repos as processed without creating issues.")
+            print(
+                "CREATE_ISSUES is set to false. Marking repos as processed without creating issues."
+            )
             # Just mark them as processed without creating issues
             for repo_full_name in new_repos:
                 self.processed_repos.add(repo_full_name)
@@ -155,7 +165,9 @@ class BadgeNotification:
         self._save_processed_repos()
         return results
 
-    def notify_repository(self, repo_url: str, resource_name: str, description: str, repo_full_name: str) -> dict:
+    def notify_repository(
+        self, repo_url: str, resource_name: str, description: str, repo_full_name: str
+    ) -> dict:
         """Create notification issue for a single repository"""
         result = {"repo_url": repo_url, "success": False, "message": "", "issue_url": None}
 
@@ -178,7 +190,9 @@ class BadgeNotification:
             # Create the issue
             issue_body = self._create_issue_body(resource_name, description)
             issue = repo.create_issue(
-                title=ISSUE_TITLE, body=issue_body, labels=[NOTIFICATION_LABEL] if self._can_create_label(repo) else []
+                title=ISSUE_TITLE,
+                body=issue_body,
+                labels=[NOTIFICATION_LABEL] if self._can_create_label(repo) else [],
             )
 
             self.processed_repos.add(repo_full_name)
@@ -193,7 +207,8 @@ class BadgeNotification:
                 result["message"] = "Repository not found or private"
             elif e.status == 403:
                 result["message"] = (
-                    "Permission denied - requires a Personal Access Token (default GITHUB_TOKEN insufficient)"
+                    "Permission denied - requires a Personal Access Token "
+                    "(default GITHUB_TOKEN insufficient)"
                 )
             else:
                 result["message"] = f"GitHub API error: {str(e)}"
@@ -242,10 +257,13 @@ class BadgeNotification:
         github_url = "https://github.com/hesreallyhim/awesome-claude-code"
         return f"""Hello! 👋
 
-I'm excited to let you know that **{resource_name}** has been featured in the [Awesome Claude Code]({github_url}) list!
+I'm excited to let you know that **{resource_name}** has been featured in the
+[Awesome Claude Code]({github_url}) list!
 
 ## About Awesome Claude Code
-Awesome Claude Code is a curated collection of the best slash-commands, CLAUDE.md files, CLI tools, and other resources for enhancing Claude Code workflows. Your project has been recognized for its valuable contribution to the Claude Code community.
+Awesome Claude Code is a curated collection of the best slash-commands, CLAUDE.md files,
+CLI tools, and other resources for enhancing Claude Code workflows. Your project has been
+recognized for its valuable contribution to the Claude Code community.
 
 ## Your Listing
 {description}
@@ -253,7 +271,8 @@ Awesome Claude Code is a curated collection of the best slash-commands, CLAUDE.m
 You can find your entry here: [View in Awesome Claude Code]({github_url})
 
 ## Show Your Recognition! 🏆
-If you'd like to display a badge in your README to show that your project is featured, you can use one of these:
+If you'd like to display a badge in your README to show that your project is featured,
+you can use one of these:
 
 ### Option 1: Standard Badge
 ```markdown
@@ -268,7 +287,8 @@ If you'd like to display a badge in your README to show that your project is fea
 [![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge-flat.svg)]({github_url})
 
 ## No Action Required
-This is just a friendly notification - no action is required on your part. Feel free to close this issue at any time.
+This is just a friendly notification - no action is required on your part.
+Feel free to close this issue at any time.
 
 Thank you for contributing to the Claude Code ecosystem! 🙏
 

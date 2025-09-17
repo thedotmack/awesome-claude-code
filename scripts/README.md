@@ -2,7 +2,15 @@
 
 This directory contains all automation scripts for managing the Awesome Claude Code repository. The scripts work together to provide a complete workflow for resource management, from addition to pull request submission.
 
-**UPDATE (2025-08): These scripts are still in use, but this documentation may drift from the truth as things change. Currently, these are all executed "behind the scenes", as the submission workflow has been moved entirely to Issues.
+**Important Note**: While the primary submission workflow has moved to GitHub Issues for better user experience, we maintain these manual scripts for several critical purposes:
+- **Backup submission method** when the automated Issues workflow is unavailable
+- **Administrative tasks** requiring direct CSV manipulation
+- **Testing and debugging** the automation pipeline
+- **Emergency recovery** when automated systems fail
+
+The scripts below fall into two categories:
+- **Automated Backend Scripts**: Used by GitHub Actions to process issue submissions (`parse_issue_form.py`, `create_resource_pr.py`)
+- **Manual Admin Scripts**: Available for maintainer use and backup purposes (`add_resource.py`, `submit_resource.py`)
 
 ## Overview
 
@@ -34,7 +42,30 @@ To add a new category:
 
 All scripts automatically use the new category without any code changes.
 
-## Core Workflow Scripts
+## Automated Backend Scripts
+
+These scripts power the GitHub Issues-based submission workflow and are executed automatically by GitHub Actions:
+
+### `parse_issue_form.py`
+**Purpose**: Parses GitHub issue form submissions and extracts resource data
+**Usage**: Called by `validate-resource-submission.yml` workflow
+**Features**:
+- Extracts structured data from issue body
+- Validates form field completeness
+- Converts form data to resource format
+- Provides validation feedback as issue comments
+
+### `create_resource_pr.py`
+**Purpose**: Creates pull requests from approved resource submissions
+**Usage**: Called by `approve-resource-submission.yml` workflow
+**Features**:
+- Generates unique resource IDs
+- Adds resources to CSV database
+- Creates feature branches automatically
+- Opens PR with proper linking to original issue
+- Handles pre-commit hooks gracefully
+
+## Core Workflow Scripts (Manual/Admin Use)
 
 ### 1. `add_resource.py`
 **Purpose**: Interactive CLI tool for adding new resources to the CSV database  
@@ -49,14 +80,23 @@ All scripts automatically use the new category without any code changes.
 - Automatic pre-push hook installation
 
 ### 2. `generate_readme.py`
-**Purpose**: Generates README.md from CSV data using templates  
-**Usage**: `make generate`  
+**Purpose**: Generates README.md from CSV data using templates
+**Usage**: `make generate`
 **Features**:
 - Template-based generation from `.templates/README.template.md`
 - Respects manual overrides from `.templates/resource-overrides.yaml`
 - Hierarchical table of contents generation
 - Preserves custom sections from template
 - Automatic backup before generation
+
+#### Collapsible Sections
+The generated README uses collapsible `<details>` elements for better navigation:
+- **Categories WITHOUT subcategories**: Wrapped in `<details open>` (fully collapsible)
+- **Categories WITH subcategories**: Use regular headers (subcategories are collapsible)
+- **All subcategories**: Wrapped in `<details open>` elements
+- **Table of Contents**: Main wrapper and nested categories use `<details open>`
+
+**Note on anchor links**: Initially, all categories were made collapsible, but this caused issues with anchor links from the Table of Contents - links couldn't navigate to subcategories when their parent category was collapsed. The current design balances navigation and collapsibility.
 
 ### 3. `submit_resource.py`
 **Purpose**: One-command workflow from resource entry to pull request  
@@ -160,8 +200,8 @@ All scripts automatically use the new category without any code changes.
 - Ensures consistent ID generation across the project
 
 ### 13. `badge_issue_notification.py`
-**Purpose**: Creates GitHub issues to notify repositories when featured and updates Date Added for new resources  
-**Usage**: `python scripts/badge_issue_notification.py`  
+**Purpose**: Creates GitHub issues to notify repositories when featured and updates Date Added for new resources
+**Usage**: `python scripts/badge_issue_notification.py`
 **Features**:
 - Tracks processed repos in `.processed_repos.json`
 - Updates "Date Added" field in CSV for new resources
@@ -171,25 +211,62 @@ All scripts automatically use the new category without any code changes.
 - Automatically triggered by GitHub Actions when new resources are merged
 - See `BADGE_AUTOMATION_SETUP.md` for configuration
 
+### 14. `badge_notification_core.py`
+**Purpose**: Core functionality for badge notification system
+**Usage**: `from badge_notification_core import BadgeNotifier`
+**Features**:
+- Shared notification logic used by other badge scripts
+- Input validation and sanitization
+- GitHub API interaction utilities
+- Template rendering for notification messages
+
+### 15. `manual_badge_notification.py`
+**Purpose**: Manual tool for sending badge notifications to specific repositories
+**Usage**: `python scripts/manual_badge_notification.py [repo-owner/repo-name]`
+**Features**:
+- Send notifications outside of the automated workflow
+- Useful for re-sending failed notifications
+- Supports custom notification messages
+- Bypasses the processed repos tracking
+
+### 16. `generate_logo_svgs.py`
+**Purpose**: Generates SVG logos for the repository
+**Usage**: `python scripts/generate_logo_svgs.py`
+**Features**:
+- Creates consistent branding assets
+- Generates multiple size variants
+- Supports dark/light mode variants
+- Used for README badges and documentation
+
 ## Legacy/Archived Scripts
 
-### 13. `process_resources_to_csv.py`
+### `process_resources_to_csv.py`
 **Status**: LEGACY - From previous workflow where README was source of truth  
 **Purpose**: Extracts resources from README.md to create CSV  
 **Note**: Current workflow is CSV → README, not README → CSV
 
 ## Workflow Integration
 
-The scripts are integrated through the Makefile with these primary workflows:
+### Primary Workflow (GitHub Issues)
 
-### Adding a Resource
+**For Users**: Submit resources through the GitHub Issue form at `.github/ISSUE_TEMPLATE/submit-resource.yml`
+1. User fills out the issue form
+2. `validate-resource-submission.yml` workflow validates the submission automatically
+3. Maintainer reviews and uses `/approve` command
+4. `approve-resource-submission.yml` workflow creates the PR automatically
+
+### Manual Backup Workflows (Make Commands)
+
+These commands remain available for maintainers and emergency situations:
+
+#### Adding a Resource Manually
 ```bash
 make add_resource      # Interactive addition (installs pre-push hook)
 make generate         # Regenerate README
 make validate         # Validate all links
 ```
 
-### One-Command Submission
+#### One-Command Manual Submission
 ```bash
 make submit           # Complete flow from add to PR (installs pre-push hook)
 ```
@@ -228,6 +305,39 @@ Scripts respect these configuration files:
 6. Scripts can be run standalone or through Make targets
 7. Pre-push validation enforces one resource per PR policy
 8. Automatic hook installation in submission workflows
+
+### Naming Conventions
+
+**Status Lines category** (2025-09-16): The "Statusline" category was renamed to "Status Lines" (title case, plural) for consistency with other categories like "Hooks". This change was made throughout:
+- Category name: "Status Lines" (was "Statusline" or "Status line")
+- The `id` remains `statusline` to preserve backward compatibility
+- CSV entries updated to use "Status Lines" as the category value
+- All display text uses the title case plural form "Status Lines"
+
+This ensures consistent title case and pluralization across categories. If issues arise with status line resources, verify that the category name matches "Status Lines" in CSV entries.
+
+### Announcements System
+
+**YAML Format** (2025-09-17): Announcements migrated from Markdown to YAML format for better structure and rendering:
+
+**File**: `templates/announcements.yaml` (was `announcements.md`)
+
+**Structure**:
+```yaml
+- date: "YYYY-MM-DD"
+  title: "Announcement Title"  # Optional
+  items:
+    - "Simple text item"
+    - summary: "Collapsible item"
+      text: "Detailed description that can be expanded"
+```
+
+**Features**:
+- Automatically renders as nested collapsible sections in README
+- Each date group is collapsible
+- Individual items can be simple text or collapsible with summary/text
+- Supports multi-line text in detailed descriptions
+- Falls back to `.md` file if YAML doesn't exist for backward compatibility
 
 ## Future Considerations
 

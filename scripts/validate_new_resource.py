@@ -81,7 +81,9 @@ def check_upstream_remote() -> bool:
     if not success:
         print(f"Error: Upstream remote '{UPSTREAM_REMOTE}' not found")
         print("Please add the upstream remote:")
-        print(f"  git remote add {UPSTREAM_REMOTE} https://github.com/hesreallyhim/awesome-claude-code.git")
+        print(
+            f"  git remote add {UPSTREAM_REMOTE} https://github.com/hesreallyhim/awesome-claude-code.git"
+        )
         return False
     return True
 
@@ -89,7 +91,9 @@ def check_upstream_remote() -> bool:
 def get_csv_diff_stats() -> tuple[int, list[str]]:
     """Get the number of lines added to CSV when comparing to upstream/main."""
     # Get diff between current branch and upstream/main
-    success, diff_output = run_git_command(["git", "diff", f"{UPSTREAM_REMOTE}/main", "--", CSV_FILE])
+    success, diff_output = run_git_command(
+        ["git", "diff", f"{UPSTREAM_REMOTE}/main", "--", CSV_FILE]
+    )
 
     if not success:
         print(f"Error: Could not get diff against {UPSTREAM_REMOTE}/main")
@@ -100,7 +104,11 @@ def get_csv_diff_stats() -> tuple[int, list[str]]:
     # Count added lines (lines starting with +, excluding the header)
     added_lines = []
     for line in diff_output.splitlines():
-        if line.startswith("+") and not line.startswith("+++") and not line[1:].startswith("ID,Display Name,"):
+        if (
+            line.startswith("+")
+            and not line.startswith("+++")
+            and not line[1:].startswith("ID,Display Name,")
+        ):
             added_lines.append(line[1:])  # Remove the + prefix
 
     return len(added_lines), added_lines

@@ -87,7 +87,9 @@ def main():
             if enable_tracking:
                 tracker = ManualNotificationTracker()
                 tracker.record_notification(
-                    repo_url=repo_url, issue_url=result["issue_url"], resource_name=resource_name or ""
+                    repo_url=repo_url,
+                    issue_url=result["issue_url"],
+                    resource_name=resource_name or "",
                 )
                 print("Notification recorded in tracking file")
 

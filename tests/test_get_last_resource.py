@@ -10,7 +10,7 @@ from scripts.submit_resource import ResourceSubmitter  # type: ignore
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 
-def test_get_last_resource_name():
+def test_get_last_resource_name() -> None:
     """Test that get_last_resource_name returns a non-empty string."""
     submitter = ResourceSubmitter(debug=True)
     result = submitter.get_last_resource_name()
@@ -20,10 +20,8 @@ def test_get_last_resource_name():
     assert isinstance(result, str), "Result should be a string"
     assert len(result) > 0, "Result should not be an empty string"
 
-    return result
 
-
-def test_slugify():
+def test_slugify() -> None:
     """Test that slugify properly converts resource names."""
     submitter = ResourceSubmitter(debug=True)
 
@@ -38,10 +36,12 @@ def test_slugify():
 
     for input_text, expected in test_cases:
         result = submitter.slugify(input_text)
-        assert result == expected, f"slugify('{input_text}') should return '{expected}', got '{result}'"
+        assert (
+            result == expected
+        ), f"slugify('{input_text}') should return '{expected}', got '{result}'"
 
 
-def test_integration():
+def test_integration() -> None:
     """Test get_last_resource_name and slugify together."""
     submitter = ResourceSubmitter(debug=True)
     resource_name = submitter.get_last_resource_name()
@@ -56,8 +56,8 @@ def test_integration():
 
 if __name__ == "__main__":
     print("Testing get_last_resource_name...")
-    resource = test_get_last_resource_name()
-    print(f"✓ Last resource name: {resource}")
+    test_get_last_resource_name()
+    print("✓ Last resource name test passed")
 
     print("\nTesting slugify...")
     test_slugify()

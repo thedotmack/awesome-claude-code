@@ -136,18 +136,8 @@ jobs:
               body: comment_body
             });
       
-      - name: React to rejection command
-        if: contains(github.event.comment.body, '/reject')
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.reactions.createForIssueComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              comment_id: context.payload.comment.id,
-              content: '-1'
-            });
-      
+      # Note: No reaction emoji for reject command - removed thumbs-down
+
       - name: Handle rejection
         if: contains(github.event.comment.body, '/reject')
         uses: actions/github-script@v7

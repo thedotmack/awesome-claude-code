@@ -41,7 +41,11 @@ def parse_issue_body(issue_body: str) -> dict[str, str]:
         label = lines[0].strip()
 
         # Rest is the value (skip empty lines)
-        value_lines = [line for line in lines[1:] if line.strip() and not line.strip().startswith("_No response_")]
+        value_lines = [
+            line
+            for line in lines[1:]
+            if line.strip() and not line.strip().startswith("_No response_")
+        ]
         value = "\n".join(value_lines).strip()
 
         # Map form labels to data fields
@@ -54,7 +58,8 @@ def parse_issue_body(issue_body: str) -> dict[str, str]:
         elif "Sub-Category" in label:
             # Only set if not "None / Not Applicable"
             if value and "None" not in value and "Not Applicable" not in value:
-                # Strip the category prefix if present (e.g., "Slash-Commands: " from "Slash-Commands: Context Loading & Priming")
+                # Strip the category prefix if present
+                # (e.g., "Slash-Commands: " from "Slash-Commands: Context Loading & Priming")
                 if ":" in value:
                     data["subcategory"] = value.split(":", 1)[1].strip()
                 else:
@@ -111,7 +116,14 @@ def validate_parsed_data(data: dict[str, str]) -> tuple[bool, list[str], list[st
     warnings = []
 
     # Check required fields
-    required_fields = ["display_name", "category", "primary_link", "author_name", "author_link", "description"]
+    required_fields = [
+        "display_name",
+        "category",
+        "primary_link",
+        "author_name",
+        "author_link",
+        "description",
+    ]
 
     for field in required_fields:
         if not data.get(field, "").strip():
@@ -122,7 +134,10 @@ def validate_parsed_data(data: dict[str, str]) -> tuple[bool, list[str], list[st
 
     valid_categories = category_manager.get_all_categories()
     if data.get("category") not in valid_categories:
-        errors.append(f"Invalid category: {data.get('category')}. Must be one of: {', '.join(valid_categories)}")
+        errors.append(
+            f"Invalid category: {data.get('category')}. "
+            f"Must be one of: {', '.join(valid_categories)}"
+        )
 
     # Sub-category validation is no longer needed since we strip the prefix
     # The form already ensures subcategories match their parent categories
@@ -134,7 +149,8 @@ def validate_parsed_data(data: dict[str, str]) -> tuple[bool, list[str], list[st
         and data["display_name"] != data["_original_display_name"]
     ):
         warnings.append(
-            f"Display name was automatically corrected from '{data['_original_display_name']}' to '{data['display_name']}'. "
+            f"Display name was automatically corrected from "
+            f"'{data['_original_display_name']}' to '{data['display_name']}'. "
             "Slash commands must start with '/' and contain no spaces."
         )
 
@@ -196,10 +212,14 @@ def check_for_duplicates(data: dict[str, str]) -> list[str]:
         for row in reader:
             # Check for duplicate URL
             if row.get("Primary Link", "").lower() == primary_link:
-                warnings.append("A resource with this primary link " f"already exists: {row.get('Display Name')}")
+                warnings.append(
+                    f"A resource with this primary link already exists: {row.get('Display Name')}"
+                )
             # Check for similar names
             elif row.get("Display Name", "").lower() == display_name:
-                warnings.append("A resource with the same name " f"already exists: {row.get('Display Name')}")
+                warnings.append(
+                    f"A resource with the same name already exists: {row.get('Display Name')}"
+                )
 
     return warnings
 

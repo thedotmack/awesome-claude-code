@@ -72,7 +72,9 @@ class ResourceSubmitter:
         log_level = logging.DEBUG if self.debug else logging.INFO
         log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 
-        logging.basicConfig(level=log_level, format=log_format, handlers=[logging.StreamHandler(sys.stdout)])
+        logging.basicConfig(
+            level=log_level, format=log_format, handlers=[logging.StreamHandler(sys.stdout)]
+        )
         self.logger = logging.getLogger(__name__)
 
     # Domain-specific utility methods
@@ -308,7 +310,8 @@ class ResourceSubmitter:
                     # Check that origin and upstream don't point to the same repository
                     origin_url = self.git.get_remote_url("origin")
                     if origin_url and upstream_url:
-                        # Normalize URLs for comparison (remove protocol differences and .git suffix)
+                        # Normalize URLs for comparison
+                        # (remove protocol differences and .git suffix)
                         origin_normalized = (
                             origin_url.replace("git@github.com:", "github.com/")
                             .replace("https://", "")
@@ -323,13 +326,19 @@ class ResourceSubmitter:
                         )
 
                         if origin_normalized == upstream_normalized:
-                            self.logger.error("Origin and upstream remotes point to the same repository")
+                            self.logger.error(
+                                "Origin and upstream remotes point to the same repository"
+                            )
                             self.logger.info("This workflow requires a fork-based setup:")
                             self.logger.info("  1. Fork the repository on GitHub")
                             self.logger.info("  2. Clone your fork (this becomes 'origin')")
                             self.logger.info("  3. Add the original repository as 'upstream'")
-                            self.logger.info("\nIf you're the repository owner and want to use this workflow:")
-                            self.logger.info("  Use the --admin flag to submit directly to upstream")
+                            self.logger.info(
+                                "\nIf you're the repository owner and want to use this workflow:"
+                            )
+                            self.logger.info(
+                                "  Use the --admin flag to submit directly to upstream"
+                            )
                             all_passed = False
         else:
             self.logger.info("Admin mode: Skipping upstream remote check")
@@ -348,7 +357,9 @@ class ResourceSubmitter:
         if not self.git.is_working_directory_clean():
             self.logger.error("Working directory has uncommitted changes")
             self.logger.info("Setup hint: Commit or stash your changes before proceeding")
-            self.logger.info("           Run 'git status' to see what needs to be committed or stashed")
+            self.logger.info(
+                "           Run 'git status' to see what needs to be committed or stashed"
+            )
             uncommitted = self.git.get_uncommitted_files()
             if uncommitted:
                 self.logger.debug(f"Changed files:\n{uncommitted}")
@@ -359,7 +370,9 @@ class ResourceSubmitter:
         if all_passed:
             self.logger.info("✅ All prerequisites checks passed")
         else:
-            self.logger.error("❌ Some prerequisite checks failed. Please fix the issues above and try again.")
+            self.logger.error(
+                "❌ Some prerequisite checks failed. Please fix the issues above and try again."
+            )
 
         return all_passed
 
@@ -575,7 +588,9 @@ class ResourceSubmitter:
                                 chunk = "\n".join(diff_lines[i : i + 40])
                                 print(chunk)
                                 if i + 40 < len(diff_lines):
-                                    cont = input("\n--- Press Enter to continue or 'q' to return to menu ---")
+                                    cont = input(
+                                        "\n--- Press Enter to continue or 'q' to return to menu ---"
+                                    )
                                     if cont.lower() == "q":
                                         break
                         else:
@@ -621,7 +636,10 @@ class ResourceSubmitter:
                             for file in staged_files:
                                 print(f"   - {file}")
                             print("\nYou can now edit these files manually.")
-                            print("When done, run this script again to continue the submission process.")
+                            print(
+                                "When done, run this script again to continue "
+                                "the submission process."
+                            )
                             return False
                         else:
                             self.logger.error("Failed to unstage files")
@@ -832,7 +850,9 @@ class ResourceSubmitter:
 
                     # Check for common errors
                     if "pre-commit" in error_msg.lower():
-                        self.logger.info("\n💡 Pre-commit hooks failed. Attempting to handle automatically...")
+                        self.logger.info(
+                            "\n💡 Pre-commit hooks failed. Attempting to handle automatically..."
+                        )
                         # Try to handle pre-commit changes
                         if self.handle_precommit_changes(commit_message):
                             return True
@@ -862,7 +882,9 @@ class ResourceSubmitter:
                 for line in output_lines[1:]:
                     line = line.strip()
                     if line and (
-                        line.endswith("changed") or line.endswith("insertion(+)") or line.endswith("deletion(-)")
+                        line.endswith("changed")
+                        or line.endswith("insertion(+)")
+                        or line.endswith("deletion(-)")
                     ):
                         self.logger.info(f"   {line}")
 
@@ -1128,7 +1150,11 @@ class ResourceSubmitter:
                 error_output = push_result.stderr.lower() if push_result.stderr else ""
                 self.logger.error("Push failed")
 
-                if "authentication" in error_output or "permission" in error_output or "could not read" in error_output:
+                if (
+                    "authentication" in error_output
+                    or "permission" in error_output
+                    or "could not read" in error_output
+                ):
                     # Authentication failure
                     print("\n❌ Push failed due to authentication issues")
 
@@ -1277,7 +1303,8 @@ class ResourceSubmitter:
                 # Use the pre-filled content from add_resource.py
                 pr_body = f"""# Pull Request
 
-<!-- IMPORTANT: Submit only ONE resource per pull request. If you have multiple resources, please create separate PRs. -->
+<!-- IMPORTANT: Submit only ONE resource per pull request. -->
+<!-- If you have multiple resources, please create separate PRs. -->
 
 ## Type of Contribution
 
@@ -1381,7 +1408,9 @@ class ResourceSubmitter:
                 elif "no commits between" in error_output:
                     print("\n❌ No commits between base and head branches")
                     print("   Make sure you've committed and pushed your changes")
-                elif "authentication" in error_output.lower() or "permission" in error_output.lower():
+                elif (
+                    "authentication" in error_output.lower() or "permission" in error_output.lower()
+                ):
                     print("\n❌ Authentication or permission error")
                     print("   Make sure you're authenticated: gh auth login")
                     print("   And that you have forked the repository")
@@ -1459,7 +1488,10 @@ class ResourceSubmitter:
             if browser_check.returncode == 0 and browser_check.stdout.strip():
                 print("\n🌐 Opening PR in browser...")
                 open_result = subprocess.run(
-                    ["gh", "pr", "view", pr_url, "--web"], capture_output=True, text=True, check=False
+                    ["gh", "pr", "view", pr_url, "--web"],
+                    capture_output=True,
+                    text=True,
+                    check=False,
                 )
                 if open_result.returncode == 0:
                     self.logger.debug("Opened PR in browser")
@@ -1594,7 +1626,9 @@ Examples:
 
     parser.add_argument("--dry-run", action="store_true", help="Run without making actual changes")
 
-    parser.add_argument("--admin", action="store_true", help="Admin mode: submit directly to upstream repository")
+    parser.add_argument(
+        "--admin", action="store_true", help="Admin mode: submit directly to upstream repository"
+    )
 
     args = parser.parse_args()
 
