@@ -154,8 +154,10 @@ def download_github_file(
     try:
         if url_info["type"] == "file":
             # Download single file
-            api_url = f"https://api.github.com/repos/{url_info['owner']}"
-            f"/{url_info['repo']}/contents/{url_info['path']}?ref={url_info['branch']}"
+            api_url = (
+                f"https://api.github.com/repos/{url_info['owner']}/"
+                f"{url_info['repo']}/contents/{url_info['path']}?ref={url_info['branch']}"
+            )
             response = requests.get(api_url, headers=HEADERS, timeout=30)
 
             # Log response details
