@@ -201,6 +201,26 @@ Generation process:
 4. Format using templates
 5. Write final README
 
+### Collapsible Sections
+
+The generated README uses HTML `<details>` elements for improved navigation:
+- **Categories without subcategories**: Wrapped in `<details open>` (fully collapsible)
+- **Categories with subcategories**: Regular headers (subcategories are collapsible)
+- **All subcategories**: Wrapped in `<details open>` elements
+- **Table of Contents**: Collapsible with nested sections for categories with subcategories
+- All collapsible sections are open by default for easy browsing
+
+**Design Note**: Initially attempted to make all categories collapsible with nested subcategories, but this caused anchor link navigation issues - links from the Table of Contents couldn't reach subcategories when their parent category was collapsed. The current design balances navigation functionality with collapsibility.
+
+### Announcements System
+
+Announcements are stored in `templates/announcements.yaml` (previously `announcements.md`):
+- YAML format for structured data
+- Renders as nested collapsible sections
+- Each date group is collapsible
+- Individual items can be simple text or collapsible with summary/text
+- Falls back to `.md` file if YAML doesn't exist
+
 ## Validation System
 
 ### Link Validation

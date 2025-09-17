@@ -49,14 +49,23 @@ All scripts automatically use the new category without any code changes.
 - Automatic pre-push hook installation
 
 ### 2. `generate_readme.py`
-**Purpose**: Generates README.md from CSV data using templates  
-**Usage**: `make generate`  
+**Purpose**: Generates README.md from CSV data using templates
+**Usage**: `make generate`
 **Features**:
 - Template-based generation from `.templates/README.template.md`
 - Respects manual overrides from `.templates/resource-overrides.yaml`
 - Hierarchical table of contents generation
 - Preserves custom sections from template
 - Automatic backup before generation
+
+#### Collapsible Sections
+The generated README uses collapsible `<details>` elements for better navigation:
+- **Categories WITHOUT subcategories**: Wrapped in `<details open>` (fully collapsible)
+- **Categories WITH subcategories**: Use regular headers (subcategories are collapsible)
+- **All subcategories**: Wrapped in `<details open>` elements
+- **Table of Contents**: Main wrapper and nested categories use `<details open>`
+
+**Note on anchor links**: Initially, all categories were made collapsible, but this caused issues with anchor links from the Table of Contents - links couldn't navigate to subcategories when their parent category was collapsed. The current design balances navigation and collapsibility.
 
 ### 3. `submit_resource.py`
 **Purpose**: One-command workflow from resource entry to pull request  
@@ -238,6 +247,29 @@ Scripts respect these configuration files:
 - All display text uses the title case plural form "Status Lines"
 
 This ensures consistent title case and pluralization across categories. If issues arise with status line resources, verify that the category name matches "Status Lines" in CSV entries.
+
+### Announcements System
+
+**YAML Format** (2025-09-17): Announcements migrated from Markdown to YAML format for better structure and rendering:
+
+**File**: `templates/announcements.yaml` (was `announcements.md`)
+
+**Structure**:
+```yaml
+- date: "YYYY-MM-DD"
+  title: "Announcement Title"  # Optional
+  items:
+    - "Simple text item"
+    - summary: "Collapsible item"
+      text: "Detailed description that can be expanded"
+```
+
+**Features**:
+- Automatically renders as nested collapsible sections in README
+- Each date group is collapsible
+- Individual items can be simple text or collapsible with summary/text
+- Supports multi-line text in detailed descriptions
+- Falls back to `.md` file if YAML doesn't exist for backward compatibility
 
 ## Future Considerations
 

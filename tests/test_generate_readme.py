@@ -311,11 +311,11 @@ class TestLoadAnnouncements(unittest.TestCase):
         result = load_announcements(self.temp_dir)
 
         # Check for main structure
-        self.assertIn("<details>", result)
+        self.assertIn("<details open>", result)
         self.assertIn("<summary>View Announcements</summary>", result)
 
         # Check for date group
-        self.assertIn("- <details>", result)
+        self.assertIn("- <details open>", result)
         self.assertIn("<summary>2025-09-12 - Test Announcements</summary>", result)
 
         # Check for items
@@ -345,7 +345,7 @@ class TestLoadAnnouncements(unittest.TestCase):
         result = load_announcements(self.temp_dir)
 
         # Check for nested collapsible items
-        self.assertIn("  - <details>", result)
+        self.assertIn("  - <details open>", result)
         self.assertIn("    <summary>New feature added</summary>", result)
         self.assertIn("    - This is a detailed description of the new feature.", result)
         self.assertIn("    <summary>Bug fix</summary>", result)
@@ -435,7 +435,7 @@ class TestLoadAnnouncements(unittest.TestCase):
         self.assertIn("<summary>2025-09-17 - Week 2</summary>", result)
 
         # Verify proper nesting structure
-        self.assertEqual(result.count("- <details>"), 2)  # Two date groups
+        self.assertEqual(result.count("- <details open>"), 2)  # Two date groups
         self.assertEqual(result.count("</details>"), 3)  # Main + 2 date groups
 
     def test_markdown_in_announcements(self) -> None:

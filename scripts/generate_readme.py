@@ -32,8 +32,8 @@ def load_announcements(template_dir):
         # Format the YAML data into markdown with nested collapsible sections using lists
         markdown_lines = []
 
-        # Make the entire announcements section collapsible
-        markdown_lines.append("<details>")
+        # Make the entire announcements section collapsible (open by default)
+        markdown_lines.append("<details open>")
         markdown_lines.append("<summary>View Announcements</summary>")
         markdown_lines.append("")
 
@@ -43,8 +43,8 @@ def load_announcements(template_dir):
             title = entry.get("title", "")
             items = entry.get("items", [])
 
-            # Make each date group a collapsible list item
-            markdown_lines.append("- <details>")
+            # Make each date group a collapsible list item (open by default)
+            markdown_lines.append("- <details open>")
 
             # Create summary for date group
             if title:
@@ -66,7 +66,7 @@ def load_announcements(template_dir):
                     text = item.get("text", "")
 
                     if summary and text:
-                        markdown_lines.append("  - <details>")
+                        markdown_lines.append("  - <details open>")
                         markdown_lines.append(f"    <summary>{summary}</summary>")
                         markdown_lines.append("")
 

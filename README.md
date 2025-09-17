@@ -34,20 +34,20 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 ### Announcements
 
-<details>
+<details open>
 <summary>View Announcements</summary>
 
-- <details>
+- <details open>
   <summary>2025-09-12 - 💰💰💰 DONATIONS 💰💰💰</summary>
 
-  - <details>
+  - <details open>
     <summary>New resources and backlog progress</summary>
 
     - We've got a few new resources this week, and I've made some good progress on the backlog.
 
     </details>
 
-  - <details>
+  - <details open>
     <summary>Support this repository - Help raise $100 for a good cause! 🙏</summary>
 
     - I've created a [DONATING](DONATING.md) page in case anyone want to support this repository. This is _not_ a GitHub sponsorship or a "Buy Me a Coffee" link - I'm trying something a little different. Hopefully it will work out.
@@ -252,7 +252,7 @@ A full-fledged desktop application for orchestrating, monitoring, and interactin
 <details open>
 <summary><h3>Usage Monitors</h3></summary>
 
-[`CC Usage`](https://github.com/ryoppippi/ccusage) &nbsp; by &nbsp; [ryoppippi](https://github.com/ryoppippi)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+[`CC Usage`](https://github.com/ryoppippi/ccusage) &nbsp; by &nbsp; [ryoppippi](https://github.com/ryoppippi)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;NOASSERTION  
 Handy CLI tool for managing and analyzing Claude Code usage, based on analyzing local Claude Code logs. Presents a nice dashboard regarding cost information, token consumption, etc.
 
 [`ccflare`](https://github.com/snipeship/ccflare) &nbsp; by &nbsp; [snipeship](https://github.com/snipeship)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
