@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Tests for README generation functions."""
 
-from datetime import datetime
 import os
 import sys
 import tempfile
 import unittest
+from datetime import datetime
 from typing import Any
 
 import yaml
@@ -185,7 +185,7 @@ class TestGenerateTOC(unittest.TestCase):
 
     def test_categories_with_subcategories(self) -> None:
         """Test TOC generation with categories containing subcategories."""
-        categories = [
+        categories: list[dict[str, Any]] = [
             {
                 "name": "Configuration",
                 "icon": "⚙️",
@@ -230,7 +230,7 @@ class TestGenerateTOC(unittest.TestCase):
 
     def test_mixed_categories(self) -> None:
         """Test TOC with a mix of simple and nested categories."""
-        categories = [
+        categories: list[dict[str, Any]] = [
             {"name": "Overview"},
             {
                 "name": "Documentation",
@@ -333,7 +333,10 @@ class TestLoadAnnouncements(unittest.TestCase):
                         "summary": "New feature added",
                         "text": "This is a detailed description of the new feature.",
                     },
-                    {"summary": "Bug fix", "text": "Fixed a critical bug in the system."},
+                    {
+                        "summary": "Bug fix",
+                        "text": "Fixed a critical bug in the system.",
+                    },
                 ],
             }
         ]
@@ -523,7 +526,7 @@ class TestGenerateSectionContent(unittest.TestCase):
             "icon": "📚",
             "description": "Helpful resources for developers",
         }
-        csv_data = []
+        csv_data: list[dict[str, Any]] = []
 
         result = generate_section_content(category, csv_data)
 
@@ -628,7 +631,7 @@ class TestGenerateSectionContent(unittest.TestCase):
     def test_category_without_icon(self) -> None:
         """Test generating a category without an icon."""
         category = {"name": "Plain Category"}
-        csv_data = []
+        csv_data: list[dict[str, Any]] = []
 
         result = generate_section_content(category, csv_data)
 
