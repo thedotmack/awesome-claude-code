@@ -11,10 +11,10 @@ Tests cover:
 """
 
 import csv
-import sys
-import tempfile
 from collections.abc import Generator
 from pathlib import Path
+import sys
+import tempfile
 from typing import Any
 from unittest.mock import patch
 
