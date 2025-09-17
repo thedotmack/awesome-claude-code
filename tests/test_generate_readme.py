@@ -505,7 +505,7 @@ class TestGenerateSectionContent(unittest.TestCase):
 
         result = generate_section_content(category, csv_data)
 
-        # Check for details wrapper (open by default)
+        # Categories without subcategories should be wrapped in details
         self.assertIn("<details open>", result)
         self.assertIn("</details>", result)
 
@@ -527,9 +527,11 @@ class TestGenerateSectionContent(unittest.TestCase):
 
         result = generate_section_content(category, csv_data)
 
-        # Check for description after summary
+        # Categories without subcategories should be wrapped in details
+        self.assertIn("<details open>", result)
         self.assertIn("<summary><h2>Resources 📚</h2></summary>", result)
         self.assertIn("Helpful resources for developers", result)
+        self.assertIn("</details>", result)
 
     def test_category_with_subcategories(self) -> None:
         """Test generating a category with subcategories."""
@@ -566,12 +568,12 @@ class TestGenerateSectionContent(unittest.TestCase):
 
         result = generate_section_content(category, csv_data)
 
-        # Check for main category details wrapper
-        self.assertIn("<details open>", result)
-        self.assertIn("<summary><h2>Documentation 📖</h2></summary>", result)
+        # Categories WITH subcategories should NOT be wrapped in details at the main level
+        self.assertIn("## Documentation 📖", result)
+        self.assertNotIn("<summary><h2>Documentation 📖</h2></summary>", result)
 
         # Check for subcategory details wrappers
-        self.assertEqual(result.count("<details open>"), 3)  # Main + 2 subcategories
+        self.assertEqual(result.count("<details open>"), 2)  # Only 2 subcategories
         self.assertIn("<summary><h3>Tutorials</h3></summary>", result)
         self.assertIn("<summary><h3>API Reference</h3></summary>", result)
 
@@ -580,7 +582,7 @@ class TestGenerateSectionContent(unittest.TestCase):
         self.assertIn("[`API Docs`](https://example.com/api)", result)
 
         # Check closing tags
-        self.assertEqual(result.count("</details>"), 3)
+        self.assertEqual(result.count("</details>"), 2)
 
     def test_category_with_main_and_sub_resources(self) -> None:
         """Test a category with resources at both main and sub levels."""
@@ -618,8 +620,10 @@ class TestGenerateSectionContent(unittest.TestCase):
         sub_idx = result.index("Sub Resource")
         self.assertTrue(main_idx < sub_idx, "Main resource should come before subcategory")
 
-        # Check for both details wrappers
-        self.assertEqual(result.count("<details open>"), 2)  # Main + 1 subcategory
+        # Categories WITH subcategories should have regular header
+        self.assertIn("## Mixed", result)
+        # Only subcategory should be in details
+        self.assertEqual(result.count("<details open>"), 1)  # Only 1 subcategory
 
     def test_category_without_icon(self) -> None:
         """Test generating a category without an icon."""
@@ -628,8 +632,10 @@ class TestGenerateSectionContent(unittest.TestCase):
 
         result = generate_section_content(category, csv_data)
 
-        # Check for summary without icon
+        # Categories without subcategories should be wrapped in details
+        self.assertIn("<details open>", result)
         self.assertIn("<summary><h2>Plain Category</h2></summary>", result)
+        self.assertIn("</details>", result)
 
     def test_empty_subcategory_not_rendered(self) -> None:
         """Test that subcategories without resources are not rendered."""
@@ -661,8 +667,10 @@ class TestGenerateSectionContent(unittest.TestCase):
         # Subcategory with resources should be present
         self.assertIn("Has Resources", result)
 
-        # Should only have 2 details blocks (main + 1 subcategory)
-        self.assertEqual(result.count("<details open>"), 2)
+        # Categories WITH subcategories have regular headers
+        self.assertIn("## Test", result)
+        # Should only have 1 details block (the subcategory with resources)
+        self.assertEqual(result.count("<details open>"), 1)
 
 
 if __name__ == "__main__":
