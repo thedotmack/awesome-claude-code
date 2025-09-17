@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Tests for README generation functions."""
 
+from datetime import datetime
 import os
 import sys
 import tempfile
 import unittest
-from datetime import datetime
 from typing import Any
 
 import yaml
