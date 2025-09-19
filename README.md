@@ -74,12 +74,6 @@ A push-to-talk speech transcription setup for Linux using a Python MCP server. R
 [`AB Method`](https://github.com/ayoubben18/ab-method) &nbsp; by &nbsp; [Ayoub Bensalah](https://github.com/ayoubben18)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 A principled, spec-driven workflow that transforms large problems into focused, incremental missions using Claude Code's specialized sub agents. Includes slash-commands, sub agents, and specialized workflows designed for specific parts of the SDLC.
 
-[`Design Review Workflow`](https://github.com/OneRedOak/claude-code-workflows/tree/main/design-review) &nbsp; by &nbsp; [Patrick Ellis](https://github.com/OneRedOak)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-A tailored workflow for enabling automated UI/UX design review, including specialized sub agents, slash commands, `CLAUDE.md` excerpts, and more. Covers a broad range of criteria from responsive design to accessibility.
-
-[`SuperClaude`](https://github.com/SuperClaude-Org/SuperClaude_Framework) &nbsp; by &nbsp; [SuperClaude-Org](https://github.com/SuperClaude-Org)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-A versatile configuration framework that enhances Claude Code with specialized commands, cognitive personas, and development methodologies, such as "Introspection" and "Orchestration".
-
 
 ## Awesome Claude Code Freedom Funders
 
