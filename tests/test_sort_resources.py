@@ -11,10 +11,10 @@ Tests cover:
 """
 
 import csv
-from collections.abc import Generator
-from pathlib import Path
 import sys
 import tempfile
+from collections.abc import Generator
+from pathlib import Path
 from typing import Any
 from unittest.mock import patch
 
@@ -281,6 +281,87 @@ class TestSortResources:
             # Known category should come first
             assert sorted_data[0]["Category"] == "Known"
             assert sorted_data[1]["Category"] == "Unknown Category"
+
+    def test_subcategory_yaml_order_sort(self, temp_csv: Path) -> None:
+        """Test that subcategories are sorted by their defined order in YAML."""
+        data = [
+            {
+                "ID": "1",
+                "Display Name": "A",
+                "Category": "Slash-Commands",
+                "Sub-Category": "Miscellaneous",
+                "Primary Link": "https://example.com/1",
+                "Author Name": "A",
+                "Author Link": "https://github.com/a",
+                "Description": "M",
+            },
+            {
+                "ID": "2",
+                "Display Name": "B",
+                "Category": "Slash-Commands",
+                "Sub-Category": "Version Control & Git",
+                "Primary Link": "https://example.com/2",
+                "Author Name": "A",
+                "Author Link": "https://github.com/a",
+                "Description": "V",
+            },
+            {
+                "ID": "3",
+                "Display Name": "C",
+                "Category": "Slash-Commands",
+                "Sub-Category": "General",
+                "Primary Link": "https://example.com/3",
+                "Author Name": "A",
+                "Author Link": "https://github.com/a",
+                "Description": "G",
+            },
+            {
+                "ID": "4",
+                "Display Name": "D",
+                "Category": "Slash-Commands",
+                "Sub-Category": "CI / Deployment",
+                "Primary Link": "https://example.com/4",
+                "Author Name": "A",
+                "Author Link": "https://github.com/a",
+                "Description": "C",
+            },
+        ]
+
+        # Mock the categories with subcategories in specific order
+        mock_categories = [
+            {
+                "name": "Slash-Commands",
+                "subcategories": [
+                    {"name": "General"},
+                    {"name": "Version Control & Git"},
+                    {"name": "Code Analysis & Testing"},
+                    {"name": "Context Loading & Priming"},
+                    {"name": "Documentation & Changelogs"},
+                    {"name": "CI / Deployment"},
+                    {"name": "Project & Task Management"},
+                    {"name": "Miscellaneous"},
+                ],
+            }
+        ]
+
+        with patch(
+            "scripts.category_utils.category_manager.get_categories_for_readme",
+            return_value=mock_categories,
+        ):
+            write_csv(temp_csv, data)
+            sort_resources(temp_csv)
+
+            sorted_data = read_csv(temp_csv)
+            subcats = [row["Sub-Category"] for row in sorted_data]
+
+            # Should follow YAML order: General first, Version Control,
+            # CI/Deployment, then Miscellaneous last
+            assert subcats == [
+                "General",
+                "Version Control & Git",
+                "CI / Deployment",
+                "Miscellaneous",
+            ]
 
     def test_case_insensitive_display_name_sort(self, temp_csv: Path) -> None:
         """Test that display name sorting is case-insensitive."""
