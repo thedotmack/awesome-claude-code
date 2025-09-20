@@ -88,6 +88,10 @@ These scripts power the GitHub Issues-based submission workflow and are executed
 - Hierarchical table of contents generation
 - Preserves custom sections from template
 - Automatic backup before generation
+- **GitHub Stats Integration**: Automatically adds collapsible repository statistics for GitHub resources
+  - Displays stars, forks, issues, and other metrics via GitHub Stats API
+  - Uses disclosure elements (`<details>`) to keep the main list clean
+  - Works with all GitHub URL formats (repository root, blob URLs, etc.)
 
 #### Collapsible Sections
 The generated README uses collapsible `<details>` elements for better navigation:

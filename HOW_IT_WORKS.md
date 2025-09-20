@@ -212,6 +212,29 @@ The generated README uses HTML `<details>` elements for improved navigation:
 
 **Design Note**: Initially attempted to make all categories collapsible with nested subcategories, but this caused anchor link navigation issues - links from the Table of Contents couldn't reach subcategories when their parent category was collapsed. The current design balances navigation functionality with collapsibility.
 
+### GitHub Stats Integration
+
+Each GitHub resource in the README automatically includes a collapsible statistics section:
+- **Automatic Detection**: The `parse_github_url` function from `validate_links.py` identifies GitHub repositories
+- **Stats Display**: Uses the GitHub Stats API to generate an SVG badge with repository metrics
+- **Collapsible Design**: Stats are hidden by default in a `<details>` element to keep the main list clean
+- **Universal Support**: Works with all GitHub URL formats (repository root, blob URLs, tree URLs, etc.)
+- **API Endpoint**: `https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=REPO&username=USER&all_stats=true&stats_only=true`
+
+Example output for a GitHub resource:
+```markdown
+[`resource-name`](https://github.com/owner/repo)
+Description of the resource
+
+<details>
+<summary>📊 GitHub Stats</summary>
+<br>
+
+![GitHub Stats for repo](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=repo&username=owner&all_stats=true&stats_only=true)
+
+</details>
+```
+
 ### Announcements System
 
 Announcements are stored in `templates/announcements.yaml` (previously `announcements.md`):

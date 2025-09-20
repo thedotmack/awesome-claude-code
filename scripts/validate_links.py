@@ -99,19 +99,19 @@ def apply_overrides(row, overrides):
     return row, locked_fields, skip_validation
 
 
-def parse_github_url(url):
+def parse_github_url(url) -> tuple[str, bool, str | None, str | None]:
     """
     Parse GitHub URL and return API endpoint if it's a GitHub repository content URL.
-    Returns (api_url, is_github) tuple.
+    Returns (api_url, is_github, owner, repo) tuple.
     """
     from urllib.parse import quote
 
-    # Match GitHub blob URLs - capture everything after /blob/ as one group
-    github_pattern = r"https://github\.com/([^/]+)/([^/]+)/blob/(.+)"
+    # Match GitHub blob or tree URLs - capture everything after /blob/ or /tree/ as one group
+    github_pattern = r"https://github\.com/([^/]+)/([^/]+)/(blob|tree)/(.+)"
     match = re.match(github_pattern, url)
 
     if match:
-        owner, repo, branch_and_path = match.groups()
+        owner, repo, _, branch_and_path = match.groups()  # _ is blob_or_tree, which we don't need
 
         # Split on the first occurrence of a path starting with . or containing a file extension
         # Common patterns: .github/, .claude/, src/, file.ext
@@ -119,7 +119,7 @@ def parse_github_url(url):
 
         # Find where the file path likely starts
         branch_parts = []
-        path_parts = []
+        path_parts: list[str] = []
         found_path_start = False
 
         for i, part in enumerate(parts):
@@ -148,7 +148,7 @@ def parse_github_url(url):
         api_url = (
             f"https://api.github.com/repos/{owner}/{repo}/contents/{path}?ref={encoded_branch}"
         )
-        return api_url, True
+        return api_url, True, owner, repo
 
     # Check if it's a repository root URL
     github_repo_pattern = r"https://github\.com/([^/]+)/([^/]+)/?$"
@@ -156,9 +156,9 @@ def parse_github_url(url):
     if match:
         owner, repo = match.groups()
         api_url = f"https://api.github.com/repos/{owner}/{repo}"
-        return api_url, True
+        return api_url, True, owner, repo
 
-    return url, False
+    return url, False, None, None
 
 
 def get_github_license(owner, repo):
@@ -221,7 +221,7 @@ def validate_url(url, max_retries=5):
         return True, None, None, None  # Empty URLs are considered valid
 
     # Convert GitHub URLs to API endpoints
-    api_url, is_github = parse_github_url(url)
+    api_url, is_github, owner, repo = parse_github_url(url)
 
     for attempt in range(max_retries):
         try:
