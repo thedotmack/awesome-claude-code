@@ -15,6 +15,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
 
 try:
     from generate_readme import (  # type: ignore
+        format_resource_entry,
         generate_section_content,
         generate_toc_from_categories,
         generate_weekly_section,
@@ -24,6 +25,7 @@ try:
     )
 except ImportError:
     from scripts.generate_readme import (
+        format_resource_entry,
         generate_section_content,
         generate_toc_from_categories,
         generate_weekly_section,
@@ -843,6 +845,99 @@ class TestBackToTopButtons(unittest.TestCase):
         self.assertIn("[`Sub Resource`](https://example.com/sub)", result)
         self.assertIn("Sub description", result)
         self.assertIn("</details>", result)
+
+
+class TestFormatResourceEntryGitHubStats(unittest.TestCase):
+    """Test GitHub stats disclosure functionality in format_resource_entry."""
+
+    def test_github_resource_with_stats(self):
+        """Test that GitHub resources get stats disclosure."""
+        row = {
+            "Display Name": "Test Resource",
+            "Primary Link": "https://github.com/owner/repo",
+            "Description": "Test description",
+            "Author Name": "Test Author",
+            "Author Link": "https://github.com/testauthor",
+            "License": "MIT",
+        }
+
+        result = format_resource_entry(row)
+
+        # Check for disclosure element
+        self.assertIn("<details>", result)
+        self.assertIn("📊 GitHub Stats", result)
+        self.assertIn(
+            "https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=repo&username=owner",
+            result,
+        )
+
+    def test_non_github_resource_no_stats(self):
+        """Test that non-GitHub resources don't get stats disclosure."""
+        row = {
+            "Display Name": "Test Resource",
+            "Primary Link": "https://example.com/resource",
+            "Description": "Test description",
+            "Author Name": "Test Author",
+            "Author Link": "",
+            "License": "",
+        }
+
+        result = format_resource_entry(row)
+
+        # Should not have disclosure element
+        self.assertNotIn("<details>", result)
+        self.assertNotIn("GitHub Stats", result)
+
+    def test_github_blob_url_with_stats(self):
+        """Test GitHub blob URLs also get stats."""
+        row = {
+            "Display Name": "Test Resource",
+            "Primary Link": "https://github.com/owner/repo/blob/main/.claude/commands",
+            "Description": "Test description",
+            "Author Name": "",
+            "Author Link": "",
+            "License": "",
+        }
+
+        result = format_resource_entry(row)
+
+        # Check for disclosure element with correct owner/repo
+        self.assertIn("<details>", result)
+        self.assertIn("repo=repo&username=owner", result)
+
+    def test_github_tree_url_with_stats(self):
+        """Test GitHub tree URLs also get stats."""
+        row = {
+            "Display Name": "Test Resource",
+            "Primary Link": "https://github.com/owner/repo/tree/main/.claude/commands",
+            "Description": "Test description",
+            "Author Name": "",
+            "Author Link": "",
+            "License": "",
+        }
+
+        result = format_resource_entry(row)
+
+        # Check for disclosure element with correct owner/repo
+        self.assertIn("<details>", result)
+        self.assertIn("repo=repo&username=owner", result)
+
+    def test_empty_primary_link_no_stats(self):
+        """Test that resources without primary link don't get stats."""
+        row = {
+            "Display Name": "Test Resource",
+            "Primary Link": "",
+            "Description": "Test description",
+            "Author Name": "",
+            "Author Link": "",
+            "License": "",
+        }
+
+        result = format_resource_entry(row)
+
+        # Should not have disclosure element
+        self.assertNotIn("<details>", result)
+        self.assertNotIn("GitHub Stats", result)
 
 
 if __name__ == "__main__":

@@ -11,6 +11,7 @@ import sys
 from datetime import datetime, timedelta
 
 import yaml  # type: ignore[import-untyped]
+from validate_links import parse_github_url
 
 
 def load_template(template_path):
@@ -246,6 +247,19 @@ def format_resource_entry(row):
     result = "".join(entry_parts)
     if description:
         result += f"  \n{description}"
+
+    # Add GitHub stats disclosure for GitHub resources
+    if primary_link:
+        _, is_github, owner, repo = parse_github_url(primary_link)
+
+        if is_github and owner and repo:
+            # Add collapsible GitHub stats section
+            stats_url = f"https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo={repo}&username={owner}&all_stats=true&stats_only=true"
+            result += "\n\n<details>"
+            result += "\n<summary>📊 GitHub Stats</summary>"
+            result += f"\n\n![GitHub Stats for {repo}]({stats_url})"
+            result += "\n\n</details>"
+            result += "\n<br>"  # Add spacing for better visual separation
 
     return result
 
