@@ -43,7 +43,7 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
   - <details open>
     <summary>🤩 GITHUB STATS 🤩</summary>
 
-    - A number of visitors have requested to see the GitHub stars listed for each GitHub entry in Awesome Claude Code. On the one hand, I agree this is useful information - on the other hand, I don't want to give a bad impression especially for repos that are very newly published, that serve a smaller niche, or whose star count does not reflect their awesomeness. So, what I decided to do was create a disclosure panel with a number of GitHub stats (thank you to [anuraghazra](https://github.com/anuraghazra), maintainer of [github-readme-stats](https://github.com/anuraghazra/github-readme-stats), for making this easier!), including number of open issues, age of repo, and, yes, star count, so that (a) the information is available, but hidden by default, and (b) there is more context than just the star count alone (thanks to @hesreallyhim for adding the latter functionality in a recent [fork](https://github.com/hesreallyhim/github-readme-stats-plus)). This way, if you see a repo with no stars but which is only 2 days old, you have more context. Feel free to open an issue or discusise $100 for a good cause! 🙏sion if you think this feature has negative value, or if you have suggestions for improvement.
+    - A number of visitors have requested to see the GitHub stars listed for each GitHub entry in Awesome Claude Code. On the one hand, I agree this is useful information - on the other hand, I don't want to give a bad impression especially for repos that are very newly published, that serve a smaller niche, or whose star count does not reflect their awesomeness. So, what I decided to do was create a disclosure panel with a number of GitHub stats (thank you to [anuraghazra](https://github.com/anuraghazra), maintainer of [github-readme-stats](https://github.com/anuraghazra/github-readme-stats), for making this easier!), including number of open issues, age of repo, and, yes, star count, so that (a) the information is available, but hidden by default, and (b) there is more context than just the star count alone (thanks to [hesreallyhim](https://github.com/hesreallyhim) for adding the latter functionality in a recent [fork](https://github.com/hesreallyhim/github-readme-stats-plus)). This way, if you see a repo with no stars but which is only 2 days old, you have more context. Feel free to open an issue or discussion if you think this feature has negative value, or if you have suggestions for improvement.
 
     </details>
 
@@ -68,10 +68,11 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 ## Awesome Claude Code Freedom Funders [🔝](#awesome-claude-code)
 
 - hesreallyhim (repository maintainer)
+- Others to be named once privacy is easier to guarantee.
 
 ### Total Amount Raised: [🔝](#awesome-claude-code)
 
-**$???** (Will be disclosed once a non-trivial amount has been raised.)
+**$130**
 
 ## Contents [🔝](#awesome-claude-code)
 
