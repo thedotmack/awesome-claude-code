@@ -257,9 +257,9 @@ def format_resource_entry(row):
             stats_url = f"https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo={repo}&username={owner}&all_stats=true&stats_only=true"
             result += "\n\n<details>"
             result += "\n<summary>📊 GitHub Stats</summary>"
-            result += "\n<br>"  # Add spacing for better visual separation
             result += f"\n\n![GitHub Stats for {repo}]({stats_url})"
             result += "\n\n</details>"
+            result += "\n<br>"  # Add spacing for better visual separation
 
     return result
 
