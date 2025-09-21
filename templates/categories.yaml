@@ -54,13 +54,24 @@ categories:
     subcategories:
       - id: general
         name: "General"
-    
+
+  - id: output-styles
+    name: "Output Styles"
+    prefix: output
+    icon: "💬"
+    description: |
+      > **Output styles** allow you to use Claude Code as any type of agent while keeping its core capabilities, such as running local scripts, reading/writing files, and tracking TODOs.
+    order: 5
+    subcategories:
+      - id: general
+        name: "General"
+
   - id: slash-commands
     name: "Slash-Commands"
     prefix: cmd
     icon: "🔪"
     description: ""
-    order: 5
+    order: 6
     subcategories:
       - id: general
         name: "General"
@@ -84,8 +95,8 @@ categories:
     prefix: claude
     icon: "📂"
     description: |
-      > **`CLAUDE.md` files** are files that contain important guidelines and context-specfic information or instructions that help Claude Code to better understand your project and your coding standards
-    order: 6
+      > **`CLAUDE.md` files** are files that contain important guidelines and context-specific information or instructions that help Claude Code to better understand your project and your coding standards
+    order: 7
     subcategories:
       - id: general
         name: "General"
@@ -104,7 +115,7 @@ categories:
       > Links to some of Anthropic's terrific documentation and resources regarding Claude Code
 
       <!--lint disable double-link-->
-    order: 7
+    order: 8
     subcategories:
       - id: general
         name: "General"
