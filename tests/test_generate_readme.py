@@ -470,18 +470,6 @@ class TestLoadAnnouncements(unittest.TestCase):
         self.assertIn("**bold**", result)
         self.assertIn("[a link](https://example.com)", result)
 
-    def test_fallback_to_markdown_file(self) -> None:
-        """Test fallback to announcements.md if YAML doesn't exist."""
-        # Create markdown file instead of YAML
-        md_path = os.path.join(self.temp_dir, "announcements.md")
-        with open(md_path, "w") as f:
-            f.write("#### Legacy announcement format\n\nThis is from the old .md file.")
-
-        result = load_announcements(self.temp_dir)
-
-        self.assertIn("Legacy announcement format", result)
-        self.assertIn("This is from the old .md file", result)
-
     def test_nonexistent_directory(self) -> None:
         """Test loading from a directory with no announcement files."""
         empty_dir = os.path.join(self.temp_dir, "empty")

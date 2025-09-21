@@ -11,7 +11,7 @@ import sys
 from datetime import datetime, timedelta
 
 import yaml  # type: ignore[import-untyped]
-from validate_links import parse_github_url
+from validate_links import parse_github_url  # type: ignore[import-not-found]
 
 
 def load_template(template_path):
@@ -100,12 +100,6 @@ def load_announcements(template_dir):
 
         return "\n".join(markdown_lines).strip()
 
-    # Fallback to old .md file if YAML doesn't exist
-    announcements_md_path = os.path.join(template_dir, "announcements.md")
-    if os.path.exists(announcements_md_path):
-        with open(announcements_md_path, encoding="utf-8") as f:
-            return f.read().strip()
-
     return ""
 
 
@@ -160,7 +154,7 @@ def get_anchor_suffix_for_icon(icon):
 
 def generate_toc_from_categories():
     """Generate table of contents based on category definitions."""
-    from category_utils import category_manager
+    from category_utils import category_manager  # type: ignore[import-not-found]
 
     categories = category_manager.get_categories_for_readme()
 
@@ -270,7 +264,8 @@ def format_resource_entry(row):
 
         if is_github and owner and repo:
             # Add collapsible GitHub stats section
-            stats_url = f"https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo={repo}&username={owner}&all_stats=true&stats_only=true"
+            base_url = "https://github-readme-stats-plus-theta.vercel.app/api/pin/"
+            stats_url = f"{base_url}?repo={repo}&username={owner}&all_stats=true&stats_only=true"
             result += "\n\n<details>"
             result += "\n<summary>📊 GitHub Stats</summary>"
             result += f"\n\n![GitHub Stats for {repo}]({stats_url})"
@@ -498,7 +493,7 @@ def create_backup(file_path):
 
 def generate_readme_from_templates(csv_path, template_dir, output_path):
     """Generate README using template system."""
-    from category_utils import category_manager
+    from category_utils import category_manager  # type: ignore[import-not-found]
 
     # Create backup of existing README
     backup_path = create_backup(output_path)
