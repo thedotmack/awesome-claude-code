@@ -206,15 +206,15 @@ class TestGenerateTOC(unittest.TestCase):
 
         # Check for collapsible category with subcategories (open by default)
         self.assertIn("- <details open>", result)
-        # The gear emoji has a variation selector, so it gets URL-encoded
-        self.assertIn('  <summary><a href="#configuration-%EF%B8%8F">Configuration</a>', result)
+        # All category headers now have "-" suffix for back-to-top links
+        self.assertIn('  <summary><a href="#configuration-">Configuration</a>', result)
 
-        # Check for subcategories
-        self.assertIn("  - [Basic Setup](#basic-setup)", result)
-        self.assertIn("  - [Advanced Options](#advanced-options)", result)
+        # Check for subcategories (also have "-" suffix)
+        self.assertIn("  - [Basic Setup](#basic-setup-)", result)
+        self.assertIn("  - [Advanced Options](#advanced-options-)", result)
 
-        # Check for simple category
-        self.assertIn("- [Simple Category](#simple-category)", result)
+        # Check for simple category (also has "-" suffix)
+        self.assertIn("- [Simple Category](#simple-category-)", result)
 
     def test_special_characters_in_names(self) -> None:
         """Test TOC generation with special characters in category names."""
@@ -227,10 +227,10 @@ class TestGenerateTOC(unittest.TestCase):
 
         result = generate_toc_from_categories()
 
-        # Check that special characters are properly handled in anchors
-        self.assertIn("[Tips & Tricks](#tips--tricks)", result)
-        self.assertIn("[CI/CD Tools](#cicd-tools)", result)
-        self.assertIn("[Node.js Resources](#nodejs-resources)", result)
+        # Check that special characters are properly handled in anchors (all have "-" suffix)
+        self.assertIn("[Tips & Tricks](#tips--tricks-)", result)
+        self.assertIn("[CI/CD Tools](#cicd-tools-)", result)
+        self.assertIn("[Node.js Resources](#nodejs-resources-)", result)
 
     def test_mixed_categories(self) -> None:
         """Test TOC with a mix of simple and nested categories."""
@@ -261,14 +261,14 @@ class TestGenerateTOC(unittest.TestCase):
         self.assertEqual(lines[0], "<details open>")
         self.assertEqual(lines[1], "<summary>Table of Contents</summary>")
 
-        # Check for simple categories
-        self.assertIn("- [Overview](#overview)", result)
+        # Check for simple categories (all have "-" suffix)
+        self.assertIn("- [Overview](#overview-)", result)
         self.assertIn("- [Community](#community-)", result)
 
-        # Check for nested categories
+        # Check for nested categories (all have "-" suffix)
         self.assertIn('  <summary><a href="#documentation-">Documentation</a>', result)
-        self.assertIn("  - [API Reference](#api-reference)", result)
-        self.assertIn("  - [Tutorials](#tutorials)", result)
+        self.assertIn("  - [API Reference](#api-reference-)", result)
+        self.assertIn("  - [Tutorials](#tutorials-)", result)
 
         # Count details blocks (main + 2 categories with subcategories) - all open by default
         self.assertEqual(result.count("<details open>"), 3)
@@ -314,7 +314,8 @@ class TestLoadAnnouncements(unittest.TestCase):
 
         result = load_announcements(self.temp_dir)
 
-        # Check for main structure
+        # Check for header and main structure
+        self.assertIn("### Announcements [🔝](#awesome-claude-code)", result)
         self.assertIn("<details open>", result)
         self.assertIn("<summary>View Announcements</summary>", result)
 
@@ -351,6 +352,9 @@ class TestLoadAnnouncements(unittest.TestCase):
 
         result = load_announcements(self.temp_dir)
 
+        # Check for header
+        self.assertIn("### Announcements [🔝](#awesome-claude-code)", result)
+
         # Check for nested collapsible items
         self.assertIn("  - <details open>", result)
         self.assertIn("    <summary>New feature added</summary>", result)
@@ -381,6 +385,9 @@ class TestLoadAnnouncements(unittest.TestCase):
 
         result = load_announcements(self.temp_dir)
 
+        # Check for header
+        self.assertIn("### Announcements [🔝](#awesome-claude-code)", result)
+
         # Check that multi-line text is properly formatted
         self.assertIn("    - Line 1 of the announcement.", result)
         self.assertIn("      Line 2 with a gap.", result)
@@ -405,6 +412,9 @@ class TestLoadAnnouncements(unittest.TestCase):
             yaml.dump(announcements_data, f)
 
         result = load_announcements(self.temp_dir)
+
+        # Check for header
+        self.assertIn("### Announcements [🔝](#awesome-claude-code)", result)
 
         # Check for date without title
         self.assertIn("<summary>2025-09-20</summary>", result)
@@ -437,6 +447,9 @@ class TestLoadAnnouncements(unittest.TestCase):
 
         result = load_announcements(self.temp_dir)
 
+        # Check for header
+        self.assertIn("### Announcements [🔝](#awesome-claude-code)", result)
+
         # Check for both date groups
         self.assertIn("<summary>2025-09-10 - Week 1</summary>", result)
         self.assertIn("<summary>2025-09-17 - Week 2</summary>", result)
@@ -466,21 +479,12 @@ class TestLoadAnnouncements(unittest.TestCase):
 
         result = load_announcements(self.temp_dir)
 
+        # Check for header
+        self.assertIn("### Announcements [🔝](#awesome-claude-code)", result)
+
         # Check that markdown is preserved
         self.assertIn("**bold**", result)
         self.assertIn("[a link](https://example.com)", result)
-
-    def test_fallback_to_markdown_file(self) -> None:
-        """Test fallback to announcements.md if YAML doesn't exist."""
-        # Create markdown file instead of YAML
-        md_path = os.path.join(self.temp_dir, "announcements.md")
-        with open(md_path, "w") as f:
-            f.write("#### Legacy announcement format\n\nThis is from the old .md file.")
-
-        result = load_announcements(self.temp_dir)
-
-        self.assertIn("Legacy announcement format", result)
-        self.assertIn("This is from the old .md file", result)
 
     def test_nonexistent_directory(self) -> None:
         """Test loading from a directory with no announcement files."""

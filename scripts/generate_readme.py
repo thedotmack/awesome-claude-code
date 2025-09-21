@@ -11,7 +11,7 @@ import sys
 from datetime import datetime, timedelta
 
 import yaml  # type: ignore[import-untyped]
-from validate_links import parse_github_url
+from validate_links import parse_github_url  # type: ignore[import-not-found]
 
 
 def load_template(template_path):
@@ -32,6 +32,10 @@ def load_announcements(template_dir):
 
         # Format the YAML data into markdown with nested collapsible sections using lists
         markdown_lines = []
+
+        # Add the announcements header
+        markdown_lines.append("### Announcements [🔝](#awesome-claude-code)")
+        markdown_lines.append("")
 
         # Make the entire announcements section collapsible (open by default)
         markdown_lines.append("<details open>")
@@ -100,12 +104,6 @@ def load_announcements(template_dir):
 
         return "\n".join(markdown_lines).strip()
 
-    # Fallback to old .md file if YAML doesn't exist
-    announcements_md_path = os.path.join(template_dir, "announcements.md")
-    if os.path.exists(announcements_md_path):
-        with open(announcements_md_path, encoding="utf-8") as f:
-            return f.read().strip()
-
     return ""
 
 
@@ -158,13 +156,21 @@ def get_anchor_suffix_for_icon(icon):
     return "-"
 
 
-def generate_toc_from_categories():
-    """Generate table of contents based on category definitions."""
-    from category_utils import category_manager
+def generate_toc_from_categories(csv_data=None):
+    """Generate table of contents based on category definitions.
+
+    Args:
+        csv_data: List of resource dictionaries from CSV.
+                 If None, TOC will include all subcategories.
+    """
+    from category_utils import category_manager  # type: ignore[import-not-found]
 
     categories = category_manager.get_categories_for_readme()
 
     toc_lines = []
+
+    # Track "General" occurrences across all categories that actually have them
+    general_counter = 0
 
     # Make the entire TOC collapsible (open by default)
     toc_lines.append("<details open>")
@@ -183,9 +189,8 @@ def generate_toc_from_categories():
             .replace(".", "")
         )
 
-        # Get the appropriate anchor suffix based on the category's icon
-        icon = category.get("icon", "")
-        anchor_suffix = get_anchor_suffix_for_icon(icon)
+        # All category headers now have back-to-top links, so they all need "-" suffix
+        anchor_suffix = "-"
 
         # Check if this category has subcategories
         subcategories = category.get("subcategories", [])
@@ -198,11 +203,42 @@ def generate_toc_from_categories():
             )
             toc_lines.append("")
 
-            # Add subcategories as nested list
+            # Add subcategories as nested list, but only if they have resources
             for subcat in subcategories:
                 sub_title = subcat["name"]
-                sub_anchor = sub_title.lower().replace(" ", "-").replace("&", "").replace("/", "")
-                toc_lines.append(f"  - [{sub_title}](#{sub_anchor})")
+
+                # Check if this subcategory has any resources (if csv_data is provided)
+                include_subcategory = True
+                if csv_data is not None:
+                    category_name = category.get("name", "")
+                    resources = [
+                        r
+                        for r in csv_data
+                        if r["Category"] == category_name
+                        and r.get("Sub-Category", "").strip() == sub_title
+                    ]
+                    include_subcategory = bool(resources)
+
+                # Only include subcategory if it has resources (or if csv_data not provided)
+                if include_subcategory:
+                    sub_anchor = (
+                        sub_title.lower().replace(" ", "-").replace("&", "").replace("/", "")
+                    )
+
+                    # Special handling for "General" subcategories
+                    if sub_title == "General":
+                        if general_counter == 0:
+                            # First occurrence: just #general-
+                            sub_anchor = "general-"
+                        else:
+                            # Subsequent occurrences: #general--1, #general--2, etc.
+                            sub_anchor = f"general--{general_counter}"
+                        general_counter += 1
+                    else:
+                        # Non-General subcategories also need "-" suffix due to back-to-top links
+                        sub_anchor = sub_anchor + "-"
+
+                    toc_lines.append(f"  - [{sub_title}](#{sub_anchor})")
 
             toc_lines.append("")
             toc_lines.append("  </details>")
@@ -254,7 +290,8 @@ def format_resource_entry(row):
 
         if is_github and owner and repo:
             # Add collapsible GitHub stats section
-            stats_url = f"https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo={repo}&username={owner}&all_stats=true&stats_only=true"
+            base_url = "https://github-readme-stats-plus-theta.vercel.app/api/pin/"
+            stats_url = f"{base_url}?repo={repo}&username={owner}&all_stats=true&stats_only=true"
             result += "\n\n<details>"
             result += "\n<summary>📊 GitHub Stats</summary>"
             result += f"\n\n![GitHub Stats for {repo}]({stats_url})"
@@ -482,7 +519,7 @@ def create_backup(file_path):
 
 def generate_readme_from_templates(csv_path, template_dir, output_path):
     """Generate README using template system."""
-    from category_utils import category_manager
+    from category_utils import category_manager  # type: ignore[import-not-found]
 
     # Create backup of existing README
     backup_path = create_backup(output_path)
@@ -504,7 +541,7 @@ def generate_readme_from_templates(csv_path, template_dir, output_path):
                 csv_data.append(row)
 
     # Generate table of contents
-    toc_content = generate_toc_from_categories()
+    toc_content = generate_toc_from_categories(csv_data)
 
     # Generate weekly section
     weekly_section = generate_weekly_section(csv_data)

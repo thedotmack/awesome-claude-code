@@ -91,69 +91,67 @@ CLI tool and template gallery for customizing Claude Code output styles with pre
 - <details open>
   <summary><a href="#workflows--knowledge-guides-">Workflows & Knowledge Guides</a></summary>
 
-  - [General](#general)
+  - [General](#general-)
 
   </details>
 
 - <details open>
   <summary><a href="#tooling-">Tooling</a></summary>
 
-  - [General](#general)
-  - [IDE Integrations](#ide-integrations)
-  - [Usage Monitors](#usage-monitors)
-  - [Orchestrators](#orchestrators)
+  - [General](#general--1)
+  - [IDE Integrations](#ide-integrations-)
+  - [Usage Monitors](#usage-monitors-)
+  - [Orchestrators](#orchestrators-)
 
   </details>
 
 - <details open>
   <summary><a href="#status-lines-">Status Lines</a></summary>
 
-  - [General](#general)
+  - [General](#general--2)
 
   </details>
 
 - <details open>
   <summary><a href="#hooks-">Hooks</a></summary>
 
-  - [General](#general)
+  - [General](#general--3)
 
   </details>
 
 - <details open>
   <summary><a href="#output-styles-">Output Styles</a></summary>
 
-  - [General](#general)
+  - [General](#general--4)
 
   </details>
 
 - <details open>
   <summary><a href="#slash-commands-">Slash-Commands</a></summary>
 
-  - [General](#general)
-  - [Version Control & Git](#version-control--git)
-  - [Code Analysis & Testing](#code-analysis--testing)
-  - [Context Loading & Priming](#context-loading--priming)
-  - [Documentation & Changelogs](#documentation--changelogs)
-  - [CI / Deployment](#ci--deployment)
-  - [Project & Task Management](#project--task-management)
-  - [Miscellaneous](#miscellaneous)
+  - [Version Control & Git](#version-control--git-)
+  - [Code Analysis & Testing](#code-analysis--testing-)
+  - [Context Loading & Priming](#context-loading--priming-)
+  - [Documentation & Changelogs](#documentation--changelogs-)
+  - [CI / Deployment](#ci--deployment-)
+  - [Project & Task Management](#project--task-management-)
+  - [Miscellaneous](#miscellaneous-)
 
   </details>
 
 - <details open>
   <summary><a href="#claudemd-files-">CLAUDE.md Files</a></summary>
 
-  - [General](#general)
-  - [Language-Specific](#language-specific)
-  - [Domain-Specific](#domain-specific)
-  - [Project Scaffolding & MCP](#project-scaffolding--mcp)
+  - [Language-Specific](#language-specific-)
+  - [Domain-Specific](#domain-specific-)
+  - [Project Scaffolding & MCP](#project-scaffolding--mcp-)
 
   </details>
 
 - <details open>
-  <summary><a href="#official-documentation-%EF%B8%8F">Official Documentation</a></summary>
+  <summary><a href="#official-documentation-">Official Documentation</a></summary>
 
-  - [General](#general)
+  - [General](#general--5)
 
   </details>
 

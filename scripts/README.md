@@ -324,7 +324,7 @@ This ensures consistent title case and pluralization across categories. If issue
 
 **YAML Format** (2025-09-17): Announcements migrated from Markdown to YAML format for better structure and rendering:
 
-**File**: `templates/announcements.yaml` (was `announcements.md`)
+**File**: `templates/announcements.yaml`
 
 **Structure**:
 ```yaml

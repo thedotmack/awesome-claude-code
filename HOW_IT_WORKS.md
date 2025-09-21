@@ -237,7 +237,7 @@ Description of the resource
 
 ### Announcements System
 
-Announcements are stored in `templates/announcements.yaml` (previously `announcements.md`):
+Announcements are stored in `templates/announcements.yaml`:
 - YAML format for structured data
 - Renders as nested collapsible sections
 - Each date group is collapsible
