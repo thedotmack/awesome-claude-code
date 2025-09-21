@@ -109,6 +109,7 @@ Resources are organized into these categories:
   - IDE Integrations
 - **Status Lines** - Status bar configurations and customizations
 - **Hooks** - Claude Code hook configurations
+- **Output Styles** - Configurations for customizing Claude Code's output formatting
 - **Slash-Commands** - Individual command files
   - Version Control & Git
   - Code Analysis & Testing
