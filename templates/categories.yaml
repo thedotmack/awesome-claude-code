@@ -95,7 +95,7 @@ categories:
     prefix: claude
     icon: "📂"
     description: |
-      > **`CLAUDE.md` files** are files that contain important guidelines and context-specfic information or instructions that help Claude Code to better understand your project and your coding standards
+      > **`CLAUDE.md` files** are files that contain important guidelines and context-specific information or instructions that help Claude Code to better understand your project and your coding standards
     order: 7
     subcategories:
       - id: general
