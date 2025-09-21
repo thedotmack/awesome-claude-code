@@ -98,7 +98,7 @@ CLI tool and template gallery for customizing Claude Code output styles with pre
 - <details open>
   <summary><a href="#tooling-">Tooling</a></summary>
 
-  - [General](#general--2)
+  - [General](#general--1)
   - [IDE Integrations](#ide-integrations-)
   - [Usage Monitors](#usage-monitors-)
   - [Orchestrators](#orchestrators-)
@@ -108,28 +108,27 @@ CLI tool and template gallery for customizing Claude Code output styles with pre
 - <details open>
   <summary><a href="#status-lines-">Status Lines</a></summary>
 
-  - [General](#general--3)
+  - [General](#general--2)
 
   </details>
 
 - <details open>
   <summary><a href="#hooks-">Hooks</a></summary>
 
-  - [General](#general--4)
+  - [General](#general--3)
 
   </details>
 
 - <details open>
   <summary><a href="#output-styles-">Output Styles</a></summary>
 
-  - [General](#general--5)
+  - [General](#general--4)
 
   </details>
 
 - <details open>
   <summary><a href="#slash-commands-">Slash-Commands</a></summary>
 
-  - [General](#general--6)
   - [Version Control & Git](#version-control--git-)
   - [Code Analysis & Testing](#code-analysis--testing-)
   - [Context Loading & Priming](#context-loading--priming-)
@@ -143,7 +142,6 @@ CLI tool and template gallery for customizing Claude Code output styles with pre
 - <details open>
   <summary><a href="#claudemd-files-">CLAUDE.md Files</a></summary>
 
-  - [General](#general--7)
   - [Language-Specific](#language-specific-)
   - [Domain-Specific](#domain-specific-)
   - [Project Scaffolding & MCP](#project-scaffolding--mcp-)
@@ -153,7 +151,7 @@ CLI tool and template gallery for customizing Claude Code output styles with pre
 - <details open>
   <summary><a href="#official-documentation-">Official Documentation</a></summary>
 
-  - [General](#general--8)
+  - [General](#general--5)
 
   </details>
 

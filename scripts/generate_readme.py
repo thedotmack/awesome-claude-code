@@ -152,15 +152,20 @@ def get_anchor_suffix_for_icon(icon):
     return "-"
 
 
-def generate_toc_from_categories():
-    """Generate table of contents based on category definitions."""
+def generate_toc_from_categories(csv_data=None):
+    """Generate table of contents based on category definitions.
+
+    Args:
+        csv_data: List of resource dictionaries from CSV.
+                 If None, TOC will include all subcategories.
+    """
     from category_utils import category_manager  # type: ignore[import-not-found]
 
     categories = category_manager.get_categories_for_readme()
 
     toc_lines = []
 
-    # Track "General" occurrences across all categories
+    # Track "General" occurrences across all categories that actually have them
     general_counter = 0
 
     # Make the entire TOC collapsible (open by default)
@@ -194,25 +199,42 @@ def generate_toc_from_categories():
             )
             toc_lines.append("")
 
-            # Add subcategories as nested list
+            # Add subcategories as nested list, but only if they have resources
             for subcat in subcategories:
                 sub_title = subcat["name"]
-                sub_anchor = sub_title.lower().replace(" ", "-").replace("&", "").replace("/", "")
 
-                # Special handling for "General" subcategories
-                if sub_title == "General":
-                    if general_counter == 0:
-                        # First occurrence: just #general-
-                        sub_anchor = "general-"
+                # Check if this subcategory has any resources (if csv_data is provided)
+                include_subcategory = True
+                if csv_data is not None:
+                    category_name = category.get("name", "")
+                    resources = [
+                        r
+                        for r in csv_data
+                        if r["Category"] == category_name
+                        and r.get("Sub-Category", "").strip() == sub_title
+                    ]
+                    include_subcategory = bool(resources)
+
+                # Only include subcategory if it has resources (or if csv_data not provided)
+                if include_subcategory:
+                    sub_anchor = (
+                        sub_title.lower().replace(" ", "-").replace("&", "").replace("/", "")
+                    )
+
+                    # Special handling for "General" subcategories
+                    if sub_title == "General":
+                        if general_counter == 0:
+                            # First occurrence: just #general-
+                            sub_anchor = "general-"
+                        else:
+                            # Subsequent occurrences: #general--1, #general--2, etc.
+                            sub_anchor = f"general--{general_counter}"
+                        general_counter += 1
                     else:
-                        # Subsequent occurrences: #general--2, #general--3, etc.
-                        sub_anchor = f"general--{general_counter + 1}"
-                    general_counter += 1
-                else:
-                    # Non-General subcategories also need "-" suffix due to back-to-top links
-                    sub_anchor = sub_anchor + "-"
+                        # Non-General subcategories also need "-" suffix due to back-to-top links
+                        sub_anchor = sub_anchor + "-"
 
-                toc_lines.append(f"  - [{sub_title}](#{sub_anchor})")
+                    toc_lines.append(f"  - [{sub_title}](#{sub_anchor})")
 
             toc_lines.append("")
             toc_lines.append("  </details>")
@@ -515,7 +537,7 @@ def generate_readme_from_templates(csv_path, template_dir, output_path):
                 csv_data.append(row)
 
     # Generate table of contents
-    toc_content = generate_toc_from_categories()
+    toc_content = generate_toc_from_categories(csv_data)
 
     # Generate weekly section
     weekly_section = generate_weekly_section(csv_data)
