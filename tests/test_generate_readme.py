@@ -206,15 +206,15 @@ class TestGenerateTOC(unittest.TestCase):
 
         # Check for collapsible category with subcategories (open by default)
         self.assertIn("- <details open>", result)
-        # The gear emoji has a variation selector, so it gets URL-encoded
-        self.assertIn('  <summary><a href="#configuration-%EF%B8%8F">Configuration</a>', result)
+        # All category headers now have "-" suffix for back-to-top links
+        self.assertIn('  <summary><a href="#configuration-">Configuration</a>', result)
 
-        # Check for subcategories
-        self.assertIn("  - [Basic Setup](#basic-setup)", result)
-        self.assertIn("  - [Advanced Options](#advanced-options)", result)
+        # Check for subcategories (also have "-" suffix)
+        self.assertIn("  - [Basic Setup](#basic-setup-)", result)
+        self.assertIn("  - [Advanced Options](#advanced-options-)", result)
 
-        # Check for simple category
-        self.assertIn("- [Simple Category](#simple-category)", result)
+        # Check for simple category (also has "-" suffix)
+        self.assertIn("- [Simple Category](#simple-category-)", result)
 
     def test_special_characters_in_names(self) -> None:
         """Test TOC generation with special characters in category names."""
@@ -227,10 +227,10 @@ class TestGenerateTOC(unittest.TestCase):
 
         result = generate_toc_from_categories()
 
-        # Check that special characters are properly handled in anchors
-        self.assertIn("[Tips & Tricks](#tips--tricks)", result)
-        self.assertIn("[CI/CD Tools](#cicd-tools)", result)
-        self.assertIn("[Node.js Resources](#nodejs-resources)", result)
+        # Check that special characters are properly handled in anchors (all have "-" suffix)
+        self.assertIn("[Tips & Tricks](#tips--tricks-)", result)
+        self.assertIn("[CI/CD Tools](#cicd-tools-)", result)
+        self.assertIn("[Node.js Resources](#nodejs-resources-)", result)
 
     def test_mixed_categories(self) -> None:
         """Test TOC with a mix of simple and nested categories."""
@@ -261,14 +261,14 @@ class TestGenerateTOC(unittest.TestCase):
         self.assertEqual(lines[0], "<details open>")
         self.assertEqual(lines[1], "<summary>Table of Contents</summary>")
 
-        # Check for simple categories
-        self.assertIn("- [Overview](#overview)", result)
+        # Check for simple categories (all have "-" suffix)
+        self.assertIn("- [Overview](#overview-)", result)
         self.assertIn("- [Community](#community-)", result)
 
-        # Check for nested categories
+        # Check for nested categories (all have "-" suffix)
         self.assertIn('  <summary><a href="#documentation-">Documentation</a>', result)
-        self.assertIn("  - [API Reference](#api-reference)", result)
-        self.assertIn("  - [Tutorials](#tutorials)", result)
+        self.assertIn("  - [API Reference](#api-reference-)", result)
+        self.assertIn("  - [Tutorials](#tutorials-)", result)
 
         # Count details blocks (main + 2 categories with subcategories) - all open by default
         self.assertEqual(result.count("<details open>"), 3)

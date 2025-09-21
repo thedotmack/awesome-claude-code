@@ -166,6 +166,9 @@ def generate_toc_from_categories():
 
     toc_lines = []
 
+    # Track "General" occurrences across all categories
+    general_counter = 0
+
     # Make the entire TOC collapsible (open by default)
     toc_lines.append("<details open>")
     toc_lines.append("<summary>Table of Contents</summary>")
@@ -183,9 +186,8 @@ def generate_toc_from_categories():
             .replace(".", "")
         )
 
-        # Get the appropriate anchor suffix based on the category's icon
-        icon = category.get("icon", "")
-        anchor_suffix = get_anchor_suffix_for_icon(icon)
+        # All category headers now have back-to-top links, so they all need "-" suffix
+        anchor_suffix = "-"
 
         # Check if this category has subcategories
         subcategories = category.get("subcategories", [])
@@ -202,6 +204,20 @@ def generate_toc_from_categories():
             for subcat in subcategories:
                 sub_title = subcat["name"]
                 sub_anchor = sub_title.lower().replace(" ", "-").replace("&", "").replace("/", "")
+
+                # Special handling for "General" subcategories
+                if sub_title == "General":
+                    if general_counter == 0:
+                        # First occurrence: just #general-
+                        sub_anchor = "general-"
+                    else:
+                        # Subsequent occurrences: #general--2, #general--3, etc.
+                        sub_anchor = f"general--{general_counter + 1}"
+                    general_counter += 1
+                else:
+                    # Non-General subcategories also need "-" suffix due to back-to-top links
+                    sub_anchor = sub_anchor + "-"
+
                 toc_lines.append(f"  - [{sub_title}](#{sub_anchor})")
 
             toc_lines.append("")
