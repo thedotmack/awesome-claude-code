@@ -45,6 +45,7 @@ body:
         - Tooling
         - Status Lines
         - Hooks
+        - Output Styles
         - Slash-Commands
         - CLAUDE.md Files
         - Official Documentation
