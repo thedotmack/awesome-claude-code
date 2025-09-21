@@ -314,7 +314,8 @@ class TestLoadAnnouncements(unittest.TestCase):
 
         result = load_announcements(self.temp_dir)
 
-        # Check for main structure
+        # Check for header and main structure
+        self.assertIn("### Announcements [🔝](#awesome-claude-code)", result)
         self.assertIn("<details open>", result)
         self.assertIn("<summary>View Announcements</summary>", result)
 
@@ -351,6 +352,9 @@ class TestLoadAnnouncements(unittest.TestCase):
 
         result = load_announcements(self.temp_dir)
 
+        # Check for header
+        self.assertIn("### Announcements [🔝](#awesome-claude-code)", result)
+
         # Check for nested collapsible items
         self.assertIn("  - <details open>", result)
         self.assertIn("    <summary>New feature added</summary>", result)
@@ -381,6 +385,9 @@ class TestLoadAnnouncements(unittest.TestCase):
 
         result = load_announcements(self.temp_dir)
 
+        # Check for header
+        self.assertIn("### Announcements [🔝](#awesome-claude-code)", result)
+
         # Check that multi-line text is properly formatted
         self.assertIn("    - Line 1 of the announcement.", result)
         self.assertIn("      Line 2 with a gap.", result)
@@ -405,6 +412,9 @@ class TestLoadAnnouncements(unittest.TestCase):
             yaml.dump(announcements_data, f)
 
         result = load_announcements(self.temp_dir)
+
+        # Check for header
+        self.assertIn("### Announcements [🔝](#awesome-claude-code)", result)
 
         # Check for date without title
         self.assertIn("<summary>2025-09-20</summary>", result)
@@ -437,6 +447,9 @@ class TestLoadAnnouncements(unittest.TestCase):
 
         result = load_announcements(self.temp_dir)
 
+        # Check for header
+        self.assertIn("### Announcements [🔝](#awesome-claude-code)", result)
+
         # Check for both date groups
         self.assertIn("<summary>2025-09-10 - Week 1</summary>", result)
         self.assertIn("<summary>2025-09-17 - Week 2</summary>", result)
@@ -465,6 +478,9 @@ class TestLoadAnnouncements(unittest.TestCase):
             yaml.dump(announcements_data, f)
 
         result = load_announcements(self.temp_dir)
+
+        # Check for header
+        self.assertIn("### Announcements [🔝](#awesome-claude-code)", result)
 
         # Check that markdown is preserved
         self.assertIn("**bold**", result)

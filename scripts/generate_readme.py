@@ -33,6 +33,10 @@ def load_announcements(template_dir):
         # Format the YAML data into markdown with nested collapsible sections using lists
         markdown_lines = []
 
+        # Add the announcements header
+        markdown_lines.append("### Announcements [🔝](#awesome-claude-code)")
+        markdown_lines.append("")
+
         # Make the entire announcements section collapsible (open by default)
         markdown_lines.append("<details open>")
         markdown_lines.append("<summary>View Announcements</summary>")
