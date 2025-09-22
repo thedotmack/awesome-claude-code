@@ -62,6 +62,17 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 > Resources added in the past 7 days
 
+[`cc-sessions`](https://github.com/GWUDCAP/cc-sessions) &nbsp; by &nbsp; [toastdev](https://github.com/satoastshi)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+An opinionated set of task, work, and context management features using Claude Code subagents, hooks, and commands
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for cc-sessions](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=cc-sessions&username=GWUDCAP&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
 [`ccoutputstyles`](https://github.com/viveknair/ccoutputstyles) &nbsp; by &nbsp; [Vivek Nair](https://github.com/viveknair)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 CLI tool and template gallery for customizing Claude Code output styles with pre-built templates. Features over 15 templates at the time of writing!
 
@@ -303,6 +314,17 @@ A broader project management workflow for Claude Code that encompasses not just 
 
 <details open>
 <summary><h3>General <a href="#awesome-claude-code">🔝</a></h3></summary>
+
+[`cc-sessions`](https://github.com/GWUDCAP/cc-sessions) &nbsp; by &nbsp; [toastdev](https://github.com/satoastshi)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+An opinionated set of task, work, and context management features using Claude Code subagents, hooks, and commands
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for cc-sessions](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=cc-sessions&username=GWUDCAP&all_stats=true&stats_only=true)
+
+</details>
+<br>
 
 [`cc-tools`](https://github.com/Veraticus/cc-tools) &nbsp; by &nbsp; [Josh Symonds](https://github.com/Veraticus)    
 High-performance Go implementation of Claude Code hooks and utilities. Provides smart linting, testing, and statusline generation with minimal overhead.
