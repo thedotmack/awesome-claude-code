@@ -225,6 +225,9 @@ def append_to_csv(data):
         data.get("last_checked", datetime.now().strftime("%Y-%m-%d:%H-%M-%S")),  # Last Checked
         data["license"],
         data["description"],
+        data.get(
+            "removed_from_origin", "FALSE"
+        ),  # Removed From Origin - new resources default to FALSE
     ]
 
     try:
