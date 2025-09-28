@@ -283,7 +283,7 @@ def format_resource_entry(row):
     # Add description on new line if present, with asterisk if removed from origin
     result = "".join(entry_parts)
     if description:
-        result += f"  \n{description}" + ("*" if removed_from_origin else "")
+        result += f"  \n{description}" + ("*  " if removed_from_origin else "")
 
     # Add footnote if removed from origin (after description, before GitHub stats)
     if removed_from_origin:
