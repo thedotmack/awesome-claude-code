@@ -52,6 +52,17 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 > Resources added in the past 7 days
 
+[`Claudio`](https://github.com/ctoth/claudio) &nbsp; by &nbsp; [Christopher Toth](https://github.com/ctoth)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;&copy;  
+A no-frills little library that adds delightful OS-native sounds to Claude Code via simple hooks. It really sparks joy.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for claudio](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claudio&username=ctoth&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
 [`The Agentic Startup`](https://github.com/rsmdt/the-startup) &nbsp; by &nbsp; [Rudolf Schmidt](https://github.com/rsmdt)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 Yet Another Claude Orchestrator - a collection of agents, commands, etc., for shipping production code - but I like this because it's comprehensive, well-written, and one of the few resources that actually uses Output Styles! +10 points!
 
@@ -770,6 +781,17 @@ A TypeScript-based system for configuring and customizing Claude Code hooks with
 <summary>📊 GitHub Stats</summary>
 
 ![GitHub Stats for claude-hooks](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claude-hooks&username=johnlindquist&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Claudio`](https://github.com/ctoth/claudio) &nbsp; by &nbsp; [Christopher Toth](https://github.com/ctoth)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;&copy;  
+A no-frills little library that adds delightful OS-native sounds to Claude Code via simple hooks. It really sparks joy.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for claudio](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claudio&username=ctoth&all_stats=true&stats_only=true)
 
 </details>
 <br>
