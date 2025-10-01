@@ -56,6 +56,16 @@ hook-9cfa9465,Claudio,Hooks,General,https://github.com/ctoth/claudio,,Christophe
 hook-2b995e52,TDD Guard,Hooks,General,https://github.com/nizos/tdd-guard,,Nizar Selander,https://github.com/nizos,TRUE,2025-07-29,2025-07-13:19-50-03,2025-09-28:02-54-29,MIT,A hooks-driven system that monitors file operations in real-time and blocks changes that violate TDD principles.,FALSE
 hook-3ca1f52e,TypeScript Quality Hooks,Hooks,General,https://github.com/bartolli/claude-code-typescript-hooks,,bartolli,https://github.com/bartolli,TRUE,2025-08-23:23-46-33,,2025-09-28:02-54-30,MIT,"Quality check hook for Node.js TypeScript projects with TypeScript compilation. ESLint auto-fixing, and Prettier formatting. Uses SHA256 config caching for <5ms validation performance during real-time editing.",FALSE
 output-2d98cb4f,ccoutputstyles,Output Styles,General,https://github.com/viveknair/ccoutputstyles,,Vivek Nair,https://github.com/viveknair,TRUE,2025-09-21:13-11-39,,2025-09-28:02-54-30,MIT,CLI tool and template gallery for customizing Claude Code output styles with pre-built templates. Features over 15 templates at the time of writing!,FALSE
+cmd-d4f9e2a5,/create-hook,Slash-Commands,General,https://github.com/omril321/automated-notebooklm/blob/main/.claude/commands/create-hook.md,,Omri Lavi,https://github.com/omril321,TRUE,2025-10-01:14-11-36,,2025-10-01:14-11-36,MIT,"Claude Code Hook Generator 
+=====
+Intelligently prompts you through hook creation with smart suggestions based on your project setup (TS, Prettier, ESLint...). Knows all hook features and finds the best configuration automatically.
+Key Features:
+-----
+🔍 Smart project analysis & suggestions
+🛠️ Interactive prompts
+🧪 Battle-tested templates & testing methods
+🎯 Direct CC integration for auto-fixing
+Perfect for automating dev workflows.",FALSE
 cmd-9d234db1,/analyze-issue,Slash-Commands,Version Control & Git,https://github.com/jerseycheese/Narraitor/blob/feature/issue-227-ai-suggestions/.claude/commands/analyze-issue.md,,jerseycheese,https://github.com/jerseycheese,TRUE,,,2025-09-28:02-54-31,MIT,"Fetches GitHub issue details to create comprehensive implementation specifications, analyzing requirements and planning structured approach with clear implementation steps.",FALSE
 cmd-4a72b306,/bug-fix,Slash-Commands,Version Control & Git,https://github.com/danielscholl/mvn-mcp-server/blob/main/.claude/commands/bug-fix.md,,danielscholl,https://github.com/danielscholl,TRUE,2025-07-29,2025-05-06:23-07-03,2025-09-28:02-54-32,NOT_FOUND,"Streamlines bug fixing by creating a GitHub issue first, then a feature branch for implementing and thoroughly testing the solution before merging.",FALSE
 cmd-b6a797df,/commit,Slash-Commands,Version Control & Git,https://github.com/evmts/tevm-monorepo/blob/main/.claude/commands/commit.md,,evmts,https://github.com/evmts,TRUE,,2025-03-25:09-20-57,2025-09-28:02-54-33,MIT,"Creates git commits using conventional commit format with appropriate emojis, following project standards and creating descriptive messages that explain the purpose of changes.",FALSE

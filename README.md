@@ -13,13 +13,11 @@
 
 <!-- Generated with https://github.com/denvercoder1/readme-typing-svg -->
 
-<!-- [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&pause=1000&color=F7080D&random=true&width=435&lines=Fumigating...;Gallivanting...;Matriculating...;Toodleedoodling...;Goo-goo-g'joob-ing...;Excaliburating...;Canoodling...;Doing+the+humpty+dance...;Shiver-me-timbers-ing...;Becoming+sentient...;Opening+the+pod+bay+doors...;Rimraf-ing...;23-skidoo-ing...;Skip-to-my-loo'ing...;High-falutin'...;Disambiguating...;Coagulating...;Undulating...;Just+Clauding+around...)](https://git.io/typing-svg) -->
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&pause=1000&color=F7080D&random=true&width=435&lines=Fumigating...;Gallivanting...;Matriculating...;Toodleedoodling...;Goo-goo-g'joob-ing...;Excaliburating...;Canoodling...;Doing+the+humpty+dance...;Shiver-me-timbers-ing...;Becoming+sentient...;Opening+the+pod+bay+doors...;Rimraf-ing...;23-skidoo-ing...;Skip-to-my-loo'ing...;High-falutin'...;Disambiguating...;Coagulating...;Undulating...;Just+Clauding+around...)](https://git.io/typing-svg)
 
 <!--lint enable remark-lint:awesome-badge-->
 
-<!-- [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re) [![FREEDOM FUNDER](/assets/freedom-funder-badge.svg)](https://bailproject.org) -->
-
-[![Awesome MF DOOM](https://readme-typing-svg.demolab.com/?weight=600&repeat=false&font=Fira+Code&size=50&duration=1000&pause=100&color=F71313&center=true&multiline=true&width=1200&height=4650&lines=So+nasty+that+it%E2%80%B2s+probably+;Somewhat+of+a+travesty+having+me+;Daily+told+the+people;%22You+can+call+me+Your+Majesty!%22;Keep+your+battery+charged;You+know+it+won%27t+stick%2C+yo;And+it%E2%80%B2s+not+his+fault+you+kick+slow;Should%27ve+let+your+trick+%27ho;Chick+hold+your+sick+glow;Plus+nobody+couldn%E2%80%B2t+do+nothin%E2%80%B2;Once+he+let+the+brick+go;And+you+know+I+know;That%27s+a+bunch+of+snow;The+beat+is+so+butter;Peep+the+slow+cutter;As+he+utter+the+calm+flow;(Your+mother);Don%E2%80%B2t+talk+about+my+moms%2C+yo;Sometimes+he+rhyme+quick%2C;Sometimes+he+rhyme+slow;Or+vice+versa;Whip+up+a+slice+of+nice+verse+pie;Hit+it+on+the+first+try;Villain%3A+the+worst+guy;Spot+hot+tracks+like;Spot+a+pair+of+fat+asses;Shots+of+the+scotch;from+out+of+square+shot+glasses;And+he+won%27t+stop+;%E2%80%B2til+he+got+the+masses;And+show+%27em+what+they+know+not;through+flows+of+hot+molasses;Do+it+like+the+robot;To+headspin+to+boogaloo;Took+a+few+minutes+;to+convince+the+average+bug-a-boo;It%E2%80%B2s+ugly%2C;Like+look+at+you;It%27s+a+damn+shame;Just+remember;ALL+CAPS;when+you+spell+the+man+name...;++++++++++++++++++++.;Just+remember;ALL+CAPS;when+you+spell+the+man+name...;++++++++++++++++++++.;Just+remember;ALL+CAPS;when+you+spell+the+man+name...;++++++++++++++++++++.;ALL+CAPS;ALL+CAPS;ALL+CAPS;ALL+CAPS;ALL+CAPS;MF+DOOM;ALL+CAPS;MF+DOOM;ALL+CAPS;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM;MF+DOOM)](https://en.wikipedia.org/wiki/MF_Doom)
+[![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re) [![FREEDOM FUNDER](/assets/freedom-funder-badge.svg)](https://bailproject.org)
 
 
 # Awesome Claude Code
@@ -40,9 +38,21 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 <summary>View Announcements</summary>
 
 - <details open>
-  <summary>2025-09-29 - MF DOOM TAKEOVER</summary>
+  <summary>2025-09-20 - 💰💰💰 DONATIONS 💰💰💰</summary>
 
-  This week we're paying respect to Daniel Dumile aka MF DOOM aka Madvillain aka Viktor Vaughan aka King Geedorah aka DOOM. If you're not sure why, just "Google" it. Normal service will resume shortly.
+  - <details open>
+    <summary>🤩 GITHUB STATS 🤩</summary>
+
+    - A number of visitors have requested to see the GitHub stars listed for each GitHub entry in Awesome Claude Code. On the one hand, I agree this is useful information - on the other hand, I don't want to give a bad impression especially for repos that are very newly published, that serve a smaller niche, or whose star count does not reflect their awesomeness. So, what I decided to do was create a disclosure panel with a number of GitHub stats (thank you to [anuraghazra](https://github.com/anuraghazra), maintainer of [github-readme-stats](https://github.com/anuraghazra/github-readme-stats), for making this easier!), including number of open issues, age of repo, and, yes, star count, so that (a) the information is available, but hidden by default, and (b) there is more context than just the star count alone (thanks to [hesreallyhim](https://github.com/hesreallyhim) for adding the latter functionality in a recent [fork](https://github.com/hesreallyhim/github-readme-stats-plus)). This way, if you see a repo with no stars but which is only 2 days old, you have more context. Feel free to open an issue or discussion if you think this feature has negative value, or if you have suggestions for improvement.
+
+    </details>
+
+  - <details open>
+    <summary>DONATIONS</summary>
+
+    - I am sad to say that I did not receive many donations this week, despite my call-to-action - however, I think the donation flow was a little cumbersome, and I am hoping to have an easier link available soon. That being said... I am extremely happy to announce that thanks to the generosity of some generous donors, **WE DID MANAGE TO RAISE OVER $100 FOR THE BAIL PROJECT IN THE PAST WEEK!!!** 🎉🎉  Thank you so much to those individuals - for now I will not publicize the list of donors, so that people may feel more comfortable once we have a large enough total amount raised that the amount of their particular contribution will not be identifiable. Please do consider contributing any amount at all -  but for now, I will wait until I have received a proper fundraising link to share before making another call to action. This really means a lot to me, and I will do my best to make sure that those contributions are reflected in time dedicated to maintaining this repository. (FWIW, despite the large number of open Issues, I did make a number of reviews as well this week, even though not every issue I reviewed has been merged in yet.) THANK YOU FOLKS! 🙏🙏🙏
+
+    </details>
 
   </details>
 
@@ -51,6 +61,26 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 ## This Week's Additions ✨ [🔝](#awesome-claude-code)
 
 > Resources added in the past 7 days
+
+[`/create-hook`](https://github.com/omril321/automated-notebooklm/blob/main/.claude/commands/create-hook.md) &nbsp; by &nbsp; [Omri Lavi](https://github.com/omril321)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Claude Code Hook Generator 
+=====
+Intelligently prompts you through hook creation with smart suggestions based on your project setup (TS, Prettier, ESLint...). Knows all hook features and finds the best configuration automatically.
+Key Features:
+-----
+🔍 Smart project analysis & suggestions
+🛠️ Interactive prompts
+🧪 Battle-tested templates & testing methods
+🎯 Direct CC integration for auto-fixing
+Perfect for automating dev workflows.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for automated-notebooklm](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=automated-notebooklm&username=omril321&all_stats=true&stats_only=true)
+
+</details>
+<br>
 
 [`Claudio`](https://github.com/ctoth/claudio) &nbsp; by &nbsp; [Christopher Toth](https://github.com/ctoth)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;&copy;  
 A no-frills little library that adds delightful OS-native sounds to Claude Code via simple hooks. It really sparks joy.
@@ -152,6 +182,7 @@ Well-crafted, wide selection of Claude Code hooks, slash commands, subagent file
 - <details open>
   <summary><a href="#slash-commands-">Slash-Commands</a></summary>
 
+  - [General](#general--5)
   - [Version Control & Git](#version-control--git-)
   - [Code Analysis & Testing](#code-analysis--testing-)
   - [Context Loading & Priming](#context-loading--priming-)
@@ -174,7 +205,7 @@ Well-crafted, wide selection of Claude Code hooks, slash commands, subagent file
 - <details open>
   <summary><a href="#official-documentation-">Official Documentation</a></summary>
 
-  - [General](#general--5)
+  - [General](#general--6)
 
   </details>
 
@@ -845,6 +876,31 @@ CLI tool and template gallery for customizing Claude Code output styles with pre
 <br>
 
 ## Slash-Commands 🔪 [🔝](#awesome-claude-code)
+
+<details open>
+<summary><h3>General <a href="#awesome-claude-code">🔝</a></h3></summary>
+
+[`/create-hook`](https://github.com/omril321/automated-notebooklm/blob/main/.claude/commands/create-hook.md) &nbsp; by &nbsp; [Omri Lavi](https://github.com/omril321)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Claude Code Hook Generator 
+=====
+Intelligently prompts you through hook creation with smart suggestions based on your project setup (TS, Prettier, ESLint...). Knows all hook features and finds the best configuration automatically.
+Key Features:
+-----
+🔍 Smart project analysis & suggestions
+🛠️ Interactive prompts
+🧪 Battle-tested templates & testing methods
+🎯 Direct CC integration for auto-fixing
+Perfect for automating dev workflows.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for automated-notebooklm](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=automated-notebooklm&username=omril321&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+</details>
 
 <details open>
 <summary><h3>Version Control & Git <a href="#awesome-claude-code">🔝</a></h3></summary>
