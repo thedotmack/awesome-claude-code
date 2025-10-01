@@ -52,6 +52,17 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 > Resources added in the past 7 days
 
+[`/create-hook`](https://github.com/omril321/automated-notebooklm/blob/main/.claude/commands/create-hook.md) &nbsp; by &nbsp; [Omri Lavi](https://github.com/omril321)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Slash command for hook creation - intelligently prompts you through the creation process with smart suggestions based on your project setup (TS, Prettier, ESLint...).
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for automated-notebooklm](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=automated-notebooklm&username=omril321&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
 [`Claudio`](https://github.com/ctoth/claudio) &nbsp; by &nbsp; [Christopher Toth](https://github.com/ctoth)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;&copy;  
 A no-frills little library that adds delightful OS-native sounds to Claude Code via simple hooks. It really sparks joy.
 
@@ -152,6 +163,7 @@ Well-crafted, wide selection of Claude Code hooks, slash commands, subagent file
 - <details open>
   <summary><a href="#slash-commands-">Slash-Commands</a></summary>
 
+  - [General](#general--5)
   - [Version Control & Git](#version-control--git-)
   - [Code Analysis & Testing](#code-analysis--testing-)
   - [Context Loading & Priming](#context-loading--priming-)
@@ -174,7 +186,7 @@ Well-crafted, wide selection of Claude Code hooks, slash commands, subagent file
 - <details open>
   <summary><a href="#official-documentation-">Official Documentation</a></summary>
 
-  - [General](#general--5)
+  - [General](#general--6)
 
   </details>
 
@@ -845,6 +857,22 @@ CLI tool and template gallery for customizing Claude Code output styles with pre
 <br>
 
 ## Slash-Commands 🔪 [🔝](#awesome-claude-code)
+
+<details open>
+<summary><h3>General <a href="#awesome-claude-code">🔝</a></h3></summary>
+
+[`/create-hook`](https://github.com/omril321/automated-notebooklm/blob/main/.claude/commands/create-hook.md) &nbsp; by &nbsp; [Omri Lavi](https://github.com/omril321)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Slash command for hook creation - intelligently prompts you through the creation process with smart suggestions based on your project setup (TS, Prettier, ESLint...).
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for automated-notebooklm](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=automated-notebooklm&username=omril321&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+</details>
 
 <details open>
 <summary><h3>Version Control & Git <a href="#awesome-claude-code">🔝</a></h3></summary>
