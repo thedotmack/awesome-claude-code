@@ -36,14 +36,13 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 {{WEEKLY_SECTION}}
 
-## Awesome Claude Code Freedom Funders [🔝](#awesome-claude-code)
+# **Support**
 
-- hesreallyhim (repository maintainer)
-- Others to be named once privacy is easier to guarantee.
+You can easily offer support by making a charitable donation in honor of Awesome Claude Code by visiting the [fundraising page](https://donor.bailproject.org/-/NPHKDQGP/join?member=SELFZPZN) I've set up for [The Bail Project](https://bailproject.org/). One click will take you straight to the donation widget, and a few seconds later your contribution will be completed - even $1 will truly make an impact. (If you are on GitHub, and you want your donation to be recognized, you will have to take about two more minutes to complete a follow-up email which actually notifies me of the dedication. As a reward you can show one of our nice Freedom Funder badges.) Sadly, this repo cannot be actively maintained without some direct support to this fund. Luckily there are loads of other resources devoted to Claude and his amazing Code, and it's up to you whether you think this one is particularly valuable or not.
 
-### Total Amount Raised: [🔝](#awesome-claude-code)
-
-**$130**
+<a href="https://donor.bailproject.org/-/NPHKDQGP/join?member=SELFZPZN" text-align="center">
+  <img src="../assets/fundraising-link-img.jpg" alt="Awesome Claude Code Freedom Funders" width="200" margin="auto" />
+</a>
 
 ## Contents [🔝](#awesome-claude-code)
 
@@ -59,28 +58,17 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 It's easy! Just click the link above and fill out the form. No Git knowledge required - our automated system handles everything for you.
 
-**We especially welcome:**
+**How we evaluate submissions**
 
-- Proven, effective resources that follow best practices and may even be in use in production
-- Innovative, creative, or experimental workflows that push the boundaries of Claude Code's capabilities
-- Additional libraries and tooling that are built on top of Claude Code
-- Applications of Claude Code outside of the traditional "coding assistant" context (CI/CD, testing, documentation, dev-ops, etc.)
+- First and foremost, best efforts are made to ensure that any resource on this list is free of malware, bloatware, or other unwanted risks.
+- Second, being a _curated_ list, every entry is manually evaluated and "tested out" to see if it actually delivers value to Claude Code users. If you want an _un-curated_ list, you can find many great resources [here](https://github.com/search?q=%22claude+code%22&type=repositories&s=stars&o=desc).
+
+**What we're looking for**
+
+- The Claude Code CLI/TUI has led the way in terms of its capabilities, range of features, and possibilites for configuration and optimization. As of late, many submissions have focused less on "what can you do with Claude Code?" and more on "how can I plug Claude Code in to 100 other cool things?" My goal is to focus on the former question, not because it's inherently more interesting, but because the internet is full of awesome things, and this particular repo is supposed to highlight awesome things you can do _with Claude Code_. That is to say, this is not a list for _general-purpose agent-configuration systems_ (however amazing those things are) - there are still plenty of people who sign up every day and go online and ask "What am I supposed to write in my `CLAUDE.md`"? Indie developers, such as those featured on this list, have often done much of the legwork to help those users get comfortable with the Claude Code ecosystem. So I encourage you to **keep exploring the possibilities that exist within Claude Code** - a small utility that is easy to install, easy to uninstall, and adds a dash of pleasure to the Claude Code experience, is more likely to be featured (or, more quickly, at least), than a full-fledged agent development framework that is more complex that Claude Code itself.
 
 See [CONTRIBUTING.md](/CONTRIBUTING.md) for the complete submission guide and review process.
 
 For suggestions about the repository itself, please [open a general issue](https://github.com/hesreallyhim/awesome-claude-code/issues/new).
 
-This project is released with a [Contributor Code of Conduct](/code-of-conduct.md). By participating, you agree to abide by its terms.
-
-## Donations 💰 [🔝](#awesome-claude-code)
-
-I like drinking coffee, but I _really_ like bail relief.
-
-If you want to support this repository, you can do so by making a donation in my name to [The Bail Project](https://bailproject.org/), which helps pay for people's cash bail, so that people who are presumed innocent don't have to sit in a cage waiting for a court appearance. Although that doesn't directly compensate any of my work here, it would motivate me to continue to devote my time, energy, and resources, and any reader or project that donates will receive recognition (including one of these badass badges). Please check out the [DONATING](/DONATING.md) page for detailed information.
-
-**FREEDOM FUNDER BADGE**
-![FREEDOM FUNDER](/assets/freedom-funder-badge.svg)
-
-### A note about licenses [🔝](#awesome-claude-code)
-
-Because simply listing a hyperlink does not qualify as redistribution, the license of the original source is not relevant to its inclusion. However, for posterity and convenience, we do host copies of all resources whose license permits it. Therefore, please include information about the resource's license. Additionally, take note: _if you do not include a LICENSE in your GitHub repo, then by default it is fully copyrighted and redistribution is not allowed_. So, if you are intending to make an open source project, it's critical to pick from one of the many available open source licenses. This is just a reminder that without a LICENSE, your project is not open source (it's merely source-code-available) - it may of course still be included on this list, but this notice is to inform readers about the default rules regarding GitHub and LICENSE files. See [here](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository) for more details.
+This project is released with a [Contributor Code of Conduct](/code-of-conduct.md). By participating, you agree to abide by its terms. And although I take strong measures to uphold the quality and safety of this list, like Anthropic, I take no responsibility or liability for anything bad that might happen as a result of these third-party resources. 
