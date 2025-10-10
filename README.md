@@ -69,6 +69,17 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 > Resources added in the past 7 days
 
+[`Vibe-Log Claude Code Status Line Strategic co-pilot and prompt analysis and improvements`](https://github.com/vibe-log/vibe-log-cli) &nbsp; by &nbsp; [Vibe-Log](https://github.com/vibe-log)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Analyzes your Claude Code prompts locally (using CC), provides intelligent session analysis and actionable strategic guidance - works in the statusline and produces very pretty HTML reports as well. Easy to install and remove.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for vibe-log-cli](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=vibe-log-cli&username=vibe-log&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
 [`RIPER Workflow`](https://github.com/tony/claude-code-riper-5) &nbsp; by &nbsp; [Tony Narlock](https://tony.sh)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 Structured development workflow enforcing separation between Research, Innovate, Plan, Execute, and Review phases. Features consolidated subagents for context-efficiency, branch-aware memory bank, and strict mode enforcement for guided development.
 
@@ -516,6 +527,17 @@ Command-line tool to customize your Claude Code styling.
 <summary>📊 GitHub Stats</summary>
 
 ![GitHub Stats for tweakcc](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=tweakcc&username=Piebald-AI&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Vibe-Log Claude Code Status Line Strategic co-pilot and prompt analysis and improvements`](https://github.com/vibe-log/vibe-log-cli) &nbsp; by &nbsp; [Vibe-Log](https://github.com/vibe-log)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Analyzes your Claude Code prompts locally (using CC), provides intelligent session analysis and actionable strategic guidance - works in the statusline and produces very pretty HTML reports as well. Easy to install and remove.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for vibe-log-cli](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=vibe-log-cli&username=vibe-log&all_stats=true&stats_only=true)
 
 </details>
 <br>
