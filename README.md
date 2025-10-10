@@ -69,6 +69,17 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 > Resources added in the past 7 days
 
+[`RIPER Workflow`](https://github.com/tony/claude-code-riper-5) &nbsp; by &nbsp; [Tony Narlock](https://tony.sh)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Structured development workflow enforcing separation between Research, Innovate, Plan, Execute, and Review phases. Features consolidated subagents for context-efficiency, branch-aware memory bank, and strict mode enforcement for guided development.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for claude-code-riper-5](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claude-code-riper-5&username=tony&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
 [`ContextKit`](https://github.com/FlineDev/ContextKit) &nbsp; by &nbsp; [Cihat Gündüz](https://github.com/Jeehut)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 A systematic development framework that transforms Claude Code into a proactive development partner. Features 4-phase planning methodology, specialized quality agents, and structured workflows that help AI produce production-ready code on first try.
 
@@ -304,6 +315,17 @@ A set of commands that provide a comprehensive workflow system for managing proj
 <summary>📊 GitHub Stats</summary>
 
 ![GitHub Stats for dotfiles](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=dotfiles&username=harperreed&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`RIPER Workflow`](https://github.com/tony/claude-code-riper-5) &nbsp; by &nbsp; [Tony Narlock](https://tony.sh)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Structured development workflow enforcing separation between Research, Innovate, Plan, Execute, and Review phases. Features consolidated subagents for context-efficiency, branch-aware memory bank, and strict mode enforcement for guided development.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for claude-code-riper-5](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claude-code-riper-5&username=tony&all_stats=true&stats_only=true)
 
 </details>
 <br>
