@@ -69,24 +69,14 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 > Resources added in the past 7 days
 
-[`/create-hook`](https://github.com/omril321/automated-notebooklm/blob/main/.claude/commands/create-hook.md) &nbsp; by &nbsp; [Omri Lavi](https://github.com/omril321)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;Apache-2.0  
-Slash command for hook creation - intelligently prompts you through the creation process with smart suggestions based on your project setup (TS, Prettier, ESLint...).
+[`claudia-statusline`](https://github.com/hagan/claudia-statusline) &nbsp; by &nbsp; [Hagan Franks](https://github.com/hagan)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+High-performance Rust-based statusline for Claude Code with persistent stats tracking, progress bars, and optional cloud sync.
+Features SQLite-first persistence, git integration (porcelain v1/v2), context progress bars, burn rate calculation, and optional Turso cloud sync for cross-machine analytics. XDG-compliant with theme support (dark/light, NO_COLOR).
 
 <details>
 <summary>📊 GitHub Stats</summary>
 
-![GitHub Stats for automated-notebooklm](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=automated-notebooklm&username=omril321&all_stats=true&stats_only=true)
-
-</details>
-<br>
-
-[`Claudio`](https://github.com/ctoth/claudio) &nbsp; by &nbsp; [Christopher Toth](https://github.com/ctoth)    
-A no-frills little library that adds delightful OS-native sounds to Claude Code via simple hooks. It really sparks joy.
-
-<details>
-<summary>📊 GitHub Stats</summary>
-
-![GitHub Stats for claudio](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claudio&username=ctoth&all_stats=true&stats_only=true)
+![GitHub Stats for claudia-statusline](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claudia-statusline&username=hagan&all_stats=true&stats_only=true)
 
 </details>
 <br>
@@ -721,6 +711,18 @@ A vim-style powerline statusline for Claude Code with real-time usage tracking, 
 <summary>📊 GitHub Stats</summary>
 
 ![GitHub Stats for claude-powerline](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claude-powerline&username=Owloops&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`claudia-statusline`](https://github.com/hagan/claudia-statusline) &nbsp; by &nbsp; [Hagan Franks](https://github.com/hagan)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+High-performance Rust-based statusline for Claude Code with persistent stats tracking, progress bars, and optional cloud sync.
+Features SQLite-first persistence, git integration (porcelain v1/v2), context progress bars, burn rate calculation, and optional Turso cloud sync for cross-machine analytics. XDG-compliant with theme support (dark/light, NO_COLOR).
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for claudia-statusline](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claudia-statusline&username=hagan&all_stats=true&stats_only=true)
 
 </details>
 <br>
