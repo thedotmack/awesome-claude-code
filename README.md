@@ -11,9 +11,12 @@
   
 </div>
 
+[![Agent Skills](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=30&duration=3000&pause=10&color=F7080D&center=true&multiline=true&repeat=false&width=1000&height=700&lines=I+don't+know+who+you+are...;I+don't+know+what+you+want...;If+you+are+looking+for+money...;I+can+tell+you+I+have+loads+of+it.;I+also+have+a+very+particular+set+of+Skills.;Skills+I+have+acquired+over...;A+bunch+of+days.;Skills+that+make+agentic+coding+really+fun...;For+people+like+you.;If+you+share+your+Skills+here...;That+will+be+very+awesome.;I+will+not+look+for+you...;I+will+not+pursue+you.;...;But+if+you+don't...;I+will+look+for+you...;I+will+find+you...;...;And+I+will+vibe+with+you.;%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80%F0%9F%9A%80)](https://docs.claude.com/en/docs/claude-code/skills)
+
+
 <!-- Generated with https://github.com/denvercoder1/readme-typing-svg -->
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&pause=1000&color=F7080D&random=true&width=435&lines=Fumigating...;Gallivanting...;Matriculating...;Toodleedoodling...;Goo-goo-g'joob-ing...;Excaliburating...;Canoodling...;Doing+the+humpty+dance...;Shiver-me-timbers-ing...;Becoming+sentient...;Opening+the+pod+bay+doors...;Rimraf-ing...;23-skidoo-ing...;Skip-to-my-loo'ing...;High-falutin'...;Disambiguating...;Coagulating...;Undulating...;Just+Clauding+around...)](https://git.io/typing-svg)
+<!-- [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&pause=1000&color=F7080D&random=true&width=435&lines=Fumigating...;Gallivanting...;Matriculating...;Toodleedoodling...;Goo-goo-g'joob-ing...;Excaliburating...;Canoodling...;Doing+the+humpty+dance...;Shiver-me-timbers-ing...;Becoming+sentient...;Opening+the+pod+bay+doors...;Rimraf-ing...;23-skidoo-ing...;Skip-to-my-loo'ing...;High-falutin'...;Disambiguating...;Coagulating...;Undulating...;Just+Clauding+around...)](https://git.io/typing-svg) -->
 
 <!--lint enable remark-lint:awesome-badge-->
 
@@ -32,7 +35,7 @@ This is a curated list of slash-commands, `CLAUDE.md` files, CLI tools, and othe
 
 Claude Code is a cutting-edge CLI-based coding assistant and agent released by [Anthropic](https://www.anthropic.com/) that you can access in your terminal or IDE. It is a rapidly evolving tool that offers a number of powerful capabilities, and allows for a lot of configuration, in a lot of different ways. Users are actively working out best practices and workflows. It is the hope that this repo will help the community share knowledge and understand how to get the most out of Claude Code.
 
-<div align="center"><h2>SHOW OFF YOUR (AGENT) SKILLS!</h2></div>
+<div align="center"><h2>SHOW OFF YOUR (AGENT) SKILLS!</h2><div>
 
 ### Announcements [🔝](#awesome-claude-code)
 
@@ -150,6 +153,12 @@ You can easily offer support by making a charitable donation in honor of Awesome
 <summary>Table of Contents</summary>
 
 - <details open>
+  <summary><a href="#agent-skills-">Agent Skills</a></summary>
+
+
+  </details>
+
+- <details open>
   <summary><a href="#workflows--knowledge-guides-">Workflows & Knowledge Guides</a></summary>
 
   - [General](#general-)
@@ -218,6 +227,12 @@ You can easily offer support by making a charitable donation in honor of Awesome
   </details>
 
 </details>
+
+<br>
+
+## Agent Skills 🤖 [🔝](#awesome-claude-code)
+
+> **Agent skills** are model-controlled configurations (files, scripts, resources, etc.) that enable Claude Code to perform specialized tasks requiring specific knowledge or capabilities.
 
 <br>
 
