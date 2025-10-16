@@ -317,11 +317,11 @@ def main():
     # Process CSV file
     csv_path = os.path.join(os.path.dirname(__file__), "..", "THE_RESOURCES_TABLE.csv")
 
-    # Check for initialization mode
-    if "--init" in sys.argv:
-        print("Initializing processed repos with all existing entries...")
-        initialize_processed_repos_with_existing(csv_path)
-        return
+    # # Check for initialization mode
+    # if "--init" in sys.argv:
+    #     print("Initializing processed repos with all existing entries...")
+    #     initialize_processed_repos_with_existing(csv_path)
+    #     return
 
     awesome_cc_token = os.environ.get("AWESOME_CC_PAT_PUBLIC_REPO", None)
     if not awesome_cc_token:
