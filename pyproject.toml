@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "awesome-claude-code"
-version = "1.0.0"
+version = "2.0.0"
 description = "A curated list of slash-commands, CLAUDE.md files, CLI tools, and other resources for enhancing Claude Code workflows"
 authors = [{ name = "Really Him", email = "hesreallyhim@proton.me" }]
 readme = "README.md"

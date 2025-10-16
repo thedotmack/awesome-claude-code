@@ -33,7 +33,10 @@ overrides:
     license_locked: true
   status-bb559460:
     license: "MIT"
-    license_locke: true
+    license_locked: true
+  tool-1e4657fd:
+    license: "MIT"
+    license_locked: true
 # Supported override fields:
 # - license: Override the detected license
 # - license_locked: Prevent license validation from updating

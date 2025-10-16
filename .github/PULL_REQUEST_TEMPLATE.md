@@ -36,16 +36,6 @@
 <!-- Check if applicable -->
 - [ ] This is a GitHub-hosted resource and will receive an automatic notification issue when merged
 
-### Checklist for New Resources
-
-<!-- All items must be checked -->
-
-- [ ] Used `make add-resource` or `python scripts/add_resource.py` to add the resource
-- [ ] OR manually added entry to `THE_RESOURCES_TABLE.csv`
-- [ ] Ran `make generate` to update README.md
-- [ ] Verified link works and points to correct resource
-- [ ] Description is concise (1-2 sentences max)
-
 ---
 
 ## For Resource Updates
@@ -57,12 +47,6 @@
 - **Resource Name**:
 - **Change Type**: <!-- e.g., Fix broken link, Update license, Update description -->
 - **Details**:
-
-### Checklist for Updates
-
-- [ ] Updated entry in `THE_RESOURCES_TABLE.csv`
-- [ ] Ran `make generate` to update README.md
-- [ ] Verified new information is correct
 
 ---
 
@@ -89,5 +73,4 @@
 ## Questions?
 
 - See [CONTRIBUTING.md](../CONTRIBUTING.md) for detailed contribution guidelines
-- Use `make add-resource` for guided resource submission
-- The CSV approach ensures consistent formatting - never edit README.md directly!
+- See [HOW_IT_WORKS.md](../HOW_IT_WORKS.md) for detailed information about how it works.
