@@ -144,6 +144,7 @@ IDs follow the format: `{prefix}-{hash}`
 
 ```python
 prefixes = {
+    "Agent Skills": "skill",
     "Slash-Commands": "cmd",
     "Workflows & Knowledge Guides": "wf",
     "Tooling": "tool",

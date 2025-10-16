@@ -5,13 +5,24 @@
 # All scripts and templates will automatically use these definitions.
 
 categories:
+  - id: skills
+    name: "Agent Skills"
+    prefix: skill
+    icon: "🤖"
+    description: |
+      > **Agent skills** are model-controlled configurations (files, scripts, resources, etc.) that enable Claude Code to perform specialized tasks requiring specific knowledge or capabilities.
+    order: 1
+    subcategories:
+      - id: general
+        name: "General"
+
   - id: workflows
     name: "Workflows & Knowledge Guides"
     prefix: wf
     icon: "🧠"
     description: |
       > A **workflow** is a tightly coupled set of Claude Code-native resources that facilitate specific projects
-    order: 1
+    order: 2
     subcategories:
       - id: general
         name: "General"
@@ -22,7 +33,7 @@ categories:
     icon: "🧰"
     description: |
       > **Tooling** denotes applications that are built on top of Claude Code and consist of more components than slash-commands and `CLAUDE.md` files
-    order: 2
+    order: 3
     subcategories:
       - id: general
         name: "General"
@@ -39,7 +50,7 @@ categories:
     icon: "📊"
     description: |
       > **Status lines** - Configurations and customizations for Claude Code's status bar functionality
-    order: 3
+    order: 4
     subcategories:
       - id: general
         name: "General"
@@ -50,7 +61,7 @@ categories:
     icon: "🪝"
     description: |
       > **Hooks** are a powerful API for Claude Code that allows users to activate commands and run scripts at different points in Claude's agentic lifecycle.
-    order: 4
+    order: 5
     subcategories:
       - id: general
         name: "General"
@@ -61,7 +72,7 @@ categories:
     icon: "💬"
     description: |
       > **Output styles** allow you to use Claude Code as any type of agent while keeping its core capabilities, such as running local scripts, reading/writing files, and tracking TODOs.
-    order: 5
+    order: 6
     subcategories:
       - id: general
         name: "General"
@@ -71,7 +82,7 @@ categories:
     prefix: cmd
     icon: "🔪"
     description: ""
-    order: 6
+    order: 7
     subcategories:
       - id: general
         name: "General"
@@ -96,7 +107,7 @@ categories:
     icon: "📂"
     description: |
       > **`CLAUDE.md` files** are files that contain important guidelines and context-specific information or instructions that help Claude Code to better understand your project and your coding standards
-    order: 7
+    order: 8
     subcategories:
       - id: general
         name: "General"
@@ -115,7 +126,7 @@ categories:
       > Links to some of Anthropic's terrific documentation and resources regarding Claude Code
 
       <!--lint disable double-link-->
-    order: 8
+    order: 9
     subcategories:
       - id: general
         name: "General"

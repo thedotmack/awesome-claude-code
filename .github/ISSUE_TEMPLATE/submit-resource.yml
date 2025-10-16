@@ -41,6 +41,7 @@ body:
       label: Category
       description: Select the primary category for your resource
       options:
+        - Agent Skills
         - Workflows & Knowledge Guides
         - Tooling
         - Status Lines
