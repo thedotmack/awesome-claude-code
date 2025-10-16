@@ -197,40 +197,6 @@ class ResourceSubmitter:
         user_input = input(prompt_text).strip()
         return user_input if user_input else default
 
-    def install_git_hooks(self) -> bool:
-        """
-        Install git hooks for the repository.
-
-        Returns:
-            True if hooks were installed successfully, False otherwise
-        """
-        try:
-            hooks_dir = self.repo_root / "hooks"
-            git_hooks_dir = self.repo_root / ".git" / "hooks"
-
-            # Check if pre-push hook exists in the hooks directory
-            pre_push_source = hooks_dir / "pre-push"
-            if pre_push_source.exists():
-                pre_push_dest = git_hooks_dir / "pre-push"
-
-                # Copy the hook
-                import shutil
-
-                shutil.copy2(pre_push_source, pre_push_dest)
-
-                # Make it executable
-                os.chmod(pre_push_dest, 0o755)
-
-                self.logger.info("✓ Pre-push hook installed successfully")
-                return True
-            else:
-                self.logger.debug("Pre-push hook not found in hooks directory")
-                return True  # Not a failure, just nothing to install
-
-        except Exception as e:
-            self.logger.error(f"Failed to install git hooks: {e}")
-            return False
-
     def check_prerequisites(self) -> bool:
         """
         Check all prerequisites before starting the workflow.

@@ -1,5 +1,7 @@
 # Scripts Directory
 
+**[DEPRECATED: Most of the information here is probably deprecated and will be removed as I continue to tidy up.]**
+
 This directory contains all automation scripts for managing the Awesome Claude Code repository. The scripts work together to provide a complete workflow for resource management, from addition to pull request submission.
 
 **Important Note**: While the primary submission workflow has moved to GitHub Issues for better user experience, we maintain these manual scripts for several critical purposes:
@@ -8,9 +10,6 @@ This directory contains all automation scripts for managing the Awesome Claude C
 - **Testing and debugging** the automation pipeline
 - **Emergency recovery** when automated systems fail
 
-The scripts below fall into two categories:
-- **Automated Backend Scripts**: Used by GitHub Actions to process issue submissions (`parse_issue_form.py`, `create_resource_pr.py`)
-- **Manual Admin Scripts**: Available for maintainer use and backup purposes (`add_resource.py`, `submit_resource.py`)
 
 ## Overview
 
@@ -77,7 +76,6 @@ These scripts power the GitHub Issues-based submission workflow and are executed
 - GitHub repository metadata fetching
 - Duplicate detection
 - CSV backup before modification
-- Automatic pre-push hook installation
 
 ### 2. `generate_readme.py`
 **Purpose**: Generates README.md from CSV data using templates
@@ -108,7 +106,6 @@ The generated README uses collapsible `<details>` elements for better navigation
 **Features**:
 - Complete automation from add to PR
 - Pre-flight checks (git, gh CLI, authentication)
-- Automatic pre-push hook installation
 - Interactive review points
 - Smart branch naming
 - Pre-commit hook handling
@@ -156,17 +153,6 @@ The generated README uses collapsible `<details>` elements for better navigation
 - `validate_single_resource()`: Validates URL and fetches metadata using kwargs
 - Used by `add_resource.py` for real-time validation
 - Supports both regular URLs and GitHub repositories
-
-### 8. `validate_new_resource.py`
-**Purpose**: Pre-push hook validation for new resources  
-**Usage**: `make validate_new_resource` (or automatically via git pre-push hook)  
-**Features**:
-- Compares current branch against upstream/main
-- Ensures exactly one resource added per PR
-- Validates the new resource entry
-- Updates CSV with validation results
-- Provides clear error messages for common issues
-- Installed automatically by submission workflows
 
 ### 9. `sort_resources.py`
 **Purpose**: Sorts CSV entries by category hierarchy  
@@ -265,14 +251,8 @@ These commands remain available for maintainers and emergency situations:
 
 #### Adding a Resource Manually
 ```bash
-make add_resource      # Interactive addition (installs pre-push hook)
 make generate         # Regenerate README
 make validate         # Validate all links
-```
-
-#### One-Command Manual Submission
-```bash
-make submit           # Complete flow from add to PR (installs pre-push hook)
 ```
 
 ### Maintenance Tasks
@@ -280,8 +260,6 @@ make submit           # Complete flow from add to PR (installs pre-push hook)
 make sort            # Sort CSV entries
 make validate        # Check all links
 make download-resources  # Archive resources
-make validate_new_resource  # Manually run pre-push validation
-make install-hooks   # Manually install git hooks
 ```
 
 ## Configuration
@@ -290,7 +268,6 @@ Scripts respect these configuration files:
 - `.templates/resource-overrides.yaml`: Manual overrides for resources
 - `.processed_repos.json`: Tracks notified repositories
 - `.env`: Environment variables (not tracked in git)
-- `hooks/pre-push`: Git pre-push hook for validation
 
 ## Environment Variables
 
@@ -307,8 +284,6 @@ Scripts respect these configuration files:
 4. Consistent use of pathlib for cross-platform compatibility
 5. Type hints and docstrings throughout
 6. Scripts can be run standalone or through Make targets
-7. Pre-push validation enforces one resource per PR policy
-8. Automatic hook installation in submission workflows
 
 ### Naming Conventions
 

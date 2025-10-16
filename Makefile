@@ -7,7 +7,7 @@ else
 endif
 SCRIPTS_DIR := ./scripts
 
-.PHONY: help process validate validate-single validate_new_resource update clean test generate download-resources add_resource sort submit submit-resource format format-check
+.PHONY: help process validate validate-single update clean test generate download-resources add_resource sort submit submit-resource format format-check
 
 help:
 	@echo "Available commands:"
@@ -16,8 +16,6 @@ help:
 	@echo "  make process           - Extract resources from README.md and create/update CSV"
 	@echo "  make validate          - Validate all links in the resource CSV"
 	@echo "  make validate-single URL=<url> - Validate a single resource URL"
-	@echo "  make validate_new_resource - Validate new resource (pre-push check)"
-	@echo "  make install-hooks    - Install git hooks (including pre-push validation)"
 	@echo "  make test              - Run validation tests on test CSV"
 	@echo "  make format            - Check and fix code formatting with ruff"
 	@echo "  make format-check      - Check code formatting without fixing"
@@ -65,18 +63,6 @@ validate-single:
 		exit 1; \
 	fi
 	@$(PYTHON) $(SCRIPTS_DIR)/validate_single_resource.py "$(URL)" $(if $(SECONDARY),--secondary "$(SECONDARY)") $(if $(NAME),--name "$(NAME)")
-
-# Validate only the newest added resource (pre-push hook)
-validate_new_resource:
-	@echo "Validating new resource (pre-push check)..."
-	@$(PYTHON) $(SCRIPTS_DIR)/validate_new_resource.py
-
-# Install git hooks
-install-hooks:
-	@echo "Installing git hooks..."
-	@cp hooks/pre-push .git/hooks/pre-push
-	@chmod +x .git/hooks/pre-push
-	@echo "Pre-push hook installed successfully!"
 
 # Run all tests using pytest
 test:
