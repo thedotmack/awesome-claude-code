@@ -4,12 +4,16 @@
 #   - A simple string (rendered as plain text)
 #   - An object with 'summary' and 'text' keys (rendered as collapsible details)
 
+- date: "2025-10-16"
+  title: "**AGENT SKILLS**"
+  items:
+    - summary: "Claude Got Skills"
+      text: >
+        In my previous announcement, I encouraged people to submit resources that explored features specific to _Claude Code_. So Claude read the post (he checks the list a lot), and was like "hold my martini" - and as of version 2.0.20 it looks like we've got a **new** set of toys for users to play with: [**Agent Skills**](https://docs.claude.com/en/docs/claude-code/skills). So for now I'm going to be focusing a lot on figuring out what you can do with this new feature set, and Skills submissions will be prioritized. Watch this space for updates.
 - date: "2025-10-06"
   title: "Awesome Claude Code 2.0"
   items:
     - summary: "Fundraising update"
       text: >
         I've managed at last to secure a dedicated, direct-link, one-click fundraising widget for my campaign to support [The Bail Project](https://bailproject.org/). See <a href="#support">Support</a> below for more details, and click [here](https://donor.bailproject.org/-/NPHKDQGP?member=SELFZPZN) to contribute.
-    - summary: "Content update"
-      text: >
-        Thanks to the hard work that so many people have devoted to writing code for other users of Claude Code, the current list has reached a very respectable size, with about 150 resource listings. As Claude Code has now reached 2nd grade, I am thinking more about how best to manage the list going forward. First, I'd like to ensure that existing resources are still relevant and compatible with the current version of Claude Code. I think some categories (I'm thinking in particular of usage monitors and bespoke orchestration frameworks) are more or less at capacity. For those wishing to submit to the Awesome List, I would like to strongly encourage exploration of any new or recent features that have been, or will be, rolled out - and to think about how to creatively leverage the existing features of _Claude Code_, as opposed to finding new ways to hook up Claude Code to something _else_. (For a bit more detail, see <a href="./DONTREADME.md">`DONTREADME.md`</a>.) In addition to this, due to personal factors and social ailments such as "rent", I must be mindful of the time I devote to this project, which is non-trivial - and, sadly, because GitHub is not as cool as reddit, I operate at a loss in maintaining this repo. For now, I am temporarily suspending any commitment to maintaining the Issue submissions as a FIFO _queue_ of items that must be evaluated in a timely fashion. You are absolutely encouraged to submit your projects, and I respect everybody's hard work and will make my best effort to review submissions as they come in. Futher maintenance support may be coming soon, but until then, I will be adding items as I see fit, whether they are from the Issues list or those that I discover on my own. If you want to support more activate maintenance and attention towards reviewing submissions, you may see the <a href="#support">Support</a> section below. Frankly, everyone on the list probably deserves some compensation for helping make Claude Code such a popular and awesome product, but I don't control the purse strings.
+  
