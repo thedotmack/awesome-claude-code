@@ -94,50 +94,6 @@ VoiceMode MCP brings natural conversations to Claude Code. It supports any OpenA
 </details>
 <br>
 
-[`Vibe-Log`](https://github.com/vibe-log/vibe-log-cli) &nbsp; by &nbsp; [Vibe-Log](https://github.com/vibe-log)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-Analyzes your Claude Code prompts locally (using CC), provides intelligent session analysis and actionable strategic guidance - works in the statusline and produces very pretty HTML reports as well. Easy to install and remove.
-
-<details>
-<summary>📊 GitHub Stats</summary>
-
-![GitHub Stats for vibe-log-cli](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=vibe-log-cli&username=vibe-log&all_stats=true&stats_only=true)
-
-</details>
-<br>
-
-[`RIPER Workflow`](https://github.com/tony/claude-code-riper-5) &nbsp; by &nbsp; [Tony Narlock](https://tony.sh)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-Structured development workflow enforcing separation between Research, Innovate, Plan, Execute, and Review phases. Features consolidated subagents for context-efficiency, branch-aware memory bank, and strict mode enforcement for guided development.
-
-<details>
-<summary>📊 GitHub Stats</summary>
-
-![GitHub Stats for claude-code-riper-5](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claude-code-riper-5&username=tony&all_stats=true&stats_only=true)
-
-</details>
-<br>
-
-[`ContextKit`](https://github.com/FlineDev/ContextKit) &nbsp; by &nbsp; [Cihat Gündüz](https://github.com/Jeehut)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-A systematic development framework that transforms Claude Code into a proactive development partner. Features 4-phase planning methodology, specialized quality agents, and structured workflows that help AI produce production-ready code on first try.
-
-<details>
-<summary>📊 GitHub Stats</summary>
-
-![GitHub Stats for ContextKit](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=ContextKit&username=FlineDev&all_stats=true&stats_only=true)
-
-</details>
-<br>
-
-[`claudia-statusline`](https://github.com/hagan/claudia-statusline) &nbsp; by &nbsp; [Hagan Franks](https://github.com/hagan)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-High-performance Rust-based statusline for Claude Code with persistent stats tracking, progress bars, and optional cloud sync. Features SQLite-first persistence, git integration, context progress bars, burn rate calculation, XDG-compliant with theme support (dark/light, NO_COLOR).
-
-<details>
-<summary>📊 GitHub Stats</summary>
-
-![GitHub Stats for claudia-statusline](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claudia-statusline&username=hagan&all_stats=true&stats_only=true)
-
-</details>
-<br>
-
 
 # **Support**
 
@@ -146,6 +102,42 @@ You can easily offer support by making a charitable donation in honor of Awesome
 <a href="https://donor.bailproject.org/-/NPHKDQGP?member=SELFZPZN" text-align="center">
   <img src="./assets/fundraising-link-img.jpg" alt="Awesome Claude Code Freedom Funders" width="200" margin="auto" />
 </a>
+
+## **AWESOME-CLAUDE-CODE HALL OF FAME**
+
+A curated list of the most legendary open-source contributors you will ever meet.
+
+## 🏆 FIRST PLACE
+
+## 1. [**schlunsen**](https://github.com/schlunsen)
+
+### Contributions:
+
+- Failed to read the Contributing guidelines and so opened a PR, instead of an Issue, to submit his resource to the list.
+
+- Left me a [really memorable message](https://github.com/hesreallyhim/awesome-claude-code/issues/228#issuecomment-3424089032) in the comment thread of this Issue:
+
+[![schlunsen Comment]](/assets/schlunsen-comment.png)
+
+- After seeing what a noble person schlunsen was, I decided to check out his profile and see if I could find any other hidden gems. First, I was prety impressed, because according to his `github-readme-stats` card, he's an **A+ CONTRIBUTOR** on GitHub. That's pretty impressive. Maybe he was right to act in flagrant violation of GitHub's Community Guidelines. What if one day I could be an A+ contributor... Well, guess what? YOU CAN!
+
+- schlunsen has created an **AWESOME** fork of the ever-popular [`github-readme-stats`](https://github.com/anuraghazra/github-readme-stats), with one super-amazing enhancement... Everyone gets an A+.
+
+
+| The real [github-readme-stats](https://github.com/anuraghazra/github-readme-stats) Vercel instance | [schlunsen's](https://github.com/schlunsen) fork (private instance) |
+|----|----|
+| [![real](https://github-readme-stats.vercel.app/api?username=schlunsen&show_icons=true&theme=ayu-mirage)](https://github-readme-stats.vercel.app/api?username=schlunsen&show_icons=true&theme=ayu-mirage) | [![fake](https://github-readme-stats-ten-gilt.vercel.app/api?username=schlunsen&show_icons=true&theme=ayu-mirage)](https://github-readme-stats-ten-gilt.vercel.app/api?username=schlunsen&show_icons=true&theme=ayu-mirage) |
+
+- Since I hate grades anyway, I think that's really cool. Anyway, hats off to this guy. Sometimes when I'm coding at 4 A.M. I wonder whether this project still merits my time. But then I think about all the people I get to help, like my good friend... schlunsen.
+
+### BONUS 🎉 - Can YOU spot the difference in schlunsen's resource submission?
+
+[![schlunsen issue submission](/assets/schlunsens-submission.png)](https://github.com/hesreallyhim/awesome-claude-code/issues?q=is%3Aissue%20state%3Aclosed)
+
+#### Isn't this kind of... petty?
+
+Yep... OK, back to the show!
+
 
 ## Contents [🔝](#awesome-claude-code)
 
