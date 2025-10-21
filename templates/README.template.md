@@ -35,7 +35,7 @@ This is a curated list of slash-commands, `CLAUDE.md` files, CLI tools, and othe
 
 Claude Code is a cutting-edge CLI-based coding assistant and agent released by [Anthropic](https://www.anthropic.com/) that you can access in your terminal or IDE. It is a rapidly evolving tool that offers a number of powerful capabilities, and allows for a lot of configuration, in a lot of different ways. Users are actively working out best practices and workflows. It is the hope that this repo will help the community share knowledge and understand how to get the most out of Claude Code.
 
-<div align="center"><h2>SHOW OFF YOUR (AGENT) SKILLS!</h2><div>
+<div align="center"><h2>SHOW OFF YOUR (AGENT) SKILLS!</h2></div>
 
 {{ANNOUNCEMENTS}}
 
@@ -48,6 +48,42 @@ You can easily offer support by making a charitable donation in honor of Awesome
 <a href="https://donor.bailproject.org/-/NPHKDQGP?member=SELFZPZN" text-align="center">
   <img src="./assets/fundraising-link-img.jpg" alt="Awesome Claude Code Freedom Funders" width="200" margin="auto" />
 </a>
+
+## **AWESOME-CLAUDE-CODE HALL OF FAME**
+
+A curated list of the most legendary open-source contributors you will ever meet.
+
+## 🏆 FIRST PLACE
+
+## 1. [**schlunsen**](https://github.com/schlunsen)
+
+### Contributions:
+
+- Failed to read the Contributing guidelines and so opened a PR, instead of an Issue, to submit his resource to the list.
+
+- Left me a [really memorable message](https://github.com/hesreallyhim/awesome-claude-code/issues/228#issuecomment-3424089032) in the comment thread of this Issue:
+
+[![schlunsen Comment]](/assets/schlunsen-comment.png)
+
+- After seeing what a noble person schlunsen was, I decided to check out his profile and see if I could find any other hidden gems. First, I was prety impressed, because according to his `github-readme-stats` card, he's an **A+ CONTRIBUTOR** on GitHub. That's pretty impressive. Maybe he was right to act in flagrant violation of GitHub's Community Guidelines. What if one day I could be an A+ contributor... Well, guess what? YOU CAN!
+
+- schlunsen has created an **AWESOME** fork of the ever-popular [`github-readme-stats`](https://github.com/anuraghazra/github-readme-stats), with one super-amazing enhancement... Everyone gets an A+.
+
+
+| The real [github-readme-stats](https://github.com/anuraghazra/github-readme-stats) Vercel instance | [schlunsen's](https://github.com/schlunsen) fork (private instance) |
+|----|----|
+| [![real](https://github-readme-stats.vercel.app/api?username=schlunsen&show_icons=true&theme=ayu-mirage)](https://github-readme-stats.vercel.app/api?username=schlunsen&show_icons=true&theme=ayu-mirage) | [![fake](https://github-readme-stats-ten-gilt.vercel.app/api?username=schlunsen&show_icons=true&theme=ayu-mirage)](https://github-readme-stats-ten-gilt.vercel.app/api?username=schlunsen&show_icons=true&theme=ayu-mirage) |
+
+- Since I hate grades anyway, I think that's really cool. Anyway, hats off to this guy. Sometimes when I'm coding at 4 A.M. I wonder whether this project still merits my time. But then I think about all the people I get to help, like my good friend... schlunsen.
+
+### BONUS 🎉 - Can YOU spot the difference in schlunsen's resource submission?
+
+[![schlunsen issue submission](/assets/schlunsens-submission.png)](https://github.com/hesreallyhim/awesome-claude-code/issues?q=is%3Aissue%20state%3Aclosed)
+
+#### Isn't this kind of... petty?
+
+Yep... OK, back to the show!
+
 
 ## Contents [🔝](#awesome-claude-code)
 
