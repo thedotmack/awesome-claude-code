@@ -117,7 +117,7 @@ A curated list of the most legendary open-source contributors you will ever meet
 
 - Left me a [really memorable message](https://github.com/hesreallyhim/awesome-claude-code/issues/228#issuecomment-3424089032) in the comment thread of this Issue:
 
-[![schlunsen Comment]](/assets/schlunsen-comment.png)
+[![schlunsen Comment](/assets/schlunsen-comment.png)](https://github.com/hesreallyhim/awesome-claude-code/issues/228#issuecomment-3424089032)
 
 - After seeing what a noble person schlunsen was, I decided to check out his profile and see if I could find any other hidden gems. First, I was prety impressed, because according to his `github-readme-stats` card, he's an **A+ CONTRIBUTOR** on GitHub. That's pretty impressive. Maybe he was right to act in flagrant violation of GitHub's Community Guidelines. What if one day I could be an A+ contributor... Well, guess what? YOU CAN!
 
@@ -136,7 +136,9 @@ A curated list of the most legendary open-source contributors you will ever meet
 
 #### Isn't this kind of... petty?
 
-Yep... OK, back to the show!
+Yep... But if you show up one day and see that dreaded 404, just know that this is what it's like maintaining this list. And if you come at Him... you best not miss.
+
+OK, back to the show! 💕 🫶
 
 
 ## Contents [🔝](#awesome-claude-code)
