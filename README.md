@@ -68,6 +68,17 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 > Resources added in the past 7 days
 
+[`cc-sessions`](https://github.com/GWUDCAP/cc-sessions) &nbsp; by &nbsp; [toastdev](https://github.com/satoastshi)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+an opinionated approach to produce development with Claude Code
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for cc-sessions](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=cc-sessions&username=GWUDCAP&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
 [`fcakyon Collection (Code Quality and Tool Usage)`](https://github.com/fcakyon/claude-codex-settings/tree/main/.claude/hooks) &nbsp; by &nbsp; [Fatih Akyon](https://github.com/fcakyon)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;Apache-2.0  
 Very well-written set of hooks for code quality and tool usage regulation (e.g. force Tavily over WebFetch tool).
 
@@ -354,6 +365,17 @@ A broader project management workflow for Claude Code that encompasses not just 
 
 <details open>
 <summary><h3>General <a href="#awesome-claude-code">🔝</a></h3></summary>
+
+[`cc-sessions`](https://github.com/GWUDCAP/cc-sessions) &nbsp; by &nbsp; [toastdev](https://github.com/satoastshi)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+an opinionated approach to produce development with Claude Code
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for cc-sessions](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=cc-sessions&username=GWUDCAP&all_stats=true&stats_only=true)
+
+</details>
+<br>
 
 [`cc-tools`](https://github.com/Veraticus/cc-tools) &nbsp; by &nbsp; [Josh Symonds](https://github.com/Veraticus)    
 High-performance Go implementation of Claude Code hooks and utilities. Provides smart linting, testing, and statusline generation with minimal overhead.
