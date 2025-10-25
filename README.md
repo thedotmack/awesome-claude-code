@@ -68,7 +68,7 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 > Resources added in the past 7 days
 
-[`claude-mem`](https://github.com/thedotmack/claude-mem) &nbsp; by &nbsp; [Alex Newman](https://github.com/thedotmack)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;AGPL-3.0  
+[`claude-mem`](https://github.com/thedotmack/claude-mem) &nbsp; by &nbsp; [Alex Newman](https://github.com/thedotmack)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;NOASSERTION  
 Persistent memory compression system that captures tool usage, generates AI-powered session summaries, and injects relevant context into future Claude Code sessions through SQLite storage and full-text search across project history (and no extra-cost dependencies!). 🦾
 
 <details>
@@ -80,7 +80,7 @@ Persistent memory compression system that captures tool usage, generates AI-powe
 <br>
 
 [`cc-sessions`](https://github.com/GWUDCAP/cc-sessions) &nbsp; by &nbsp; [toastdev](https://github.com/satoastshi)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-an opinionated approach to produce development with Claude Code
+An opinionated approach to produce development with Claude Code
 
 <details>
 <summary>📊 GitHub Stats</summary>
@@ -101,7 +101,7 @@ Very well-written set of hooks for code quality and tool usage regulation (e.g. 
 </details>
 <br>
 
-[`/linux-desktop-slash-commands`](https://github.com/danielrosehill/Claude-Code-Linux-Desktop-Slash-Commands) &nbsp; by &nbsp; [Daniel Rosehill](https://github.com/danielrosehill)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+[`/linux-desktop-slash-commands`](https://github.com/danielrosehill/Claude-Code-Linux-Desktop-Slash-Commands) &nbsp; by &nbsp; [Daniel Rosehill](https://github.com/danielrosehill)    
 A library of slash commands intended specifically to facilitate common and advanced operations on Linux desktop environments (although many would also be useful on Linux servers). Command groups include hardware benchmarking, filesystem organisation, and security posture validation.
 
 <details>
@@ -190,6 +190,12 @@ You can easily offer support by making a charitable donation in honor of Awesome
   - [Language-Specific](#language-specific-)
   - [Domain-Specific](#domain-specific-)
   - [Project Scaffolding & MCP](#project-scaffolding--mcp-)
+
+  </details>
+
+- <details open>
+  <summary><a href="#alternative-clients-">Alternative Clients</a></summary>
+
 
   </details>
 
@@ -378,7 +384,7 @@ A broader project management workflow for Claude Code that encompasses not just 
 <summary><h3>General <a href="#awesome-claude-code">🔝</a></h3></summary>
 
 [`cc-sessions`](https://github.com/GWUDCAP/cc-sessions) &nbsp; by &nbsp; [toastdev](https://github.com/satoastshi)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-an opinionated approach to produce development with Claude Code
+An opinionated approach to produce development with Claude Code
 
 <details>
 <summary>📊 GitHub Stats</summary>
@@ -890,7 +896,7 @@ A TypeScript-based system for configuring and customizing Claude Code hooks with
 </details>
 <br>
 
-[`claude-mem`](https://github.com/thedotmack/claude-mem) &nbsp; by &nbsp; [Alex Newman](https://github.com/thedotmack)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;AGPL-3.0  
+[`claude-mem`](https://github.com/thedotmack/claude-mem) &nbsp; by &nbsp; [Alex Newman](https://github.com/thedotmack)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;NOASSERTION  
 Persistent memory compression system that captures tool usage, generates AI-powered session summaries, and injects relevant context into future Claude Code sessions through SQLite storage and full-text search across project history (and no extra-cost dependencies!). 🦾
 
 <details>
@@ -987,7 +993,7 @@ Slash command for hook creation - intelligently prompts you through the creation
 </details>
 <br>
 
-[`/linux-desktop-slash-commands`](https://github.com/danielrosehill/Claude-Code-Linux-Desktop-Slash-Commands) &nbsp; by &nbsp; [Daniel Rosehill](https://github.com/danielrosehill)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+[`/linux-desktop-slash-commands`](https://github.com/danielrosehill/Claude-Code-Linux-Desktop-Slash-Commands) &nbsp; by &nbsp; [Daniel Rosehill](https://github.com/danielrosehill)    
 A library of slash commands intended specifically to facilitate common and advanced operations on Linux desktop environments (although many would also be useful on Linux servers). Command groups include hardware benchmarking, filesystem organisation, and security posture validation.
 
 <details>
@@ -1829,6 +1835,12 @@ Offers clear step-by-step installation instructions with multiple configuration 
 <br>
 
 </details>
+
+<br>
+
+## Alternative Clients 📱 [🔝](#awesome-claude-code)
+
+> **Alternative Clients** are alternative UIs and front-ends for interacting with Claude Code, either on mobile or on the desktop.
 
 <br>
 

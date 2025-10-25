@@ -7,11 +7,12 @@ else
 endif
 SCRIPTS_DIR := ./scripts
 
-.PHONY: help process validate validate-single update clean test generate download-resources add_resource sort submit submit-resource format format-check
+.PHONY: help process validate validate-single update clean test generate download-resources add_resource add-category sort submit submit-resource format format-check
 
 help:
 	@echo "Available commands:"
 	@echo "  make add_resource      - Interactive tool to add a new resource"
+	@echo "  make add-category      - Add a new category to the repository"
 	@echo "  make submit            - One-command submission workflow (entry to PR)"
 	@echo "  make process           - Extract resources from README.md and create/update CSV"
 	@echo "  make validate          - Validate all links in the resource CSV"
@@ -26,6 +27,8 @@ help:
 	@echo "  make clean             - Remove generated files"
 	@echo ""
 	@echo "Options:"
+	@echo "  make add-category      - Interactive mode to add a new category"
+	@echo "  make add-category ARGS='--name \"My Category\" --prefix mycat --icon 🎯'"
 	@echo "  make validate-github   - Run validation in GitHub Action mode (JSON output)"
 	@echo "  make validate MAX_LINKS=N - Limit validation to N links"
 	@echo "  make download-resources CATEGORY='Category Name' - Download specific category"
@@ -131,6 +134,11 @@ install:
 add_resource:
 	@echo "Starting interactive resource submission..."
 	@$(PYTHON) $(SCRIPTS_DIR)/add_resource.py
+
+# Add a new category to the repository
+add-category:
+	@echo "Starting category addition tool..."
+	@$(PYTHON) $(SCRIPTS_DIR)/add_category.py $(ARGS)
 
 # One-command submission workflow
 submit:

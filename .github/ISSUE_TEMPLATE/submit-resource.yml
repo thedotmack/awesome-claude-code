@@ -49,6 +49,7 @@ body:
         - Output Styles
         - Slash-Commands
         - CLAUDE.md Files
+        - Alternative Clients
         - Official Documentation
     validations:
       required: true

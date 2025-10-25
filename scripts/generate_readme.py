@@ -208,6 +208,9 @@ def generate_toc_from_categories(csv_data=None):
                 sub_title = subcat["name"]
 
                 # Check if this subcategory has any resources (if csv_data is provided)
+                # NOTE: Subcategories are only shown in ToC if they have resources.
+                # This keeps the ToC clean and avoids empty sections.
+                # New categories will appear empty in ToC until resources are added.
                 include_subcategory = True
                 if csv_data is not None:
                     category_name = category.get("name", "")

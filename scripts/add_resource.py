@@ -14,6 +14,12 @@ try:
 except ImportError:
     from .validate_single_resource import validate_resource_from_dict
 
+# Import category manager
+try:
+    from category_utils import category_manager  # type: ignore[import-not-found]
+except ImportError:
+    from .category_utils import category_manager
+
 
 def clear_screen():
     """Clear terminal screen"""
@@ -33,13 +39,11 @@ def print_header():
 
 def get_resource_type():
     """Display menu and get resource type selection"""
-    categories = [
-        "Workflows & Knowledge Guides",
-        "Tooling",
-        "Hooks",
-        "Slash-Commands",
-        "CLAUDE.md Files",
-    ]
+    # Get categories from the centralized configuration
+    categories = category_manager.get_all_categories()
+
+    # Filter out "Official Documentation" as it's not for user submissions
+    categories = [cat for cat in categories if cat != "Official Documentation"]
 
     print("Select the type of resource:")
     print()
@@ -49,12 +53,12 @@ def get_resource_type():
 
     while True:
         try:
-            choice = input("Enter your choice (1-5): ").strip()
+            choice = input(f"Enter your choice (1-{len(categories)}): ").strip()
             idx = int(choice) - 1
             if 0 <= idx < len(categories):
                 return categories[idx]
             else:
-                print("Invalid choice. Please enter a number between 1 and 5.")
+                print(f"Invalid choice. Please enter a number between 1 and {len(categories)}.")
         except ValueError:
             print("Invalid input. Please enter a number.")
 
@@ -73,6 +77,9 @@ def get_display_name(category):
     elif category == "Tooling":
         name = input("Enter the tool name: ").strip()
         return name
+    elif category == "Alternative Clients":
+        name = input("Enter the client name: ").strip()
+        return name
     elif category == "Workflows & Knowledge Guides":
         print("Enter a brief name for the workflow (max 50 characters):")
         name = input("> ").strip()[:50]
@@ -81,40 +88,35 @@ def get_display_name(category):
         print("Enter a brief name for the hook(s) (max 50 characters):")
         name = input("> ").strip()[:50]
         return name
+    elif category == "Agent Skills":
+        print("Enter a brief name for the skill (max 50 characters):")
+        name = input("> ").strip()[:50]
+        return name
+    elif category == "Status Lines":
+        print("Enter a brief name for the status line (max 50 characters):")
+        name = input("> ").strip()[:50]
+        return name
+    elif category == "Output Styles":
+        print("Enter a brief name for the output style (max 50 characters):")
+        name = input("> ").strip()[:50]
+        return name
+    else:
+        # Fallback for any other category
+        print(f"Enter a name for the {category} resource:")
+        name = input("> ").strip()[:50]
+        return name
 
 
 def get_subcategory(category):
     """Get subcategory if applicable"""
-    subcategories = {
-        "Slash-Commands": [
-            "General",
-            "Version Control & Git",
-            "Code Analysis & Testing",
-            "Context Loading & Priming",
-            "Documentation & Changelogs",
-            "CI / Deployment",
-            "Project & Task Management",
-            "Miscellaneous",
-        ],
-        "CLAUDE.md Files": [
-            "General",
-            "Language-Specific",
-            "Domain-Specific",
-            "Project Scaffolding & MCP",
-        ],
-        "Tooling": [
-            "General",
-            "IDE Integrations",
-            "Usage Monitors",
-            "Orchestrators",
-        ],
-    }
+    # Get subcategories from the centralized configuration
+    options = category_manager.get_subcategories_for_category(category)
 
-    if category not in subcategories:
+    if not options:
         return "General"
 
-    options = subcategories[category]
-    if not options:
+    # If only "General" is available, return it directly
+    if len(options) == 1 and options[0] == "General":
         return "General"
 
     print()
