@@ -80,7 +80,7 @@ Persistent memory compression system that captures tool usage, generates AI-powe
 <br>
 
 [`cc-sessions`](https://github.com/GWUDCAP/cc-sessions) &nbsp; by &nbsp; [toastdev](https://github.com/satoastshi)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-an opinionated approach to produce development with Claude Code
+An opinionated approach to produce development with Claude Code
 
 <details>
 <summary>📊 GitHub Stats</summary>
@@ -378,7 +378,7 @@ A broader project management workflow for Claude Code that encompasses not just 
 <summary><h3>General <a href="#awesome-claude-code">🔝</a></h3></summary>
 
 [`cc-sessions`](https://github.com/GWUDCAP/cc-sessions) &nbsp; by &nbsp; [toastdev](https://github.com/satoastshi)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-an opinionated approach to produce development with Claude Code
+An opinionated approach to produce development with Claude Code
 
 <details>
 <summary>📊 GitHub Stats</summary>
