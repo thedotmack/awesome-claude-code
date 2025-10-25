@@ -1840,7 +1840,7 @@ Offers clear step-by-step installation instructions with multiple configuration 
 
 ## Alternative Clients 🔌 [🔝](#awesome-claude-code)
 
-> **Alternative Clients** are alternative implementations and interfaces for interacting with Claude, providing different user experiences or integrations
+> **Alternative Clients** are alternative UIs and front-ends for interacting with Claude Code, either on mobile or on the desktop.
 
 <br>
 
