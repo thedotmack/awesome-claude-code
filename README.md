@@ -1838,7 +1838,7 @@ Offers clear step-by-step installation instructions with multiple configuration 
 
 <br>
 
-## Alternative Clients 🔌 [🔝](#awesome-claude-code)
+## Alternative Clients 📱 [🔝](#awesome-claude-code)
 
 > **Alternative Clients** are alternative UIs and front-ends for interacting with Claude Code, either on mobile or on the desktop.
 
