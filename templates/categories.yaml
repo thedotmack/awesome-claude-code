@@ -117,7 +117,18 @@ categories:
         name: "Domain-Specific"
       - id: project-scaffolding-mcp
         name: "Project Scaffolding & MCP"
-        
+
+  - id: alternative-clients
+    name: "Alternative Clients"
+    prefix: client
+    icon: "🔌"
+    description: |
+      > **Alternative Clients** are alternative implementations and interfaces for interacting with Claude, providing different user experiences or integrations
+    order: 9
+    subcategories:
+      - id: general
+        name: "General"
+
   - id: official-documentation
     name: "Official Documentation"
     prefix: doc
@@ -126,7 +137,7 @@ categories:
       > Links to some of Anthropic's terrific documentation and resources regarding Claude Code
 
       <!--lint disable double-link-->
-    order: 9
+    order: 10
     subcategories:
       - id: general
         name: "General"

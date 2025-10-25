@@ -194,6 +194,12 @@ You can easily offer support by making a charitable donation in honor of Awesome
   </details>
 
 - <details open>
+  <summary><a href="#alternative-clients-">Alternative Clients</a></summary>
+
+
+  </details>
+
+- <details open>
   <summary><a href="#official-documentation-">Official Documentation</a></summary>
 
   - [General](#general--6)
@@ -1829,6 +1835,12 @@ Offers clear step-by-step installation instructions with multiple configuration 
 <br>
 
 </details>
+
+<br>
+
+## Alternative Clients 🔌 [🔝](#awesome-claude-code)
+
+> **Alternative Clients** are alternative implementations and interfaces for interacting with Claude, providing different user experiences or integrations
 
 <br>
 
