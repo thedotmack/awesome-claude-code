@@ -121,7 +121,7 @@ categories:
   - id: alternative-clients
     name: "Alternative Clients"
     prefix: client
-    icon: "🔌"
+    icon: "📱"
     description: |
       > **Alternative Clients** are alternative UIs and front-ends for interacting with Claude Code, either on mobile or on the desktop.
     order: 9
