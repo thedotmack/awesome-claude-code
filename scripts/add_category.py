@@ -306,12 +306,20 @@ def interactive_mode(adder: CategoryAdder) -> None:
     order = int(order_input) if order_input else max_order + 1
 
     # Get subcategories
+    print("\nSubcategories Configuration:")
+    print("Most categories only need 'General'. Add more only if you need specific groupings.")
+    print("Examples:")
+    print("  - For simple categories: Just press Enter (uses 'General')")
+    print("  - For complex categories: General, Advanced, Experimental")
     print("\nEnter subcategories (comma-separated, default: 'General'):")
-    print("Example: General, Advanced, Experimental")
     subcats_input = input("> ").strip()
     subcategories = (
         [s.strip() for s in subcats_input.split(",") if s.strip()] if subcats_input else ["General"]
     )
+
+    # Ensure General is always included if not explicitly added
+    if subcategories and "General" not in subcategories:
+        print("\nNote: Consider including 'General' as a catch-all subcategory.")
 
     # Confirm
     print("\n" + "=" * 60)
@@ -349,6 +357,8 @@ def interactive_mode(adder: CategoryAdder) -> None:
         adder.create_commit(name)
 
     print("\n✨ Category added successfully!")
+    print("\n📝 Note: The category will appear in the Table of Contents only after")
+    print("   resources are added to it. This is by design to keep the ToC clean.")
 
 
 def main():
@@ -423,6 +433,8 @@ Examples:
             adder.create_commit(args.name)
 
         print("\n✨ Category added successfully!")
+        print("\n📝 Note: The category will appear in the Table of Contents only after")
+        print("   resources are added to it. This is by design to keep the ToC clean.")
     else:
         # Run in interactive mode
         interactive_mode(adder)
