@@ -123,6 +123,48 @@ Resources are organized into these categories:
   - Domain-Specific
   - Project Scaffolding & MCP
 - **Official Documentation** - Anthropic resources
+- **Alternative Clients** - Alternative implementations and interfaces for Claude
+
+## Adding New Categories
+
+Repository maintainers can add new categories using the automated tool:
+
+### Interactive Mode
+```bash
+make add-category
+```
+
+This will prompt you for:
+- Category name
+- ID and prefix
+- Icon emoji
+- Description
+- Order position
+- Subcategories
+
+### Command Line Mode
+```bash
+make add-category ARGS='--name "My Category" --prefix "mycat" --icon "🎯"'
+```
+
+### What It Does
+The `add-category` command automatically:
+1. Updates `templates/categories.yaml` with the new category
+2. Updates the GitHub issue template dropdown
+3. Regenerates the README with the new section
+4. Optionally creates a commit with all changes
+
+### Examples
+```bash
+# Add a simple category with defaults
+make add-category ARGS='--name "Extensions" --prefix "ext" --icon "🧩"'
+
+# Add a category with multiple subcategories
+make add-category ARGS='--name "Integrations" --prefix "int" --icon "🔗" --subcategories "API,Webhooks,Plugins"'
+
+# Add a category at a specific position
+make add-category ARGS='--name "Templates" --prefix "tmpl" --icon "📋" --order 5'
+```
 
 ## Best Practices
 
