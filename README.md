@@ -68,7 +68,7 @@ Claude Code is a cutting-edge CLI-based coding assistant and agent released by [
 
 > Resources added in the past 7 days
 
-[`claude-mem`](https://github.com/thedotmack/claude-mem) &nbsp; by &nbsp; [Alex Newman](https://github.com/thedotmack)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;NOASSERTION  
+[`claude-mem`](https://github.com/thedotmack/claude-mem) &nbsp; by &nbsp; [Alex Newman](https://github.com/thedotmack)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;AGPL-3.0
 Persistent memory compression system that captures tool usage, generates AI-powered session summaries, and injects relevant context into future Claude Code sessions through SQLite storage and full-text search across project history (and no extra-cost dependencies!). 🦾
 
 <details>
