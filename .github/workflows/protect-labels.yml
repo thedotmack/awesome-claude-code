@@ -27,6 +27,7 @@ jobs:
               'validation-passed',
               'validation-failed',
               'approved',
+              'auto-approved',
               'rejected',
               'changes-requested',
               'pr-created',
