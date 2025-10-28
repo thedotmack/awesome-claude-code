@@ -11,6 +11,7 @@ import sys
 from datetime import datetime, timedelta
 
 import yaml  # type: ignore[import-untyped]
+from validate_links import parse_github_url  # type: ignore[import-not-found]
 
 
 def load_template(template_path):
@@ -20,11 +21,89 @@ def load_template(template_path):
 
 
 def load_announcements(template_dir):
-    """Load announcements from the announcements.md file."""
-    announcements_path = os.path.join(template_dir, "announcements.md")
+    """Load announcements from the announcements.yaml file and format as markdown."""
+    announcements_path = os.path.join(template_dir, "announcements.yaml")
     if os.path.exists(announcements_path):
         with open(announcements_path, encoding="utf-8") as f:
-            return f.read().strip()
+            announcements_data = yaml.safe_load(f)
+
+        if not announcements_data:
+            return ""
+
+        # Format the YAML data into markdown with nested collapsible sections using lists
+        markdown_lines = []
+
+        # Add the announcements header
+        markdown_lines.append("### Announcements [🔝](#awesome-claude-code)")
+        markdown_lines.append("")
+
+        # Make the entire announcements section collapsible (open by default)
+        markdown_lines.append("<details open>")
+        markdown_lines.append("<summary>View Announcements</summary>")
+        markdown_lines.append("")
+
+        # Use unordered list for first level indentation
+        for entry in announcements_data:
+            date = entry.get("date", "")
+            title = entry.get("title", "")
+            items = entry.get("items", [])
+
+            # Make each date group a collapsible list item (open by default)
+            markdown_lines.append("- <details open>")
+
+            # Create summary for date group
+            if title:
+                markdown_lines.append(f"  <summary>{date} - {title}</summary>")
+            else:
+                markdown_lines.append(f"  <summary>{date}</summary>")
+
+            markdown_lines.append("")
+
+            # Use nested list for second level indentation
+            # Process items - can be strings or objects with summary/text
+            for item in items:
+                if isinstance(item, str):
+                    # Simple string item - render as nested bullet point
+                    markdown_lines.append(f"  - {item}")
+                elif isinstance(item, dict):
+                    # Object with summary and text - render as collapsible details
+                    summary = item.get("summary", "")
+                    text = item.get("text", "")
+
+                    if summary and text:
+                        markdown_lines.append("  - <details open>")
+                        markdown_lines.append(f"    <summary>{summary}</summary>")
+                        markdown_lines.append("")
+
+                        # Handle multi-line text properly with triple nesting
+                        text_lines = text.strip().split("\n")
+                        for i, line in enumerate(text_lines):
+                            if i == 0:
+                                markdown_lines.append(f"    - {line}")
+                            else:
+                                # Continue paragraphs without bullet points
+                                markdown_lines.append(f"      {line}")
+
+                        markdown_lines.append("")
+                        markdown_lines.append("    </details>")
+                    elif summary:
+                        # If only summary, just render as nested bullet point
+                        markdown_lines.append(f"  - {summary}")
+                    elif text:
+                        # If only text, render as nested bullet point
+                        markdown_lines.append(f"  - {text}")
+
+                markdown_lines.append("")
+
+            # Close date group details
+            markdown_lines.append("  </details>")
+            markdown_lines.append("")
+
+        # Close main announcements details
+        markdown_lines.append("</details>")
+
+        return "\n".join(markdown_lines).strip()
+
     return ""
 
 
@@ -77,39 +156,105 @@ def get_anchor_suffix_for_icon(icon):
     return "-"
 
 
-def generate_toc_from_categories():
-    """Generate table of contents based on category definitions."""
-    from category_utils import category_manager
+def generate_toc_from_categories(csv_data=None):
+    """Generate table of contents based on category definitions.
 
-    toc_config = category_manager.get_toc_config()
+    Args:
+        csv_data: List of resource dictionaries from CSV.
+                 If None, TOC will include all subcategories.
+    """
+    from category_utils import category_manager  # type: ignore[import-not-found]
+
     categories = category_manager.get_categories_for_readme()
-
-    symbol = toc_config.get("symbol", "▪")
-    subsymbol = toc_config.get("subsymbol", "▫")
-    indent = toc_config.get("indent", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
-    subindent = toc_config.get("subindent", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
 
     toc_lines = []
 
+    # Track "General" occurrences across all categories that actually have them
+    general_counter = 0
+
+    # Make the entire TOC collapsible (open by default)
+    toc_lines.append("<details open>")
+    toc_lines.append("<summary>Table of Contents</summary>")
+    toc_lines.append("")
+
+    # Use unordered list for categories
     for category in categories:
         # Main section link
         section_title = category["name"]
-        anchor = section_title.lower().replace(" ", "-").replace("&", "").replace("/", "").replace(".", "")
+        anchor = (
+            section_title.lower()
+            .replace(" ", "-")
+            .replace("&", "")
+            .replace("/", "")
+            .replace(".", "")
+        )
 
-        # Get the appropriate anchor suffix based on the category's icon
-        icon = category.get("icon", "")
-        anchor_suffix = get_anchor_suffix_for_icon(icon)
+        # All category headers now have back-to-top links, so they all need "-" suffix
+        anchor_suffix = "-"
 
-        toc_lines.append(f"{symbol}{indent}[{section_title}](#{anchor}{anchor_suffix})  ")
-
-        # Subsections
+        # Check if this category has subcategories
         subcategories = category.get("subcategories", [])
-        for subcat in subcategories:
-            sub_title = subcat["name"]
-            sub_anchor = sub_title.lower().replace(" ", "-").replace("&", "").replace("/", "")
-            toc_lines.append(f"{subindent}{subsymbol}{indent}[{sub_title}](#{sub_anchor})  ")
 
-    return "\n".join(toc_lines)
+        if subcategories:
+            # Make category collapsible if it has subcategories (open by default)
+            toc_lines.append("- <details open>")
+            toc_lines.append(
+                f'  <summary><a href="#{anchor}{anchor_suffix}">{section_title}</a></summary>'
+            )
+            toc_lines.append("")
+
+            # Add subcategories as nested list, but only if they have resources
+            for subcat in subcategories:
+                sub_title = subcat["name"]
+
+                # Check if this subcategory has any resources (if csv_data is provided)
+                # NOTE: Subcategories are only shown in ToC if they have resources.
+                # This keeps the ToC clean and avoids empty sections.
+                # New categories will appear empty in ToC until resources are added.
+                include_subcategory = True
+                if csv_data is not None:
+                    category_name = category.get("name", "")
+                    resources = [
+                        r
+                        for r in csv_data
+                        if r["Category"] == category_name
+                        and r.get("Sub-Category", "").strip() == sub_title
+                    ]
+                    include_subcategory = bool(resources)
+
+                # Only include subcategory if it has resources (or if csv_data not provided)
+                if include_subcategory:
+                    sub_anchor = (
+                        sub_title.lower().replace(" ", "-").replace("&", "").replace("/", "")
+                    )
+
+                    # Special handling for "General" subcategories
+                    if sub_title == "General":
+                        if general_counter == 0:
+                            # First occurrence: just #general-
+                            sub_anchor = "general-"
+                        else:
+                            # Subsequent occurrences: #general--1, #general--2, etc.
+                            sub_anchor = f"general--{general_counter}"
+                        general_counter += 1
+                    else:
+                        # Non-General subcategories also need "-" suffix due to back-to-top links
+                        sub_anchor = sub_anchor + "-"
+
+                    toc_lines.append(f"  - [{sub_title}](#{sub_anchor})")
+
+            toc_lines.append("")
+            toc_lines.append("  </details>")
+        else:
+            # Simple link if no subcategories
+            toc_lines.append(f"- [{section_title}](#{anchor}{anchor_suffix})")
+
+        toc_lines.append("")
+
+    # Close main TOC details
+    toc_lines.append("</details>")
+
+    return "\n".join(toc_lines).strip()
 
 
 def format_resource_entry(row):
@@ -120,6 +265,7 @@ def format_resource_entry(row):
     author_link = row.get("Author Link", "").strip()
     description = row.get("Description", "").strip()
     license_info = row.get("License", "").strip()
+    removed_from_origin = row.get("Removed From Origin", "").strip().upper() == "TRUE"
 
     # Build the entry
     entry_parts = [f"[`{display_name}`]({primary_link})"]
@@ -137,10 +283,25 @@ def format_resource_entry(row):
     if license_info and license_info != "NOT_FOUND":
         entry_parts.append(f"&nbsp;&nbsp;⚖️&nbsp;&nbsp;{license_info}")
 
-    # Add description on new line if present
+    # Add description on new line if present, with asterisk if removed from origin
     result = "".join(entry_parts)
     if description:
-        result += f"  \n{description}"
+        result += f"  \n{description}" + ("*  " if removed_from_origin else "")
+
+    # Add footnote if removed from origin (after description, before GitHub stats)
+    if removed_from_origin:
+        result += "\n<sub>* Removed from origin</sub>"
+
+    # Add GitHub stats banner for GitHub resources (but not if removed from origin)
+    if primary_link and not removed_from_origin:
+        _, is_github, owner, repo = parse_github_url(primary_link)
+
+        if is_github and owner and repo:
+            # Add visible GitHub stats banner
+            base_url = "https://github-readme-stats-plus-theta.vercel.app/api/pin/"
+            stats_url = f"{base_url}?repo={repo}&username={owner}&all_stats=true&stats_only=true"
+            result += f"\n\n![GitHub Stats for {repo}]({stats_url})"
+            result += "\n<br>"  # Add spacing for better visual separation
 
     return result
 
@@ -178,7 +339,7 @@ def generate_weekly_section(csv_data):
     """Generate the weekly resources section that appears above Contents."""
     lines = []
 
-    lines.append("## This Week's Additions ✨")
+    lines.append("## This Week's Additions ✨ [🔝](#awesome-claude-code)")
     lines.append("")
     lines.append("> Resources added in the past 7 days")
 
@@ -196,7 +357,9 @@ def generate_weekly_section(csv_data):
     if weekly_resources:
         lines.append("")
         # Sort by date added (newest first) using parsed dates
-        weekly_resources.sort(key=lambda x: parse_resource_date(x.get("Date Added", "")) or datetime.min, reverse=True)
+        weekly_resources.sort(
+            key=lambda x: parse_resource_date(x.get("Date Added", "")) or datetime.min, reverse=True
+        )
 
         for resource in weekly_resources:
             lines.append(format_resource_entry(resource))
@@ -213,36 +376,65 @@ def generate_section_content(category, csv_data):
     """Generate content for a category based on CSV data."""
     lines = []
 
-    # Add section title
+    # Get category details
     title = category.get("name", "")
     icon = category.get("icon", "")
-    if icon:
-        lines.append(f"## {title} {icon}")
-    else:
-        lines.append(f"## {title}")
-
-    # Add section description if present
     description = category.get("description", "").strip()
-    if description:
-        lines.append("")
-        lines.append(description)
-
-    # Get resources for this section
     category_name = category.get("name", "")
     subcategories = category.get("subcategories", [])
 
+    # Categories WITHOUT subcategories are collapsible
+    # Categories WITH subcategories have regular headers (subcategories are collapsible)
     if not subcategories:
-        # No subsections - render all resources for this category
-        resources = [r for r in csv_data if r["Category"] == category_name and not r.get("Sub-Category", "").strip()]
+        # No subcategories - make the entire category collapsible
+        lines.append("<details open>")
+
+        # Add section title as summary
+        if icon:
+            lines.append(
+                f'<summary><h2>{title} {icon} <a href="#awesome-claude-code">🔝</a></h2></summary>'
+            )
+        else:
+            lines.append(
+                f'<summary><h2>{title} <a href="#awesome-claude-code">🔝</a></h2></summary>'
+            )
+
+        # Add section description if present
+        if description:
+            lines.append("")
+            lines.append(description)
+
+        # Render all resources for this category
+        resources = [
+            r
+            for r in csv_data
+            if r["Category"] == category_name and not r.get("Sub-Category", "").strip()
+        ]
         if resources:
             lines.append("")
             for resource in resources:
                 lines.append(format_resource_entry(resource))
                 lines.append("")
+
+        # Close the category disclosure element
+        lines.append("</details>")
     else:
-        # Has subsections - first render main category resources without subcategory
+        # Has subcategories - use regular header (not collapsible at category level)
+        if icon:
+            lines.append(f"## {title} {icon} [🔝](#awesome-claude-code)")
+        else:
+            lines.append(f"## {title} [🔝](#awesome-claude-code)")
+
+        # Add section description if present
+        if description:
+            lines.append("")
+            lines.append(description)
+
+        # First render main category resources without subcategory
         main_resources = [
-            r for r in csv_data if r["Category"] == category_name and not r.get("Sub-Category", "").strip()
+            r
+            for r in csv_data
+            if r["Category"] == category_name and not r.get("Sub-Category", "").strip()
         ]
         if main_resources:
             lines.append("")
@@ -250,22 +442,31 @@ def generate_section_content(category, csv_data):
                 lines.append(format_resource_entry(resource))
                 lines.append("")
 
-        # Then render each subsection
+        # Then render each subsection as a collapsible element
         for subcat in subcategories:
             sub_title = subcat["name"]
 
             resources = [
-                r for r in csv_data if r["Category"] == category_name and r.get("Sub-Category", "").strip() == sub_title
+                r
+                for r in csv_data
+                if r["Category"] == category_name and r.get("Sub-Category", "").strip() == sub_title
             ]
 
             if resources:
                 lines.append("")
-                lines.append(f"### {sub_title}")
+                # Start subcategory disclosure element (open by default)
+                lines.append("<details open>")
+                lines.append(
+                    f'<summary><h3>{sub_title} <a href="#awesome-claude-code">🔝</a></h3></summary>'
+                )
                 lines.append("")
 
                 for resource in resources:
                     lines.append(format_resource_entry(resource))
                     lines.append("")
+
+                # Close subcategory disclosure element
+                lines.append("</details>")
 
     return "\n".join(lines).rstrip() + "\n"
 
@@ -323,7 +524,7 @@ def create_backup(file_path):
 
 def generate_readme_from_templates(csv_path, template_dir, output_path):
     """Generate README using template system."""
-    from category_utils import category_manager
+    from category_utils import category_manager  # type: ignore[import-not-found]
 
     # Create backup of existing README
     backup_path = create_backup(output_path)
@@ -345,7 +546,7 @@ def generate_readme_from_templates(csv_path, template_dir, output_path):
                 csv_data.append(row)
 
     # Generate table of contents
-    toc_content = generate_toc_from_categories()
+    toc_content = generate_toc_from_categories(csv_data)
 
     # Generate weekly section
     weekly_section = generate_weekly_section(csv_data)
@@ -388,7 +589,9 @@ def main():
     print("Generating README from templates and CSV...")
 
     try:
-        resource_count, backup_path = generate_readme_from_templates(csv_path, template_dir, output_path)
+        resource_count, backup_path = generate_readme_from_templates(
+            csv_path, template_dir, output_path
+        )
         print(f"✅ README.md generated successfully at {os.path.abspath(output_path)}")
         print(f"📊 Generated README with {resource_count} active resources")
         if backup_path:
