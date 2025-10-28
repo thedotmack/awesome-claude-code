@@ -2,6 +2,32 @@
 
 This directory contains templates for reaching out to developers affected by gatekeeping in the upstream repository.
 
+## Automated Notification System
+
+The repository now includes an **automated notification system** that posts issues directly to developer repositories.
+
+### How It Works
+
+1. **Notification Generation**: The `send_notifications.py` script generates notification message files in `generated_notifications/`
+2. **Automated Posting**: The `post_notifications.py` script creates **NEW ISSUES** in each developer's repository
+3. **Workflow Integration**: The `gatekeeping-automation.yml` workflow automatically runs both scripts when gatekept tools are added
+
+### Manual Triggering
+
+You can manually trigger notifications using the GitHub Actions workflow:
+
+1. Go to Actions → "Post Gatekeeping Notifications to Developer Repos"
+2. Click "Run workflow"
+3. Choose dry run mode (for testing) or live mode
+4. Review the results in the workflow logs
+
+### Key Design Decisions
+
+- **Issues, not comments**: Notifications are posted as NEW ISSUES in developer repositories (e.g., `schlunsen/claude-control-terminal/issues`)
+- **Not spam to upstream**: We don't post comments on upstream repository issues to avoid over-notifying hesreallyhim
+- **Duplicate prevention**: The script checks for existing notification issues before posting
+- **Graceful failures**: If a repo has issues disabled or is private, the script continues with other repos
+
 ## Template Usage
 
 1. **Personalize each message** - Use the developer's name and tool name
@@ -74,16 +100,20 @@ Contact developers #11-19 (waiting tools)
 
 ## Communication Channels
 
-### Primary: GitHub Issue Comments
-Post a comment on their original issue in the upstream repository
+### Automated: GitHub Issues in Developer Repos
+The notification system automatically creates issues in each developer's repository with:
+- Personalized notification about their tool being featured
+- Links to the fork and analysis
+- Explanation of the community-driven approach
 
-### Alternative: GitHub Discussions
-If they're active in discussions, can reach out there
+### Manual Alternative: GitHub Issue Comments
+If automated posting fails or for special cases, can post a comment on their original issue in the upstream repository
 
 ### Do NOT:
 - Send unsolicited direct messages
 - Spam multiple channels
 - Make promises we can't keep
+- Over-notify the upstream repository maintainer
 
 ---
 
