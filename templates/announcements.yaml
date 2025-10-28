@@ -1,19 +1,2 @@
-# Announcements for the Awesome Claude Code repository
-# Structure: List of date entries, each containing a list of announcement items
-# Each item can be either:
-#   - A simple string (rendered as plain text)
-#   - An object with 'summary' and 'text' keys (rendered as collapsible details)
-
-- date: "2025-10-16"
-  title: "**AGENT SKILLS**"
-  items:
-    - summary: "Claude Got Skills"
-      text: >
-        In my previous announcement, I encouraged people to submit resources that explored features specific to _Claude Code_. So Claude read the post (he checks the list a lot), and was like "hold my martini" - and as of version 2.0.20 it looks like we've got a **new** set of toys for users to play with: [**Agent Skills**](https://docs.claude.com/en/docs/claude-code/skills). So for now I'm going to be focusing a lot on figuring out what you can do with this new feature set, and Skills submissions will be prioritized. Watch this space for updates.
-- date: "2025-10-06"
-  title: "Awesome Claude Code 2.0"
-  items:
-    - summary: "Fundraising update"
-      text: >
-        I've managed at last to secure a dedicated, direct-link, one-click fundraising widget for my campaign to support [The Bail Project](https://bailproject.org/). See <a href="#support">Support</a> below for more details, and click [here](https://donor.bailproject.org/-/NPHKDQGP?member=SELFZPZN) to contribute.
-  
+# Announcements removed - this fork uses auto-approval for validated submissions
+# See GATEKEEPING_ANALYSIS.md for details on why this fork exists
