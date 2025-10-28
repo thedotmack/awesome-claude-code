@@ -7,11 +7,9 @@ on:
 
 jobs:
   run-gatekeeping-automation:
-    # Only run when PR is merged (not just closed) and contains gatekeeping changes
-    if: |
-      github.event.pull_request.merged == true &&
-      (contains(github.event.pull_request.title, 'gatekeep') || 
-       contains(github.event.pull_request.labels.*.name, 'gatekeeping'))
+    # Only run when PR is merged (not just closed) and contains gatekeeping changes in title or has gatekeeping label
+    # Note: GitHub Actions contains() is case-insensitive
+    if: github.event.pull_request.merged == true && (contains(github.event.pull_request.title, 'gatekeep') || contains(github.event.pull_request.labels.*.name, 'gatekeeping'))
     
     runs-on: ubuntu-latest
     
