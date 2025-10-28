@@ -360,16 +360,33 @@ def format_resource_entry(row):
     if removed_from_origin:
         result += "\n<sub>* Removed from origin</sub>"
 
-    # Add GitHub stats banner for GitHub resources (but not if removed from origin)
+    # Add compact GitHub badges for GitHub resources (but not if removed from origin)
     if primary_link and not removed_from_origin:
         _, is_github, owner, repo = parse_github_url(primary_link)
 
         if is_github and owner and repo:
-            # Use compact GitHub stats card with better design
-            # Using github-readme-stats with compact layout and theme
-            base_url = "https://github-readme-stats.vercel.app/api"
-            stats_url = f"{base_url}?username={owner}&repo={repo}&show_icons=true&hide_border=true&theme=default&card_width=400"
-            result += f"\n\n[![GitHub Stats]({stats_url})](https://github.com/{owner}/{repo})"
+            # Use compact shields.io badges for key metrics
+            # These are faster loading, more professional, and provide better information density
+            badges = []
+            
+            # Stars badge (popularity indicator)
+            stars_badge = f"![Stars](https://img.shields.io/github/stars/{owner}/{repo}?style=flat-square&logo=github&labelColor=343b41)"
+            badges.append(f"[{stars_badge}](https://github.com/{owner}/{repo}/stargazers)")
+            
+            # License badge (legal clarity)
+            license_badge = f"![License](https://img.shields.io/github/license/{owner}/{repo}?style=flat-square&labelColor=343b41)"
+            badges.append(license_badge)
+            
+            # Last commit badge (maintenance indicator)
+            commit_badge = f"![Last Commit](https://img.shields.io/github/last-commit/{owner}/{repo}?style=flat-square&logo=github&labelColor=343b41)"
+            badges.append(f"[{commit_badge}](https://github.com/{owner}/{repo}/commits)")
+            
+            # Language badge (tech stack)
+            language_badge = f"![Language](https://img.shields.io/github/languages/top/{owner}/{repo}?style=flat-square&labelColor=343b41)"
+            badges.append(language_badge)
+            
+            # Add badges in a single line
+            result += "\n\n" + " ".join(badges)
             result += "\n<br>"  # Add spacing for better visual separation
 
     return result
