@@ -7,9 +7,9 @@ on:
 
 jobs:
   run-gatekeeping-automation:
-    # Only run when PR is merged (not just closed) and contains gatekeeping changes in title or has gatekeeping label
-    # Note: GitHub Actions contains() is case-insensitive
-    if: github.event.pull_request.merged == true && (contains(github.event.pull_request.title, 'gatekeep') || contains(github.event.pull_request.labels.*.name, 'gatekeeping'))
+    # Run when PR #10 is merged to post notifications to all gatekept developers
+    # Also run for any future PRs with gatekeeping changes
+    if: github.event.pull_request.merged == true && (github.event.pull_request.number == 10 || contains(github.event.pull_request.title, 'gatekeep') || contains(github.event.pull_request.labels.*.name, 'gatekeeping'))
     
     runs-on: ubuntu-latest
     
@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install PyYAML requests python-dotenv
+          pip install PyYAML requests python-dotenv PyGithub
       
       - name: Configure Git
         run: |
@@ -124,7 +124,8 @@ jobs:
           fi
       
       - name: Post notifications to developer repositories
-        if: steps.check_script.outputs.script_exists == 'true'
+        # Run for PR #10 to notify all gatekept developers, or for any PR with gatekeeping scripts
+        if: github.event.pull_request.number == 10 || steps.check_script.outputs.script_exists == 'true'
         env:
           AWESOME_CC_PAT_PUBLIC_REPO: ${{ secrets.AWESOME_CC_PAT_PUBLIC_REPO }}
           DRY_RUN: "false"
