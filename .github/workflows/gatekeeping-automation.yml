@@ -1,0 +1,172 @@
+name: Gatekeeping Resolution Automation
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  run-gatekeeping-automation:
+    # Only run when PR is merged (not just closed) and contains gatekeeping changes
+    if: |
+      github.event.pull_request.merged == true &&
+      (contains(github.event.pull_request.title, 'gatekeep') || 
+       contains(github.event.pull_request.labels.*.name, 'gatekeeping'))
+    
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install PyYAML requests python-dotenv
+      
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: Check if gatekept tools script exists
+        id: check_script
+        run: |
+          if [ -f "scripts/add_gatekept_tools.py" ]; then
+            echo "script_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "script_exists=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Run gatekeeping automation
+        if: steps.check_script.outputs.script_exists == 'true'
+        run: |
+          echo "Running gatekeeping automation..."
+          python3 scripts/add_gatekept_tools.py || {
+            echo "Script may have already run or tools already added"
+            exit 0
+          }
+      
+      - name: Regenerate README if changes were made
+        if: steps.check_script.outputs.script_exists == 'true'
+        run: |
+          if git diff --quiet THE_RESOURCES_TABLE.csv; then
+            echo "No changes to CSV, skipping README regeneration"
+          else
+            echo "Changes detected, regenerating README..."
+            python3 scripts/generate_readme.py
+          fi
+      
+      - name: Check for changes to commit
+        id: check_changes
+        run: |
+          if git diff --quiet; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "No changes to commit"
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected:"
+            git status --short
+          fi
+      
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git add THE_RESOURCES_TABLE.csv README.md
+          git commit -m "chore: automated gatekeeping resolution updates
+
+          - Added gatekept tools from automation
+          - Regenerated README
+          
+          Triggered by PR #${{ github.event.pull_request.number }}"
+          git push origin main
+      
+      - name: Generate notifications
+        if: steps.check_script.outputs.script_exists == 'true'
+        run: |
+          if [ -f "scripts/send_notifications.py" ]; then
+            echo "Generating notification messages..."
+            python3 scripts/send_notifications.py || {
+              echo "Notification generation completed or already run"
+              exit 0
+            }
+          else
+            echo "Notification script not found, skipping"
+          fi
+      
+      - name: Commit notification files if generated
+        run: |
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "No notification files to commit"
+          else
+            echo "Committing notification files..."
+            git add outreach/generated_notifications/ || true
+            if git diff --cached --quiet; then
+              echo "No changes staged"
+            else
+              git commit -m "chore: generated notification messages for gatekept developers
+
+              Triggered by PR #${{ github.event.pull_request.number }}" || true
+              git push origin main || true
+            fi
+          fi
+      
+      - name: Comment on PR with results
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const changes = '${{ steps.check_changes.outputs.changes }}';
+            const script_exists = '${{ steps.check_script.outputs.script_exists }}';
+            
+            let comment_body = '## 🤖 Gatekeeping Automation Results\n\n';
+            
+            if (script_exists === 'true') {
+              if (changes === 'true') {
+                comment_body += '✅ **Automation completed successfully!**\n\n';
+                comment_body += '- Gatekept tools processed\n';
+                comment_body += '- README regenerated\n';
+                comment_body += '- Notification messages generated\n';
+                comment_body += '- Changes committed to main branch\n\n';
+                comment_body += 'All gatekept tools are now included in the repository.\n';
+              } else {
+                comment_body += 'ℹ️ **Automation ran but no changes needed**\n\n';
+                comment_body += 'This likely means the gatekept tools were already added in the PR.\n';
+              }
+            } else {
+              comment_body += 'ℹ️ **No gatekeeping scripts found**\n\n';
+              comment_body += 'This PR did not include gatekeeping automation scripts.\n';
+            }
+            
+            comment_body += '\n---\n';
+            comment_body += '<sub>Automated by gatekeeping-automation workflow</sub>';
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: comment_body
+            });
+      
+      - name: Log completion
+        if: always()
+        run: |
+          echo "==================================="
+          echo "Gatekeeping Automation Complete"
+          echo "==================================="
+          echo "Script exists: ${{ steps.check_script.outputs.script_exists }}"
+          echo "Changes made: ${{ steps.check_changes.outputs.changes }}"
+          echo "==================================="
