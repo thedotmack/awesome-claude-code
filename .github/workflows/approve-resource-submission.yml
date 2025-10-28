@@ -1,4 +1,8 @@
-name: Handle Resource Submission Commands
+name: Handle Resource Submission Commands (Manual Override)
+
+# This workflow is now optional since submissions are auto-approved after validation.
+# It remains available for maintainers to manually approve, reject, or request changes
+# in exceptional cases where manual intervention is needed.
 
 on:
   issue_comment:

@@ -186,8 +186,8 @@ body:
         ## What happens next?
 
         1. **Automated Validation**: Our bot will validate your submission and comment with results
-        2. **Review**: If validation passes, a maintainer will review your submission
-        3. **Approval**: If approved, a PR will be automatically created with your resource
+        2. **Auto-Approval**: If validation passes, a PR will be automatically created with your resource
+        3. **Merge**: The PR will be merged and your resource goes live!
         4. **Notification**: You'll be notified when your resource is added
 
         Thank you for contributing to Awesome Claude Code! 🎉

@@ -254,7 +254,7 @@ class BadgeNotification:
 
     def _create_issue_body(self, resource_name: str, description: str) -> str:
         """Create friendly issue body with badge options"""
-        github_url = "https://github.com/hesreallyhim/awesome-claude-code"
+        github_url = "https://github.com/thedotmack/awesome-claude-code"
         return f"""Hello! 👋
 
 I'm excited to let you know that **{resource_name}** has been featured in the
@@ -276,7 +276,7 @@ you can use one of these:
 
 ### Option 1: Standard Badge
 ```markdown
-[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge.svg)](https://github.com/hesreallyhim/awesome-claude-code)
+[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge.svg)](https://github.com/thedotmack/awesome-claude-code)
 ```
 [![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge.svg)]({github_url})
 

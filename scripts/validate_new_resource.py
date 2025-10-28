@@ -82,7 +82,7 @@ def check_upstream_remote() -> bool:
         print(f"Error: Upstream remote '{UPSTREAM_REMOTE}' not found")
         print("Please add the upstream remote:")
         print(
-            f"  git remote add {UPSTREAM_REMOTE} https://github.com/hesreallyhim/awesome-claude-code.git"
+            f"  git remote add {UPSTREAM_REMOTE} https://github.com/thedotmack/awesome-claude-code.git"
         )
         return False
     return True
