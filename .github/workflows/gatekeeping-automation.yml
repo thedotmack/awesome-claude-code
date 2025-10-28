@@ -123,6 +123,23 @@ jobs:
             fi
           fi
       
+      - name: Post notifications to developer repositories
+        if: steps.check_script.outputs.script_exists == 'true'
+        env:
+          AWESOME_CC_PAT_PUBLIC_REPO: ${{ secrets.AWESOME_CC_PAT_PUBLIC_REPO }}
+          DRY_RUN: "false"
+        run: |
+          if [ -f "scripts/post_notifications.py" ]; then
+            echo "Creating notification issues in developer repositories..."
+            python3 scripts/post_notifications.py || {
+              echo "Notification posting completed or encountered errors"
+              echo "Check logs above for details"
+              exit 0
+            }
+          else
+            echo "Notification posting script not found, skipping"
+          fi
+      
       - name: Comment on PR with results
         uses: actions/github-script@v7
         with:
@@ -138,11 +155,13 @@ jobs:
                 comment_body += '- Gatekept tools processed\n';
                 comment_body += '- README regenerated\n';
                 comment_body += '- Notification messages generated\n';
+                comment_body += '- Notification issues posted to developer repositories\n';
                 comment_body += '- Changes committed to main branch\n\n';
-                comment_body += 'All gatekept tools are now included in the repository.\n';
+                comment_body += 'All gatekept tools are now included in the repository and developers have been notified via issues in their own repositories.\n';
               } else {
                 comment_body += 'ℹ️ **Automation ran but no changes needed**\n\n';
                 comment_body += 'This likely means the gatekept tools were already added in the PR.\n';
+                comment_body += '\n**Note:** Notification issues are still posted to developer repositories to notify them.\n';
               }
             } else {
               comment_body += 'ℹ️ **No gatekeeping scripts found**\n\n';
