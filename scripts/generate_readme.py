@@ -10,8 +10,76 @@ import shutil
 import sys
 from datetime import datetime, timedelta
 
+import requests
 import yaml  # type: ignore[import-untyped]
 from validate_links import parse_github_url  # type: ignore[import-not-found]
+
+# Cache for GitHub star counts to avoid repeated API calls
+_star_count_cache = {}
+
+
+def get_github_stars(owner, repo):
+    """Fetch star count for a GitHub repository.
+    
+    Args:
+        owner: Repository owner username
+        repo: Repository name
+        
+    Returns:
+        Integer star count or 0 if unavailable
+    """
+    cache_key = f"{owner}/{repo}"
+    
+    # Check cache first
+    if cache_key in _star_count_cache:
+        return _star_count_cache[cache_key]
+    
+    try:
+        # Get GitHub token from environment if available
+        github_token = os.getenv("GITHUB_TOKEN", "")
+        headers = {"Accept": "application/vnd.github+json"}
+        if github_token:
+            headers["Authorization"] = f"token {github_token}"
+        
+        api_url = f"https://api.github.com/repos/{owner}/{repo}"
+        response = requests.get(api_url, headers=headers, timeout=10)
+        
+        if response.status_code == 200:
+            data = response.json()
+            star_count = data.get("stargazers_count", 0)
+            _star_count_cache[cache_key] = star_count
+            return star_count
+    except Exception as e:
+        print(f"Warning: Could not fetch stars for {cache_key}: {e}")
+    
+    # Default to 0 if fetch fails
+    _star_count_cache[cache_key] = 0
+    return 0
+
+
+def sort_resources_by_stars(resources):
+    """Sort resources by GitHub star count (descending).
+    
+    Non-GitHub resources or resources without star counts appear last.
+    
+    Args:
+        resources: List of resource dictionaries
+        
+    Returns:
+        Sorted list of resources
+    """
+    def get_star_count_for_resource(resource):
+        primary_link = resource.get("Primary Link", "")
+        if not primary_link:
+            return 0
+        
+        _, is_github, owner, repo = parse_github_url(primary_link)
+        if is_github and owner and repo:
+            return get_github_stars(owner, repo)
+        return 0
+    
+    # Sort in descending order (most stars first)
+    return sorted(resources, key=get_star_count_for_resource, reverse=True)
 
 
 def load_template(template_path):
@@ -297,10 +365,11 @@ def format_resource_entry(row):
         _, is_github, owner, repo = parse_github_url(primary_link)
 
         if is_github and owner and repo:
-            # Add visible GitHub stats banner
-            base_url = "https://github-readme-stats-plus-theta.vercel.app/api/pin/"
-            stats_url = f"{base_url}?repo={repo}&username={owner}&all_stats=true&stats_only=true"
-            result += f"\n\n![GitHub Stats for {repo}]({stats_url})"
+            # Use compact GitHub stats card with better design
+            # Using github-readme-stats with compact layout and theme
+            base_url = "https://github-readme-stats.vercel.app/api"
+            stats_url = f"{base_url}?username={owner}&repo={repo}&show_icons=true&hide_border=true&theme=default&card_width=400"
+            result += f"\n\n[![GitHub Stats]({stats_url})](https://github.com/{owner}/{repo})"
             result += "\n<br>"  # Add spacing for better visual separation
 
     return result
@@ -410,6 +479,8 @@ def generate_section_content(category, csv_data):
             for r in csv_data
             if r["Category"] == category_name and not r.get("Sub-Category", "").strip()
         ]
+        # Sort resources by star count
+        resources = sort_resources_by_stars(resources)
         if resources:
             lines.append("")
             for resource in resources:
@@ -436,6 +507,8 @@ def generate_section_content(category, csv_data):
             for r in csv_data
             if r["Category"] == category_name and not r.get("Sub-Category", "").strip()
         ]
+        # Sort main resources by star count
+        main_resources = sort_resources_by_stars(main_resources)
         if main_resources:
             lines.append("")
             for resource in main_resources:
@@ -451,6 +524,8 @@ def generate_section_content(category, csv_data):
                 for r in csv_data
                 if r["Category"] == category_name and r.get("Sub-Category", "").strip() == sub_title
             ]
+            # Sort subcategory resources by star count
+            resources = sort_resources_by_stars(resources)
 
             if resources:
                 lines.append("")
