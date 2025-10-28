@@ -292,18 +292,15 @@ def format_resource_entry(row):
     if removed_from_origin:
         result += "\n<sub>* Removed from origin</sub>"
 
-    # Add GitHub stats disclosure for GitHub resources (but not if removed from origin)
+    # Add GitHub stats banner for GitHub resources (but not if removed from origin)
     if primary_link and not removed_from_origin:
         _, is_github, owner, repo = parse_github_url(primary_link)
 
         if is_github and owner and repo:
-            # Add collapsible GitHub stats section
+            # Add visible GitHub stats banner
             base_url = "https://github-readme-stats-plus-theta.vercel.app/api/pin/"
             stats_url = f"{base_url}?repo={repo}&username={owner}&all_stats=true&stats_only=true"
-            result += "\n\n<details>"
-            result += "\n<summary>📊 GitHub Stats</summary>"
             result += f"\n\n![GitHub Stats for {repo}]({stats_url})"
-            result += "\n\n</details>"
             result += "\n<br>"  # Add spacing for better visual separation
 
     return result
