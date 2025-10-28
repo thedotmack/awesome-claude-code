@@ -87,7 +87,7 @@ class BadgeNotificationCore:
     # Configuration
     ISSUE_TITLE = "🎉 Your project has been featured in Awesome Claude Code!"
     NOTIFICATION_LABEL = "awesome-claude-code"
-    GITHUB_URL_BASE = "https://github.com/hesreallyhim/awesome-claude-code"
+    GITHUB_URL_BASE = "https://github.com/thedotmack/awesome-claude-code"
 
     def __init__(self, github_token: str):
         """Initialize with GitHub token"""

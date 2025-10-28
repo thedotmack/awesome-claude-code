@@ -4,13 +4,37 @@ Welcome! We're excited that you want to contribute to Awesome Claude Code. This 
 
 **Important:** We take security seriously. All submissions are carefully reviewed to ensure they don't expose users to data risks or malicious code. Advanced tools may take additional time to review.
 
+## Everyone Gets to Play 🎉
+
+This is a truly community-driven awesome list. If your submission passes validation, it gets added automatically. No gatekeeping, no waiting.
+
+### Validation = Inclusion
+
+When your submission:
+- ✅ Has working links
+- ✅ Follows proper format
+- ✅ Isn't spam or malicious
+- ✅ Provides genuine value
+
+**It automatically goes live.** No manual approval needed.
+
+### Quality Guidelines (Objective Only)
+
+- Working URLs that are publicly accessible
+- Clear, descriptive (not marketing) language
+- Proper license information
+- No duplicate submissions
+- Respects Claude Code Terms of Service
+
+That's it. No subjective barriers.
+
 ## Code of Conduct
 
 Please note that this project is released with a [Contributor Code of Conduct](code-of-conduct.md). By participating in this project you agree to abide by its terms. Follow the conventions of the repo and don't engage in self-promotion. Use descriptive language, not "marketing" style.
 
 ## How to Submit a Resource
 
-### 🚀 **[Click here to submit a new resource](https://github.com/hesreallyhim/awesome-claude-code/issues/new?template=submit-resource.yml)**
+### 🚀 **[Click here to submit a new resource](https://github.com/thedotmack/awesome-claude-code/issues/new?template=submit-resource.yml)**
 
 That's it! Just click the link above and fill out the form. No Git knowledge required.
 
@@ -25,15 +49,10 @@ graph TD
     C -->|❌ No| D[Bot comments with issues]
     D --> E[Edit your submission]
     E --> B
-    C -->|✅ Yes| F[Awaits maintainer review]
-    F --> G{Decision}
-    G -->|👍 Approved| H[Bot creates PR automatically]
-    G -->|🔄 Changes requested| I[Maintainer requests changes]
-    G -->|👎 Rejected| J[Issue closed with reason]
-    I --> E
-    H --> K[PR merged]
-    K --> L[🎉 Resource goes live!]
-    L --> M[You receive notification]
+    C -->|✅ Yes| F[🤖 Bot automatically creates PR]
+    F --> G[PR merged]
+    G --> H[🎉 Resource goes live!]
+    H --> I[You receive notification]
 ```
 
 ### What We Validate
@@ -58,17 +77,7 @@ Don't worry if validation fails! The bot will:
 
 Simply edit your issue to fix any problems - no need to create a new submission.
 
-### Approval Process
-
-Once validation passes:
-
-1. A maintainer will review your submission for quality and relevance
-2. They may:
-   - ✅ **Approve** - Type `/approve` and the bot creates a PR
-   - 🔄 **Request changes** - Type `/request-changes` with feedback
-   - ❌ **Reject** - Type `/reject` with reason
-
-### After Approval
+### After Validation Passes
 
 The magic happens automatically:
 
@@ -137,7 +146,7 @@ Resources are organized into these categories:
 
 For suggestions about the repository structure, new categories, or other enhancements:
 
-1. **[Open a general issue](https://github.com/hesreallyhim/awesome-claude-code/issues/new)**
+1. **[Open a general issue](https://github.com/thedotmack/awesome-claude-code/issues/new)**
 2. Describe your suggestion clearly
 3. Explain the benefit to the community
 
@@ -154,18 +163,18 @@ If you find problems with existing resources or the submission process:
 
 If your submission is approved, you can add a badge to your README:
 
-[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge.svg)](https://github.com/hesreallyhim/awesome-claude-code)
+[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge.svg)](https://github.com/thedotmack/awesome-claude-code)
 
 ```markdown
-[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge.svg)](https://github.com/hesreallyhim/awesome-claude-code)
+[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge.svg)](https://github.com/thedotmack/awesome-claude-code)
 ```
 
 Or the flat version:
 
-[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/hesreallyhim/awesome-claude-code)
+[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/thedotmack/awesome-claude-code)
 
 ```markdown
-[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/hesreallyhim/awesome-claude-code)
+[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge-flat.svg)](https://github.com/thedotmack/awesome-claude-code)
 ```
 
 ## GitHub Repository Notifications
