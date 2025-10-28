@@ -58,85 +58,6 @@ This is a curated list of slash-commands, `CLAUDE.md` files, CLI tools, and othe
 
 Claude Code is a cutting-edge CLI-based coding assistant and agent released by [Anthropic](https://www.anthropic.com/) that you can access in your terminal or IDE. It is a rapidly evolving tool that offers a number of powerful capabilities, and allows for a lot of configuration, in a lot of different ways. Users are actively working out best practices and workflows. It is the hope that this repo will help the community share knowledge and understand how to get the most out of Claude Code.
 
-### Announcements [🔝](#awesome-claude-code)
-
-<details open>
-<summary>View Announcements</summary>
-
-- <details open>
-  <summary>2025-10-16 - **AGENT SKILLS**</summary>
-
-  - <details open>
-    <summary>Claude Got Skills</summary>
-
-    - In my previous announcement, I encouraged people to submit resources that explored features specific to _Claude Code_. So Claude read the post (he checks the list a lot), and was like "hold my martini" - and as of version 2.0.20 it looks like we've got a **new** set of toys for users to play with: [**Agent Skills**](https://docs.claude.com/en/docs/claude-code/skills). So for now I'm going to be focusing a lot on figuring out what you can do with this new feature set, and Skills submissions will be prioritized. Watch this space for updates.
-
-    </details>
-
-  </details>
-
-</details>
-
-## This Week's Additions ✨ [🔝](#awesome-claude-code)
-
-> Resources added in the past 7 days
-
-[`Codex Skill`](https://github.com/skills-directory/skill-codex) &nbsp; by &nbsp; [klaudworks](https://github.com/klaudworks)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-Enables users to prompt codex from claude code. Unlike the raw codex mcp server, this skill infers parameters such as model, reasoning effort, sandboxing from your prompt or asks you to specify them. It also simplifies continuing prior codex sessions so that codex can continue with the prior context.
-
-<details>
-<summary>📊 GitHub Stats</summary>
-
-![GitHub Stats for skill-codex](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=skill-codex&username=skills-directory&all_stats=true&stats_only=true)
-
-</details>
-<br>
-
-[`claude-mem`](https://github.com/thedotmack/claude-mem) &nbsp; by &nbsp; [Alex Newman](https://github.com/thedotmack)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;NOASSERTION  
-Persistent memory compression system that captures tool usage, generates AI-powered session summaries, and injects relevant context into future Claude Code sessions through SQLite storage and full-text search across project history (and no extra-cost dependencies!). 🦾
-
-<details>
-<summary>📊 GitHub Stats</summary>
-
-![GitHub Stats for claude-mem](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claude-mem&username=thedotmack&all_stats=true&stats_only=true)
-
-</details>
-<br>
-
-[`cc-sessions`](https://github.com/GWUDCAP/cc-sessions) &nbsp; by &nbsp; [toastdev](https://github.com/satoastshi)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-An opinionated approach to produce development with Claude Code
-
-<details>
-<summary>📊 GitHub Stats</summary>
-
-![GitHub Stats for cc-sessions](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=cc-sessions&username=GWUDCAP&all_stats=true&stats_only=true)
-
-</details>
-<br>
-
-[`fcakyon Collection (Code Quality and Tool Usage)`](https://github.com/fcakyon/claude-codex-settings/tree/main/.claude/hooks) &nbsp; by &nbsp; [Fatih Akyon](https://github.com/fcakyon)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;Apache-2.0  
-Very well-written set of hooks for code quality and tool usage regulation (e.g. force Tavily over WebFetch tool).
-
-<details>
-<summary>📊 GitHub Stats</summary>
-
-![GitHub Stats for claude-codex-settings](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claude-codex-settings&username=fcakyon&all_stats=true&stats_only=true)
-
-</details>
-<br>
-
-[`/linux-desktop-slash-commands`](https://github.com/danielrosehill/Claude-Code-Linux-Desktop-Slash-Commands) &nbsp; by &nbsp; [Daniel Rosehill](https://github.com/danielrosehill)    
-A library of slash commands intended specifically to facilitate common and advanced operations on Linux desktop environments (although many would also be useful on Linux servers). Command groups include hardware benchmarking, filesystem organisation, and security posture validation.
-
-<details>
-<summary>📊 GitHub Stats</summary>
-
-![GitHub Stats for Claude-Code-Linux-Desktop-Slash-Commands](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=Claude-Code-Linux-Desktop-Slash-Commands&username=danielrosehill&all_stats=true&stats_only=true)
-
-</details>
-<br>
-
-
 ## Contents [🔝](#awesome-claude-code)
 
 <details open>
@@ -204,6 +125,7 @@ A library of slash commands intended specifically to facilitate common and advan
 - <details open>
   <summary><a href="#claudemd-files-">CLAUDE.md Files</a></summary>
 
+  - [General](#general--7)
   - [Language-Specific](#language-specific-)
   - [Domain-Specific](#domain-specific-)
   - [Project Scaffolding & MCP](#project-scaffolding--mcp-)
@@ -219,7 +141,7 @@ A library of slash commands intended specifically to facilitate common and advan
 - <details open>
   <summary><a href="#official-documentation-">Official Documentation</a></summary>
 
-  - [General](#general--7)
+  - [General](#general--8)
 
   </details>
 
@@ -241,6 +163,17 @@ Enables users to prompt codex from claude code. Unlike the raw codex mcp server,
 <summary>📊 GitHub Stats</summary>
 
 ![GitHub Stats for skill-codex](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=skill-codex&username=skills-directory&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Web Assets Generator`](https://github.com/alonw0/web-asset-generator) &nbsp; by &nbsp; [Alon Wolenitz](https://github.com/alonw0)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Easily generate web assets from Claude Code including favicons, app icons (PWA), and social media meta images (Open Graph) for Facebook, Twitter, WhatsApp, and LinkedIn. Handles image resizing, text-to-image generation, emojis, and provides proper HTML meta tags.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for web-asset-generator](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=web-asset-generator&username=alonw0&all_stats=true&stats_only=true)
 
 </details>
 <br>
@@ -404,6 +337,20 @@ A broader project management workflow for Claude Code that encompasses not just 
 
 </details>
 <br>
+
+[`Claude Code Cheat Sheet`](https://github.com/aeulker/Claude-Code-Cheat-Sheet) &nbsp; by &nbsp; [aeulker](https://github.com/aeulker)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Claude Code Cheat Sheet - A comprehensive reference guide for Claude Code workflows and best practices.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for Claude-Code-Cheat-Sheet](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=Claude-Code-Cheat-Sheet&username=aeulker&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Claude Code Handbook`](https://nikiforovall.blog/claude-code-rules/) &nbsp; by &nbsp; [nikiforovall](https://github.com/NikiforovAll)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Collection of best practices, tips, and techniques for Claude Code development workflows, enhanced with distributable plugins. Covers practical technique guides for beginners and advanced users.
 
 </details>
 
@@ -621,6 +568,138 @@ VoiceMode MCP brings natural conversations to Claude Code. It supports any OpenA
 <summary>📊 GitHub Stats</summary>
 
 ![GitHub Stats for voicemode](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=voicemode&username=mbailey&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Claude Control Terminal`](https://github.com/schlunsen/claude-control-terminal) &nbsp; by &nbsp; [schlunsen](https://github.com/schlunsen)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+High-performance Go port of claude-code-templates providing component installation (600+ agents, 200+ commands, MCPs), Docker containerization, real-time analytics dashboard with WebSocket monitoring, and cross-platform deployment. Features 10-50x faster startup and 3-5x lower memory usage compared to Node.js alternatives.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for claude-control-terminal](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claude-control-terminal&username=schlunsen&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Schaltwerk`](https://github.com/2mawi2/schaltwerk) &nbsp; by &nbsp; [Marius Wichtner](https://github.com/2mawi2)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Schaltwerk is a macOS Tauri desktop app that runs multiple terminal agents (Claude, Codex, OpenCode, Gemini-CLI) in parallel. Each session is isolated in its own git worktree/branch and includes a driving spec plus multiple terminals for running and testing. The keyboard-first, spec-driven workflow and local diff review keep humans in control.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for schaltwerk](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=schaltwerk&username=2mawi2&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Claude Code Web Shell`](https://github.com/vaderyang/claudecode_web_shell) &nbsp; by &nbsp; [vaderyang](https://github.com/vaderyang)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+A web-based terminal interface for Claude Code that allows you to interact with Claude Code through your browser.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for claudecode_web_shell](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claudecode_web_shell&username=vaderyang&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Codanna`](https://github.com/bartolli/codanna) &nbsp; by &nbsp; [bartolli](https://github.com/bartolli)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;Apache-2.0  
+Semantic code search and relationship tracking via MCP and Unix CLI. Features 91,318 symbols/sec parsing, Tree-sitter AST parsing for Rust and Python, 384-dimensional vectors, Tantivy full-text search, <10ms lookups, ~300ms MCP response time. FNV-1a hashed lookups with memory-mapped storage and specialized caches.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for codanna](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=codanna&username=bartolli&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Claudable`](https://github.com/opactorai/Claudable) &nbsp; by &nbsp; [Ethan Park](https://github.com/Atipico1)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Claudable is an open-source web builder that leverages local CLI agents, such as Claude Code and Cursor Agent, to build and deploy products effortlessly. OpenSource Lovable that runs locally.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for Claudable](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=Claudable&username=opactorai&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Claude Agent Toolkit`](https://github.com/cheolwanpark/claude-agent-toolkit) &nbsp; by &nbsp; [Cheolwan Park](https://github.com/cheolwanpark)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+A Python framework that wraps claude-code-sdk to provide better developer experience through decorator-based tools, runtime isolation, and simplified agent development. Built for production safety with Docker containers. Features simple class-based definition with @tool decorator, built-in parallel execution, and FileSystemTool with permission control.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for claude-agent-toolkit](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claude-agent-toolkit&username=cheolwanpark&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Omnara`](https://github.com/omnara-ai/omnara) &nbsp; by &nbsp; [Ishaan Sehgal](https://github.com/ishaansehgal99)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;Apache-2.0  
+A command center for AI agents that syncs Claude Code sessions across terminal, web, and mobile. Allows for remote monitoring, human-in-the-loop interaction, and team collaboration. Recently open-sourced web and mobile applications.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for omnara](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=omnara&username=omnara-ai&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`conduit8`](https://github.com/conduit8/conduit8) &nbsp; by &nbsp; [Alexander Zuev](https://github.com/alexander-zuev)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;AGPL-3.0  
+CLI registry for discovering, installing, and managing Claude Code skills. Search 20+ curated skills by keyword or category, install directly to ~/.claude/skills/ with one command. Like context7 for Claude Code skills. Available via npx - no global installation required.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for conduit8](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=conduit8&username=conduit8&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Claw Code`](https://github.com/jamesrochabrun/Claw) &nbsp; by &nbsp; [James Rochabrun](https://github.com/jamesrochabrun)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+A friendly macOS app for Claude Code. Uses Claude Code SDK to bring most of the well known features from Claude Code to a macOS app. In addition uses accessibility API to inspect Xcode workspaces making it a great tool for iOS engineers.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for Claw](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=Claw&username=jamesrochabrun&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Claude Codex Api`](https://github.com/4xian/claude-codex-api) &nbsp; by &nbsp; [4xian](https://github.com/4xian)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+A CLI tool for managing Claude Code and Codex configurations, allowing one-click switching between multiple transit station API configurations; One-click switching of system environment variables, one-click testing of API latency/validity, automatic optimal route switching with internationalization support.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for claude-codex-api](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claude-codex-api&username=4xian&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`DevRag`](https://github.com/tomohiro-owada/devrag) &nbsp; by &nbsp; [Tomohiro Owada](https://github.com/tomohiro-owada)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Lightweight local RAG system for Claude Code that uses vector search to retrieve only relevant document chunks, reducing token usage by 40x and search time by 15x compared to reading entire files.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for devrag](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=devrag&username=tomohiro-owada&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Claude Code Agent SDK Pretty Printer`](https://github.com/PepijnSenders/claude-pretty-printer) &nbsp; by &nbsp; [PepijnSenders](https://github.com/PepijnSenders)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+A lightweight utility that transforms raw Claude Agent SDK JSON messages into beautiful, readable CLI output with color-coded boxes and professional formatting.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for claude-pretty-printer](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claude-pretty-printer&username=PepijnSenders&all_stats=true&stats_only=true)
 
 </details>
 <br>
@@ -984,6 +1063,28 @@ Quality check hook for Node.js TypeScript projects with TypeScript compilation. 
 </details>
 <br>
 
+[`claude-code-guardian`](https://github.com/jfpedroza/claude-code-guardian) &nbsp; by &nbsp; [jfpedroza](https://github.com/jfpedroza)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Validation and permission system for Claude Code focused on controlling what Claude Code can execute, read or write. Allows users to define a set of rules to evaluate. E.g., allow `git push` but not `git push --force`.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for claude-code-guardian](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claude-code-guardian&username=jfpedroza&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Claude Code Hook Comms (HCOM)`](https://github.com/aannoo/claude-hook-comms) &nbsp; by &nbsp; [aannoo](https://github.com/aannoo)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Lightweight CLI tool for real-time communication between Claude Code sub agents using hooks. Enables multi-agent collaboration with @-mention targeting, live dashboard monitoring, and zero-dependency implementation.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for claude-hook-comms](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claude-hook-comms&username=aannoo&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
 </details>
 
 <br>
@@ -1002,6 +1103,17 @@ CLI tool and template gallery for customizing Claude Code output styles with pre
 <summary>📊 GitHub Stats</summary>
 
 ![GitHub Stats for ccoutputstyles](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=ccoutputstyles&username=viveknair&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Claude X`](https://github.com/kunwar-shah/claudex) &nbsp; by &nbsp; [Kunwar Shah](https://github.com/kunwar-shah)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Claudex - A friendly viewer, Browse and explore your Claude conversations. Features auto project discovery (scans ~/.claude/projects), SQLite FTS5-powered full-text search, session analytics, and export options (JSON, HTML, TXT).
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for claudex](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=claudex&username=kunwar-shah&all_stats=true&stats_only=true)
 
 </details>
 <br>
@@ -1033,6 +1145,17 @@ A library of slash commands intended specifically to facilitate common and advan
 <summary>📊 GitHub Stats</summary>
 
 ![GitHub Stats for Claude-Code-Linux-Desktop-Slash-Commands](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=Claude-Code-Linux-Desktop-Slash-Commands&username=danielrosehill&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`Session Driven Development`](https://github.com/ankushdixit/sdd) &nbsp; by &nbsp; [Ankush Dixit](https://github.com/ankushdixit)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+SDD implements Session-Driven Development, a comprehensive methodology that enables AI coding assistants to work on software projects across multiple sessions with perfect context continuity, enforced quality standards, and accumulated institutional knowledge.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for sdd](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=sdd&username=ankushdixit&all_stats=true&stats_only=true)
 
 </details>
 <br>
@@ -1576,6 +1699,33 @@ Reformats documentation to use React Stepper component, transforming heading for
 > **`CLAUDE.md` files** are files that contain important guidelines and context-specific information or instructions that help Claude Code to better understand your project and your coding standards
 
 <details open>
+<summary><h3>General <a href="#awesome-claude-code">🔝</a></h3></summary>
+
+[`Claude Code Sub agents Starter Kit`](https://github.com/shinpr/ai-coding-project-boilerplate) &nbsp; by &nbsp; [shinpr](https://github.com/shinpr)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Comprehensive Claude Code configuration featuring 11 specialized Sub agents with independent contexts and rule-based development system - maintains production-grade TypeScript quality across 770K+ token sessions without context exhaustion.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for ai-coding-project-boilerplate](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=ai-coding-project-boilerplate&username=shinpr&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+[`AI Coding Project Boilerplate`](https://github.com/shinpr/ai-coding-project-boilerplate) &nbsp; by &nbsp; [shinpr](https://github.com/shinpr)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+TypeScript boilerplate designed for AI-driven development with 10+ specialized sub-agents, preventive control mechanisms, and automated quality gates that enable Claude Code to work autonomously while maintaining production standards.
+
+<details>
+<summary>📊 GitHub Stats</summary>
+
+![GitHub Stats for ai-coding-project-boilerplate](https://github-readme-stats-plus-theta.vercel.app/api/pin/?repo=ai-coding-project-boilerplate&username=shinpr&all_stats=true&stats_only=true)
+
+</details>
+<br>
+
+</details>
+
+<details open>
 <summary><h3>Language-Specific <a href="#awesome-claude-code">🔝</a></h3></summary>
 
 [`AI IntelliJ Plugin`](https://github.com/didalgolab/ai-intellij-plugin/blob/main/CLAUDE.md) &nbsp; by &nbsp; [didalgolab](https://github.com/didalgolab)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;Apache-2.0  
@@ -1920,25 +2070,24 @@ Official GitHub Actions integration for Claude Code with examples and documentat
 
 It's easy! Just click the link above and fill out the form. No Git knowledge required - our automated system handles everything for you.
 
-**Everyone Gets to Play 🎉**
+**How we evaluate submissions**
 
-This is a truly community-driven awesome list. If your submission passes validation, it gets added automatically. No gatekeeping, no waiting.
+- **Automated Validation**: All submissions go through automated validation checks for security, licensing, and basic quality standards.
+- **Auto-Approval**: If validation passes, your submission is automatically approved and added to the list within an hour. No human gatekeeping!
+- **Community-Driven**: The community decides value through stars, forks, and usage. We don't impose subjective opinions on what's "valuable enough."
 
-**Validation = Inclusion**
+**What we welcome**
 
-When your submission:
-- ✅ Has working links
-- ✅ Follows proper format
-- ✅ Isn't spam or malicious
-- ✅ Provides genuine value
-
-**It automatically goes live.** No manual approval needed.
+- All Claude Code tools, workflows, configurations, and resources
+- All categories: orchestrators, IDE integrations, handbooks, cheat sheets, skills, hooks, commands, and more
+- Projects at any stage: new, mature, experimental, or production-ready
+- All approaches: simple utilities and complex frameworks alike
 
 See [CONTRIBUTING.md](/CONTRIBUTING.md) for the complete submission guide and review process.
 
 For suggestions about the repository itself, please [open a general issue](https://github.com/thedotmack/awesome-claude-code/issues/new).
 
-This project is released with a [Contributor Code of Conduct](/code-of-conduct.md). By participating, you agree to abide by its terms. All submissions are automatically validated for security and quality. 
+This project is released with a [Contributor Code of Conduct](/code-of-conduct.md). By participating, you agree to abide by its terms. 
 
 ## Growing thanks to you ❤️
 [![Stargazers over time](https://starchart.cc/thedotmack/awesome-claude-code.svg?variant=adaptive)](https://starchart.cc/thedotmack/awesome-claude-code)
