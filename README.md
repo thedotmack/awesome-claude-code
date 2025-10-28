@@ -25,6 +25,31 @@
 
 <!--lint enable remark-lint:awesome-badge-->
 
+---
+
+## 🚀 About This Fork: An Open Alternative
+
+> **Everyone gets to play.**
+
+This is a **community-driven fork** that implements **automatic approval** for all validated submissions. No gatekeeping, no waiting, no subjective rejections.
+
+### Why This Fork Exists
+
+After [extensive analysis](./GATEKEEPING_ANALYSIS.md), we identified systemic gatekeeping in the upstream repository: 7 validated submissions rejected based on subjective criteria, 14+ waiting 2-74+ days, and pay-to-play concerns.
+
+### Our Philosophy
+
+- **🎯 Validation = Approval** — If validation passes, you're automatically listed
+- **⚡ Zero-Wait** — Target < 1 hour approval time
+- **🤝 Community-Driven** — Users decide value, not maintainer opinion
+- **🚫 No Pay-to-Play** — Donations never influence inclusion
+- **📂 All Categories Welcome** — No discrimination against tools types
+- **📋 Stable Requirements** — No moving goalposts
+
+**[Learn more about our philosophy →](./FORK_README.md)** | **[See the analysis →](./GATEKEEPING_ANALYSIS.md)**
+
+---
+
 <!--lint disable double-link-->
 
 This is a curated list of slash-commands, `CLAUDE.md` files, CLI tools, and other resources and guides for enhancing your [Claude Code](https://docs.anthropic.com/en/docs/claude-code) workflow, productivity, and vibes.
