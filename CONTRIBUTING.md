@@ -1,5 +1,18 @@
 # Contributing to Awesome Claude Code
 
+## ⚠️ TEMPORARY PAUSE - Licensing Compliance
+
+**New submissions are temporarily paused** while we resolve a licensing compliance issue with the upstream repository.
+
+- **What's happening:** The upstream uses CC BY-NC-ND 4.0 which prohibits derivative works
+- **What we're doing:** Working with the original maintainer to find a resolution
+- **Timeline:** Expected resolution within 2-4 weeks
+- **More info:** See [NOTICE.md](./NOTICE.md) and [LICENSE_COMPLIANCE.md](./LICENSE_COMPLIANCE.md)
+
+We appreciate your patience and will resume accepting submissions once licensing is properly resolved.
+
+---
+
 Welcome! We're excited that you want to contribute to Awesome Claude Code. This guide will walk you through our streamlined contribution process.
 
 **Important:** We take security seriously. All submissions are carefully reviewed to ensure they don't expose users to data risks or malicious code. Advanced tools may take additional time to review.

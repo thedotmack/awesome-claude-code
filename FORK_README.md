@@ -167,7 +167,25 @@ A: We'd celebrate! Our goal is open access, not competition. We'd happily collab
 
 ## License
 
-MIT License - Same as upstream repository
+**⚠️ LICENSE COMPLIANCE ISSUE - UNDER RESOLUTION**
+
+This fork is currently addressing a licensing compliance issue:
+
+- **Upstream License**: Creative Commons CC BY-NC-ND 4.0
+- **Issue**: The "NoDerivatives" clause prohibits distributing modified versions
+- **Status**: We have contacted the upstream maintainer to request relicensing
+- **Timeline**: Resolution expected within 2-4 weeks
+
+**For full details, see:**
+- [NOTICE.md](./NOTICE.md) - Current status and what we're doing
+- [LICENSE_COMPLIANCE.md](./LICENSE_COMPLIANCE.md) - Comprehensive analysis and options
+
+**Our commitment:**
+- We will fully comply with all licensing requirements
+- We respect the original author's intellectual property rights
+- We are working toward a collaborative resolution
+
+**Once resolved**, we intend to license this project under MIT License for maximum openness and community collaboration.
 
 ---
 

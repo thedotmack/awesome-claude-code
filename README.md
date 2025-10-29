@@ -27,6 +27,16 @@
 
 ---
 
+## ⚠️ IMPORTANT: Licensing Compliance Notice
+
+**Status:** This fork is currently addressing a licensing compliance issue. The upstream repository uses a CC BY-NC-ND 4.0 license which prohibits derivative works. We are working with the original maintainer to find a resolution.
+
+**➡️ [See full details in NOTICE.md](./NOTICE.md) | [Compliance analysis →](./LICENSE_COMPLIANCE.md)**
+
+**New submissions paused** until licensing is resolved. Thank you for your patience.
+
+---
+
 ## 🚀 About This Fork: An Open Alternative
 
 > **Everyone gets to play.**
