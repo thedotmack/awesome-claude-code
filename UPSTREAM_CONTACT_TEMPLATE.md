@@ -95,8 +95,8 @@ On behalf of the thedotmack/awesome-claude-code fork community
 
 ## For Reference
 
-- **Our compliance documentation**: [LICENSE_COMPLIANCE.md](https://github.com/thedotmack/awesome-claude-code/blob/main/LICENSE_COMPLIANCE.md)
-- **Our current status notice**: [NOTICE.md](https://github.com/thedotmack/awesome-claude-code/blob/main/NOTICE.md)
+- **Our compliance documentation**: [LICENSE_COMPLIANCE.md](./LICENSE_COMPLIANCE.md)
+- **Our current status notice**: [NOTICE.md](./NOTICE.md)
 - **Why CC is not ideal for software**: [Creative Commons FAQ](https://creativecommons.org/faq/#can-i-apply-a-creative-commons-license-to-software)
 - **Open source license guide**: [Choose an Open Source License](https://choosealicense.com/)
 

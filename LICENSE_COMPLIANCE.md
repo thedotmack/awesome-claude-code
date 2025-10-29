@@ -34,8 +34,8 @@ The **ND (NoDerivatives)** clause explicitly prohibits:
 Our repository currently has conflicting license information:
 
 1. **LICENSE file**: Contains CC BY-NC-ND 4.0 text (inherited from upstream)
-2. **FORK_README.md line 170**: Claims "MIT License - Same as upstream repository" ❌ INCORRECT
-3. **pyproject.toml line 17**: Declares "License :: OSI Approved :: MIT License" ❌ INCORRECT
+2. **FORK_README.md**: Previously claimed "MIT License - Same as upstream repository" ❌ INCORRECT (now fixed)
+3. **pyproject.toml**: Previously declared "License :: OSI Approved :: MIT License" in classifiers ❌ INCORRECT (now fixed)
 
 ## Legal Analysis
 
