@@ -16,7 +16,7 @@ This repository is built upon content from commit `03cbd6b` (September 12, 2025)
 
 - **All automation infrastructure** (scripts, workflows, templates) existed during the CC0 period and is legally available for use
 - **Project listings and factual information** are not copyrightable regardless of license
-- **Our additions and modifications** are licensed under MIT License for maximum openness
+- **Our additions and modifications** continue under CC0 1.0 Universal (Public Domain Dedication)
 
 ### Verification
 
@@ -38,7 +38,7 @@ This will display the full CC0 1.0 Universal text that was in effect when this c
 
 ### Our License
 
-All content in this repository is licensed under the **MIT License** (see LICENSE file), which is compatible with building upon CC0 (public domain) content.
+All content in this repository is licensed under **CC0 1.0 Universal (Public Domain Dedication)** (see LICENSE file), maintaining the same open license as the original foundation content.
 
 ### Compliance
 

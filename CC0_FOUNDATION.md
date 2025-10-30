@@ -35,7 +35,7 @@ This repository is built on:
 
 - **Original Fork Content**: GATEKEEPING analysis, documentation improvements by @thedotmack
 - **Updated Factual Information**: New project submissions from community (facts only)
-- **Our Own License**: MIT License for maximum permissiveness and community benefit
+- **Our Own License**: CC0 1.0 Universal for maximum permissiveness and community benefit
 
 ## Verification
 
@@ -65,5 +65,5 @@ This approach ensures:
 
 **Branch Created**: October 29, 2025  
 **Foundation Commit**: `03cbd6b` (September 12, 2025)  
-**License**: MIT (for our additions)  
+**License**: CC0 1.0 Universal (for our additions)  
 **CC0 Content**: Remains public domain as originally dedicated

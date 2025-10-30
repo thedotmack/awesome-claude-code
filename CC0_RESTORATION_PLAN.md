@@ -87,22 +87,16 @@ Files to restore:
 
 **Important**: Do NOT restore any modified upstream files. Only restore files YOU created from scratch.
 
-### Phase 4: Apply MIT License
+### Phase 4: Apply CC0 License
 
-**Action**: Replace LICENSE file with MIT
+**Action**: Keep LICENSE file as CC0 1.0 Universal
 
-```markdown
-MIT License
+The LICENSE file at commit `03cbd6b` already contains the full CC0 1.0 Universal text, which dedicates all content to the public domain. We maintain this license for maximum openness and consistency with the foundation.
 
-Copyright (c) 2025 thedotmack
-
-Permission is hereby granted, free of charge, to any person obtaining a copy...
-```
-
-Update pyproject.toml:
+Update pyproject.toml if needed:
 ```toml
 [project]
-license = {text = "MIT"}
+license = {text = "CC0-1.0"}
 ```
 
 ### Phase 5: Force Push
@@ -130,7 +124,7 @@ Before force-pushing, verify:
 - [ ] Only factual project data added (no copyrighted descriptions)
 - [ ] Only YOUR original documents included
 - [ ] No post-Sept-15 upstream modifications included
-- [ ] MIT license applied
+- [ ] CC0 license maintained
 - [ ] CC0_FOUNDATION.md documentation present
 
 ## Legal Position
@@ -153,7 +147,7 @@ This approach is legally sound because:
 **Remaining**:
 - ⏭️ Analyze and restore factual submissions
 - ⏭️ Restore your original documentation
-- ⏭️ Apply MIT license
+- ⏭️ Maintain CC0 license
 - ⏭️ Force push to remove post-CC0 content
 
 ## Commands Reference

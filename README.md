@@ -6,7 +6,7 @@ A community-maintained collection of tools, integrations, and resources for Clau
 
 Claude Code is Anthropic's AI coding assistant accessible via CLI and IDE integrations. This repository catalogs community-created resources to extend and enhance Claude Code functionality.
 
-**License:** MIT  
+**License:** CC0 1.0 Universal (Public Domain)  
 **Maintainer:** Community-driven with open contribution model
 
 ---

@@ -35,14 +35,14 @@ git show 03cbd6b:LICENSE
 
 This shows the full CC0 1.0 Universal license text.
 
-## License for New Additions
+## License for All Content
 
-All new content added to this branch by @thedotmack is licensed under MIT License (see LICENSE_MIT file).
+All content in this repository is licensed under **CC0 1.0 Universal (Public Domain Dedication)**, maintaining the same open license as the original foundation content.
 
 ## Structure
 
 - **Original CC0 content**: Complete automation infrastructure, workflows, scripts, templates
 - **Factual information**: Project names, URLs, authors (facts are not copyrightable)
-- **New additions**: Licensed under MIT, clearly documented
+- **All content**: Licensed under CC0 1.0 Universal (Public Domain)
 
-This approach respects upstream's license change while establishing a legal foundation for continued development based on public domain content.
+This approach respects upstream's license change while establishing a legal foundation for continued development based on public domain content, maintaining CC0 for maximum openness.
