@@ -7,6 +7,19 @@ body:
   - type: markdown
     attributes:
       value: |
+        ## ⚠️ TEMPORARY PAUSE - Please Read
+
+        **New submissions are temporarily paused** while we resolve a licensing compliance issue.
+
+        - **Issue:** The upstream repository uses a license that prohibits derivative works
+        - **Status:** We're working with the original maintainer to find a resolution
+        - **Timeline:** Expected resolution within 2-4 weeks
+        - **More info:** See [NOTICE.md](https://github.com/thedotmack/awesome-claude-code/blob/main/NOTICE.md)
+
+        **Please hold your submission** until we announce that we're accepting submissions again. We'll update this notice when resolved.
+
+        ---
+
         ## Welcome! 👋
 
         Thank you for submitting a resource to Awesome Claude Code! This form will guide you through the submission process.
