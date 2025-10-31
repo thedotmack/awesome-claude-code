@@ -469,14 +469,6 @@ VoiceMode MCP brings natural conversations to Claude Code. It supports any OpenA
 [![Stars](https://img.shields.io/github/stars/mbailey/voicemode?style=flat-square&logo=github&labelColor=343b41)](https://github.com/mbailey/voicemode/stargazers) ![License](https://img.shields.io/github/license/mbailey/voicemode?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/mbailey/voicemode?style=flat-square&logo=github&labelColor=343b41)](https://github.com/mbailey/voicemode/commits) ![Language](https://img.shields.io/github/languages/top/mbailey/voicemode?style=flat-square&labelColor=343b41)
 <br>
 
-[`mcp_docker`](https://github.com/williajm/mcp_docker) &nbsp; by &nbsp; [williajm](https://github.com/williajm)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-MCP server for Docker management with 36 tools, 3 AI prompts, and enterprise safety controls (three-tier system: SAFE/MODERATE/DESTRUCTIVE operations).
-
-> ⚠️ **High Privilege Tool**: Provides Docker daemon access (equivalent to root). Enable authentication for non-local use. Review [security documentation](https://github.com/williajm/mcp_docker/blob/main/SECURITY.md).
-
-[![Stars](https://img.shields.io/github/stars/williajm/mcp_docker?style=flat-square&logo=github&labelColor=343b41)](https://github.com/williajm/mcp_docker/stargazers) ![License](https://img.shields.io/github/license/williajm/mcp_docker?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/williajm/mcp_docker?style=flat-square&logo=github&labelColor=343b41)](https://github.com/williajm/mcp_docker/commits) ![Language](https://img.shields.io/github/languages/top/williajm/mcp_docker?style=flat-square&labelColor=343b41)
-<br>
-
 </details>
 
 <details open>
