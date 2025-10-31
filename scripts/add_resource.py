@@ -230,6 +230,7 @@ def append_to_csv(data):
         data.get(
             "removed_from_origin", "FALSE"
         ),  # Removed From Origin - new resources default to FALSE
+        data.get("security_note", ""),  # Security Note - optional security warning
     ]
 
     try:
