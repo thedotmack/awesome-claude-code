@@ -27,16 +27,6 @@
 
 ---
 
-## ⚠️ IMPORTANT: Licensing Compliance Notice
-
-**Status:** This fork is currently addressing a licensing compliance issue. The upstream repository uses a CC BY-NC-ND 4.0 license which prohibits derivative works. We are working with the original maintainer to find a resolution.
-
-**➡️ [See full details in NOTICE.md](./NOTICE.md) | [Compliance analysis →](./LICENSE_COMPLIANCE.md)**
-
-**New submissions paused** until licensing is resolved. Thank you for your patience.
-
----
-
 ## 🚀 About This Fork: An Open Alternative
 
 > **Everyone gets to play.**
@@ -201,6 +191,15 @@ Provides a well-structured set of commands for publishing and maintaining a blog
 [![Stars](https://img.shields.io/github/stars/cloudartisan/cloudartisan.github.io?style=flat-square&logo=github&labelColor=343b41)](https://github.com/cloudartisan/cloudartisan.github.io/stargazers) ![License](https://img.shields.io/github/license/cloudartisan/cloudartisan.github.io?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/cloudartisan/cloudartisan.github.io?style=flat-square&logo=github&labelColor=343b41)](https://github.com/cloudartisan/cloudartisan.github.io/commits) ![Language](https://img.shields.io/github/languages/top/cloudartisan/cloudartisan.github.io?style=flat-square&labelColor=343b41)
 <br>
 
+[`Claude Code Cheat Sheet`](https://github.com/aeulker/Claude-Code-Cheat-Sheet) &nbsp; by &nbsp; [aeulker](https://github.com/aeulker)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Claude Code Cheat Sheet - A comprehensive reference guide for Claude Code workflows and best practices.
+
+[![Stars](https://img.shields.io/github/stars/aeulker/Claude-Code-Cheat-Sheet?style=flat-square&logo=github&labelColor=343b41)](https://github.com/aeulker/Claude-Code-Cheat-Sheet/stargazers) ![License](https://img.shields.io/github/license/aeulker/Claude-Code-Cheat-Sheet?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/aeulker/Claude-Code-Cheat-Sheet?style=flat-square&logo=github&labelColor=343b41)](https://github.com/aeulker/Claude-Code-Cheat-Sheet/commits) ![Language](https://img.shields.io/github/languages/top/aeulker/Claude-Code-Cheat-Sheet?style=flat-square&labelColor=343b41)
+<br>
+
+[`Claude Code Handbook`](https://nikiforovall.blog/claude-code-rules/) &nbsp; by &nbsp; [nikiforovall](https://github.com/NikiforovAll)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Collection of best practices, tips, and techniques for Claude Code development workflows, enhanced with distributable plugins. Covers practical technique guides for beginners and advanced users.
+
 [`Claude Code PM`](https://github.com/automazeio/ccpm) &nbsp; by &nbsp; [Ran Aroussi](https://github.com/ranaroussi)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 Really comprehensive and feature-packed project-management workflow for Claude Code. Numerous specialized agents, slash-commands, and strong documentation.
 
@@ -273,15 +272,6 @@ A broader project management workflow for Claude Code that encompasses not just 
 [![Stars](https://img.shields.io/github/stars/Helmi/claude-simone?style=flat-square&logo=github&labelColor=343b41)](https://github.com/Helmi/claude-simone/stargazers) ![License](https://img.shields.io/github/license/Helmi/claude-simone?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/Helmi/claude-simone?style=flat-square&logo=github&labelColor=343b41)](https://github.com/Helmi/claude-simone/commits) ![Language](https://img.shields.io/github/languages/top/Helmi/claude-simone?style=flat-square&labelColor=343b41)
 <br>
 
-[`Claude Code Cheat Sheet`](https://github.com/aeulker/Claude-Code-Cheat-Sheet) &nbsp; by &nbsp; [aeulker](https://github.com/aeulker)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-Claude Code Cheat Sheet - A comprehensive reference guide for Claude Code workflows and best practices.
-
-[![Stars](https://img.shields.io/github/stars/aeulker/Claude-Code-Cheat-Sheet?style=flat-square&logo=github&labelColor=343b41)](https://github.com/aeulker/Claude-Code-Cheat-Sheet/stargazers) ![License](https://img.shields.io/github/license/aeulker/Claude-Code-Cheat-Sheet?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/aeulker/Claude-Code-Cheat-Sheet?style=flat-square&logo=github&labelColor=343b41)](https://github.com/aeulker/Claude-Code-Cheat-Sheet/commits) ![Language](https://img.shields.io/github/languages/top/aeulker/Claude-Code-Cheat-Sheet?style=flat-square&labelColor=343b41)
-<br>
-
-[`Claude Code Handbook`](https://nikiforovall.blog/claude-code-rules/) &nbsp; by &nbsp; [nikiforovall](https://github.com/NikiforovAll)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-Collection of best practices, tips, and techniques for Claude Code development workflows, enhanced with distributable plugins. Covers practical technique guides for beginners and advanced users.
-
 </details>
 
 <br>
@@ -323,16 +313,52 @@ A humble but handy utility for viewing Claude Code `.jsonl` conversation files i
 [![Stars](https://img.shields.io/github/stars/Brads3290/cclogviewer?style=flat-square&logo=github&labelColor=343b41)](https://github.com/Brads3290/cclogviewer/stargazers) ![License](https://img.shields.io/github/license/Brads3290/cclogviewer?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/Brads3290/cclogviewer?style=flat-square&logo=github&labelColor=343b41)](https://github.com/Brads3290/cclogviewer/commits) ![Language](https://img.shields.io/github/languages/top/Brads3290/cclogviewer?style=flat-square&labelColor=343b41)
 <br>
 
+[`Claudable`](https://github.com/opactorai/Claudable) &nbsp; by &nbsp; [Ethan Park](https://github.com/Atipico1)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Claudable is an open-source web builder that leverages local CLI agents, such as Claude Code and Cursor Agent, to build and deploy products effortlessly. OpenSource Lovable that runs locally.
+
+[![Stars](https://img.shields.io/github/stars/opactorai/Claudable?style=flat-square&logo=github&labelColor=343b41)](https://github.com/opactorai/Claudable/stargazers) ![License](https://img.shields.io/github/license/opactorai/Claudable?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/opactorai/Claudable?style=flat-square&logo=github&labelColor=343b41)](https://github.com/opactorai/Claudable/commits) ![Language](https://img.shields.io/github/languages/top/opactorai/Claudable?style=flat-square&labelColor=343b41)
+<br>
+
+[`Claude Agent Toolkit`](https://github.com/cheolwanpark/claude-agent-toolkit) &nbsp; by &nbsp; [Cheolwan Park](https://github.com/cheolwanpark)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+A Python framework that wraps claude-code-sdk to provide better developer experience through decorator-based tools, runtime isolation, and simplified agent development. Built for production safety with Docker containers. Features simple class-based definition with @tool decorator, built-in parallel execution, and FileSystemTool with permission control.
+
+[![Stars](https://img.shields.io/github/stars/cheolwanpark/claude-agent-toolkit?style=flat-square&logo=github&labelColor=343b41)](https://github.com/cheolwanpark/claude-agent-toolkit/stargazers) ![License](https://img.shields.io/github/license/cheolwanpark/claude-agent-toolkit?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/cheolwanpark/claude-agent-toolkit?style=flat-square&logo=github&labelColor=343b41)](https://github.com/cheolwanpark/claude-agent-toolkit/commits) ![Language](https://img.shields.io/github/languages/top/cheolwanpark/claude-agent-toolkit?style=flat-square&labelColor=343b41)
+<br>
+
+[`Claude Code Agent SDK Pretty Printer`](https://github.com/PepijnSenders/claude-pretty-printer) &nbsp; by &nbsp; [PepijnSenders](https://github.com/PepijnSenders)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+A lightweight utility that transforms raw Claude Agent SDK JSON messages into beautiful, readable CLI output with color-coded boxes and professional formatting.
+
+[![Stars](https://img.shields.io/github/stars/PepijnSenders/claude-pretty-printer?style=flat-square&logo=github&labelColor=343b41)](https://github.com/PepijnSenders/claude-pretty-printer/stargazers) ![License](https://img.shields.io/github/license/PepijnSenders/claude-pretty-printer?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/PepijnSenders/claude-pretty-printer?style=flat-square&logo=github&labelColor=343b41)](https://github.com/PepijnSenders/claude-pretty-printer/commits) ![Language](https://img.shields.io/github/languages/top/PepijnSenders/claude-pretty-printer?style=flat-square&labelColor=343b41)
+<br>
+
 [`Claude Code Templates`](https://github.com/davila7/claude-code-templates) &nbsp; by &nbsp; [Daniel Avila](https://github.com/davila7)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 Incredibly awesome collection of resources from every category in this list, presented with a neatly polished UI, great features like usage dashboard, analytics, and everything from slash commands to hooks to agents. An awesome companion for this awesome list.
 
 [![Stars](https://img.shields.io/github/stars/davila7/claude-code-templates?style=flat-square&logo=github&labelColor=343b41)](https://github.com/davila7/claude-code-templates/stargazers) ![License](https://img.shields.io/github/license/davila7/claude-code-templates?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/davila7/claude-code-templates?style=flat-square&logo=github&labelColor=343b41)](https://github.com/davila7/claude-code-templates/commits) ![Language](https://img.shields.io/github/languages/top/davila7/claude-code-templates?style=flat-square&labelColor=343b41)
 <br>
 
+[`Claude Code Web Shell`](https://github.com/vaderyang/claudecode_web_shell) &nbsp; by &nbsp; [vaderyang](https://github.com/vaderyang)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+A web-based terminal interface for Claude Code that allows you to interact with Claude Code through your browser.
+
+[![Stars](https://img.shields.io/github/stars/vaderyang/claudecode_web_shell?style=flat-square&logo=github&labelColor=343b41)](https://github.com/vaderyang/claudecode_web_shell/stargazers) ![License](https://img.shields.io/github/license/vaderyang/claudecode_web_shell?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/vaderyang/claudecode_web_shell?style=flat-square&logo=github&labelColor=343b41)](https://github.com/vaderyang/claudecode_web_shell/commits) ![Language](https://img.shields.io/github/languages/top/vaderyang/claudecode_web_shell?style=flat-square&labelColor=343b41)
+<br>
+
+[`Claude Codex Api`](https://github.com/4xian/claude-codex-api) &nbsp; by &nbsp; [4xian](https://github.com/4xian)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+A CLI tool for managing Claude Code and Codex configurations, allowing one-click switching between multiple transit station API configurations; One-click switching of system environment variables, one-click testing of API latency/validity, automatic optimal route switching with internationalization support.
+
+[![Stars](https://img.shields.io/github/stars/4xian/claude-codex-api?style=flat-square&logo=github&labelColor=343b41)](https://github.com/4xian/claude-codex-api/stargazers) ![License](https://img.shields.io/github/license/4xian/claude-codex-api?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/4xian/claude-codex-api?style=flat-square&logo=github&labelColor=343b41)](https://github.com/4xian/claude-codex-api/commits) ![Language](https://img.shields.io/github/languages/top/4xian/claude-codex-api?style=flat-square&labelColor=343b41)
+<br>
+
 [`Claude Composer`](https://github.com/possibilities/claude-composer) &nbsp; by &nbsp; [Mike Bannister](https://github.com/possibilities)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;Unlicense  
 A tool that adds small enhancements to Claude Code.
 
 [![Stars](https://img.shields.io/github/stars/possibilities/claude-composer?style=flat-square&logo=github&labelColor=343b41)](https://github.com/possibilities/claude-composer/stargazers) ![License](https://img.shields.io/github/license/possibilities/claude-composer?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/possibilities/claude-composer?style=flat-square&logo=github&labelColor=343b41)](https://github.com/possibilities/claude-composer/commits) ![Language](https://img.shields.io/github/languages/top/possibilities/claude-composer?style=flat-square&labelColor=343b41)
+<br>
+
+[`Claude Control Terminal`](https://github.com/schlunsen/claude-control-terminal) &nbsp; by &nbsp; [schlunsen](https://github.com/schlunsen)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+High-performance Go port of claude-code-templates providing component installation (600+ agents, 200+ commands, MCPs), Docker containerization, real-time analytics dashboard with WebSocket monitoring, and cross-platform deployment. Features 10-50x faster startup and 3-5x lower memory usage compared to Node.js alternatives.
+
+[![Stars](https://img.shields.io/github/stars/schlunsen/claude-control-terminal?style=flat-square&logo=github&labelColor=343b41)](https://github.com/schlunsen/claude-control-terminal/stargazers) ![License](https://img.shields.io/github/license/schlunsen/claude-control-terminal?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/schlunsen/claude-control-terminal?style=flat-square&logo=github&labelColor=343b41)](https://github.com/schlunsen/claude-control-terminal/commits) ![Language](https://img.shields.io/github/languages/top/schlunsen/claude-control-terminal?style=flat-square&labelColor=343b41)
 <br>
 
 [`Claude Hub`](https://github.com/claude-did-this/claude-hub) &nbsp; by &nbsp; [Claude Did This](https://github.com/claude-did-this)    
@@ -353,6 +379,24 @@ Impressive CLI toolkit providing auto-save checkpointing, code quality hooks, sp
 [![Stars](https://img.shields.io/github/stars/carlrannaberg/claudekit?style=flat-square&logo=github&labelColor=343b41)](https://github.com/carlrannaberg/claudekit/stargazers) ![License](https://img.shields.io/github/license/carlrannaberg/claudekit?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/carlrannaberg/claudekit?style=flat-square&logo=github&labelColor=343b41)](https://github.com/carlrannaberg/claudekit/commits) ![Language](https://img.shields.io/github/languages/top/carlrannaberg/claudekit?style=flat-square&labelColor=343b41)
 <br>
 
+[`Claw Code`](https://github.com/jamesrochabrun/Claw) &nbsp; by &nbsp; [James Rochabrun](https://github.com/jamesrochabrun)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+A friendly macOS app for Claude Code. Uses Claude Code SDK to bring most of the well known features from Claude Code to a macOS app. In addition uses accessibility API to inspect Xcode workspaces making it a great tool for iOS engineers.
+
+[![Stars](https://img.shields.io/github/stars/jamesrochabrun/Claw?style=flat-square&logo=github&labelColor=343b41)](https://github.com/jamesrochabrun/Claw/stargazers) ![License](https://img.shields.io/github/license/jamesrochabrun/Claw?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/jamesrochabrun/Claw?style=flat-square&logo=github&labelColor=343b41)](https://github.com/jamesrochabrun/Claw/commits) ![Language](https://img.shields.io/github/languages/top/jamesrochabrun/Claw?style=flat-square&labelColor=343b41)
+<br>
+
+[`Codanna`](https://github.com/bartolli/codanna) &nbsp; by &nbsp; [bartolli](https://github.com/bartolli)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;Apache-2.0  
+Semantic code search and relationship tracking via MCP and Unix CLI. Features 91,318 symbols/sec parsing, Tree-sitter AST parsing for Rust and Python, 384-dimensional vectors, Tantivy full-text search, <10ms lookups, ~300ms MCP response time. FNV-1a hashed lookups with memory-mapped storage and specialized caches.
+
+[![Stars](https://img.shields.io/github/stars/bartolli/codanna?style=flat-square&logo=github&labelColor=343b41)](https://github.com/bartolli/codanna/stargazers) ![License](https://img.shields.io/github/license/bartolli/codanna?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/bartolli/codanna?style=flat-square&logo=github&labelColor=343b41)](https://github.com/bartolli/codanna/commits) ![Language](https://img.shields.io/github/languages/top/bartolli/codanna?style=flat-square&labelColor=343b41)
+<br>
+
+[`conduit8`](https://github.com/conduit8/conduit8) &nbsp; by &nbsp; [Alexander Zuev](https://github.com/alexander-zuev)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;AGPL-3.0  
+CLI registry for discovering, installing, and managing Claude Code skills. Search 20+ curated skills by keyword or category, install directly to ~/.claude/skills/ with one command. Like context7 for Claude Code skills. Available via npx - no global installation required.
+
+[![Stars](https://img.shields.io/github/stars/conduit8/conduit8?style=flat-square&logo=github&labelColor=343b41)](https://github.com/conduit8/conduit8/stargazers) ![License](https://img.shields.io/github/license/conduit8/conduit8?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/conduit8/conduit8?style=flat-square&logo=github&labelColor=343b41)](https://github.com/conduit8/conduit8/commits) ![Language](https://img.shields.io/github/languages/top/conduit8/conduit8?style=flat-square&labelColor=343b41)
+<br>
+
 [`Container Use`](https://github.com/dagger/container-use) &nbsp; by &nbsp; [dagger](https://github.com/dagger)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;Apache-2.0  
 Development environments for coding agents. Enable multiple agents to work safely and independently with your preferred stack.
 
@@ -365,6 +409,18 @@ A systematic development framework that transforms Claude Code into a proactive 
 [![Stars](https://img.shields.io/github/stars/FlineDev/ContextKit?style=flat-square&logo=github&labelColor=343b41)](https://github.com/FlineDev/ContextKit/stargazers) ![License](https://img.shields.io/github/license/FlineDev/ContextKit?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/FlineDev/ContextKit?style=flat-square&logo=github&labelColor=343b41)](https://github.com/FlineDev/ContextKit/commits) ![Language](https://img.shields.io/github/languages/top/FlineDev/ContextKit?style=flat-square&labelColor=343b41)
 <br>
 
+[`DevRag`](https://github.com/tomohiro-owada/devrag) &nbsp; by &nbsp; [Tomohiro Owada](https://github.com/tomohiro-owada)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Lightweight local RAG system for Claude Code that uses vector search to retrieve only relevant document chunks, reducing token usage by 40x and search time by 15x compared to reading entire files.
+
+[![Stars](https://img.shields.io/github/stars/tomohiro-owada/devrag?style=flat-square&logo=github&labelColor=343b41)](https://github.com/tomohiro-owada/devrag/stargazers) ![License](https://img.shields.io/github/license/tomohiro-owada/devrag?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/tomohiro-owada/devrag?style=flat-square&logo=github&labelColor=343b41)](https://github.com/tomohiro-owada/devrag/commits) ![Language](https://img.shields.io/github/languages/top/tomohiro-owada/devrag?style=flat-square&labelColor=343b41)
+<br>
+
+[`Omnara`](https://github.com/omnara-ai/omnara) &nbsp; by &nbsp; [Ishaan Sehgal](https://github.com/ishaansehgal99)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;Apache-2.0  
+A command center for AI agents that syncs Claude Code sessions across terminal, web, and mobile. Allows for remote monitoring, human-in-the-loop interaction, and team collaboration. Recently open-sourced web and mobile applications.
+
+[![Stars](https://img.shields.io/github/stars/omnara-ai/omnara?style=flat-square&logo=github&labelColor=343b41)](https://github.com/omnara-ai/omnara/stargazers) ![License](https://img.shields.io/github/license/omnara-ai/omnara?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/omnara-ai/omnara?style=flat-square&logo=github&labelColor=343b41)](https://github.com/omnara-ai/omnara/commits) ![Language](https://img.shields.io/github/languages/top/omnara-ai/omnara?style=flat-square&labelColor=343b41)
+<br>
+
 [`Rulesync`](https://github.com/dyoshikawa/rulesync) &nbsp; by &nbsp; [dyoshikawa](https://github.com/dyoshikawa)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 A Node.js CLI tool that automatically generates configs (rules, ignore files, MCP servers, commands, and subagents) for various AI coding agents. Rulesync can convert configs between Claude Code and other AI agents in both directions.
 
@@ -375,6 +431,12 @@ A Node.js CLI tool that automatically generates configs (rules, ignore files, MC
 A self-contained Docker runner that forwards your current workspace into a safe(r) isolated docker container, where you still have access to your Claude Code settings, authentication, ssh agent, pgp, optionally aws keys etc.
 
 [![Stars](https://img.shields.io/github/stars/icanhasjonas/run-claude-docker?style=flat-square&logo=github&labelColor=343b41)](https://github.com/icanhasjonas/run-claude-docker/stargazers) ![License](https://img.shields.io/github/license/icanhasjonas/run-claude-docker?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/icanhasjonas/run-claude-docker?style=flat-square&logo=github&labelColor=343b41)](https://github.com/icanhasjonas/run-claude-docker/commits) ![Language](https://img.shields.io/github/languages/top/icanhasjonas/run-claude-docker?style=flat-square&labelColor=343b41)
+<br>
+
+[`Schaltwerk`](https://github.com/2mawi2/schaltwerk) &nbsp; by &nbsp; [Marius Wichtner](https://github.com/2mawi2)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Schaltwerk is a macOS Tauri desktop app that runs multiple terminal agents (Claude, Codex, OpenCode, Gemini-CLI) in parallel. Each session is isolated in its own git worktree/branch and includes a driving spec plus multiple terminals for running and testing. The keyboard-first, spec-driven workflow and local diff review keep humans in control.
+
+[![Stars](https://img.shields.io/github/stars/2mawi2/schaltwerk?style=flat-square&logo=github&labelColor=343b41)](https://github.com/2mawi2/schaltwerk/stargazers) ![License](https://img.shields.io/github/license/2mawi2/schaltwerk?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/2mawi2/schaltwerk?style=flat-square&logo=github&labelColor=343b41)](https://github.com/2mawi2/schaltwerk/commits) ![Language](https://img.shields.io/github/languages/top/2mawi2/schaltwerk?style=flat-square&labelColor=343b41)
 <br>
 
 [`stt-mcp-server-linux`](https://github.com/marcindulak/stt-mcp-server-linux) &nbsp; by &nbsp; [marcindulak](https://github.com/marcindulak)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;Apache-2.0  
@@ -405,78 +467,6 @@ Analyzes your Claude Code prompts locally (using CC), provides intelligent sessi
 VoiceMode MCP brings natural conversations to Claude Code. It supports any OpenAI API compatible voice services and installs free and open source voice services (Whisper.cpp and Kokoro-FastAPI).
 
 [![Stars](https://img.shields.io/github/stars/mbailey/voicemode?style=flat-square&logo=github&labelColor=343b41)](https://github.com/mbailey/voicemode/stargazers) ![License](https://img.shields.io/github/license/mbailey/voicemode?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/mbailey/voicemode?style=flat-square&logo=github&labelColor=343b41)](https://github.com/mbailey/voicemode/commits) ![Language](https://img.shields.io/github/languages/top/mbailey/voicemode?style=flat-square&labelColor=343b41)
-<br>
-
-[`Claude Control Terminal`](https://github.com/schlunsen/claude-control-terminal) &nbsp; by &nbsp; [schlunsen](https://github.com/schlunsen)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-High-performance Go port of claude-code-templates providing component installation (600+ agents, 200+ commands, MCPs), Docker containerization, real-time analytics dashboard with WebSocket monitoring, and cross-platform deployment. Features 10-50x faster startup and 3-5x lower memory usage compared to Node.js alternatives.
-
-[![Stars](https://img.shields.io/github/stars/schlunsen/claude-control-terminal?style=flat-square&logo=github&labelColor=343b41)](https://github.com/schlunsen/claude-control-terminal/stargazers) ![License](https://img.shields.io/github/license/schlunsen/claude-control-terminal?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/schlunsen/claude-control-terminal?style=flat-square&logo=github&labelColor=343b41)](https://github.com/schlunsen/claude-control-terminal/commits) ![Language](https://img.shields.io/github/languages/top/schlunsen/claude-control-terminal?style=flat-square&labelColor=343b41)
-<br>
-
-[`Schaltwerk`](https://github.com/2mawi2/schaltwerk) &nbsp; by &nbsp; [Marius Wichtner](https://github.com/2mawi2)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-Schaltwerk is a macOS Tauri desktop app that runs multiple terminal agents (Claude, Codex, OpenCode, Gemini-CLI) in parallel. Each session is isolated in its own git worktree/branch and includes a driving spec plus multiple terminals for running and testing. The keyboard-first, spec-driven workflow and local diff review keep humans in control.
-
-[![Stars](https://img.shields.io/github/stars/2mawi2/schaltwerk?style=flat-square&logo=github&labelColor=343b41)](https://github.com/2mawi2/schaltwerk/stargazers) ![License](https://img.shields.io/github/license/2mawi2/schaltwerk?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/2mawi2/schaltwerk?style=flat-square&logo=github&labelColor=343b41)](https://github.com/2mawi2/schaltwerk/commits) ![Language](https://img.shields.io/github/languages/top/2mawi2/schaltwerk?style=flat-square&labelColor=343b41)
-<br>
-
-[`Claude Code Web Shell`](https://github.com/vaderyang/claudecode_web_shell) &nbsp; by &nbsp; [vaderyang](https://github.com/vaderyang)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-A web-based terminal interface for Claude Code that allows you to interact with Claude Code through your browser.
-
-[![Stars](https://img.shields.io/github/stars/vaderyang/claudecode_web_shell?style=flat-square&logo=github&labelColor=343b41)](https://github.com/vaderyang/claudecode_web_shell/stargazers) ![License](https://img.shields.io/github/license/vaderyang/claudecode_web_shell?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/vaderyang/claudecode_web_shell?style=flat-square&logo=github&labelColor=343b41)](https://github.com/vaderyang/claudecode_web_shell/commits) ![Language](https://img.shields.io/github/languages/top/vaderyang/claudecode_web_shell?style=flat-square&labelColor=343b41)
-<br>
-
-[`Codanna`](https://github.com/bartolli/codanna) &nbsp; by &nbsp; [bartolli](https://github.com/bartolli)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;Apache-2.0  
-Semantic code search and relationship tracking via MCP and Unix CLI. Features 91,318 symbols/sec parsing, Tree-sitter AST parsing for Rust and Python, 384-dimensional vectors, Tantivy full-text search, <10ms lookups, ~300ms MCP response time. FNV-1a hashed lookups with memory-mapped storage and specialized caches.
-
-[![Stars](https://img.shields.io/github/stars/bartolli/codanna?style=flat-square&logo=github&labelColor=343b41)](https://github.com/bartolli/codanna/stargazers) ![License](https://img.shields.io/github/license/bartolli/codanna?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/bartolli/codanna?style=flat-square&logo=github&labelColor=343b41)](https://github.com/bartolli/codanna/commits) ![Language](https://img.shields.io/github/languages/top/bartolli/codanna?style=flat-square&labelColor=343b41)
-<br>
-
-[`Claudable`](https://github.com/opactorai/Claudable) &nbsp; by &nbsp; [Ethan Park](https://github.com/Atipico1)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-Claudable is an open-source web builder that leverages local CLI agents, such as Claude Code and Cursor Agent, to build and deploy products effortlessly. OpenSource Lovable that runs locally.
-
-[![Stars](https://img.shields.io/github/stars/opactorai/Claudable?style=flat-square&logo=github&labelColor=343b41)](https://github.com/opactorai/Claudable/stargazers) ![License](https://img.shields.io/github/license/opactorai/Claudable?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/opactorai/Claudable?style=flat-square&logo=github&labelColor=343b41)](https://github.com/opactorai/Claudable/commits) ![Language](https://img.shields.io/github/languages/top/opactorai/Claudable?style=flat-square&labelColor=343b41)
-<br>
-
-[`Claude Agent Toolkit`](https://github.com/cheolwanpark/claude-agent-toolkit) &nbsp; by &nbsp; [Cheolwan Park](https://github.com/cheolwanpark)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-A Python framework that wraps claude-code-sdk to provide better developer experience through decorator-based tools, runtime isolation, and simplified agent development. Built for production safety with Docker containers. Features simple class-based definition with @tool decorator, built-in parallel execution, and FileSystemTool with permission control.
-
-[![Stars](https://img.shields.io/github/stars/cheolwanpark/claude-agent-toolkit?style=flat-square&logo=github&labelColor=343b41)](https://github.com/cheolwanpark/claude-agent-toolkit/stargazers) ![License](https://img.shields.io/github/license/cheolwanpark/claude-agent-toolkit?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/cheolwanpark/claude-agent-toolkit?style=flat-square&logo=github&labelColor=343b41)](https://github.com/cheolwanpark/claude-agent-toolkit/commits) ![Language](https://img.shields.io/github/languages/top/cheolwanpark/claude-agent-toolkit?style=flat-square&labelColor=343b41)
-<br>
-
-[`Omnara`](https://github.com/omnara-ai/omnara) &nbsp; by &nbsp; [Ishaan Sehgal](https://github.com/ishaansehgal99)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;Apache-2.0  
-A command center for AI agents that syncs Claude Code sessions across terminal, web, and mobile. Allows for remote monitoring, human-in-the-loop interaction, and team collaboration. Recently open-sourced web and mobile applications.
-
-[![Stars](https://img.shields.io/github/stars/omnara-ai/omnara?style=flat-square&logo=github&labelColor=343b41)](https://github.com/omnara-ai/omnara/stargazers) ![License](https://img.shields.io/github/license/omnara-ai/omnara?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/omnara-ai/omnara?style=flat-square&logo=github&labelColor=343b41)](https://github.com/omnara-ai/omnara/commits) ![Language](https://img.shields.io/github/languages/top/omnara-ai/omnara?style=flat-square&labelColor=343b41)
-<br>
-
-[`conduit8`](https://github.com/conduit8/conduit8) &nbsp; by &nbsp; [Alexander Zuev](https://github.com/alexander-zuev)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;AGPL-3.0  
-CLI registry for discovering, installing, and managing Claude Code skills. Search 20+ curated skills by keyword or category, install directly to ~/.claude/skills/ with one command. Like context7 for Claude Code skills. Available via npx - no global installation required.
-
-[![Stars](https://img.shields.io/github/stars/conduit8/conduit8?style=flat-square&logo=github&labelColor=343b41)](https://github.com/conduit8/conduit8/stargazers) ![License](https://img.shields.io/github/license/conduit8/conduit8?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/conduit8/conduit8?style=flat-square&logo=github&labelColor=343b41)](https://github.com/conduit8/conduit8/commits) ![Language](https://img.shields.io/github/languages/top/conduit8/conduit8?style=flat-square&labelColor=343b41)
-<br>
-
-[`Claw Code`](https://github.com/jamesrochabrun/Claw) &nbsp; by &nbsp; [James Rochabrun](https://github.com/jamesrochabrun)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-A friendly macOS app for Claude Code. Uses Claude Code SDK to bring most of the well known features from Claude Code to a macOS app. In addition uses accessibility API to inspect Xcode workspaces making it a great tool for iOS engineers.
-
-[![Stars](https://img.shields.io/github/stars/jamesrochabrun/Claw?style=flat-square&logo=github&labelColor=343b41)](https://github.com/jamesrochabrun/Claw/stargazers) ![License](https://img.shields.io/github/license/jamesrochabrun/Claw?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/jamesrochabrun/Claw?style=flat-square&logo=github&labelColor=343b41)](https://github.com/jamesrochabrun/Claw/commits) ![Language](https://img.shields.io/github/languages/top/jamesrochabrun/Claw?style=flat-square&labelColor=343b41)
-<br>
-
-[`Claude Codex Api`](https://github.com/4xian/claude-codex-api) &nbsp; by &nbsp; [4xian](https://github.com/4xian)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-A CLI tool for managing Claude Code and Codex configurations, allowing one-click switching between multiple transit station API configurations; One-click switching of system environment variables, one-click testing of API latency/validity, automatic optimal route switching with internationalization support.
-
-[![Stars](https://img.shields.io/github/stars/4xian/claude-codex-api?style=flat-square&logo=github&labelColor=343b41)](https://github.com/4xian/claude-codex-api/stargazers) ![License](https://img.shields.io/github/license/4xian/claude-codex-api?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/4xian/claude-codex-api?style=flat-square&logo=github&labelColor=343b41)](https://github.com/4xian/claude-codex-api/commits) ![Language](https://img.shields.io/github/languages/top/4xian/claude-codex-api?style=flat-square&labelColor=343b41)
-<br>
-
-[`DevRag`](https://github.com/tomohiro-owada/devrag) &nbsp; by &nbsp; [Tomohiro Owada](https://github.com/tomohiro-owada)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-Lightweight local RAG system for Claude Code that uses vector search to retrieve only relevant document chunks, reducing token usage by 40x and search time by 15x compared to reading entire files.
-
-[![Stars](https://img.shields.io/github/stars/tomohiro-owada/devrag?style=flat-square&logo=github&labelColor=343b41)](https://github.com/tomohiro-owada/devrag/stargazers) ![License](https://img.shields.io/github/license/tomohiro-owada/devrag?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/tomohiro-owada/devrag?style=flat-square&logo=github&labelColor=343b41)](https://github.com/tomohiro-owada/devrag/commits) ![Language](https://img.shields.io/github/languages/top/tomohiro-owada/devrag?style=flat-square&labelColor=343b41)
-<br>
-
-[`Claude Code Agent SDK Pretty Printer`](https://github.com/PepijnSenders/claude-pretty-printer) &nbsp; by &nbsp; [PepijnSenders](https://github.com/PepijnSenders)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-A lightweight utility that transforms raw Claude Agent SDK JSON messages into beautiful, readable CLI output with color-coded boxes and professional formatting.
-
-[![Stars](https://img.shields.io/github/stars/PepijnSenders/claude-pretty-printer?style=flat-square&logo=github&labelColor=343b41)](https://github.com/PepijnSenders/claude-pretty-printer/stargazers) ![License](https://img.shields.io/github/license/PepijnSenders/claude-pretty-printer?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/PepijnSenders/claude-pretty-printer?style=flat-square&logo=github&labelColor=343b41)](https://github.com/PepijnSenders/claude-pretty-printer/commits) ![Language](https://img.shields.io/github/languages/top/PepijnSenders/claude-pretty-printer?style=flat-square&labelColor=343b41)
 <br>
 
 </details>
@@ -526,6 +516,12 @@ Handy CLI tool for managing and analyzing Claude Code usage, based on analyzing 
 Claude Code usage dashboard with a web-UI that would put Tableau to shame. Thoroughly comprehensive metrics, frictionless setup, detailed logging, really really nice UI.
 
 [![Stars](https://img.shields.io/github/stars/snipeship/ccflare?style=flat-square&logo=github&labelColor=343b41)](https://github.com/snipeship/ccflare/stargazers) ![License](https://img.shields.io/github/license/snipeship/ccflare?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/snipeship/ccflare?style=flat-square&logo=github&labelColor=343b41)](https://github.com/snipeship/ccflare/commits) ![Language](https://img.shields.io/github/languages/top/snipeship/ccflare?style=flat-square&labelColor=343b41)
+<br>
+
+[`ccthink`](https://github.com/normalnormie/ccthink) &nbsp; by &nbsp; [Norman](https://github.com/normalnormie)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Thinking monitor with optional AI compression and git integration
+
+[![Stars](https://img.shields.io/github/stars/normalnormie/ccthink?style=flat-square&logo=github&labelColor=343b41)](https://github.com/normalnormie/ccthink/stargazers) ![License](https://img.shields.io/github/license/normalnormie/ccthink?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/normalnormie/ccthink?style=flat-square&logo=github&labelColor=343b41)](https://github.com/normalnormie/ccthink/commits) ![Language](https://img.shields.io/github/languages/top/normalnormie/ccthink?style=flat-square&labelColor=343b41)
 <br>
 
 [`Claude Code Usage Monitor`](https://github.com/Maciek-roboblog/Claude-Code-Usage-Monitor) &nbsp; by &nbsp; [Maciek-roboblog](https://github.com/Maciek-roboblog)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
@@ -651,6 +647,18 @@ A lightweight Python SDK with a clean API and good documentation; simplifies the
 [![Stars](https://img.shields.io/github/stars/GowayLee/cchooks?style=flat-square&logo=github&labelColor=343b41)](https://github.com/GowayLee/cchooks/stargazers) ![License](https://img.shields.io/github/license/GowayLee/cchooks?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/GowayLee/cchooks?style=flat-square&logo=github&labelColor=343b41)](https://github.com/GowayLee/cchooks/commits) ![Language](https://img.shields.io/github/languages/top/GowayLee/cchooks?style=flat-square&labelColor=343b41)
 <br>
 
+[`Claude Code Hook Comms (HCOM)`](https://github.com/aannoo/claude-hook-comms) &nbsp; by &nbsp; [aannoo](https://github.com/aannoo)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Lightweight CLI tool for real-time communication between Claude Code sub agents using hooks. Enables multi-agent collaboration with @-mention targeting, live dashboard monitoring, and zero-dependency implementation.
+
+[![Stars](https://img.shields.io/github/stars/aannoo/claude-hook-comms?style=flat-square&logo=github&labelColor=343b41)](https://github.com/aannoo/claude-hook-comms/stargazers) ![License](https://img.shields.io/github/license/aannoo/claude-hook-comms?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/aannoo/claude-hook-comms?style=flat-square&logo=github&labelColor=343b41)](https://github.com/aannoo/claude-hook-comms/commits) ![Language](https://img.shields.io/github/languages/top/aannoo/claude-hook-comms?style=flat-square&labelColor=343b41)
+<br>
+
+[`claude-code-guardian`](https://github.com/jfpedroza/claude-code-guardian) &nbsp; by &nbsp; [jfpedroza](https://github.com/jfpedroza)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Validation and permission system for Claude Code focused on controlling what Claude Code can execute, read or write. Allows users to define a set of rules to evaluate. E.g., allow `git push` but not `git push --force`.
+
+[![Stars](https://img.shields.io/github/stars/jfpedroza/claude-code-guardian?style=flat-square&logo=github&labelColor=343b41)](https://github.com/jfpedroza/claude-code-guardian/stargazers) ![License](https://img.shields.io/github/license/jfpedroza/claude-code-guardian?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/jfpedroza/claude-code-guardian?style=flat-square&logo=github&labelColor=343b41)](https://github.com/jfpedroza/claude-code-guardian/commits) ![Language](https://img.shields.io/github/languages/top/jfpedroza/claude-code-guardian?style=flat-square&labelColor=343b41)
+<br>
+
 [`claude-code-hooks-sdk`](https://github.com/beyondcode/claude-hooks-sdk) &nbsp; by &nbsp; [beyondcode](https://github.com/beyondcode)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
 A Laravel-inspired PHP SDK for building Claude Code hook responses with a clean, fluent API. This SDK makes it easy to create structured JSON responses for Claude Code hooks using an expressive, chainable interface.
 
@@ -691,18 +699,6 @@ A hooks-driven system that monitors file operations in real-time and blocks chan
 Quality check hook for Node.js TypeScript projects with TypeScript compilation. ESLint auto-fixing, and Prettier formatting. Uses SHA256 config caching for <5ms validation performance during real-time editing.
 
 [![Stars](https://img.shields.io/github/stars/bartolli/claude-code-typescript-hooks?style=flat-square&logo=github&labelColor=343b41)](https://github.com/bartolli/claude-code-typescript-hooks/stargazers) ![License](https://img.shields.io/github/license/bartolli/claude-code-typescript-hooks?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/bartolli/claude-code-typescript-hooks?style=flat-square&logo=github&labelColor=343b41)](https://github.com/bartolli/claude-code-typescript-hooks/commits) ![Language](https://img.shields.io/github/languages/top/bartolli/claude-code-typescript-hooks?style=flat-square&labelColor=343b41)
-<br>
-
-[`claude-code-guardian`](https://github.com/jfpedroza/claude-code-guardian) &nbsp; by &nbsp; [jfpedroza](https://github.com/jfpedroza)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-Validation and permission system for Claude Code focused on controlling what Claude Code can execute, read or write. Allows users to define a set of rules to evaluate. E.g., allow `git push` but not `git push --force`.
-
-[![Stars](https://img.shields.io/github/stars/jfpedroza/claude-code-guardian?style=flat-square&logo=github&labelColor=343b41)](https://github.com/jfpedroza/claude-code-guardian/stargazers) ![License](https://img.shields.io/github/license/jfpedroza/claude-code-guardian?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/jfpedroza/claude-code-guardian?style=flat-square&logo=github&labelColor=343b41)](https://github.com/jfpedroza/claude-code-guardian/commits) ![Language](https://img.shields.io/github/languages/top/jfpedroza/claude-code-guardian?style=flat-square&labelColor=343b41)
-<br>
-
-[`Claude Code Hook Comms (HCOM)`](https://github.com/aannoo/claude-hook-comms) &nbsp; by &nbsp; [aannoo](https://github.com/aannoo)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-Lightweight CLI tool for real-time communication between Claude Code sub agents using hooks. Enables multi-agent collaboration with @-mention targeting, live dashboard monitoring, and zero-dependency implementation.
-
-[![Stars](https://img.shields.io/github/stars/aannoo/claude-hook-comms?style=flat-square&logo=github&labelColor=343b41)](https://github.com/aannoo/claude-hook-comms/stargazers) ![License](https://img.shields.io/github/license/aannoo/claude-hook-comms?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/aannoo/claude-hook-comms?style=flat-square&logo=github&labelColor=343b41)](https://github.com/aannoo/claude-hook-comms/commits) ![Language](https://img.shields.io/github/languages/top/aannoo/claude-hook-comms?style=flat-square&labelColor=343b41)
 <br>
 
 </details>
@@ -1071,14 +1067,14 @@ Reformats documentation to use React Stepper component, transforming heading for
 <details open>
 <summary><h3>General <a href="#awesome-claude-code">🔝</a></h3></summary>
 
-[`Claude Code Sub agents Starter Kit`](https://github.com/shinpr/ai-coding-project-boilerplate) &nbsp; by &nbsp; [shinpr](https://github.com/shinpr)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-Comprehensive Claude Code configuration featuring 11 specialized Sub agents with independent contexts and rule-based development system - maintains production-grade TypeScript quality across 770K+ token sessions without context exhaustion.
+[`AI Coding Project Boilerplate`](https://github.com/shinpr/ai-coding-project-boilerplate) &nbsp; by &nbsp; [shinpr](https://github.com/shinpr)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+TypeScript boilerplate designed for AI-driven development with 10+ specialized sub-agents, preventive control mechanisms, and automated quality gates that enable Claude Code to work autonomously while maintaining production standards.
 
 [![Stars](https://img.shields.io/github/stars/shinpr/ai-coding-project-boilerplate?style=flat-square&logo=github&labelColor=343b41)](https://github.com/shinpr/ai-coding-project-boilerplate/stargazers) ![License](https://img.shields.io/github/license/shinpr/ai-coding-project-boilerplate?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/shinpr/ai-coding-project-boilerplate?style=flat-square&logo=github&labelColor=343b41)](https://github.com/shinpr/ai-coding-project-boilerplate/commits) ![Language](https://img.shields.io/github/languages/top/shinpr/ai-coding-project-boilerplate?style=flat-square&labelColor=343b41)
 <br>
 
-[`AI Coding Project Boilerplate`](https://github.com/shinpr/ai-coding-project-boilerplate) &nbsp; by &nbsp; [shinpr](https://github.com/shinpr)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
-TypeScript boilerplate designed for AI-driven development with 10+ specialized sub-agents, preventive control mechanisms, and automated quality gates that enable Claude Code to work autonomously while maintaining production standards.
+[`Claude Code Sub agents Starter Kit`](https://github.com/shinpr/ai-coding-project-boilerplate) &nbsp; by &nbsp; [shinpr](https://github.com/shinpr)  &nbsp;&nbsp;⚖️&nbsp;&nbsp;MIT  
+Comprehensive Claude Code configuration featuring 11 specialized Sub agents with independent contexts and rule-based development system - maintains production-grade TypeScript quality across 770K+ token sessions without context exhaustion.
 
 [![Stars](https://img.shields.io/github/stars/shinpr/ai-coding-project-boilerplate?style=flat-square&logo=github&labelColor=343b41)](https://github.com/shinpr/ai-coding-project-boilerplate/stargazers) ![License](https://img.shields.io/github/license/shinpr/ai-coding-project-boilerplate?style=flat-square&labelColor=343b41) [![Last Commit](https://img.shields.io/github/last-commit/shinpr/ai-coding-project-boilerplate?style=flat-square&logo=github&labelColor=343b41)](https://github.com/shinpr/ai-coding-project-boilerplate/commits) ![Language](https://img.shields.io/github/languages/top/shinpr/ai-coding-project-boilerplate?style=flat-square&labelColor=343b41)
 <br>
