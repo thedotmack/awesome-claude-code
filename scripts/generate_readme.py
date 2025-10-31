@@ -334,6 +334,7 @@ def format_resource_entry(row):
     description = row.get("Description", "").strip()
     license_info = row.get("License", "").strip()
     removed_from_origin = row.get("Removed From Origin", "").strip().upper() == "TRUE"
+    security_note = row.get("Security Note", "").strip()
 
     # Build the entry
     entry_parts = [f"[`{display_name}`]({primary_link})"]
@@ -356,7 +357,11 @@ def format_resource_entry(row):
     if description:
         result += f"  \n{description}" + ("*  " if removed_from_origin else "")
 
-    # Add footnote if removed from origin (after description, before GitHub stats)
+    # Add security note if present (after description, in a blockquote for visibility)
+    if security_note:
+        result += f"\n\n> {security_note}"
+
+    # Add footnote if removed from origin (after description/security note, before GitHub stats)
     if removed_from_origin:
         result += "\n<sub>* Removed from origin</sub>"
 
